@@ -69,7 +69,7 @@ class ListingUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  locationType?: string;
+  locationType?: string | null;
 
   @ApiProperty({
     required: false,
@@ -120,7 +120,7 @@ class ListingUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  placeType?: string;
+  placeType?: string | null;
 
   @ApiProperty({
     required: false,

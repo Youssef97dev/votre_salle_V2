@@ -6,13 +6,13 @@ import { WishlistCreateNestedManyWithoutListingsInput } from "./WishlistCreateNe
 export type ListingCreateInput = {
   description: string;
   listingCreatedBy: UserWhereUniqueInput;
-  locationData: InputJsonValue;
-  locationType: string;
-  mapData: InputJsonValue;
+  locationData?: InputJsonValue;
+  locationType?: string | null;
+  mapData?: InputJsonValue;
   photos: InputJsonValue;
   placeAmeneties: InputJsonValue;
   placeSpace: InputJsonValue;
-  placeType: string;
+  placeType?: string | null;
   price: number;
   title: string;
   trips?: TripCreateNestedManyWithoutListingsInput;

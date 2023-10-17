@@ -15,8 +15,8 @@ import {
   IsDate,
   IsString,
   ValidateNested,
-  IsNumber,
   IsOptional,
+  IsNumber,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { User } from "../../user/base/User";
@@ -61,25 +61,34 @@ class Listing {
   listingCreatedBy?: User;
 
   @ApiProperty({
-    required: true,
+    required: false,
   })
   @IsJSONValue()
-  @Field(() => GraphQLJSON)
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
   locationData!: JsonValue;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  locationType!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  locationType!: string | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
   })
   @IsJSONValue()
-  @Field(() => GraphQLJSON)
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
   mapData!: JsonValue;
 
   @ApiProperty({
@@ -104,12 +113,15 @@ class Listing {
   placeSpace!: JsonValue;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  placeType!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  placeType!: string | null;
 
   @ApiProperty({
     required: true,
