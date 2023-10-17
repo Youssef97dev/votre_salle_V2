@@ -14,8 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   ValidateNested,
-  IsNumber,
   IsOptional,
+  IsNumber,
 } from "class-validator";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { Type } from "class-transformer";
@@ -45,26 +45,35 @@ class ListingCreateInput {
   listingCreatedBy!: UserWhereUniqueInput;
 
   @ApiProperty({
-    required: true,
+    required: false,
   })
   @IsJSONValue()
-  @Field(() => GraphQLJSON)
-  locationData!: InputJsonValue;
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  locationData?: InputJsonValue;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  locationType!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  locationType?: string | null;
 
   @ApiProperty({
-    required: true,
+    required: false,
   })
   @IsJSONValue()
-  @Field(() => GraphQLJSON)
-  mapData!: InputJsonValue;
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  mapData?: InputJsonValue;
 
   @ApiProperty({
     required: true,
@@ -88,12 +97,15 @@ class ListingCreateInput {
   placeSpace!: InputJsonValue;
 
   @ApiProperty({
-    required: true,
+    required: false,
     type: String,
   })
   @IsString()
-  @Field(() => String)
-  placeType!: string;
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  placeType?: string | null;
 
   @ApiProperty({
     required: true,

@@ -7,12 +7,12 @@ export type ListingUpdateInput = {
   description?: string;
   listingCreatedBy?: UserWhereUniqueInput;
   locationData?: InputJsonValue;
-  locationType?: string;
+  locationType?: string | null;
   mapData?: InputJsonValue;
   photos?: InputJsonValue;
   placeAmeneties?: InputJsonValue;
   placeSpace?: InputJsonValue;
-  placeType?: string;
+  placeType?: string | null;
   price?: number;
   title?: string;
   trips?: TripUpdateManyWithoutListingsInput;
