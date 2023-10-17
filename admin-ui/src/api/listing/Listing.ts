@@ -9,12 +9,12 @@ export type Listing = {
   id: string;
   listingCreatedBy?: User;
   locationData: JsonValue;
-  locationType: string | null;
+  locationType: string;
   mapData: JsonValue;
   photos: JsonValue;
   placeAmeneties: JsonValue;
   placeSpace: JsonValue;
-  placeType: string | null;
+  placeType: string;
   price: number;
   title: string;
   trips?: Array<Trip>;

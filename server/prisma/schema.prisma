@@ -27,13 +27,13 @@ model Listing {
   id                 String     @id @default(cuid())
   listingCreatedBy   User       @relation(fields: [listingCreatedById], references: [id])
   listingCreatedById String
-  locationData       Json?
-  locationType       String?
-  mapData            Json?
+  locationData       Json
+  locationType       String
+  mapData            Json
   photos             Json
   placeAmeneties     Json
   placeSpace         Json
-  placeType          String?
+  placeType          String
   price              Float
   title              String
   trips              Trip[]
