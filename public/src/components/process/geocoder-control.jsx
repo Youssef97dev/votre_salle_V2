@@ -9,10 +9,7 @@ import MapboxGeocoder, { GeocoderOptions } from "@mapbox/mapbox-gl-geocoder";
 export default function GeocoderControl(props) {
   const [marker, setMarker] = useState(null);
 
-  const geocoder =
-    useControl <
-    MapboxGeocoder >
-    (() => {
+  const geocoder = useControl(() => {
       const ctrl = new MapboxGeocoder({
         ...props,
         marker: false,

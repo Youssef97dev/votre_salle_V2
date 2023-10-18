@@ -53,6 +53,7 @@ export class ListingControllerBase {
     type: errors.ForbiddenException,
   })
   async create(@common.Body() data: ListingCreateInput): Promise<Listing> {
+    console.log(data)
     return await this.service.create({
       data: {
         ...data,
@@ -224,7 +225,7 @@ export class ListingControllerBase {
           updatedAt: true,
         },
       });
-    } catch (error) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`
@@ -274,7 +275,7 @@ export class ListingControllerBase {
           updatedAt: true,
         },
       });
-    } catch (error) {
+    } catch (error:any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`

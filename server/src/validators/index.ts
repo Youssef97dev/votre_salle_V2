@@ -1,1 +1,1 @@
-export * from "./is-json-value-validator";
+export {IsJSONValue} from "./is-json-value-validator";

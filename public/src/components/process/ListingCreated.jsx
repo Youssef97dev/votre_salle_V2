@@ -8,11 +8,11 @@ export default function ListingCreated() {
   const router = useRouter();
   const {
     locationType,
-    placetype,
+    placeType,
     mapData,
     locationData,
     placeSpace,
-    placeAmeneites,
+    placeAmeneties,
     photos,
     title,
     description,
@@ -22,11 +22,11 @@ export default function ListingCreated() {
   useEffect(() => {
     createLisitngAPI({
       locationType,
-      placetype,
+      placeType,
       mapData,
       locationData,
       placeSpace,
-      placeAmeneites,
+      placeAmeneties,
       photos,
       title,
       description,
@@ -35,11 +35,11 @@ export default function ListingCreated() {
     });
   }, [
     locationType,
-    placetype,
+    placeType,
     mapData,
     locationData,
     placeSpace,
-    placeAmeneites,
+    placeAmeneties,
     photos,
     title,
     description,

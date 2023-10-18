@@ -20,7 +20,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { User } from "../../user/base/User";
-import { IsJSONValue } from "@app/custom-validators";
+import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Trip } from "../../trip/base/Trip";

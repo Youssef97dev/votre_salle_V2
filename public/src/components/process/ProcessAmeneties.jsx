@@ -3,14 +3,14 @@ import { userAppStore } from "airbnb/store/store";
 import React from "react";
 
 export default function ProcessAmeneties() {
-  const { placeAmeneites, setPlaceAmenities } = userAppStore();
+  const { placeAmeneties, setPlaceAmenities } = userAppStore();
   const addAmenety = (name) => {
-    setPlaceAmenities([...placeAmeneites, name]);
+    setPlaceAmenities([...placeAmeneties, name]);
   };
   const removeAmenty = (name) => {
-    const index = placeAmeneites.findIndex((amenetiy) => amenetiy === name);
+    const index = placeAmeneties.findIndex((amenetiy) => amenetiy === name);
     if (index) {
-      const clonedAmenties = [...placeAmeneites];
+      const clonedAmenties = [...placeAmeneties];
       clonedAmenties.splice(index, 1);
       setPlaceAmenities(clonedAmenties);
     }
@@ -41,11 +41,11 @@ export default function ProcessAmeneties() {
                   <button
                     key={name}
                     className={` flex flex-col justify-start font-semibold border border-gray-300 rounded-md p-3 hover:border-gray-950 transition-all duration-300 ${
-                      placeAmeneites?.find((amentiy) => amentiy === name) &&
+                      placeAmeneties?.find((amentiy) => amentiy === name) &&
                       "border-gray-950"
                     }`}
                     onClick={() => {
-                      placeAmeneites?.includes(name)
+                      placeAmeneties?.includes(name)
                         ? removeAmenty(name)
                         : addAmenety(name);
                     }}

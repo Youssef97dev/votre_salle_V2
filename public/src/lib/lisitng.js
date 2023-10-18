@@ -11,6 +11,8 @@ export const createLisitngAPI = async (listingData) => {
     }).catch(() => null)
   )?.data;
 
+  console.log({result})
+
   if (!result) {
     return alert("Could not create task");
   }

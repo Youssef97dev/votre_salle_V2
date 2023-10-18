@@ -16,9 +16,11 @@ export function IsJSONValue(validationOptions?: ValidationOptions) {
         validate(value: any, args: ValidationArguments) {
           if (typeof value === "string") {
             return isJSONValidator(value);
+          } else if (value !== undefined) {
+            return isJSONValidator(JSON.stringify(value));
           }
 
-          return isJSONValidator(JSON.stringify(value));
+          return value;
         },
         defaultMessage(args: ValidationArguments): string {
           return `${args.property} must be a valid json`;

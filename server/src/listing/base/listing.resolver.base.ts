@@ -128,7 +128,7 @@ export class ListingResolverBase {
           },
         },
       });
-    } catch (error) {
+    } catch (error:any) {
       if (isRecordNotFoundError(error)) {
         throw new apollo.ApolloError(
           `No resource was found for ${JSON.stringify(args.where)}`
@@ -149,7 +149,7 @@ export class ListingResolverBase {
   ): Promise<Listing | null> {
     try {
       return await this.service.delete(args);
-    } catch (error) {
+    } catch (error:any) {
       if (isRecordNotFoundError(error)) {
         throw new apollo.ApolloError(
           `No resource was found for ${JSON.stringify(args.where)}`

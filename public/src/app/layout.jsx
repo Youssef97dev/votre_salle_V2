@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css"
         type="text/css"
         precedence="default"
-      ></link>
+      />
       <body className={inter.className}>
         {children}
         <Suspense fallback={null}>
