@@ -15,6 +15,7 @@ export default function Page() {
     userAppStore();
 
   useEffect(() => {
+    console.log(wishListsPage);
     const getData = async () => {
       const wishlists = await getUserWishlists(userInfo?.id);
       setWishListsPage(wishlists);

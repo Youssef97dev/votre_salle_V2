@@ -138,7 +138,7 @@ function Navbar() {
                 className="cursor-pointer"
                 onClick={() => router.push("new-listing")}
               >
-                <span>Airbnb your home</span>
+                <span>Add Your Hall</span>
               </li>
             )}
             <li className="cursor-pointer">

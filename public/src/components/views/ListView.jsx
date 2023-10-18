@@ -5,8 +5,8 @@ import { userAppStore } from "airbnb/store/store";
 export default function ListView() {
   const { listings } = userAppStore();
   return (
-    <div className="grid grid-cols-5 px-20 gap-10 py-10  justify-start items-start">
-      {listings?.map((listing, index) => (
+    <div className="py-10 px-20 justify-start items-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-10">
+      {listings?.map((listing, index) => (     
         <ListingCard data={listing} key={index} />
       ))}
     </div>

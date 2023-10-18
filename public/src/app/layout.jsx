@@ -8,8 +8,8 @@ import { Suspense } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Airbnb Clone",
-  description: "Created by Kishan Sheth",
+  title: "Votre Salles",
+  description: "Votre Salles",
 };
 
 export default function RootLayout({ children }) {

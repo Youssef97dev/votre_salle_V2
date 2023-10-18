@@ -74,18 +74,18 @@ export default function Page() {
                   >
                     {trip.listing.title}
                   </th>
-                  <td className="px-6 py-4">{trip.tripData.startDate}</td>
-                  <td className="px-6 py-4">{trip.tripData.endDate}</td>
-                  <td className="px-6 py-4">{trip.tripData.price}</td>
+                  <td className="px-6 py-4">{trip.tripinfo?.startDate}</td>
+                  <td className="px-6 py-4">{trip.tripinfo?.endDate}</td>
+                  <td className="px-6 py-4">{trip.tripinfo?.price}</td>
                   <td className="px-6 py-4">
                     <span
                       className={`${
-                        checkDateStatus(trip.tripData.startDate) === "Completed"
+                        checkDateStatus(trip.tripinfo?.startDate) === "Completed"
                           ? "bg-green-500"
                           : "bg-airbnb-theme-color"
                       }  text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}
                     >
-                      {checkDateStatus(trip.tripData.startDate)}
+                      {checkDateStatus(trip.tripinfo?.startDate)}
                     </span>
                   </td>
                 </tr>

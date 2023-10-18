@@ -58,7 +58,7 @@ export default function AuthModal() {
                 )}
               </div>
               <div className="p-5">
-                <h3 className="text-xl pb-5">Welcome to Airbnb</h3>{" "}
+                <h3 className="text-xl pb-5">Welcome to Votre Salles</h3>{" "}
                 {userFound === null && (
                   <FormInput
                     type="text"

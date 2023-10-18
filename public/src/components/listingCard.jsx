@@ -71,7 +71,7 @@ export default function ListingCard({
                   style={{ stroke: "white", strokeWidth: "40" }}
                   className={`text-3xl ${
                     wishLists?.includes(data.id)
-                      ? "text-airbnb-theme-color"
+                      ? "text-[#FF385C]"
                       : "text-[#00000099]"
                   }`}
                   onClick={(e) => {

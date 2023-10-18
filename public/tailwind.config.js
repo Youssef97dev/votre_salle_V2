@@ -9,10 +9,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         "airbnb-gradient":
-          "linear-gradient(to right,#E61E4D 0%,#E31C5F 50%,#D70466 100%)",
+          "linear-gradient(to right, #ADD8E6 0%, #0000FF 100%)",
       },
       colors: {
-        "airbnb-theme-color": "#FF385C",
+        "airbnb-theme-color": "#0000FF",
         "airbnb-light-black": "#222222",
         "airbnb-light-gray": "#717171",
       },

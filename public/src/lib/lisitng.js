@@ -179,7 +179,7 @@ export const addTrip = async (data) => {
       id: data.listingId,
     },
     user: { id: data.userId },
-    tripData: data.tripData,
+    tripinfo: data.tripData,
   };
   const result = await axios.post(createUrl("/api/trips"), { ...query });
   if (!result) {

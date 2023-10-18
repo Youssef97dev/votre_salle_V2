@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 function Overview() {
-  const mainTitle = "It’s easy to get started on Airbnb";
+  const mainTitle = "It’s easy to get started on Votre Salles";
   const data = [
     {
       title: "Tell us about your place",

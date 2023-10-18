@@ -14,7 +14,7 @@ export default function CompactFooter() {
   return (
     <div className=" px-20 border-t border-t-gray-200 py-4 flex justify-between w-full text-sm z-50 bg-white items-center">
       <ul className="flex gap-3 font-normal ">
-        <li>&copy; {new Date().getFullYear()} Airbnb, Inc</li>
+        <li>&copy; {new Date().getFullYear()} Votre salles, Inc</li>
         {links.map((link) => (
           <li key={link}>
             <Link href="#">
