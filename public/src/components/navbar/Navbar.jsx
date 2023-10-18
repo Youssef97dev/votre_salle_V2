@@ -38,7 +38,7 @@ function Navbar() {
       },
     },
     {
-      name: "Airbnb your home",
+      name: "Add your hall",
       callBack: () => {
         setIsContextMenuVisible(false);
       },
@@ -65,21 +65,21 @@ function Navbar() {
       },
     },
     {
-      name: "Trips",
+      name: "My Reservations",
       callBack: () => {
         router.push("/trips");
         setIsContextMenuVisible(false);
       },
     },
     {
-      name: "Wishlists",
+      name: "My Wishlists",
       callBack: () => {
         router.push("/wishlist");
         setIsContextMenuVisible(false);
       },
     },
     {
-      name: "Manage Listings",
+      name: "Manage My Listings",
       callBack: () => {
         router.push("/my-listings");
         setIsContextMenuVisible(false);

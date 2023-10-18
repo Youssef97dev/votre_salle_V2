@@ -6,7 +6,7 @@ import Pin from "../common/Pin";
 import ListingCard from "../listingCard";
 
 const TOKEN =
-  "pk.eyJ1Ijoia29vbGtpc2hhbiIsImEiOiJjazV3Zm41cG8wa3I1M2tydnVkcW53b2ZpIn0.mYrXogbdTrWSoJECNR1epg";
+  "pk.eyJ1IjoieW91bmVzYWl0IiwiYSI6ImNsbnU3ODZ6czBhdXgyam5zNHZleDl1d2cifQ.Omdr-w7Yx9kNjkltlzunKg";
 
 export default function MapView() {
   const [mapData, setMapData] = useState([]);
@@ -40,8 +40,8 @@ export default function MapView() {
     >
       <Map
         initialViewState={{
-          longitude: 72.5714,
-          latitude: 23.0225,
+          longitude: -7.992047,
+          latitude: 31.628674,
           zoom: 11,
         }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
