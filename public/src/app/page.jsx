@@ -14,9 +14,10 @@ import { me } from "airbnb/lib/auth";
 import { getAllListings, getUserWishlists } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 import dynamic from "next/dynamic";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
+  const [locationType, setLocationType] = useState("All");
   const {
     isAuthModalOpen,
     setUserInfo,
@@ -37,30 +38,28 @@ export default function Home() {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getAllListings();
+      const data = await getAllListings(locationType);
       setListings(data);
       const wishlists = await getUserWishlists(userInfo?.id);
       const wishListsId = wishlists?.map(({ listing }) => listing.id);
       setWishLists(wishListsId);
     };
     getData();
-  }, [setListings, setWishLists, userInfo?.id]);
+  }, [setListings, setWishLists, userInfo?.id, locationType]);
 
   return (
     <div className="max-h-[100vh] h-[100vh]">
       <Navbar />
-      <div
-        className="
-      flex items-center justify-center"
-      >
+      <div className="flex items-center justify-center">
         <div className="w-[90vw] overflow-auto no-scrollbar mt-3 px-5">
-          <ul className="flex gap-5 h-full">
+          <ul className="flex gap-5 h-full justify-between">
             {listingTypes.map((data) => (
               <li
                 key={data.name}
-                className="w-max flex flex-col items-center justify-between h-16 cursor-pointer"
+                onClick={() => setLocationType(data.name)}
+                className="w-max flex flex-col items-center justify-between h-16 cursor-pointer hover:text-[#3232FF] text-[#000033]"
               >
-                <span className="h-10 w-10  flex items-center justify-center">
+                <span className="h-10 w-10  flex items-center justify-center ">
                   {data.svgPath}
                 </span>
                 <div

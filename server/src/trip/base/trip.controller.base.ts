@@ -104,7 +104,8 @@ export class TripControllerBase {
         listing: {
           select: {
             id: true,
-            title:true,
+            title: true,
+            listingCreatedById: true,
           },
         },
 
@@ -114,6 +115,9 @@ export class TripControllerBase {
         user: {
           select: {
             id: true,
+            firstName: true,
+            lastName: true,
+            username: true,
           },
         },
       },
@@ -215,7 +219,7 @@ export class TripControllerBase {
           },
         },
       });
-    } catch (error) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`
@@ -262,7 +266,7 @@ export class TripControllerBase {
           },
         },
       });
-    } catch (error) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`

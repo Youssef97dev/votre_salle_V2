@@ -34,7 +34,6 @@ import { WishlistFindManyArgs } from "../../wishlist/base/WishlistFindManyArgs";
 import { Wishlist } from "../../wishlist/base/Wishlist";
 import { WishlistWhereUniqueInput } from "../../wishlist/base/WishlistWhereUniqueInput";
 
-
 export class ListingControllerBase {
   constructor(
     protected readonly service: ListingService,
@@ -235,7 +234,7 @@ export class ListingControllerBase {
           updatedAt: true,
         },
       });
-    } catch (error:any) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`
@@ -290,7 +289,7 @@ export class ListingControllerBase {
           updatedAt: true,
         },
       });
-    } catch (error:any) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`

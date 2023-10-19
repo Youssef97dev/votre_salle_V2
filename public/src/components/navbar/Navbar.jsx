@@ -86,6 +86,13 @@ function Navbar() {
       },
     },
     {
+      name: "Manage My Reservations",
+      callBack: () => {
+        router.push("/my-reservations");
+        setIsContextMenuVisible(false);
+      },
+    },
+    {
       name: "Account",
       callBack: () => {
         setIsContextMenuVisible(false);

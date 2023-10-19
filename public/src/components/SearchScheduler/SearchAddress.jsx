@@ -8,7 +8,7 @@ export default function SearchAddress() {
   const { selectionType, setSelectionType, searchLocation, setSearchLocation } =
     userAppStore();
   const TOKEN =
-    "pk.eyJ1Ijoia29vbGtpc2hhbiIsImEiOiJjazV3Zm41cG8wa3I1M2tydnVkcW53b2ZpIn0.mYrXogbdTrWSoJECNR1epg";
+    "pk.eyJ1IjoieW91bmVzYWl0IiwiYSI6ImNsbnU3ODZ6czBhdXgyam5zNHZleDl1d2cifQ.Omdr-w7Yx9kNjkltlzunKg";
   const searchAddresses = async (query) => {
     try {
       const response = await axios.get(

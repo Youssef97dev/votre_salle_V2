@@ -11,7 +11,7 @@ export const createLisitngAPI = async (listingData) => {
     }).catch(() => null)
   )?.data;
 
-  console.log({result})
+  console.log({ result });
 
   if (!result) {
     return alert("Could not create task");
@@ -20,10 +20,16 @@ export const createLisitngAPI = async (listingData) => {
   return result;
 };
 
-export const getAllListings = async () => {
-  const query = qs.stringify({
-    orderBy: { createdAt: "asc" },
-  });
+export const getAllListings = async (locationType) => {
+  const query =
+    locationType !== "All"
+      ? qs.stringify({
+          where: { locationType },
+          orderBy: { createdAt: "asc" },
+        })
+      : qs.stringify({
+          orderBy: { createdAt: "asc" },
+        });
 
   const result = await axios.get(createUrl(`/api/listings?${query}`));
 
@@ -196,6 +202,20 @@ export const getUserTrips = async (userId) => {
     },
     select: {
       listing: true,
+    },
+  });
+  const result = (
+    await axios.get(createUrl(`/api/trips?${query}`)).catch(() => null)
+  )?.data;
+
+  console.log({ result });
+  return result;
+};
+
+export const getUserReservedTrips = async (userId) => {
+  const query = qs.stringify({
+    where: {
+      listing: { listingCreatedById: userId },
     },
   });
   const result = (

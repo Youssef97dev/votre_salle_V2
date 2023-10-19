@@ -58,12 +58,12 @@ export default function ListingCard({
         onClick={() => router.push(`/listing/${data.id}`)}
       >
         <div className="flex flex-col gap-2">
-          <div className="relative w-64 h-56 ">
+          <div className="relative aspect-square w-full h-52 ">
             <Image
               src={data?.photos[0]}
               fill
               alt="listing"
-              className="rounded-lg object-cover"
+              className="rounded-lg object-cover h-full w-full group-hover:scale-110 transition"
             />
             {pathname === "/" && userInfo && (
               <div className="absolute z-20 right-2 top-2">
@@ -85,8 +85,9 @@ export default function ListingCard({
             )}
           </div>
           <div>
-            <h3>{data.title}</h3>
-            <span>${data.price} night</span>
+            <h3 className="font-medium">{data.title}</h3>
+            <span className="font-medium">{data.price} MAD</span>{" "}
+            <span className="font-light">day</span>
           </div>
         </div>
       </div>

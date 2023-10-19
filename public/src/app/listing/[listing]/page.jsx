@@ -62,7 +62,7 @@ export default function Page({ params: { listing } }) {
                     ))}
                   </ul>
                 </div>
-                <p>{currentListing?.description}</p>
+                <p className="font-semibold">{currentListing?.description}</p>
                 <ListingAmenties />
                 <ListingMap />
               </div>
