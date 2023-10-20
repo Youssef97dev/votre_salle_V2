@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "npm start",
+  "installCommand": "npm install",
   "env": {
     "BCRYPT_SALT": "10",
     "COMPOSE_PROJECT_NAME": "amp_clnu2hfyf05emfn013pmz4sx2",
