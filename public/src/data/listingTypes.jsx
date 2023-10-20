@@ -10,10 +10,8 @@ import Container from "airbnb/svg/lisitngTypes/container";
 import CycladicHome from "airbnb/svg/lisitngTypes/cycladic-home";
 import Flat from "airbnb/svg/lisitngTypes/flat";
 import House from "airbnb/svg/lisitngTypes/house";
-import Dammuso from "airbnb/svg/lisitngTypes/dammuso";
 
 export const listingTypes = [
-  { name: "All", svgPath: <Dammuso /> },
   { name: "Afterwork", svgPath: <House /> },
   { name: "Birthday", svgPath: <Flat /> },
   { name: "Brunch", svgPath: <Barn /> },

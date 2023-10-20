@@ -3,7 +3,8 @@ import { userAppStore } from "airbnb/store/store";
 import React from "react";
 
 export default function ProcessAmeneties() {
-  const { placeAmeneties, setPlaceAmenities } = userAppStore();
+  const { placeAmeneties, setPlaceAmenities, locationType } = userAppStore();
+  console.log(locationType);
   const addAmenety = (name) => {
     setPlaceAmenities([...placeAmeneties, name]);
   };
@@ -23,11 +24,14 @@ export default function ProcessAmeneties() {
         </h2>
         <p>You can add more amenities after you publish your listing.</p>
         <div className="flex flex-col gap-5 max-h-[65vh] overflow-auto scroll no-scrollbar">
-          {AmenetiesType.map(({ type, data }) => (
+          {AmenetiesType.filter(
+            ({ type }) =>
+              type === locationType || type === "safety" || type === "basic"
+          ).map(({ type, data }) => (
             <div key={type} className="flex flex-col gap-5">
-              {type === "advanced" && (
+              {type === locationType && (
                 <span className="text-lg font-medium">
-                  Do you have any standout amenities?
+                  Do you have any {`${locationType}`} amenities?
                 </span>
               )}
               {type === "safety" && (

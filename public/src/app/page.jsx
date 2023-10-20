@@ -10,6 +10,7 @@ import ListView from "airbnb/components/views/ListView";
 import MapView from "airbnb/components/views/MapView";
 import ViewSwitchBadge from "airbnb/components/views/ViewSwitchBadge";
 import { listingTypes } from "airbnb/data/listingTypes";
+import Dammuso from "airbnb/svg/lisitngTypes/dammuso";
 import { me } from "airbnb/lib/auth";
 import { getAllListings, getUserWishlists } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
@@ -53,6 +54,20 @@ export default function Home() {
       <div className="flex items-center justify-center">
         <div className="w-[90vw] overflow-auto no-scrollbar mt-3 px-5">
           <ul className="flex gap-5 h-full justify-between">
+            <li
+              onClick={() => setLocationType("All")}
+              className="w-max flex flex-col items-center justify-between h-16 cursor-pointer hover:text-[#3232FF] text-[#000033]"
+            >
+              <span className="h-10 w-10  flex items-center justify-center ">
+                <Dammuso />
+              </span>
+              <div
+                className="text-xs font-semibold break-keep"
+                style={{ width: "inherit" }}
+              >
+                All
+              </div>
+            </li>
             {listingTypes.map((data) => (
               <li
                 key={data.name}

@@ -85,7 +85,8 @@ export default function ListingCard({
             )}
           </div>
           <div>
-            <h3 className="font-medium">{data.title}</h3>
+            <h3 className="font-semibold mb-2">{data.title}</h3>
+            <h4 className="font-light mb-2">{data.locationType}</h4>
             <span className="font-medium">{data.price} MAD</span>{" "}
             <span className="font-light">day</span>
           </div>

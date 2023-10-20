@@ -25,6 +25,37 @@ import WashingMachine from "airbnb/svg/ameneties/washing-machine";
 import Wifi from "airbnb/svg/ameneties/wifi";
 import Workplace from "airbnb/svg/ameneties/workplace";
 
+// Conference
+import {
+  BsFillProjectorFill,
+  BsHdmi,
+  BsBroadcast,
+  BsSoundwave,
+} from "react-icons/bs";
+import {
+  PiProjectorScreenBold,
+  PiPaintBrush,
+  PiMicrophoneBold,
+  PiChalkboardSimpleBold,
+  PiArmchair,
+} from "react-icons/pi";
+import {
+  MdMediation,
+  MdReduceCapacity,
+  MdElectricalServices,
+  MdDesignServices,
+  MdSevereCold,
+} from "react-icons/md";
+import { SlScreenDesktop } from "react-icons/sl";
+import { AiOutlineVideoCamera, AiOutlineControl } from "react-icons/ai";
+import { FaHandHoldingWater, FaRegLightbulb, FaDiceD6 } from "react-icons/fa";
+import { FaKitchenSet } from "react-icons/fa6";
+import { GiOfficeChair } from "react-icons/gi";
+import { LiaProjectDiagramSolid } from "react-icons/lia";
+import { IoRestaurantOutline } from "react-icons/io5";
+import { BiAccessibility } from "react-icons/bi";
+import { RiCupLine } from "react-icons/ri";
+
 export const AmenetiesType = [
   {
     type: "basic",
@@ -37,25 +68,97 @@ export const AmenetiesType = [
       { name: "Paid parking on premises", svgPath: <PaidParking /> },
       { name: "Air conditioning", svgPath: <Ac /> },
       { name: "Dedicated workplace", svgPath: <Workplace /> },
+      {
+        name: "Accessibility",
+        svgPath: <BiAccessibility size={35} />,
+      },
+      {
+        name: "WC for men, women and disabled people",
+        svgPath: <FaHandHoldingWater size={35} />,
+      },
+      {
+        name: "chairs, tables, benches",
+        svgPath: <GiOfficeChair size={35} />,
+      },
     ],
   },
   {
-    type: "advanced",
+    type: "Conference",
     data: [
-      { name: "Pool", svgPath: <Pool /> },
-      { name: "Hot tub", svgPath: <HotTub /> },
-      { name: "Patio", svgPath: <Patio /> },
-      { name: "BBQ grill", svgPath: <Bbq /> },
-      { name: "Outdoor dining area", svgPath: <OutdoorDining /> },
-      { name: "Fire pit", svgPath: <FirePit /> },
-      { name: "Pool table", svgPath: <PoolTable /> },
-      { name: "Indoor fireplace", svgPath: <IndoorFirplace /> },
-      { name: "Piano", svgPath: <Piano /> },
-      { name: "Exercise equipment", svgPath: <Gym /> },
-      { name: "Lake access", svgPath: <Lake /> },
-      { name: "Beach access", svgPath: <Beach /> },
-      { name: "Ski-in/Ski-out", svgPath: <Ski /> },
-      { name: "Outdoor shower", svgPath: <OutdoorShower /> },
+      {
+        name: "Video projector",
+        svgPath: <BsFillProjectorFill size={35} />,
+      },
+      { name: "Screens", svgPath: <PiProjectorScreenBold size={35} /> },
+      { name: "Painting", svgPath: <PiPaintBrush size={35} /> },
+      { name: "Microphones", svgPath: <PiMicrophoneBold size={35} /> },
+      { name: "Video Equipments", svgPath: <MdMediation size={35} /> },
+      { name: "Motorized screen", svgPath: <SlScreenDesktop size={35} /> },
+      { name: "Video patch bay", svgPath: <AiOutlineVideoCamera size={35} /> },
+      { name: "HDMI", svgPath: <BsHdmi size={35} /> },
+      {
+        name: "Sound Broadcasting Equipment",
+        svgPath: <BsBroadcast size={35} />,
+      },
+      {
+        name: "Capacity",
+        svgPath: <MdReduceCapacity size={35} />,
+      },
+      {
+        name: "Arrangement",
+        svgPath: <LiaProjectDiagramSolid size={35} />,
+      },
+      {
+        name: "Whiteboard or interactive whiteboard",
+        svgPath: <PiChalkboardSimpleBold size={35} />,
+      },
+      {
+        name: "Adequate lighting",
+        svgPath: <FaRegLightbulb size={35} />,
+      },
+      {
+        name: "Comfortable furniture",
+        svgPath: <PiArmchair size={35} />,
+      },
+      {
+        name: "Control system",
+        svgPath: <AiOutlineControl size={35} />,
+      },
+      {
+        name: "Sound insulation",
+        svgPath: <BsSoundwave size={35} />,
+      },
+      {
+        name: "Electrical outlets",
+        svgPath: <MdElectricalServices size={35} />,
+      },
+      {
+        name: "Dining Options",
+        svgPath: <IoRestaurantOutline size={35} />,
+      },
+      {
+        name: "Professional decoration",
+        svgPath: <MdDesignServices size={35} />,
+      },
+    ],
+  },
+  {
+    type: "Wedding",
+    data: [
+      { name: "A stage with sound system", svgPath: <BsSoundwave size={35} /> },
+      {
+        name: "A bar equipped with a sink and an ice maker",
+        svgPath: <FaDiceD6 size={35} />,
+      },
+      {
+        name: "A fully equipped kitchen",
+        svgPath: <FaKitchenSet size={35} />,
+      },
+      { name: "A cold room", svgPath: <MdSevereCold size={35} /> },
+      {
+        name: "Possibility of having crockery",
+        svgPath: <RiCupLine size={35} />,
+      },
     ],
   },
   {
