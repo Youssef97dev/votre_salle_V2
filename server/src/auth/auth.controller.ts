@@ -10,6 +10,7 @@ import { Request } from "express";
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
   @ApiBearerAuth()
   @ApiOkResponse({ type: User })
   @Get("me")
