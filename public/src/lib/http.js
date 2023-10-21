@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:3000";
+const apiUrl = "https://votre-salle-api.onrender.com";
 const jwtKey = "accessToken";
 
 axios.interceptors.request.use(
