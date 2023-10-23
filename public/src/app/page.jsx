@@ -17,6 +17,12 @@ import { userAppStore } from "airbnb/store/store";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+
 export default function Home() {
   const [locationType, setLocationType] = useState("All");
   const {
@@ -86,8 +92,67 @@ export default function Home() {
               </li>
             ))}
           </ul>
+            </div>
+            {/*<div className="swiper" id="slider5">
+            <div className="swiper-wrapper">
+                  <Swiper
+                      modules={[Navigation, Pagination]}
+                      navigation={{
+                          nextEl: '.swiper-button-next-ex5',
+                          prevEl: '.swiper-button-prev-ex5',
+                      }}
+                      pagination={{
+                          clickable: true,
+                      }}
+                      breakpoints={{
+                          1024: {
+                              slidesPerView: listingTypes.length+1,
+                              spaceBetween: 30,
+                          },
+                          768: {
+                              slidesPerView: 2,
+                              spaceBetween: 40,
+                          },
+                          320: {
+                              slidesPerView: 1,
+                              spaceBetween: 20,
+                          },
+                      }}
+                  >
+                    <SwiperSlide>
+                    <li onClick={() => setLocationType("All")} className="w-max flex flex-col items-center justify-between h-16 cursor-pointer hover:text-[#3232FF] text-[#000033]">
+                      <span className="h-10 w-10  flex items-center justify-center ">
+                        <Dammuso />
+                      </span>
+                      <div className="text-xs font-semibold break-keep" style={{ width: "inherit" }}>
+                          All
+                      </div>
+                    </li>
+                    </SwiperSlide>
+                      {listingTypes.map((data, i) => (
+                          
+                              <SwiperSlide>
+                                  <li key={data.name} onClick={() => setLocationType(data.name)} className="w-max flex flex-col items-center justify-between h-16 cursor-pointer hover:text-[#3232FF] text-[#000033]">
+                                    <span className="h-10 w-10  flex items-center justify-center ">
+                                      {data.svgPath}
+                                    </span>
+                                    <div className="text-xs font-semibold break-keep" style={{ width: "inherit" }} >
+                                      {data.name}
+                                    </div>
+                                  </li>
+                              </SwiperSlide>
+                          
+                      ))}
+                  </Swiper>
+              </div>
+              <button className="swiper-button-prev-ex5 grid place-content-center left-2 p-1 transition text-primary hover:text-white border border-primary  hover:border-primary hover:bg-primary rounded-full absolute z-[999] top-[44%] -translate-y-1/2">
+                  pr
+              </button>
+              <button className="swiper-button-next-ex5 grid place-content-center right-2 p-1 transition text-primary hover:text-white border border-primary  hover:border-primary hover:bg-primary rounded-full absolute z-[999] top-[44%] -translate-y-1/2">
+                  nx
+              </button>
+                      </div>*/}
         </div>
-      </div>
       {isMapView ? <MapView /> : <ListView />}
       <ViewSwitchBadge />
       <CompactFooter />

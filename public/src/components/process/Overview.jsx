@@ -8,13 +8,13 @@ function Overview() {
       title: "Tell us about your place",
       description:
         "Share some basic info, such as where it is and how many guests can stay.",
-      image: "/overview1.webp",
+      image: "/overview1.jpeg",
     },
     {
       title: "Make it stand out",
       description:
         "Add 5 or more photos plus a title and description – we’ll help you out.",
-      image: "/overview2.webp",
+      image: "/overview2.jpeg",
     },
     {
       title: "Finish up and publish",
