@@ -1,4 +1,5 @@
 import { Permission } from "accesscontrol";
+import cloneDeep from "lodash/cloneDeep";
 
 /**
  * @returns attributes not allowed to appear on given data according to given
@@ -14,6 +15,7 @@ export function getInvalidAttributes(
   // with null prototypes. And in graphql requests, the
   // object passed here by the request interceptor is an object
   // with a null prototype.
-  const filteredData = permission.filter(structuredClone(data));
+  const clonedData = cloneDeep(data);
+  const filteredData = permission.filter(clonedData);
   return Object.keys(data).filter((key) => !(key in filteredData));
 }
