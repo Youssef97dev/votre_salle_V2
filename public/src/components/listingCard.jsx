@@ -52,13 +52,13 @@ export default function ListingCard({
   };
 
   return (
-    <div className="flex items-center justify-center flex-col gap-1">
+    <div className="col-span-1 group">
       <div
-        className="flex items-center justify-center cursor-pointer w-full "
+        className="flex flex-col gap-2 w-full"
         onClick={() => router.push(`/listing/${data.id}`)}
       >
-        <div className="flex flex-col gap-2">
-          <div className="relative aspect-square w-full h-52 ">
+        <div className="">
+          <div className="aspect-square w-full relative overflow-hidden rounded-xl mb-3">
             <Image
               src={data?.photos[0]}
               fill
@@ -85,7 +85,7 @@ export default function ListingCard({
             )}
           </div>
           <div>
-            <h3 className="font-semibold mb-2">{data.title}</h3>
+            <h3 className="font-semibold">{data.title}</h3>
             <h4 className="font-light mb-2">{data.locationType}</h4>
             <span className="font-medium">{data.price} MAD</span>{" "}
             <span className="font-light">day</span>
