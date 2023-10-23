@@ -42,6 +42,7 @@ import { AuthModule } from "./auth/auth.module";
           sortSchema: true,
           playground,
           introspection: playground || introspection,
+          persistedQueries: false,
         };
       },
       inject: [ConfigService],
