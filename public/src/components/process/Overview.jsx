@@ -14,13 +14,13 @@ function Overview() {
       title: "Make it stand out",
       description:
         "Add 5 or more photos plus a title and description – we’ll help you out.",
-      image: "/overview2.jpeg",
+      image: "/overview22.jpeg",
     },
     {
       title: "Finish up and publish",
       description:
         "Choose if you'd like to start with an experienced guest, set a starting price and publish your listing.",
-      image: "/overview3.webp",
+      image: "/overview3.png",
     },
   ];
   return (

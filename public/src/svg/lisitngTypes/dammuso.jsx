@@ -1,13 +1,13 @@
 import React from "react";
 
-export default function Dammuso() {
+export default function Dammuso({width_ = 35, height_ = 35} ) {
   return (
     <div>
       <div className="i16dha0p dir dir-ltr" aria-hidden="true">
         <div className="l3t4iso dir dir-ltr">
           <svg
-            width={35}
-            height={35}
+            width={width_}
+            height={height_}
             viewBox="0 0 24 24"
             stroke="currentColor"
             fill="currentColor"

@@ -28,10 +28,7 @@ export default function Page({ params: { listing } }) {
       {currentListing && (
         <div className="">
           <Navbar />
-          <div
-            className="px-20 pt-10 text-airbnb-light-black grid gap-10"
-            style={{ gridTemplateColumns: "70fr 30fr" }}
-          >
+          <div className="px-20 pt-10 text-airbnb-light-black grid gap-10" >
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-1">
                 <h2 className="text-5xl">{currentListing?.title}</h2>
@@ -41,7 +38,8 @@ export default function Page({ params: { listing } }) {
               </div>
               <ListingPhotos />
 
-              <div className="flex flex-col gap-5">
+              <div className="grid gap-5" style={{ gridTemplateColumns: "70fr 30fr" }}>
+              <div className="flex flex-col gap-5" >
                 <div className="flex flex-col gap-3">
                   <h3 className="text-2xl font-semibold">
                     {currentListing?.locationType} hosted by{" "}
@@ -66,10 +64,12 @@ export default function Page({ params: { listing } }) {
                 <ListingAmenties />
                 <ListingMap />
               </div>
-            </div>
-            <div>
+              <div>
               <TripScheduler />
             </div>
+              </div>
+            </div>
+            
           </div>
           <CompactFooter />
           {isAuthModalOpen && <AuthModal />}
