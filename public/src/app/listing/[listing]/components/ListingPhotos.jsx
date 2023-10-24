@@ -16,7 +16,7 @@ export default function ListingPhotos() {
   return (
     <div className="relative grid gap-2" style={{ gridTemplateColumns: "55fr 45fr" }}>
       <div className="relative w-full h-[60vh]">
-        <Image alt="listing" fill src={currentPhotos[0]} />
+        <Image alt="listing" fill src={currentPhotos[0]} className="rounded-xl" />
       </div>
       {currentListing.photos.length > 1 && (
         <ul className="grid gap-2 flex-wrap" style={{ gridTemplateColumns: "50fr 50fr", gridTemplateRows: "50fr 50fr" }}>
@@ -26,7 +26,7 @@ export default function ListingPhotos() {
               className="relative w-full h-full cursor-pointer"
               onClick={() => setCurrentPhoto(index)}
             >
-              <Image alt="listing" fill src={photo} />
+              <Image alt="listing" fill src={photo} className="rounded-xl" />
             </li>
           ))}
         </ul>
