@@ -22,10 +22,10 @@ export default function ListingAmenties() {
         {currentListing.placeAmeneties?.map((amenity) => (
           <li
             key={amenity}
-            className="border border-gray-300 p-3 rounded-lg flex flex-col justify-start items-start"
+            className="border border-gray-300 p-2 rounded-lg flex flex-col justify-start items-start"
           >
             {getSvgPathByName(amenity)}
-            <span>{amenity}</span>
+            <span className="text-sm font-medium">{amenity}</span>
           </li>
         ))}
       </ul>

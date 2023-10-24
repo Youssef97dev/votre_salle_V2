@@ -42,18 +42,16 @@ export default function ListingPhotos() {
       )}
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
-          <div className="relative h-[95vh] w-[95vw]   overflow-auto bg-white p-5">
-          
-            
-        <ul className="grid grid-cols-2 gap-2 flex-wrap" style={{ gridTemplateColumns: "50fr 50fr" }}>
-          {currentListing.photos.map((photo, index) => (
-            <><li key={index} className="cursor-pointer" >
-              <Image alt="listing" fill src={photo} />
-            </li><br /></>
-          ))}
-        </ul>
-            <button className="mt-3 text-blue-500 cursor-pointer" onClick={() => setShowPopup(false)}>
-              Close
+          <div className={`relative h-[100vh] w-[100vw] bg-white p-5 overflow-auto ${showPopup ? 'transform translate-y-0 transition-transform duration-3000' : ''}`}>
+              <ul className="grid grid-cols-2 gap-2 flex-wrap m-11 px-44" style={{ gridTemplateColumns: "50fr 50fr" }}>
+                {currentListing.photos.map((photo, index) => (
+                  <li key={index} className="cursor-pointer" >
+                    <img alt="listing" fill src={photo} className="object-fit w-full h-full" />
+                  </li>
+                ))}
+              </ul>
+            <button className="absolute top-4 left-6 text-black font-semibold cursor-pointer" onClick={() => setShowPopup(false)}>
+                X
             </button>
           </div>
         </div>
