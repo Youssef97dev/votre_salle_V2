@@ -28,7 +28,7 @@ export class ListingServiceBase {
   }
   async findOne<T extends Prisma.ListingFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.ListingFindUniqueArgs>
-  ): Promise<Listing | null> {
+  ): Promise<any> {
     return this.prisma.listing.findUnique(args);
   }
   async create<T extends Prisma.ListingCreateArgs>(
