@@ -21,14 +21,16 @@ export class TripController extends TripControllerBase {
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Trip })
   @nestAccessControl.UseRoles({
-    resource: 'Trip',
-    action: 'create',
-    possession: 'any',
+    resource: "Trip",
+    action: "create",
+    possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async createWithNotification(@common.Body() data: TripCreateInput): Promise<Trip> {
+  async createWithNotification(
+    @common.Body() data: TripCreateInput
+  ): Promise<Trip> {
     return await this.service.createWithEmailNotification({
       data: {
         ...data,
@@ -48,8 +50,9 @@ export class TripController extends TripControllerBase {
         listing: {
           select: {
             id: true,
-            title:true,
-            listingCreatedBy:true,
+            title: true,
+            listingCreatedBy: true,
+            locationData: true,
           },
         },
 
@@ -59,7 +62,9 @@ export class TripController extends TripControllerBase {
         user: {
           select: {
             id: true,
-            username:true,
+            username: true,
+            firstName: true,
+            lastName: true,
           },
         },
       },
