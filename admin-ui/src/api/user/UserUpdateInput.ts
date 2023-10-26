@@ -9,6 +9,7 @@ export type UserUpdateInput = {
   lastName?: string | null;
   listings?: ListingUpdateManyWithoutUsersInput;
   password?: string;
+  phone?: string | null;
   roles?: InputJsonValue;
   trips?: TripUpdateManyWithoutUsersInput;
   username?: string;

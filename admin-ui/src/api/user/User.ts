@@ -10,6 +10,7 @@ export type User = {
   id: string;
   lastName: string | null;
   listings?: Array<Listing>;
+  phone: string | null;
   roles: JsonValue;
   trips?: Array<Trip>;
   updatedAt: Date;
