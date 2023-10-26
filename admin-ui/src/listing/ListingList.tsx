@@ -38,6 +38,7 @@ export const ListingList = (props: ListProps): React.ReactElement => {
         <TextField label="placeSpace" source="placeSpace" />
         <TextField label="placeType" source="placeType" />
         <TextField label="price" source="price" />
+        <TextField label="tax" source="tax" />
         <TextField label="title" source="title" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

@@ -1,5 +1,6 @@
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 import { InputJsonValue } from "../../types";
+import { Decimal } from "decimal.js";
 import { TripCreateNestedManyWithoutListingsInput } from "./TripCreateNestedManyWithoutListingsInput";
 import { WishlistCreateNestedManyWithoutListingsInput } from "./WishlistCreateNestedManyWithoutListingsInput";
 
@@ -14,6 +15,7 @@ export type ListingCreateInput = {
   placeSpace: InputJsonValue;
   placeType: string;
   price: number;
+  tax: Decimal;
   title: string;
   trips?: TripCreateNestedManyWithoutListingsInput;
   wishlists?: WishlistCreateNestedManyWithoutListingsInput;
