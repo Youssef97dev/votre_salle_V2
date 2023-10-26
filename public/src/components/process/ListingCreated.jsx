@@ -18,6 +18,7 @@ export default function ListingCreated() {
     description,
     price,
     userInfo,
+    tax,
   } = userAppStore();
   useEffect(() => {
     createLisitngAPI({
@@ -32,6 +33,7 @@ export default function ListingCreated() {
       description,
       price,
       listingCreatedBy: { id: userInfo?.id },
+      tax,
     });
   }, [
     locationType,
@@ -45,6 +47,7 @@ export default function ListingCreated() {
     description,
     price,
     userInfo,
+    tax,
   ]);
 
   return (

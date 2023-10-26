@@ -1,5 +1,5 @@
 import { userAppStore } from "airbnb/store/store";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import FormInput from "../common/FormInput";
 import { checkUser, login, signup } from "airbnb/lib/auth";
@@ -9,7 +9,28 @@ export default function AuthModal() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [rc, setRc] = useState("");
+  const [cnss, setCnss] = useState("");
+  const [idFiscale, setIdFiscale] = useState("");
+  const [ice, setIce] = useState("");
   const [userFound, setUserFound] = useState(null);
+  const [role, setRole] = useState("user");
+  const [companyInfo, setCompanyInfo] = useState({
+    rc: "",
+    cnss: "",
+    idFiscale: "",
+    ice: "",
+  });
+
+  useEffect(() => {
+    setCompanyInfo({
+      rc,
+      cnss,
+      idFiscale,
+      ice,
+    });
+  }, [rc, cnss, idFiscale, ice]);
 
   const verifyEmail = async () => {
     const data = await checkUser(email);
@@ -27,8 +48,16 @@ export default function AuthModal() {
   };
 
   const handleSignup = async () => {
-    if (email && password && firstName && lastName) {
-      const data = await signup(email, password, firstName, lastName);
+    if (email && password && firstName && lastName && phone && role) {
+      const data = await signup(
+        email,
+        password,
+        firstName,
+        lastName,
+        phone,
+        role,
+        companyInfo
+      );
       setUserInfo(data);
       setIsLoggedIn(true);
       setAuthModal();
@@ -94,12 +123,77 @@ export default function AuthModal() {
                       setValue={setLastName}
                     />
                     <FormInput
+                      type="text"
+                      name="phone"
+                      placeholder="Phone"
+                      value={phone}
+                      setValue={setPhone}
+                    />
+                    <FormInput
                       type="password"
                       name="password"
                       placeholder="Password"
                       value={password}
                       setValue={setPassword}
                     />
+                    <div className="flex flex-row gap-3 justify-between font-medium">
+                      <div
+                        onClick={() => setRole("user")}
+                        className={`py-4 rounded border w-full cursor-pointer text-center ${
+                          role === "user"
+                            ? "bg-[#1b4db98e] border-[#1b4db98e] text-[#fff]"
+                            : "border-[#9095a086] hover:bg-[#1b4db98e] hover:border-[#1b4db98e] hover:text-[#fff]"
+                        }`}
+                      >
+                        User
+                      </div>
+                      <div
+                        onClick={() => setRole("owner")}
+                        className={`py-4 rounded border w-full cursor-pointer text-center ${
+                          role === "owner"
+                            ? "bg-[#1b4db98e] border-[#1b4db98e] text-[#fff]"
+                            : "border-[#9095a086] hover:bg-[#1b4db98e] hover:border-[#1b4db98e] hover:text-[#fff]"
+                        }`}
+                      >
+                        Owner
+                      </div>
+                    </div>
+                    {role === "owner" && (
+                      <>
+                        <div className="flex flex-row gap-3">
+                          <FormInput
+                            type="text"
+                            name="rc"
+                            placeholder="Registre du Commerce"
+                            value={rc}
+                            setValue={setRc}
+                          />
+                          <FormInput
+                            type="text"
+                            name="cnss"
+                            placeholder="Cnss"
+                            value={cnss}
+                            setValue={setCnss}
+                          />
+                        </div>
+                        <div className="flex flex-row gap-3">
+                          <FormInput
+                            type="text"
+                            name="idFiscale"
+                            placeholder="Identifant Fiscale"
+                            value={idFiscale}
+                            setValue={setIdFiscale}
+                          />
+                          <FormInput
+                            type="text"
+                            name="ice"
+                            placeholder="ICE"
+                            value={ice}
+                            setValue={setIce}
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
                 <button

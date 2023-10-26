@@ -5,6 +5,7 @@ export default function ContextMenu({
   cordinates,
   contextMenu,
   setContextMenu,
+  userInfo,
 }) {
   const contextMenuRef = useRef(null); // Create a ref for the context menu element
 
@@ -52,15 +53,32 @@ export default function ContextMenu({
       }}
     >
       <ul>
-        {options.map(({ name, callBack }) => (
-          <li
-            className="hover:bg-gray-100 pl-5 pr-10  py-2 cursor-pointer"
-            onClick={(e) => handleClick(e, callBack)}
-            key={name}
-          >
-            <span className="">{name}</span>
-          </li>
-        ))}
+        {userInfo?.roles[0] === "owner"
+          ? options.map(({ name, callBack }) => (
+              <li
+                className="hover:bg-gray-100 pl-5 pr-10  py-2 cursor-pointer"
+                onClick={(e) => handleClick(e, callBack)}
+                key={name}
+              >
+                <span className="">{name}</span>
+              </li>
+            ))
+          : options
+              .filter(
+                ({ name }) =>
+                  name !== "Manage My Listings" &&
+                  name !== "Manage My Reservations" &&
+                  name !== "Add Your Hall"
+              )
+              .map(({ name, callBack }) => (
+                <li
+                  className="hover:bg-gray-100 pl-5 pr-10  py-2 cursor-pointer"
+                  onClick={(e) => handleClick(e, callBack)}
+                  key={name}
+                >
+                  <span className="">{name}</span>
+                </li>
+              ))}
       </ul>
     </div>
   );

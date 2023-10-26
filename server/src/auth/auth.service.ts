@@ -56,7 +56,15 @@ export class AuthService {
   }
   async signup(credentials: SignupCredentials): Promise<UserInfo> {
     // Extract the username and password from the body of the request
-    const { username, password, firstName, lastName } = credentials;
+    const {
+      username,
+      password,
+      firstName,
+      lastName,
+      roles,
+      phone,
+      companyInfo,
+    } = credentials;
     // Here we attempt to create a new user
     const user = await this.userService.create({
       data: {
@@ -64,7 +72,9 @@ export class AuthService {
         password,
         firstName,
         lastName,
-        roles: ["user"],
+        companyInfo: { companyInfo },
+        phone,
+        roles: [roles],
       },
     });
     // If creating a new user fails throw an error

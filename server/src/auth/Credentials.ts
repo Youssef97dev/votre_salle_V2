@@ -1,6 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { InputType, Field } from "@nestjs/graphql";
 import { IsString } from "class-validator";
+import { JsonValue } from "type-fest";
+import { IsJSONValue } from "@app/custom-validators";
+import GraphQLJSON from "graphql-type-json";
 
 @InputType()
 export class Credentials {
@@ -29,6 +32,7 @@ export class SignupCredentials {
   @IsString()
   @Field(() => String, { nullable: false })
   username!: string;
+
   @ApiProperty({
     required: true,
     type: String,
@@ -36,6 +40,7 @@ export class SignupCredentials {
   @IsString()
   @Field(() => String, { nullable: false })
   password!: string;
+
   @ApiProperty({
     required: true,
     type: String,
@@ -43,6 +48,7 @@ export class SignupCredentials {
   @IsString()
   @Field(() => String, { nullable: false })
   firstName!: string;
+
   @ApiProperty({
     required: true,
     type: String,
@@ -50,6 +56,31 @@ export class SignupCredentials {
   @IsString()
   @Field(() => String, { nullable: false })
   lastName!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String, { nullable: false })
+  roles!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String, { nullable: false })
+  phone!: string;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  companyInfo!: JsonValue;
 }
 
 @InputType()

@@ -1,6 +1,6 @@
 import { userAppStore } from "airbnb/store/store";
 import Daimond from "airbnb/svg/daimond";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsFillFlagFill } from "react-icons/bs";
 import { addDays } from "date-fns";
 import { addTrip } from "airbnb/lib/lisitng";
@@ -46,8 +46,8 @@ export default function TripScheduler() {
     <div className="sticky top-0 w-full flex flex-col gap-6 items-center justify-center">
       <div className=" border border-gray-400 rounded-lg shadow-lg flex p-4 gap-2 items-start px-8 flex-col w-full">
         <div className="flex gap-1 text-lg">
-          <span className="font-bold ">${currentListing.price}</span>
-          <span>night</span>
+          <span className="font-bold ">{currentListing.price} MAD</span>
+          <span>day</span>
         </div>
         <div className="flex flex-col w-full">
           <div className="grid grid-cols-2 w-full">
@@ -99,13 +99,28 @@ export default function TripScheduler() {
         <span className="text-center w-full">You won't be charged yet</span>
         <div className="flex  justify-between w-full">
           <span>
-            ${currentListing.price} x {calculateDaysDifference()} nights
+            {currentListing.price} MAD x {calculateDaysDifference()} days
           </span>
-          <span>${currentListing.price * calculateDaysDifference()}</span>
+          <span>{currentListing.price * calculateDaysDifference()} MAD</span>
         </div>
         <div className="flex  justify-between w-full">
-          <span>Total before taxes</span>
-          <span>${currentListing.price * calculateDaysDifference()}</span>
+          <span>TVA</span>
+          <span>
+            {currentListing.price *
+              calculateDaysDifference() *
+              (currentListing.tax / 100)}{" "}
+            MAD
+          </span>
+        </div>
+        <div className="flex  justify-between w-full">
+          <span>Total After Taxe</span>
+          <span>
+            {currentListing.price *
+              calculateDaysDifference() *
+              (currentListing.tax / 100) +
+              currentListing.price * calculateDaysDifference()}{" "}
+            MAD
+          </span>
         </div>
       </div>
       <div className="flex border border-gray-400 rounded-lg p-4 gap-2 items-start px-8">

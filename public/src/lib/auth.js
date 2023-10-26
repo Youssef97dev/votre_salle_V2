@@ -20,13 +20,24 @@ export const login = async (username, password) => {
   return me();
 };
 
-export const signup = async (username, password, firstName, lastName) => {
+export const signup = async (
+  username,
+  password,
+  firstName,
+  lastName,
+  phone,
+  roles,
+  companyInfo
+) => {
   const result = (
     await post(createUrl("/api/signup"), {
       username,
       password,
       firstName,
       lastName,
+      phone,
+      roles,
+      companyInfo,
     }).catch(() => null)
   )?.data;
 

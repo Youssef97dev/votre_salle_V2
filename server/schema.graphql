@@ -16,6 +16,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DecimalFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
+
 input FloatFilter {
   equals: Float
   gt: Float
@@ -55,6 +66,7 @@ type Listing {
   placeSpace: JSON!
   placeType: String!
   price: Float!
+  tax: Float!
   title: String!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
   updatedAt: DateTime!
@@ -72,6 +84,7 @@ input ListingCreateInput {
   placeSpace: JSON!
   placeType: String!
   price: Float!
+  tax: Float!
   title: String!
   trips: TripCreateNestedManyWithoutListingsInput
   wishlists: WishlistCreateNestedManyWithoutListingsInput
@@ -100,6 +113,7 @@ input ListingOrderByInput {
   placeSpace: SortOrder
   placeType: SortOrder
   price: SortOrder
+  tax: SortOrder
   title: SortOrder
   updatedAt: SortOrder
 }
@@ -115,6 +129,7 @@ input ListingUpdateInput {
   placeSpace: JSON
   placeType: String
   price: Float
+  tax: Float
   title: String
   trips: TripUpdateManyWithoutListingsInput
   wishlists: WishlistUpdateManyWithoutListingsInput
@@ -138,6 +153,7 @@ input ListingWhereInput {
   placeSpace: JsonFilter
   placeType: StringFilter
   price: FloatFilter
+  tax: DecimalFilter
   title: StringFilter
   trips: TripListRelationFilter
   wishlists: WishlistListRelationFilter
@@ -294,11 +310,13 @@ input TripWhereUniqueInput {
 }
 
 type User {
+  companyInfo: JSON
   createdAt: DateTime!
   firstName: String
   id: String!
   lastName: String
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
+  phone: String
   roles: JSON!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
   updatedAt: DateTime!
@@ -307,10 +325,12 @@ type User {
 }
 
 input UserCreateInput {
+  companyInfo: JSON
   firstName: String
   lastName: String
   listings: ListingCreateNestedManyWithoutUsersInput
   password: String!
+  phone: String
   roles: JSON!
   trips: TripCreateNestedManyWithoutUsersInput
   username: String!
@@ -325,21 +345,25 @@ type UserInfo {
 }
 
 input UserOrderByInput {
+  companyInfo: SortOrder
   createdAt: SortOrder
   firstName: SortOrder
   id: SortOrder
   lastName: SortOrder
   password: SortOrder
+  phone: SortOrder
   roles: SortOrder
   updatedAt: SortOrder
   username: SortOrder
 }
 
 input UserUpdateInput {
+  companyInfo: JSON
   firstName: String
   lastName: String
   listings: ListingUpdateManyWithoutUsersInput
   password: String
+  phone: String
   roles: JSON
   trips: TripUpdateManyWithoutUsersInput
   username: String
@@ -347,10 +371,12 @@ input UserUpdateInput {
 }
 
 input UserWhereInput {
+  companyInfo: JsonFilter
   firstName: StringNullableFilter
   id: StringFilter
   lastName: StringNullableFilter
   listings: ListingListRelationFilter
+  phone: StringNullableFilter
   trips: TripListRelationFilter
   username: StringFilter
   wishlists: WishlistListRelationFilter

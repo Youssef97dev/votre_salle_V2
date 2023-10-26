@@ -1,7 +1,7 @@
 "use client";
 import AirBnbLogo from "airbnb/svg/airbnb-logo";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiGlobe } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import ScheduleBar from "../common/ScheduleBar";
@@ -38,7 +38,7 @@ function Navbar() {
       },
     },
     {
-      name: "Add your hall",
+      name: "Add Your Hall",
       callBack: () => {
         setIsContextMenuVisible(false);
       },
@@ -93,6 +93,13 @@ function Navbar() {
       },
     },
     {
+      name: "Add Your Hall",
+      callBack: () => {
+        router.push("new-listing");
+        setIsContextMenuVisible(false);
+      },
+    },
+    {
       name: "Account",
       callBack: () => {
         setIsContextMenuVisible(false);
@@ -119,6 +126,10 @@ function Navbar() {
     setIsContextMenuVisible(true);
   };
 
+  useEffect(() => {
+    console.log(userInfo);
+  }, []);
+
   return (
     <header
       className={`w-full flex flex-col justify-center transition-all duration-300
@@ -141,11 +152,10 @@ function Navbar() {
         <div className="flex-grow basis-0 ">
           <ul className="flex items-center justify-end gap-6 font-medium">
             {userInfo && (
-              <li
-                className="cursor-pointer"
-                onClick={() => router.push("new-listing")}
-              >
-                <span>Add Your Hall</span>
+              <li className="cursor-pointer">
+                <span>
+                  {userInfo.firstName} {userInfo.lastName}
+                </span>
               </li>
             )}
             <li className="cursor-pointer">
@@ -184,6 +194,7 @@ function Navbar() {
             }}
             contextMenu={isContextMenuVisible}
             setContextMenu={setIsContextMenuVisible}
+            userInfo={userInfo}
           />
         )}
       </div>
