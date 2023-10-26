@@ -46,7 +46,9 @@ export default function TripScheduler() {
     <div className="sticky top-0 w-full flex flex-col gap-6 items-center justify-center">
       <div className=" border border-gray-400 rounded-lg shadow-lg flex p-4 gap-2 items-start px-8 flex-col w-full">
         <div className="flex gap-1 text-lg">
-          <span className="font-bold ">{currentListing.price} MAD</span>
+          <span className="font-bold ">
+            {currentListing.price.toFixed(2)} MAD
+          </span>
           <span>day</span>
         </div>
         <div className="flex flex-col w-full">
@@ -99,26 +101,33 @@ export default function TripScheduler() {
         <span className="text-center w-full">You won't be charged yet</span>
         <div className="flex  justify-between w-full">
           <span>
-            {currentListing.price} MAD x {calculateDaysDifference()} days
+            {currentListing.price.toFixed(2)} MAD x {calculateDaysDifference()}{" "}
+            days
           </span>
-          <span>{currentListing.price * calculateDaysDifference()} MAD</span>
+          <span>
+            {(currentListing.price * calculateDaysDifference()).toFixed(2)} MAD
+          </span>
         </div>
         <div className="flex  justify-between w-full">
           <span>TVA</span>
           <span>
-            {currentListing.price *
+            {(
+              currentListing.price *
               calculateDaysDifference() *
-              (currentListing.tax / 100)}{" "}
+              (currentListing.tax / 100)
+            ).toFixed(2)}{" "}
             MAD
           </span>
         </div>
         <div className="flex  justify-between w-full">
           <span>Total After Taxe</span>
           <span>
-            {currentListing.price *
-              calculateDaysDifference() *
-              (currentListing.tax / 100) +
-              currentListing.price * calculateDaysDifference()}{" "}
+            {(
+              currentListing.price *
+                calculateDaysDifference() *
+                (currentListing.tax / 100) +
+              currentListing.price * calculateDaysDifference()
+            ).toFixed(2)}{" "}
             MAD
           </span>
         </div>

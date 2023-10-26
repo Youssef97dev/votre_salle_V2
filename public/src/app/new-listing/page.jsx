@@ -62,12 +62,6 @@ function Page() {
       case 10:
         return <Title />;
       case 11:
-        return <Description />;
-      case 12:
-        return <StepThreeStarter />;
-      case 13:
-        return <Price />;
-      case 14:
         return <ListingCreated />;
       default:
         return <></>;
