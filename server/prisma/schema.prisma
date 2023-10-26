@@ -15,6 +15,7 @@ model User {
   lastName    String?
   listings    Listing[]
   password    String
+  phone       String?
   roles       Json
   trips       Trip[]
   updatedAt   DateTime   @updatedAt

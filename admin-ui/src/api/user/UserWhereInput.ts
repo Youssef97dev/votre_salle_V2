@@ -11,6 +11,7 @@ export type UserWhereInput = {
   id?: StringFilter;
   lastName?: StringNullableFilter;
   listings?: ListingListRelationFilter;
+  phone?: StringNullableFilter;
   trips?: TripListRelationFilter;
   username?: StringFilter;
   wishlists?: WishlistListRelationFilter;

@@ -9,6 +9,7 @@ export type UserCreateInput = {
   lastName?: string | null;
   listings?: ListingCreateNestedManyWithoutUsersInput;
   password: string;
+  phone?: string | null;
   roles: InputJsonValue;
   trips?: TripCreateNestedManyWithoutUsersInput;
   username: string;

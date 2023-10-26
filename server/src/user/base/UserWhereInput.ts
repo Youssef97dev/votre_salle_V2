@@ -80,6 +80,17 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  phone?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => TripListRelationFilter,
   })
   @ValidateNested()
