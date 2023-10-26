@@ -8,17 +8,18 @@ generator client {
 }
 
 model User {
-  createdAt DateTime   @default(now())
-  firstName String?
-  id        String     @id @default(cuid())
-  lastName  String?
-  listings  Listing[]
-  password  String
-  roles     Json
-  trips     Trip[]
-  updatedAt DateTime   @updatedAt
-  username  String     @unique
-  wishlists Wishlist[]
+  companyInfo Json?
+  createdAt   DateTime   @default(now())
+  firstName   String?
+  id          String     @id @default(cuid())
+  lastName    String?
+  listings    Listing[]
+  password    String
+  roles       Json
+  trips       Trip[]
+  updatedAt   DateTime   @updatedAt
+  username    String     @unique
+  wishlists   Wishlist[]
 }
 
 model Listing {
@@ -35,6 +36,7 @@ model Listing {
   placeSpace         Json
   placeType          String
   price              Float
+  tax                Decimal
   title              String
   trips              Trip[]
   updatedAt          DateTime   @updatedAt

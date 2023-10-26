@@ -25,6 +25,7 @@ const CREATE_INPUT = {
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",
   price: 42.42,
+  tax: 42.424242424,
   title: "exampleTitle",
   updatedAt: new Date(),
 };
@@ -35,6 +36,7 @@ const CREATE_RESULT = {
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",
   price: 42.42,
+  tax: 42.424242424,
   title: "exampleTitle",
   updatedAt: new Date(),
 };
@@ -46,6 +48,7 @@ const FIND_MANY_RESULT = [
     locationType: "exampleLocationType",
     placeType: "examplePlaceType",
     price: 42.42,
+    tax: 42.424242424,
     title: "exampleTitle",
     updatedAt: new Date(),
   },
@@ -57,6 +60,7 @@ const FIND_ONE_RESULT = {
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",
   price: 42.42,
+  tax: 42.424242424,
   title: "exampleTitle",
   updatedAt: new Date(),
 };

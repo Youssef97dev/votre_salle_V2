@@ -1,5 +1,6 @@
 import { User } from "../user/User";
 import { JsonValue } from "type-fest";
+import { Decimal } from "decimal.js";
 import { Trip } from "../trip/Trip";
 import { Wishlist } from "../wishlist/Wishlist";
 
@@ -16,6 +17,7 @@ export type Listing = {
   placeSpace: JsonValue;
   placeType: string;
   price: number;
+  tax: Decimal;
   title: string;
   trips?: Array<Trip>;
   updatedAt: Date;
