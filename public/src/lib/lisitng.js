@@ -25,10 +25,10 @@ export const getAllListings = async (locationType) => {
     locationType !== "All"
       ? qs.stringify({
           where: { locationType },
-          orderBy: { createdAt: "asc" },
+          orderBy: { createdAt: "desc" },
         })
       : qs.stringify({
-          orderBy: { createdAt: "asc" },
+          orderBy: { createdAt: "desc" },
         });
 
   const result = await axios.get(createUrl(`/api/listings?${query}`));
