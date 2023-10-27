@@ -5,6 +5,7 @@ import { BsFillFlagFill } from "react-icons/bs";
 import { addDays } from "date-fns";
 import { addTrip } from "airbnb/lib/lisitng";
 import { useRouter } from "next/navigation";
+import { ClockLoader } from "react-spinners";
 
 export default function TripScheduler() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function TripScheduler() {
   });
 
   const [guests, setGuests] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const calculateDaysDifference = () => {
     const startDate = new Date(state.startDate);
@@ -26,6 +28,7 @@ export default function TripScheduler() {
 
   const handleReservation = async () => {
     if (userInfo) {
+      setLoading(true);
       const data = {
         listingId: currentListing.id,
         userId: userInfo?.id,
@@ -38,6 +41,7 @@ export default function TripScheduler() {
       const response = await addTrip(data);
       if (response) {
         router.push("/trips");
+        setLoading(false);
       }
     }
   };
@@ -93,10 +97,11 @@ export default function TripScheduler() {
           </div>
         </div>
         <button
-          className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
+          className="bg-airbnb-gradient py-3 mt-5  px-5 flex flex-row justify-center items-center gap-3 text-white text-base font-medium rounded-md cursor-pointer w-full"
           onClick={handleReservation}
+          disabled={loading}
         >
-          Reserve
+          <ClockLoader color="#fbfffe" loading={loading} size={25} /> Reserve
         </button>
         <span className="text-center w-full">You won't be charged yet</span>
         <div className="flex  justify-between w-full">
