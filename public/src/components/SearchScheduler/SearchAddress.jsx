@@ -3,12 +3,21 @@ import { userAppStore } from "airbnb/store/store";
 import axios from "axios";
 import React, { useState } from "react";
 import { MdLocationPin } from "react-icons/md";
+import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function SearchAddress() {
-  const { selectionType, setSelectionType, searchLocation, setSearchLocation } =
-    userAppStore();
+  const {
+    selectionType,
+    setSelectionType,
+    searchLocation,
+    setSearchLocation,
+    setSearchListings,
+  } = userAppStore();
   const TOKEN =
     "pk.eyJ1IjoieW91bmVzYWl0IiwiYSI6ImNsbnU3ODZ6czBhdXgyam5zNHZleDl1d2cifQ.Omdr-w7Yx9kNjkltlzunKg";
+
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const searchAddresses = async (query) => {
     try {
       const response = await axios.get(
@@ -18,7 +27,7 @@ export default function SearchAddress() {
             access_token: TOKEN,
 
             limit: 5,
-            language: "en-US", // Specify the language for the results
+            language: "fr-FR", // Specify the language for the results
           },
         }
       );
@@ -39,14 +48,19 @@ export default function SearchAddress() {
   const [containerRef] = useClickOutside();
 
   return (
-    <>
-      <label htmlFor="" className="text-xs font-semibold">
+    <div className="relative">
+      <label htmlFor="" className="text-xs font-semibold hidden md:block">
         Where
       </label>
+      <span className="absolute left-1 top-3 block md:hidden">
+        <AiOutlineSearch size={20} color="#b0b0b0" />
+      </span>
       <input
         type="text"
         placeholder="Search Destinations"
-        className="bg-transparent focus:outline-none"
+        className={`bg-transparent focus:outline-none ${
+          !isDesktop && "border border-[#b0b0b0] p-3 pl-6 rounded-xl w-full"
+        }`}
         value={searchText}
         onChange={(e) => {
           setSearchText(e.target.value);
@@ -55,7 +69,7 @@ export default function SearchAddress() {
       />
       {selectionType === "where" && searchedAddresss.length > 0 && (
         <div
-          className="absolute w-96 left-0 h-96 top-24 shadow-lg rounded-3xl bg-white py-10 z-50"
+          className="w-full md:absolute md:w-96 md:left-0 md:h-96 md:top-24 shadow-lg rounded-3xl bg-white md:py-10 md:z-[150]"
           ref={containerRef}
         >
           <ul className="flex gap-0 flex-col">
@@ -72,7 +86,7 @@ export default function SearchAddress() {
                 }}
               >
                 <div
-                  className="px-10 grid gap-10 items-center justify-start"
+                  className="px-2 md:px-10 grid md:gap-10 gap-5 items-center justify-start"
                   style={{ gridTemplateColumns: "10fr 90fr" }}
                 >
                   <span className="h-12 w-12 rounded-md bg-gray-100 flex items-center justify-center text-2xl">
@@ -85,6 +99,6 @@ export default function SearchAddress() {
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 }

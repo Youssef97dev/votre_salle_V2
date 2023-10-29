@@ -12,15 +12,21 @@ import { getSearchListing } from "airbnb/lib/lisitng";
 import ListingCard from "airbnb/components/listingCard";
 import dynamic from "next/dynamic";
 
+import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+
 export default function Page() {
   const { isAuthModalOpen, searchLocation, setSearchListings, searchListings } =
     userAppStore();
+
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   useEffect(() => {
     const getData = async () => {
+      setSearchListings([]);
       const data = await getSearchListing(searchLocation.address);
+      console.log("data : ", data);
       setSearchListings(data);
     };
-    if (searchLocation) {
+    if (searchLocation.address) {
       getData();
     }
   }, [searchLocation, setSearchListings]);
@@ -28,8 +34,8 @@ export default function Page() {
     <div>
       <Navbar />
       <div
-        className="grid h-[82.5vh]"
-        style={{ gridTemplateColumns: "0.6fr 0.4fr" }}
+        className={`${isDesktop ? "grid h-[82.5vh]" : "flex flex-col"}`}
+        style={{ gridTemplateColumns: isDesktop && "0.6fr 0.4fr" }}
       >
         <div className=" h-[82.5vh] overflow-auto no-scrollbar">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 px-4 md:px-20 gap-16 py-10 h-[75vh] overflow-auto no-scrollbar">
@@ -38,11 +44,9 @@ export default function Page() {
             ))}
           </div>
         </div>
-        <div className="">
-          <SearchMap />
-        </div>
+        <div className="">{isDesktop && <SearchMap />}</div>
       </div>
-      <CompactFooter />
+      {/*<CompactFooter />*/}
       {isAuthModalOpen && <AuthModal />}
     </div>
   );

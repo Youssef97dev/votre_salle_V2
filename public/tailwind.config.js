@@ -20,6 +20,17 @@ module.exports = {
         "new-listing": "10vh 80vh 10vh",
       },
     },
+    screens: {
+      xxs: "425px",
+      xs: "550px",
+      sm: "640px",
+      md: "768px",
+      medium: "950px",
+      lg: "1024px",
+      "2lg": "1128px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
   },
   plugins: [],
 };

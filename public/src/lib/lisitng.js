@@ -37,7 +37,7 @@ export const getAllListings = async (locationType) => {
     alert("Could not get listings");
     return [];
   }
-
+  console.log(result.data);
   return result.data;
 };
 
@@ -102,7 +102,6 @@ export const getSearchListing = async (searchTerm) => {
         },
       ],
     },
-    orderBy: { createdAt: "asc" },
   });
   const result = await axios.get(createUrl(`/api/listings?${query}`));
   if (!result) {

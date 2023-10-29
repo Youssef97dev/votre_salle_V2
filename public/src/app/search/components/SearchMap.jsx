@@ -9,7 +9,7 @@ export default function SearchMap() {
 
   const [popupInfo, setPopupInfo] = useState(null);
   const TOKEN =
-    "pk.eyJ1Ijoia29vbGtpc2hhbiIsImEiOiJjazV3Zm41cG8wa3I1M2tydnVkcW53b2ZpIn0.mYrXogbdTrWSoJECNR1epg";
+    "pk.eyJ1IjoieW91bmVzYWl0IiwiYSI6ImNsbnU3ODZ6czBhdXgyam5zNHZleDl1d2cifQ.Omdr-w7Yx9kNjkltlzunKg";
   const pins = useMemo(
     () =>
       searchListings?.map((data, index) => (

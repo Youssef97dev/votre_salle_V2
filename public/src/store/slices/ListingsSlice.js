@@ -35,5 +35,6 @@ export const createLisitingsSlice = (set, get) => ({
   },
   setShowScheduleBar: () => {
     set({ showScheduleBar: !get().showScheduleBar });
+    console.log("lalal");
   },
 });

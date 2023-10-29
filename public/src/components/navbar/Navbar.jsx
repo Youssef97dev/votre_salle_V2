@@ -9,9 +9,12 @@ import ContextMenu from "../common/ContextMenu";
 import { userAppStore } from "airbnb/store/store";
 import { useRouter } from "next/navigation";
 import Schedule from "../common/Schedule";
+import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+import ScheduleMobile from "../common/ScheduleMobile";
 
 function Navbar() {
   const router = useRouter();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const {
     setAuthModal,
     userInfo,
@@ -19,6 +22,7 @@ function Navbar() {
     setMapView,
     setInitialView,
     showScheduleBar,
+    setShowScheduleBar,
   } = userAppStore();
   const [isContextMenuVisible, setIsContextMenuVisible] = useState(false);
 
@@ -133,10 +137,14 @@ function Navbar() {
   return (
     <header
       className={`w-full flex flex-col justify-center transition-all duration-300
-    ${!showScheduleBar ? "h-20 border-b border-b-gray-200" : "shadow-2xl h-40"}
+    ${
+      !showScheduleBar || !isDesktop
+        ? "h-20 border-b border-b-gray-200"
+        : "shadow-2xl h-40"
+    }
     `}
     >
-      <div className="flex  items-center justify-between px-20 ">
+      <div className="flex  items-center  justify-between px-2 lg:px-20 ">
         <div className="flex-grow basis-0 ">
           <div
             className="w-max cursor-pointer"
@@ -148,17 +156,17 @@ function Navbar() {
             <AirBnbLogo />
           </div>
         </div>
-        <div>{!showScheduleBar && <ScheduleBar />}</div>
+        <div>{(!showScheduleBar || !isDesktop) && <ScheduleBar />}</div>
         <div className="flex-grow basis-0 ">
           <ul className="flex items-center justify-end gap-6 font-medium">
             {userInfo && (
-              <li className="cursor-pointer">
+              <li className="cursor-pointer hidden md:block">
                 <span>
                   {userInfo.firstName} {userInfo.lastName}
                 </span>
               </li>
             )}
-            <li className="cursor-pointer">
+            <li className="cursor-pointer hidden md:block">
               <FiGlobe />
             </li>
             <li
@@ -198,9 +206,14 @@ function Navbar() {
           />
         )}
       </div>
-      {showScheduleBar && (
+      {showScheduleBar && isDesktop && (
         <div className="flex justify-center">
           <Schedule />
+        </div>
+      )}
+      {showScheduleBar && !isDesktop && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
+          <ScheduleMobile />
         </div>
       )}
     </header>
