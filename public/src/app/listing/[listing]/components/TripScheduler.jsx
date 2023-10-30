@@ -35,7 +35,7 @@ export default function TripScheduler() {
         tripData: {
           startDate: state.startDate,
           endDate: state.endDate,
-          price: `$${currentListing.price * calculateDaysDifference()}`,
+          price: `${currentListing.price * calculateDaysDifference()} MAD`,
         },
       };
       const response = await addTrip(data);
@@ -48,7 +48,7 @@ export default function TripScheduler() {
 
   return (
     <div className="sticky top-0 w-full flex flex-col gap-6 items-center justify-center">
-      <div className=" border border-gray-400 rounded-lg shadow-lg flex p-4 gap-2 items-start px-8 flex-col w-full">
+      <div className=" lg:border lg:border-gray-400 rounded-lg shadow-lg flex p-2 lg:p-4 gap-2 items-start px-4 lg:px-8 flex-col w-full">
         <div className="flex gap-1 text-lg">
           <span className="font-bold ">
             {currentListing.price.toFixed(2)} MAD
