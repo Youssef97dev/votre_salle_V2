@@ -62,7 +62,7 @@ export default function ListingPhotos() {
           className="swiper max-w-[18rem] xs:max-w-[30rem] md:max-w-[40rem] w-full mx-auto my-3 rounded-lg"
           id="slider1"
         >
-        <div className="swiper-wrapper">
+        <div className="swiper-wrapper" onClick={() => setShowPopup(true)}>
             {currentPhotos?.map((photo, i) => {
                 return (
                     <SwiperSlide key={i}>
