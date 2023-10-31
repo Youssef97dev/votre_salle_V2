@@ -40,23 +40,23 @@ export default function Page() {
     <div>
       <Navbar />
       <div className="h-[82.5vh] flex justify-start items-start">
-        <div className="relative overflow-x-auto shadow-lg sm:rounded-lg w-full m-20">
+        <div className="relative overflow-x-auto shadow-lg sm:rounded-lg w-full m-5 lg:m-20">
           <table className="w-full text-sm text-left text-gray-500 ">
             <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
               <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
                   Listing Name
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
                   Check In Date
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
                   Check out Date
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
                   Price
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
                   Trip Status
                 </th>
               </tr>

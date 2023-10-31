@@ -46,7 +46,7 @@ export default function Page() {
         </div>
         <div className="">{isDesktop && <SearchMap />}</div>
       </div>
-      {/*<CompactFooter />*/}
+      <CompactFooter />
       {isAuthModalOpen && <AuthModal />}
     </div>
   );

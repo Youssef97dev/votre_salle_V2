@@ -89,13 +89,13 @@ export default function Page() {
     <div>
       <Navbar />
       <div className="h-[82.5vh] flex justify-start items-start">
-        <div className="relative overflow-x-auto shadow-lg sm:rounded-lg w-full m-20">
+        <div className="relative overflow-x-auto shadow-lg sm:rounded-lg w-full m-5 lg:m-20">
           {/*<Image src="/search.svg" width="20" className="absolute left-1 top-2" height="20" alt="search" />*/}
           <div className="relative rounded-md rtl:mr-auto">
             {/*<Image src="/search.svg" width="20" className="absolute left-1 top-2" height="20" alt="search" />*/}
             <input
               type="text"
-              className="form-input w-1/5 rounded py-3 px-4 border shadow-md my-3 ml-3"
+              className="form-input w-full lg:w-1/5 rounded py-3 px-4 border shadow-md my-3"
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}

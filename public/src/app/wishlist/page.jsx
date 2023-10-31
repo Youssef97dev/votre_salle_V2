@@ -45,7 +45,7 @@ export default function Page() {
           </div>
         )}
       </div>
-      {/*<CompactFooter />*/}
+      <CompactFooter />
     </div>
   );
 }

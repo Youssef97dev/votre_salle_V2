@@ -128,7 +128,7 @@ export default function ListingCard({
       </div>
       {isMyListing && (
         <button
-          className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-80"
+          className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
           onClick={deleteListing}
         >
           Delete
@@ -136,7 +136,7 @@ export default function ListingCard({
       )}
       {isWishList && (
         <button
-          className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-80"
+          className="bg-airbnb-gradient py-3 mt-1 mb-3  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
           onClick={deleteWishList}
         >
           Delete

@@ -12,9 +12,9 @@ export default function CompactFooter() {
     "destinations",
   ];
   return (
-    <div className=" px-20 border-t border-t-gray-200 py-4 flex justify-between w-full text-sm z-50 bg-white items-center">
-      <ul className="flex gap-3 font-normal ">
-        <li>&copy; {new Date().getFullYear()} Votre salles, Inc</li>
+    <div className=" px-5 md:px-10 lg:px-20 border-t border-t-gray-200 py-4 flex justify-between w-full text-sm z-50 bg-white items-center">
+      <ul className="flex lg:flex-row flex-col gap-3 font-normal ">
+        <li>&copy; {new Date().getFullYear()} Votre salles, Inc .</li>
         {links.map((link) => (
           <li key={link}>
             <Link href="#">
@@ -23,13 +23,13 @@ export default function CompactFooter() {
           </li>
         ))}
       </ul>
-      <ul className="flex gap-4 font-medium">
+      <ul className="flex lg:flex-row flex-col gap-4 font-medium">
         <li className="flex items-center gap-2 cursor-pointer">
           <FiGlobe /> English (IN)
         </li>
-        <li className="cursor-pointer">$ USD</li>
+        <li className="cursor-pointer">MAD</li>
         <li className="flex items-center gap-2 cursor-pointer">
-          Support & resources <PiCaretUpBold />
+          Support & resources
         </li>
       </ul>
     </div>
