@@ -1,7 +1,9 @@
 "use client";
 import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
+import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
 import ListingCard from "airbnb/components/listingCard";
+import Spinner from "airbnb/components/common/Spinner";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
@@ -22,9 +24,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+
 
 export default function Home() {
   const [locationType, setLocationType] = useState("All");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [loadingData, setLoadingData] = useState(true);
   const {
     isAuthModalOpen,
     setUserInfo,
@@ -37,25 +44,34 @@ export default function Home() {
   } = userAppStore();
   useEffect(() => {
     const getUser = async () => {
+      setLoadingUser(true);
       const data = await me();
       setUserInfo(data);
+      setLoadingUser(false);
     };
     getUser();
+    
   }, [setUserInfo]);
 
   useEffect(() => {
     const getData = async () => {
+      setLoadingData(true);
       const data = await getAllListings(locationType);
       setListings(data);
       const wishlists = await getUserWishlists(userInfo?.id);
       const wishListsId = wishlists?.map(({ listing }) => listing.id);
       setWishLists(wishListsId);
+      setLoadingData(false);
     };
     getData();
   }, [setListings, setWishLists, userInfo?.id, locationType]);
 
   return (
-    <div className="max-h-[100vh] h-[100vh]">
+    <>
+    {loadingUser || loadingData ? (
+      <Spinner/>
+    ) : (
+      <div className="max-h-[100vh] h-[100vh]">
       <Navbar />
       <div className="flex items-center justify-center">
         <div className="w-[90vw] overflow-auto no-scrollbar mt-3 px-5">
@@ -97,7 +113,10 @@ export default function Home() {
       {isMapView ? <MapView /> : <ListView />}
       <ViewSwitchBadge />
       <CompactFooter />
+      {!isDesktop && <NavbarMobile />}
       {isAuthModalOpen && <AuthModal />}
     </div>
+    )}
+    </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
+import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
 import {
   getUserTrips,
   getUserListings,
@@ -11,6 +12,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { DataTable } from "mantine-datatable";
+import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
@@ -25,6 +27,7 @@ export default function Page() {
   const [reservationData, setReservationData] = useState([]);
   const [initialRecords, setInitialRecords] = useState([]);
   const [records, setRecords] = useState(initialRecords);
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   useEffect(() => {
     const getData = async () => {
       const data = await getUserReservedTrips(userInfo?.id);
@@ -253,6 +256,7 @@ export default function Page() {
         </div>
       </div>
       <CompactFooter />
+      {!isDesktop && <NavbarMobile />}
     </div>
   );
 }

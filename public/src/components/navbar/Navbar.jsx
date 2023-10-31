@@ -131,7 +131,7 @@ function Navbar() {
   };
 
   useEffect(() => {
-    console.log(userInfo);
+    console.log("user :",userInfo);
   }, []);
 
   return (

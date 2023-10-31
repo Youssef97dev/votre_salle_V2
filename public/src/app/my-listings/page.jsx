@@ -1,6 +1,8 @@
 "use client";
 import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
+import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
+import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
@@ -14,6 +16,7 @@ import dynamic from "next/dynamic";
 export default function Page() {
   const { isAuthModalOpen, userInfo, setUserListings, userListings } =
     userAppStore();
+    const isDesktop = useMediaQuery("(min-width: 1024px)");
   useEffect(() => {
     const getData = async () => {
       const data = await getUserListings(userInfo?.id);
@@ -40,6 +43,7 @@ export default function Page() {
         )}
       </div>
       <CompactFooter />
+      {!isDesktop && <NavbarMobile />}
     </div>
   );
 }
