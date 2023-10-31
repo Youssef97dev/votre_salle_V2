@@ -70,12 +70,12 @@ function Page() {
 
   return (
     <div className=" grid grid-rows-new-listing h-[100vh]">
-      <header className="flex items-center px-20 justify-between">
+      <header className="flex items-center px-10 lg:px-20 justify-between">
         <div className="cursor-pointer" onClick={() => router.push("/")}>
           <AirBnbLogoShort />
         </div>
         {step <= 13 && (
-          <button className="border border-gray-300 px-5 py-2 rounded-full font-semibold hover:border-gray-700 cursor-pointer">
+          <button className="border border-gray-300 text-xs lg:text-base px-5 py-2 rounded-full font-semibold hover:border-gray-700 cursor-pointer">
             Save & exit
           </button>
         )}
@@ -85,7 +85,7 @@ function Page() {
       <footer
         className={`flex ${
           step > 0 ? "justify-between" : "justify-end"
-        } items-center px-20 pb-4  border-t-4 border-t-gray-300 `}
+        } items-center px-10 lg:px-20 pb-0 lg:pb-4 border-t  lg:border-t-4 border-t-gray-300 `}
       >
         {step >= 1 && (
           <button

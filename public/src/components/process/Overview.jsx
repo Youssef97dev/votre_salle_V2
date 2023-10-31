@@ -24,27 +24,27 @@ function Overview() {
     },
   ];
   return (
-    <div className="flex  h-full justify-between items-center px-32 gap-20">
+    <div className="flex lg:flex-row flex-col  h-full justify-evenly lg:justify-between items-center px-2 lg:px-32 gap-5 lg:gap-20">
       <div>
         <strong>
-          <h1 className="text-5xl leading-normal text-airbnb-light-black">
+          <h1 className="text-xl lg:text-5xl leading-normal text-airbnb-light-black">
             {mainTitle}
           </h1>
         </strong>
       </div>
-      <ul className="flex flex-col gap-16">
+      <ul className="flex flex-col gap-10 lg:gap-16">
         {data.map(({ description, image, title }, index) => (
           <li key={title} className="flex items-start justify-start gap-6">
-            <strong className="text-2xl pt-5 text-airbnb-light-black">
+            <strong className="text-base lg:text-2xl pt-5 text-airbnb-light-black">
               <h3>{index + 1}</h3>
             </strong>
             <div className="pt-5">
-              <strong className="text-2xl text-airbnb-light-black">
+              <strong className="text-base lg:text-2xl text-airbnb-light-black">
                 <h3>{title}</h3>
               </strong>
-              <p className="text-airbnb-light-gray text-lg">{description}</p>
+              <p className="text-airbnb-light-gray text-xs lg:text-lg">{description}</p>
             </div>
-            <div className="relative w-48 h-32 object-cover">
+            <div className="relative w-40 lg:w-48 h-24 lg:h-32  object-cover">
               <Image src={image} alt="overview" fill />
             </div>
           </li>
