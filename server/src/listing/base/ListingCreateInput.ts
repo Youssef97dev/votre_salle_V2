@@ -109,6 +109,14 @@ class ListingCreateInput {
     type: Number,
   })
   @IsNumber()
+  @Field(() => Number)
+  priceB2b!: number;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
   @Field(() => Float)
   tax!: Decimal;
 

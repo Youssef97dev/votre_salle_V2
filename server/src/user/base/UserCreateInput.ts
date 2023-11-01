@@ -110,6 +110,14 @@ class UserCreateInput {
   })
   @IsString()
   @Field(() => String)
+  typeUser!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
   username!: string;
 
   @ApiProperty({

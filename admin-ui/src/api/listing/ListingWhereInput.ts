@@ -18,6 +18,7 @@ export type ListingWhereInput = {
   placeSpace?: JsonFilter;
   placeType?: StringFilter;
   price?: FloatFilter;
+  priceB2b?: FloatFilter;
   tax?: DecimalFilter;
   title?: StringFilter;
   trips?: TripListRelationFilter;

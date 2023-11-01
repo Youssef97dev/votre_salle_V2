@@ -147,6 +147,17 @@ class ListingWhereInput {
 
   @ApiProperty({
     required: false,
+    type: FloatFilter,
+  })
+  @Type(() => FloatFilter)
+  @IsOptional()
+  @Field(() => FloatFilter, {
+    nullable: true,
+  })
+  priceB2b?: FloatFilter;
+
+  @ApiProperty({
+    required: false,
     type: DecimalFilter,
   })
   @Type(() => DecimalFilter)

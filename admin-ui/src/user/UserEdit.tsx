@@ -46,6 +46,7 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={TripTitle} />
         </ReferenceArrayInput>
+        <TextInput label="typeUser" source="typeUser" />
         <TextInput label="Username" source="username" />
         <ReferenceArrayInput
           source="wishlists"

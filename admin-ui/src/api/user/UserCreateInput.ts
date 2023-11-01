@@ -12,6 +12,7 @@ export type UserCreateInput = {
   phone?: string | null;
   roles: InputJsonValue;
   trips?: TripCreateNestedManyWithoutUsersInput;
+  typeUser: string;
   username: string;
   wishlists?: WishlistCreateNestedManyWithoutUsersInput;
 };

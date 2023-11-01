@@ -140,6 +140,17 @@ class ListingUpdateInput {
   })
   @IsNumber()
   @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  priceB2b?: number;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
   @Field(() => Float, {
     nullable: true,
   })

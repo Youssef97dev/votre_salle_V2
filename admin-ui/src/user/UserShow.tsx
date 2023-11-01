@@ -25,6 +25,7 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <TextField label="Last Name" source="lastName" />
         <TextField label="phone" source="phone" />
         <TextField label="Roles" source="roles" />
+        <TextField label="typeUser" source="typeUser" />
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Username" source="username" />
         <ReferenceManyField
@@ -51,6 +52,7 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             <TextField label="placeSpace" source="placeSpace" />
             <TextField label="placeType" source="placeType" />
             <TextField label="price" source="price" />
+            <TextField label="priceB2b" source="priceB2b" />
             <TextField label="tax" source="tax" />
             <TextField label="title" source="title" />
             <DateField source="updatedAt" label="Updated At" />

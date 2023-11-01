@@ -6,7 +6,6 @@ import {
   CallHandler,
 } from "@nestjs/common";
 import request from "supertest";
-import { MorganModule } from "nest-morgan";
 import { ACGuard } from "nest-access-control";
 import { DefaultAuthGuard } from "../../auth/defaultAuth.guard";
 import { ACLModule } from "../../auth/acl.module";
@@ -25,6 +24,7 @@ const CREATE_INPUT = {
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",
   price: 42.42,
+  priceB2b: 42.42,
   tax: 42.424242424,
   title: "exampleTitle",
   updatedAt: new Date(),
@@ -36,6 +36,7 @@ const CREATE_RESULT = {
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",
   price: 42.42,
+  priceB2b: 42.42,
   tax: 42.424242424,
   title: "exampleTitle",
   updatedAt: new Date(),
@@ -48,6 +49,7 @@ const FIND_MANY_RESULT = [
     locationType: "exampleLocationType",
     placeType: "examplePlaceType",
     price: 42.42,
+    priceB2b: 42.42,
     tax: 42.424242424,
     title: "exampleTitle",
     updatedAt: new Date(),
@@ -60,6 +62,7 @@ const FIND_ONE_RESULT = {
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",
   price: 42.42,
+  priceB2b: 42.42,
   tax: 42.424242424,
   title: "exampleTitle",
   updatedAt: new Date(),
@@ -124,7 +127,7 @@ describe("Listing", () => {
         },
       ],
       controllers: [ListingController],
-      imports: [MorganModule.forRoot(), ACLModule],
+      imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
       .useValue(basicAuthGuard)
