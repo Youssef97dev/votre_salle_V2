@@ -11,15 +11,15 @@ export default function PlaceDetails() {
 
   return (
     <div className="flex justify-center items-center h-full flex-col gap-2 w-full">
-      <div className="flex flex-col gap-3">
-        <h2 className="font-semibold text-4xl">Confirm your address</h2>
-        <p>
+      <div className="flex flex-col gap-3 mx-2">
+        <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl">Confirm your address</h2>
+        <p className="text-xs md:text-base">
           Your address is only shared with guests after they’ve made a
           reservation.
         </p>
       </div>
       <div className="flex flex-col w-full items-center gap-3 h-full overflow-auto no-scrollbar pb-20 pt-5">
-        <div className="flex flex-col gap-2 w-[30%]">
+        <div className="flex flex-col gap-2 w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
           <FormInput
             isListing
             name="country"
@@ -37,7 +37,7 @@ export default function PlaceDetails() {
             value={locationData?.neighborhood}
           />
         </div>
-        <div className="flex flex-col gap-2 w-[30%]">
+        <div className="flex flex-col gap-2 w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
           <FormInput
             isListing
             name="place"
@@ -55,7 +55,7 @@ export default function PlaceDetails() {
             value={locationData?.locality}
           />
         </div>
-        <div className="flex flex-col gap-2 w-[30%]">
+        <div className="flex flex-col gap-2 w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
           <FormInput
             isListing
             name="landmark"
@@ -73,7 +73,7 @@ export default function PlaceDetails() {
             value={locationData?.district}
           />
         </div>
-        <div className="flex flex-col gap-2 w-[30%]">
+        <div className="flex flex-col gap-2 w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
           <FormInput
             isListing
             name="postcode"

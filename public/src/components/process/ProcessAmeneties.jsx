@@ -17,34 +17,34 @@ export default function ProcessAmeneties() {
     }
   };
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center mx-2">
       <div className="flex flex-col gap-3">
-        <h2 className="font-semibold text-4xl">
+        <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl">
           Tell guests what your place has to offer
         </h2>
-        <p>You can add more amenities after you publish your listing.</p>
-        <div className="flex flex-col gap-5 max-h-[65vh] overflow-auto scroll no-scrollbar">
+        <p className="text-xs md:text-base">You can add more amenities after you publish your listing.</p>
+        <div className="flex flex-col gap-5 max-h-[63vh] md:max-h-[65vh] overflow-auto scroll no-scrollbar">
           {AmenetiesType.filter(
             ({ type }) =>
               type === locationType || type === "safety" || type === "basic"
           ).map(({ type, data }) => (
             <div key={type} className="flex flex-col gap-5">
               {type === locationType && (
-                <span className="text-lg font-medium">
+                <span className="text-base md:text-md font-medium">
                   Do you have any {`${locationType}`} amenities?
                 </span>
               )}
               {type === "safety" && (
-                <span className="text-md font-medium">
+                <span className="text-base md:text-md font-medium">
                   Do you have any of these safety items?
                 </span>
               )}
 
-              <div className="grid grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
                 {data.map(({ name, svgPath }) => (
                   <button
                     key={name}
-                    className={` flex flex-col justify-start font-semibold border border-gray-300 rounded-md p-3 hover:border-gray-950 transition-all duration-300 ${
+                    className={` flex flex-row md:flex-col items-center md:items-start justify-start font-semibold border border-gray-300 rounded-md p-1 md:p-3 hover:border-gray-950 transition-all duration-300 ${
                       placeAmeneties?.find((amentiy) => amentiy === name) &&
                       "border-gray-950"
                     }`}

@@ -32,19 +32,19 @@ export default function PlaceLocation() {
     setLocationData({ ...data });
   };
   return (
-    <div className="flex flex-col items-center justify-center h-full gap-5">
-      <h2 className="font-semibold text-4xl">
+    <div className="flex flex-col items-center justify-center h-full mx-2 gap-2 md:gap-5">
+      <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl ">
         Which of these best describes your place?
       </h2>
-      <p>
+      <p className="text-xs md:text-base">
         Your address is only shared with guests after they’ve made a
         reservation.
       </p>
-      <div className="h-[400px] w-[700px] ">
+      <div className="w-full h-full md:h-[400px] md:w-[700px] ">
         <Map
           initialViewState={{
-            longitude: -79.4512,
-            latitude: 43.6568,
+            longitude: -8.008889,
+            latitude: 31.630000,
             zoom: 13,
           }}
           mapStyle="mapbox://styles/mapbox/streets-v9"
