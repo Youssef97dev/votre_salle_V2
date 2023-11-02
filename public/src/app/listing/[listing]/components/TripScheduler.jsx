@@ -35,7 +35,11 @@ export default function TripScheduler() {
         tripData: {
           startDate: state.startDate,
           endDate: state.endDate,
-          price: `${currentListing.price * calculateDaysDifference()} MAD`,
+          price: `${
+            userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b * calculateDaysDifference()
+              : currentListing.price * calculateDaysDifference()
+          } MAD`,
         },
       };
       const response = await addTrip(data);
@@ -51,7 +55,10 @@ export default function TripScheduler() {
       <div className=" lg:border lg:border-gray-400 rounded-lg shadow-lg flex p-2 lg:p-4 gap-2 items-start px-4 lg:px-8 flex-col w-full">
         <div className="flex gap-1 text-lg">
           <span className="font-bold ">
-            {currentListing.price.toFixed(2)} MAD
+            {userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b.toFixed(2)
+              : currentListing.price.toFixed(2)}{" "}
+            MAD
           </span>
           <span>day</span>
         </div>
@@ -106,18 +113,27 @@ export default function TripScheduler() {
         <span className="text-center w-full">You won't be charged yet</span>
         <div className="flex  justify-between w-full">
           <span>
-            {currentListing.price.toFixed(2)} MAD x {calculateDaysDifference()}{" "}
-            days
+            {userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b.toFixed(2)
+              : currentListing.price.toFixed(2)}{" "}
+            MAD x {calculateDaysDifference()} days
           </span>
           <span>
-            {(currentListing.price * calculateDaysDifference()).toFixed(2)} MAD
+            {(
+              (userInfo?.typeUser === "B2B"
+                ? currentListing.priceB2b
+                : currentListing.price) * calculateDaysDifference()
+            ).toFixed(2)}{" "}
+            MAD
           </span>
         </div>
         <div className="flex  justify-between w-full">
           <span>TVA</span>
           <span>
             {(
-              currentListing.price *
+              (userInfo?.typeUser === "B2B"
+                ? currentListing.priceB2b
+                : currentListing.price) *
               calculateDaysDifference() *
               (currentListing.tax / 100)
             ).toFixed(2)}{" "}
@@ -128,10 +144,15 @@ export default function TripScheduler() {
           <span>Total After Taxe</span>
           <span>
             {(
-              currentListing.price *
+              (userInfo?.typeUser === "B2B"
+                ? currentListing.priceB2b
+                : currentListing.price) *
                 calculateDaysDifference() *
                 (currentListing.tax / 100) +
-              currentListing.price * calculateDaysDifference()
+              (userInfo?.typeUser === "B2B"
+                ? currentListing.priceB2b
+                : currentListing.price) *
+                calculateDaysDifference()
             ).toFixed(2)}{" "}
             MAD
           </span>

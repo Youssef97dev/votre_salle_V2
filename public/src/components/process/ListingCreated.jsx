@@ -17,6 +17,7 @@ export default function ListingCreated() {
     title,
     description,
     price,
+    priceB2b,
     userInfo,
     tax,
   } = userAppStore();
@@ -32,6 +33,7 @@ export default function ListingCreated() {
       title,
       description,
       price,
+      priceB2b,
       listingCreatedBy: { id: userInfo?.id },
       tax,
     });
@@ -46,6 +48,7 @@ export default function ListingCreated() {
     title,
     description,
     price,
+    priceB2b,
     userInfo,
     tax,
   ]);

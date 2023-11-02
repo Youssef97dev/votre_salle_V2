@@ -11,6 +11,7 @@ export const createProcessSlice = (set, get) => ({
       title: "",
       description: "",
       price: 0,
+      priceB2b: 0,
       tax: 10,
     }),
   locationType: undefined,
@@ -33,6 +34,8 @@ export const createProcessSlice = (set, get) => ({
   setDescription: (description) => set({ description }),
   price: 0,
   setPrice: (price) => set({ price }),
-  tax: 0,
+  tax: 10,
   setTax: (tax) => set({ tax }),
+  priceB2b: 0,
+  setPriceB2b: (priceB2b) => set({ priceB2b }),
 });
