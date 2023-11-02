@@ -35,6 +35,7 @@ export const ListingCreate = (props: CreateProps): React.ReactElement => {
         <div />
         <div />
         <TextInput label="placeType" source="placeType" />
+        <div />
         <NumberInput label="price" source="price" />
         <NumberInput label="priceB2b" source="priceB2b" />
         <NumberInput label="tax" source="tax" />

@@ -14,8 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   ValidateNested,
-  IsNumber,
   IsOptional,
+  IsNumber,
 } from "class-validator";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { Type } from "class-transformer";
@@ -95,6 +95,16 @@ class ListingCreateInput {
   @IsString()
   @Field(() => String)
   placeType!: string;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  prestation?: InputJsonValue;
 
   @ApiProperty({
     required: true,

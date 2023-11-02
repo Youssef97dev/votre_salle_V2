@@ -37,6 +37,7 @@ model Listing {
   placeAmeneties     Json
   placeSpace         Json
   placeType          String
+  prestation         Json?
   price              Float
   priceB2b           Float
   tax                Decimal

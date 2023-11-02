@@ -51,6 +51,7 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             <TextField label="placeAmeneties" source="placeAmeneties" />
             <TextField label="placeSpace" source="placeSpace" />
             <TextField label="placeType" source="placeType" />
+            <TextField label="prestation" source="prestation" />
             <TextField label="price" source="price" />
             <TextField label="priceB2b" source="priceB2b" />
             <TextField label="tax" source="tax" />

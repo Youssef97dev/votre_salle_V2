@@ -15,8 +15,8 @@ import {
   IsDate,
   IsString,
   ValidateNested,
-  IsNumber,
   IsOptional,
+  IsNumber,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { User } from "../../user/base/User";
@@ -111,6 +111,16 @@ class Listing {
   @IsString()
   @Field(() => String)
   placeType!: string;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  prestation!: JsonValue;
 
   @ApiProperty({
     required: true,

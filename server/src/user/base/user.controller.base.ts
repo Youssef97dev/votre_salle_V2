@@ -258,6 +258,7 @@ export class UserControllerBase {
         placeAmeneties: true,
         placeSpace: true,
         placeType: true,
+        prestation: true,
         price: true,
         priceB2b: true,
         tax: true,

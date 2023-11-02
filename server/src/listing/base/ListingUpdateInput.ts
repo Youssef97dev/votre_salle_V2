@@ -125,6 +125,16 @@ class ListingUpdateInput {
 
   @ApiProperty({
     required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  prestation?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()

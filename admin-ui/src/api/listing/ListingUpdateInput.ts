@@ -14,6 +14,7 @@ export type ListingUpdateInput = {
   placeAmeneties?: InputJsonValue;
   placeSpace?: InputJsonValue;
   placeType?: string;
+  prestation?: InputJsonValue;
   price?: number;
   priceB2b?: number;
   tax?: Decimal;

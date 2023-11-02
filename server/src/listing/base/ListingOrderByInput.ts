@@ -149,6 +149,17 @@ class ListingOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  prestation?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   price?: SortOrder;
 
   @ApiProperty({
