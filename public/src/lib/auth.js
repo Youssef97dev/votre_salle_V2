@@ -36,7 +36,7 @@ export const signup = async (
       firstName,
       lastName,
       phone,
-      typeUser: "B2B",
+      typeUser: "B2C",
       roles,
       companyInfo,
     }).catch(() => null)
