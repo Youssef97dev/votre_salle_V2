@@ -41,12 +41,12 @@ input FloatFilter {
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+scalar JSON
 
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+scalar JSONObject
 
 input JsonFilter {
   equals: JSONObject
@@ -65,7 +65,9 @@ type Listing {
   placeAmeneties: JSON!
   placeSpace: JSON!
   placeType: String!
+  prestation: JSON
   price: Float!
+  priceB2b: Float!
   tax: Float!
   title: String!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
@@ -83,7 +85,9 @@ input ListingCreateInput {
   placeAmeneties: JSON!
   placeSpace: JSON!
   placeType: String!
+  prestation: JSON
   price: Float!
+  priceB2b: Float!
   tax: Float!
   title: String!
   trips: TripCreateNestedManyWithoutListingsInput
@@ -112,7 +116,9 @@ input ListingOrderByInput {
   placeAmeneties: SortOrder
   placeSpace: SortOrder
   placeType: SortOrder
+  prestation: SortOrder
   price: SortOrder
+  priceB2b: SortOrder
   tax: SortOrder
   title: SortOrder
   updatedAt: SortOrder
@@ -128,7 +134,9 @@ input ListingUpdateInput {
   placeAmeneties: JSON
   placeSpace: JSON
   placeType: String
+  prestation: JSON
   price: Float
+  priceB2b: Float
   tax: Float
   title: String
   trips: TripUpdateManyWithoutListingsInput
@@ -152,7 +160,9 @@ input ListingWhereInput {
   placeAmeneties: JsonFilter
   placeSpace: JsonFilter
   placeType: StringFilter
+  prestation: JsonFilter
   price: FloatFilter
+  priceB2b: FloatFilter
   tax: DecimalFilter
   title: StringFilter
   trips: TripListRelationFilter
@@ -319,6 +329,7 @@ type User {
   phone: String
   roles: JSON!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
+  typeUser: String!
   updatedAt: DateTime!
   username: String!
   wishlists(orderBy: [WishlistOrderByInput!], skip: Float, take: Float, where: WishlistWhereInput): [Wishlist!]!
@@ -333,6 +344,7 @@ input UserCreateInput {
   phone: String
   roles: JSON!
   trips: TripCreateNestedManyWithoutUsersInput
+  typeUser: String!
   username: String!
   wishlists: WishlistCreateNestedManyWithoutUsersInput
 }
@@ -353,6 +365,7 @@ input UserOrderByInput {
   password: SortOrder
   phone: SortOrder
   roles: SortOrder
+  typeUser: SortOrder
   updatedAt: SortOrder
   username: SortOrder
 }
@@ -366,6 +379,7 @@ input UserUpdateInput {
   phone: String
   roles: JSON
   trips: TripUpdateManyWithoutUsersInput
+  typeUser: String
   username: String
   wishlists: WishlistUpdateManyWithoutUsersInput
 }
@@ -378,6 +392,7 @@ input UserWhereInput {
   listings: ListingListRelationFilter
   phone: StringNullableFilter
   trips: TripListRelationFilter
+  typeUser: StringFilter
   username: StringFilter
   wishlists: WishlistListRelationFilter
 }

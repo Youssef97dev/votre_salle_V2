@@ -63,6 +63,7 @@ export class AuthService {
       lastName,
       roles,
       phone,
+      typeUser,
       companyInfo,
     } = credentials;
     // Here we attempt to create a new user
@@ -74,6 +75,7 @@ export class AuthService {
         lastName,
         companyInfo: { companyInfo },
         phone,
+        typeUser,
         roles: [roles],
       },
     });
@@ -109,6 +111,7 @@ export class AuthService {
         roles: true,
         updatedAt: true,
         username: true,
+        typeUser: true,
       },
     });
     if (!result) {
