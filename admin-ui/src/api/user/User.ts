@@ -13,6 +13,7 @@ export type User = {
   phone: string | null;
   roles: JsonValue;
   trips?: Array<Trip>;
+  typeUser: string;
   updatedAt: Date;
   username: string;
   wishlists?: Array<Wishlist>;

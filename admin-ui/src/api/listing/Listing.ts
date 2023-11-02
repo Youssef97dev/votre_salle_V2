@@ -16,7 +16,9 @@ export type Listing = {
   placeAmeneties: JsonValue;
   placeSpace: JsonValue;
   placeType: string;
+  prestation: JsonValue;
   price: number;
+  priceB2b: number;
   tax: Decimal;
   title: string;
   trips?: Array<Trip>;

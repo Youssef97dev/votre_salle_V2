@@ -35,7 +35,9 @@ export const ListingEdit = (props: EditProps): React.ReactElement => {
         <div />
         <div />
         <TextInput label="placeType" source="placeType" />
+        <div />
         <NumberInput label="price" source="price" />
+        <NumberInput label="priceB2b" source="priceB2b" />
         <NumberInput label="tax" source="tax" />
         <TextInput label="title" source="title" />
         <ReferenceArrayInput

@@ -12,7 +12,9 @@ export type ListingOrderByInput = {
   placeAmeneties?: SortOrder;
   placeSpace?: SortOrder;
   placeType?: SortOrder;
+  prestation?: SortOrder;
   price?: SortOrder;
+  priceB2b?: SortOrder;
   tax?: SortOrder;
   title?: SortOrder;
   updatedAt?: SortOrder;

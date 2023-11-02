@@ -18,6 +18,7 @@ model User {
   phone       String?
   roles       Json
   trips       Trip[]
+  typeUser    String
   updatedAt   DateTime   @updatedAt
   username    String     @unique
   wishlists   Wishlist[]
@@ -36,7 +37,9 @@ model Listing {
   placeAmeneties     Json
   placeSpace         Json
   placeType          String
+  prestation         Json?
   price              Float
+  priceB2b           Float
   tax                Decimal
   title              String
   trips              Trip[]

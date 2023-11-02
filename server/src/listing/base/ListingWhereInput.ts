@@ -136,6 +136,17 @@ class ListingWhereInput {
 
   @ApiProperty({
     required: false,
+    type: JsonFilter,
+  })
+  @Type(() => JsonFilter)
+  @IsOptional()
+  @Field(() => JsonFilter, {
+    nullable: true,
+  })
+  prestation?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
     type: FloatFilter,
   })
   @Type(() => FloatFilter)
@@ -144,6 +155,17 @@ class ListingWhereInput {
     nullable: true,
   })
   price?: FloatFilter;
+
+  @ApiProperty({
+    required: false,
+    type: FloatFilter,
+  })
+  @Type(() => FloatFilter)
+  @IsOptional()
+  @Field(() => FloatFilter, {
+    nullable: true,
+  })
+  priceB2b?: FloatFilter;
 
   @ApiProperty({
     required: false,

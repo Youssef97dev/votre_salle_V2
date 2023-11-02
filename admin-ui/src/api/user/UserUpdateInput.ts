@@ -12,6 +12,7 @@ export type UserUpdateInput = {
   phone?: string | null;
   roles?: InputJsonValue;
   trips?: TripUpdateManyWithoutUsersInput;
+  typeUser?: string;
   username?: string;
   wishlists?: WishlistUpdateManyWithoutUsersInput;
 };

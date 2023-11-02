@@ -13,6 +13,7 @@ export type UserWhereInput = {
   listings?: ListingListRelationFilter;
   phone?: StringNullableFilter;
   trips?: TripListRelationFilter;
+  typeUser?: StringFilter;
   username?: StringFilter;
   wishlists?: WishlistListRelationFilter;
 };

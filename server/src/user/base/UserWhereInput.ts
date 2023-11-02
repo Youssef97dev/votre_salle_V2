@@ -110,6 +110,17 @@ class UserWhereInput {
   @Field(() => StringFilter, {
     nullable: true,
   })
+  typeUser?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
   username?: StringFilter;
 
   @ApiProperty({

@@ -125,6 +125,16 @@ class ListingUpdateInput {
 
   @ApiProperty({
     required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  prestation?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsNumber()
@@ -133,6 +143,17 @@ class ListingUpdateInput {
     nullable: true,
   })
   price?: number;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  priceB2b?: number;
 
   @ApiProperty({
     required: false,
