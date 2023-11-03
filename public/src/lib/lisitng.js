@@ -224,3 +224,11 @@ export const getUserReservedTrips = async (userId) => {
   console.log({ result });
   return result;
 };
+
+export const deleteTripAPI = async (id) => {
+  const result = await axios.delete(createUrl(`/api/trips/${id}`));
+  if (!result) {
+    console.log("cannot delete");
+  }
+  return result;
+};

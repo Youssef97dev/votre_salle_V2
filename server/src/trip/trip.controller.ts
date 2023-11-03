@@ -53,6 +53,7 @@ export class TripController extends TripControllerBase {
             title: true,
             listingCreatedBy: true,
             locationData: true,
+            tax: true,
           },
         },
 
@@ -63,6 +64,7 @@ export class TripController extends TripControllerBase {
           select: {
             id: true,
             username: true,
+            phone: true,
             firstName: true,
             lastName: true,
           },

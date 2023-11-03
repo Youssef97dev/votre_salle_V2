@@ -35,11 +35,30 @@ export default function TripScheduler() {
         tripData: {
           startDate: state.startDate,
           endDate: state.endDate,
-          price: `${
-            userInfo?.typeUser === "B2B"
-              ? currentListing.priceB2b * calculateDaysDifference()
-              : currentListing.price * calculateDaysDifference()
-          } MAD`,
+          guests,
+          tax: (
+            (userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b
+              : currentListing.price) *
+            calculateDaysDifference() *
+            (currentListing.tax / 100)
+          ).toFixed(2),
+          priceHT: (
+            (userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b
+              : currentListing.price) * calculateDaysDifference()
+          ).toFixed(2),
+          price: (
+            (userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b
+              : currentListing.price) *
+              calculateDaysDifference() +
+            (userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b
+              : currentListing.price) *
+              calculateDaysDifference() *
+              (currentListing.tax / 100)
+          ).toFixed(2),
         },
       };
       const response = await addTrip(data);
@@ -106,7 +125,10 @@ export default function TripScheduler() {
         <button
           className="bg-airbnb-gradient py-3 mt-5  px-5 flex flex-row justify-center items-center gap-3 text-white text-base font-medium rounded-md cursor-pointer w-full"
           onClick={handleReservation}
-          disabled={loading}
+          disabled={
+            loading ||
+            (guests > currentListing.placeSpace.guests ? true : false)
+          }
         >
           <ClockLoader color="#fbfffe" loading={loading} size={25} /> Reserve
         </button>

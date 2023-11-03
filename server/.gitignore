@@ -4,3 +4,6 @@
 /dist
 .DS_Store
 .vercel
+
+# local env files
+.env*.local

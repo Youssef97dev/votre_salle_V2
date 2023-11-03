@@ -22,13 +22,13 @@ export class TripService extends TripServiceBase {
     // You can use an email sending library like Nodemailer.
     await this.sendEmailNotification(
       reservation.user.username,
-      "Client Reservation Confirmation",
+      "Confirmation de votre réservation",
       reservation
     );
-    await this.sendEmailNotification(
+    await this.sendEmailNotificationToOwner(
       reservation.listing.listingCreatedBy.username,
       "New Reservation",
-      `You have a new reservation at ${reservation.listing.title} from ${reservation.tripinfo.startDate} to ${reservation.tripinfo.endDate}`
+      reservation
     );
 
     return reservation;
@@ -37,6 +37,28 @@ export class TripService extends TripServiceBase {
   private async sendEmailNotification(to: string, subject: string, data: any) {
     try {
       const emailContent = await this.renderTemplate("email-template", data);
+      // Use the MailerService to send the email
+      await this.mailerService.sendMail({
+        to,
+        subject,
+        html: emailContent,
+      });
+    } catch (error) {
+      // Handle any email sending errors here
+      console.error("Email sending error:", error);
+    }
+  }
+
+  private async sendEmailNotificationToOwner(
+    to: string,
+    subject: string,
+    data: any
+  ) {
+    try {
+      const emailContent = await this.renderTemplate(
+        "email-template-owner",
+        data
+      );
       // Use the MailerService to send the email
       await this.mailerService.sendMail({
         to,
