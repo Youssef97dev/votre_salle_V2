@@ -28,8 +28,6 @@ export default function Page() {
   const PAGE_SIZES = [10, 20, 30, 50, 100];
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   const [reservationData, setReservationData] = useState([]);
-  const [relaunchDataReservations, setRelaunchDataReservations] =
-    useState(false);
   const [initialRecords, setInitialRecords] = useState([]);
   const [records, setRecords] = useState(initialRecords);
   const [loading, setLoading] = useState(true);
@@ -49,12 +47,11 @@ export default function Page() {
       setRecords(data);
       console.log({ data });
       setLoading(false);
-      setRelaunchDataReservations(false);
     };
     if (userInfo) {
       getData();
     }
-  }, [relaunchDataReservations]);
+  }, []);
 
   // Func Search bar
   useEffect(() => {
