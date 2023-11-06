@@ -15,6 +15,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import Prestation from "./prestation/Prestation";
 
 export default function ListingCard({
   data,
@@ -33,6 +34,7 @@ export default function ListingCard({
   const pathname = usePathname();
 
   const [hover, setHover] = useState(false);
+  const [showPrestation, setShowPrestation] = useState(false);
 
   const router = useRouter();
   const deleteListing = async () => {
@@ -174,12 +176,21 @@ export default function ListingCard({
         </div>
       </div>
       {isMyListing && (
-        <button
-          className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
-          onClick={deleteListing}
-        >
-          Delete
-        </button>
+        <div className="flex gap-2">
+          <button
+            className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
+            onClick={deleteListing}
+          >
+            Delete
+          </button>
+          <button
+            className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
+            //onClick={() => router.push(`/prestation/${data.id}`)}
+            onClick={() => setShowPrestation(true)}
+          >
+            Prestation
+          </button>
+        </div>
       )}
       {isWishList && (
         <button
@@ -188,6 +199,12 @@ export default function ListingCard({
         >
           Delete
         </button>
+      )}
+      {/* Search popup */}
+      {showPrestation && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
+          <Prestation data={data} setShowPrestation={setShowPrestation} />
+        </div>
       )}
     </div>
   );
