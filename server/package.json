@@ -4,6 +4,7 @@
   "scripts": {
     "start": "nest start",
     "start:watch": "nest start --watch",
+    "start:prod": "node dist/main",
     "start:debug": "nest start --debug --watch",
     "build": "nest build",
     "test": "jest",
