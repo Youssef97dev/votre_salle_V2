@@ -72,10 +72,10 @@ export default function ListingPhotos() {
             })}
         </div>
         <button className="swiper-button-prev-ex1 grid place-content-center left-2 p-1 transition text-primary text-white border border-primary  hover:border-primary hover:bg-primary rounded-full absolute z-[999] top-1/2 -translate-y-1/2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-w-4 rtl:-rotate-90 rotate-90"><path d="M19 9L12 15L5 9" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-w-4 rtl:-rotate-90 rotate-90"><path d="M19 9L12 15L5 9" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
         </button>
         <button className="swiper-button-next-ex1 grid place-content-center right-2 p-1 transition text-primary text-white border border-primary  hover:border-primary hover:bg-primary rounded-full absolute z-[999] top-1/2 -translate-y-1/2">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-w-4 rtl:rotate-90 -rotate-90"><path d="M19 9L12 15L5 9" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-w-4 rtl:rotate-90 -rotate-90"><path d="M19 9L12 15L5 9" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
         </button>
       </Swiper>}
 

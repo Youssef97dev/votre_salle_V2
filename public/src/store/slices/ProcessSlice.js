@@ -7,9 +7,8 @@ export const createProcessSlice = (set, get) => ({
       locationData: undefined,
       placeSpace: { bathrooms: 1, beds: 1, guests: 4 },
       prestation: {
-        price: 0,
         poseCafe: [],
-        poseDejeuner: [],
+        poseDejeunner: [],
         poseDinner: [],
       },
       placeAmeneties: [],
@@ -31,9 +30,8 @@ export const createProcessSlice = (set, get) => ({
   placeSpace: { bathrooms: 1, beds: 1, guests: 4 },
   setPlaceSpace: (placeSpace) => set({ placeSpace }),
   prestation: {
-    price: 0,
     poseCafe: [],
-    poseDejeuner: [],
+    poseDejeunner: [],
     poseDinner: [],
   },
   setPrestation: (prestation) => set({ prestation }),

@@ -8,7 +8,7 @@ export default function Campervan() {
           <svg
             stroke="currentColor"
             fill="currentColor"
-            stroke-width="0"
+            strokeWidth="0"
             t="1569683753031"
             viewBox="0 0 1024 1024"
             version="1.1"

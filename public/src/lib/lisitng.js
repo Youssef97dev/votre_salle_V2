@@ -20,6 +20,22 @@ export const createLisitngAPI = async (listingData) => {
   return result;
 };
 
+export const updateLisitngAPI = async (listingId, prestation) => {
+  const result = (
+    await axios.patch(createUrl(`/api/listings/${listingId}`), {
+      prestation,
+    }).catch((error) => console.log(error))
+  )?.data;
+
+  console.log({ result });
+
+  if (!result) {
+    return alert("Could not create task");
+  }
+
+  return result;
+};
+
 export const getAllListings = async (locationType) => {
   const query =
     locationType !== "All"
@@ -232,3 +248,4 @@ export const deleteTripAPI = async (id) => {
   }
   return result;
 };
+

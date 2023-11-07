@@ -17,6 +17,13 @@ export default function Page() {
   const { isAuthModalOpen, userInfo, setUserListings, userListings } =
     userAppStore();
     const isDesktop = useMediaQuery("(min-width: 1024px)");
+
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+      setIsClient(true);
+    }, [])
+
   useEffect(() => {
     const getData = async () => {
       const data = await getUserListings(userInfo?.id);
@@ -26,7 +33,7 @@ export default function Page() {
       getData();
     }
   }, [userInfo, setUserListings]);
-  return (
+  return isClient && (
     <div>
       <Navbar />
       <div className="flex justify-start items-start">
