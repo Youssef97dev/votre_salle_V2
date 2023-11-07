@@ -14,15 +14,20 @@ import ListingCard from "airbnb/components/listingCard";
 import dynamic from "next/dynamic";
 
 export default function Page() {
-  const { isAuthModalOpen, userInfo, setUserListings, userListings } =
-    userAppStore();
-    const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const {
+    isAuthModalOpen,
+    userInfo,
+    setUserListings,
+    userListings,
+    relaunchData,
+  } = userAppStore();
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
-    const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-    useEffect(() => {
-      setIsClient(true);
-    }, [])
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -32,25 +37,27 @@ export default function Page() {
     if (userInfo) {
       getData();
     }
-  }, [userInfo, setUserListings]);
-  return isClient && (
-    <div>
-      <Navbar />
-      <div className="flex justify-start items-start">
-        {userListings.length > 0 ? (
-          <div className="grid grid-cols-1 xs:grid-cols-2 medium:grid-cols-3 2lg:grid-cols-4 2xl:grid-cols-5 px-10 gap-3 py-10 w-full  items-start ">
-            {userListings?.map((listing, index) => (
-              <ListingCard data={listing} key={index} isMyListing />
-            ))}
-          </div>
-        ) : (
-          <div className="flex items-center justify-center w-full h-full">
-            <h1>No Listings for current user. Create new Listings.</h1>
-          </div>
-        )}
+  }, [userInfo, setUserListings, relaunchData]);
+  return (
+    isClient && (
+      <div>
+        <Navbar />
+        <div className="flex justify-start items-start">
+          {userListings.length > 0 ? (
+            <div className="grid grid-cols-1 xs:grid-cols-2 medium:grid-cols-3 2lg:grid-cols-4 2xl:grid-cols-5 px-10 gap-3 py-10 w-full  items-start ">
+              {userListings?.map((listing, index) => (
+                <ListingCard data={listing} key={index} isMyListing />
+              ))}
+            </div>
+          ) : (
+            <div className="flex items-center justify-center w-full h-full">
+              <h1>No Listings for current user. Create new Listings.</h1>
+            </div>
+          )}
+        </div>
+        <CompactFooter />
+        {!isDesktop && <NavbarMobile />}
       </div>
-      <CompactFooter />
-      {!isDesktop && <NavbarMobile />}
-    </div>
+    )
   );
 }

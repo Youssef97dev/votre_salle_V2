@@ -23,6 +23,7 @@ export const createLisitingsSlice = (set, get) => ({
   listings: [],
   showScheduleBar: false,
   userListings: [],
+  relaunchData: false,
   setUserListings: (userListings) => set({ userListings }),
   setMapView: () => {
     set({ isMapView: !get().isMapView });
@@ -36,5 +37,8 @@ export const createLisitingsSlice = (set, get) => ({
   setShowScheduleBar: () => {
     set({ showScheduleBar: !get().showScheduleBar });
     console.log("lalal");
+  },
+  setRelaunchData: () => {
+    set({ relaunchData: !get().relaunchData });
   },
 });

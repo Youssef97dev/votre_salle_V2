@@ -6,11 +6,8 @@ import { useRouter } from "next/navigation";
 
 import { updateLisitngAPI } from "airbnb/lib/lisitng";
 
-import {IoMdAddCircleOutline} from "react-icons/io";
-
 const Prestation = ({ data, setShowPrestation }) => {
-
-  //const { prestation, setPrestation } = userAppStore();
+  const { relaunchData, setRelaunchData } = userAppStore();
 
   const router = useRouter();
   const [active, setActive] = useState("1");
@@ -32,37 +29,37 @@ const Prestation = ({ data, setShowPrestation }) => {
 
   const handleInputChange = (e, index, key, type) => {
     const { value } = e.target;
-    if(type === "cafe"){
+    if (type === "cafe") {
       setPoseCafe((prevPoseCafe) => {
         const updatedPoseCafe = [...prevPoseCafe];
-        if (index >= 0 && index < updatedPoseCafe.length) {
+        if (index >= 0 && index < 5) {
           updatedPoseCafe[index] = {
             ...updatedPoseCafe[index],
-            [key]: key === 'price' ? parseFloat(value) : value,
+            [key]: key === "price" ? parseFloat(value) : value,
           };
         }
         return updatedPoseCafe;
       });
     }
-    if(type==="dejeunner"){
+    if (type === "dejeunner") {
       setPoseDejeunner((prevPoseDej) => {
         const updatedPoseDej = [...prevPoseDej];
-        if (index >= 0 && index < updatedPoseDej.length) {
+        if (index >= 0 && index < 5) {
           updatedPoseDej[index] = {
             ...updatedPoseDej[index],
-            [key]: key === 'price' ? parseFloat(value) : value,
+            [key]: key === "price" ? parseFloat(value) : value,
           };
         }
         return updatedPoseDej;
       });
     }
-    if(type==="dinner"){
+    if (type === "dinner") {
       setPoseDinner((prevPoseDinner) => {
         const updatedPoseDinner = [...prevPoseDinner];
-        if (index >= 0 && index < updatedPoseDinner.length) {
+        if (index >= 0 && index < 5) {
           updatedPoseDinner[index] = {
             ...updatedPoseDinner[index],
-            [key]: key === 'price' ? parseFloat(value) : value,
+            [key]: key === "price" ? parseFloat(value) : value,
           };
         }
         return updatedPoseDinner;
@@ -70,22 +67,29 @@ const Prestation = ({ data, setShowPrestation }) => {
     }
   };
 
-  const handleSave = async() => {
-    setPrestation({...prestation,poseCafe, poseDejeunner, poseDinner})
-  }
+  const handleSave = async () => {
+    setPrestation({ ...prestation, poseCafe, poseDejeunner, poseDinner });
+  };
 
-  useEffect(()=> {
-    if(prestation.poseCafe.length > 0 || prestation.poseDejeunner.length > 0 || prestation.poseDinner.length > 0){
+  useEffect(() => {
+    if (
+      prestation.poseCafe.length > 0 ||
+      prestation.poseDejeunner.length > 0 ||
+      prestation.poseDinner.length > 0
+    ) {
       try {
-        updateLisitngAPI(data?.id, prestation);
+        updateLisitngAPI(data?.id, prestation).then((res) => {
+          setRelaunchData();
+          setShowPrestation(false);
+        });
       } catch (error) {
         console.error(error);
       }
     }
-  }, [prestation])
+  }, [prestation]);
 
-  useEffect(()=>{
-    if(data.prestation){
+  useEffect(() => {
+    if (data.prestation) {
       setPoseCafe(...poseCafe, data?.prestation?.poseCafe);
       setPoseDejeunner(...poseDejeunner, data?.prestation?.poseDejeunner);
       setPoseDinner(...poseDinner, data?.prestation?.poseDinner);
@@ -133,7 +137,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseCafe[0]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,0,'description','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 0, "description", "cafe")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -141,7 +147,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="price"
                         defaultValue={poseCafe[0]?.price || ""}
                         type="number"
-                        onChange={(e) => handleInputChange(e,0,'price','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 0, "price", "cafe")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -150,7 +158,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseCafe[1]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,1,'description','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 1, "description", "cafe")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -158,7 +168,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseCafe[1]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,1,'price','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 1, "price", "cafe")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -167,7 +179,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         placeholder="Description"
                         defaultValue={poseCafe[2]?.description || ""}
-                        onChange={(e) => handleInputChange(e,2,'description','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 2, "description", "cafe")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -175,7 +189,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="price"
                         defaultValue={poseCafe[2]?.price || ""}
                         type="number"
-                        onChange={(e) => handleInputChange(e,2,'price','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 2, "price", "cafe")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -184,7 +200,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         placeholder="Description"
                         defaultValue={poseCafe[3]?.description || ""}
-                        onChange={(e) => handleInputChange(e,3,'description','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 3, "description", "cafe")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -192,7 +210,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseCafe[3]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,3,'price','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 3, "price", "cafe")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -201,7 +221,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         placeholder="Description"
                         defaultValue={poseCafe[4]?.description || ""}
-                        onChange={(e) => handleInputChange(e,4,'description','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 4, "description", "cafe")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -209,7 +231,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseCafe[4]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,4,'price','cafe')}
+                        onChange={(e) =>
+                          handleInputChange(e, 4, "price", "cafe")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -251,7 +275,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDejeunner[0]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,0,'description','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 0, "description", "dejeunner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -259,7 +285,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDejeunner[0]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,0,'price','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 0, "price", "dejeunner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -268,7 +296,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDejeunner[1]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,1,'description','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 1, "description", "dejeunner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -276,7 +306,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDejeunner[1]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,1,'price','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 1, "price", "dejeunner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -285,7 +317,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDejeunner[2]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,2,'description','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 2, "description", "dejeunner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -293,7 +327,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDejeunner[2]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,2,'price','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 2, "price", "dejeunner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -302,7 +338,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDejeunner[3]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,3,'description','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 3, "description", "dejeunner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -310,7 +348,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDejeunner[3]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,3,'price','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 3, "price", "dejeunner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -319,7 +359,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDejeunner[4]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,4,'description','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 4, "description", "dejeunner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -327,7 +369,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDejeunner[4]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,4,'price','dejeunner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 4, "price", "dejeunner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -371,7 +415,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDinner[0]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,0,'description','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 0, "description", "dinner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -379,7 +425,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDinner[0]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,0,'price','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 0, "price", "dinner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -388,7 +436,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDinner[1]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,1,'description','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 1, "description", "dinner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -396,7 +446,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDinner[1]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,1,'price','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 1, "price", "dinner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -405,7 +457,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDinner[2]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,2,'description','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 2, "description", "dinner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -413,7 +467,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDinner[2]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,2,'price','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 2, "price", "dinner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -422,7 +478,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDinner[3]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,3,'description','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 3, "description", "dinner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -430,7 +488,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDinner[3]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,3,'price','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 3, "price", "dinner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -439,7 +499,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         name="description"
                         defaultValue={poseDinner[4]?.description || ""}
                         placeholder="Description"
-                        onChange={(e) => handleInputChange(e,4,'description','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 4, "description", "dinner")
+                        }
                         className="border border-gray-400 h-12 w-[70%] rounded-lg active:border-gray-950 p-1  no-scrollbar text-base"
                       ></textarea>
                       <input
@@ -447,7 +509,9 @@ const Prestation = ({ data, setShowPrestation }) => {
                         defaultValue={poseDinner[4]?.price || ""}
                         name="price"
                         type="number"
-                        onChange={(e) => handleInputChange(e,4,'price','dinner')}
+                        onChange={(e) =>
+                          handleInputChange(e, 4, "price", "dinner")
+                        }
                         className="border border-gray-400 rounded-lg w-[30%]"
                       />
                     </div>
@@ -465,7 +529,12 @@ const Prestation = ({ data, setShowPrestation }) => {
         >
           Cancel
         </button>
-        <button onClick={()=>handleSave()} className="w-full rounded-xl bg-sky-900">Save</button>
+        <button
+          onClick={() => handleSave()}
+          className="w-full rounded-xl bg-sky-900"
+        >
+          Save
+        </button>
       </div>
     </div>
   );
