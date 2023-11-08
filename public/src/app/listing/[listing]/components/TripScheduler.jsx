@@ -31,24 +31,31 @@ export default function TripScheduler() {
       setLoading(true);
       const data = {
         listingId: currentListing.id,
+        listing:currentListing,
         userId: userInfo?.id,
         tripData: {
+          days: calculateDaysDifference(),
           startDate: state.startDate,
           endDate: state.endDate,
           guests,
-          tax: (
+          listingPrice: parseFloat((
+            (userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b
+              : currentListing.price)
+          )).toFixed(2),
+          tax: parseFloat((
             (userInfo?.typeUser === "B2B"
               ? currentListing.priceB2b
               : currentListing.price) *
             calculateDaysDifference() *
             (currentListing.tax / 100)
-          ).toFixed(2),
-          priceHT: (
+          )).toFixed(2),
+          priceHT: parseFloat((
             (userInfo?.typeUser === "B2B"
               ? currentListing.priceB2b
               : currentListing.price) * calculateDaysDifference()
-          ).toFixed(2),
-          price: (
+          )).toFixed(2),
+          price: parseFloat((
             (userInfo?.typeUser === "B2B"
               ? currentListing.priceB2b
               : currentListing.price) *
@@ -58,14 +65,27 @@ export default function TripScheduler() {
               : currentListing.price) *
               calculateDaysDifference() *
               (currentListing.tax / 100)
-          ).toFixed(2),
+          )).toFixed(2),
         },
       };
-      const response = await addTrip(data);
-      if (response) {
-        router.push("/trips");
+      //const response = await addTrip(data);
+      //if (response) {
+        //router.push("/trips");
+        //router.push(`/reservation/${currentListing.id}`,query: {
+          // Add your object as a query parameter
+          //data: JSON.stringify(currentListing),
+        //})
+
+        router.push(`/reservation/${currentListing.id}?data=${JSON.stringify(data)}`)
+        /*router.push({
+          path: `reservation/${currentListing.id}`,
+          query: {
+            // Add your object as a query parameter
+            data: JSON.stringify(data),
+          },
+        });*/
         setLoading(false);
-      }
+      //}
     }
   };
 
@@ -125,6 +145,7 @@ export default function TripScheduler() {
         <button
           className="bg-airbnb-gradient py-3 mt-5  px-5 flex flex-row justify-center items-center gap-3 text-white text-base font-medium rounded-md cursor-pointer w-full"
           onClick={handleReservation}
+          //onClick={() => router.push(`/reservation/${currentListing.id}`)}
           disabled={
             loading ||
             (guests > currentListing.placeSpace.guests ? true : false)
@@ -183,7 +204,7 @@ export default function TripScheduler() {
       <div className="flex border border-gray-400 rounded-lg p-4 gap-2 items-start px-8">
         <span>
           <strong>This is a rare find. </strong>
-          {currentListing?.listingCreatedBy?.firstName}'s place on Airbnb is
+          {currentListing?.listingCreatedBy?.firstName}'s place on Votre Salle is
           usually fully booked.
         </span>
         <Daimond />
