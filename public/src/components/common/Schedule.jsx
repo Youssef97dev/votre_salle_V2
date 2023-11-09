@@ -60,7 +60,7 @@ export default function Schedule() {
         className="flex flex-col hover:bg-gray-100 px-10 py-4 rounded-full cursor-pointer items-center justify-center"
       >
         <label htmlFor="" className="text-xs font-semibold flex flex-col    ">
-          Check in
+          Check inn
         </label>
         <span>{formatDate(state[0]?.startDate)}</span>
         {selectionType === "check-in" && (

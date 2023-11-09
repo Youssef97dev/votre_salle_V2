@@ -31,60 +31,63 @@ export default function TripScheduler() {
       setLoading(true);
       const data = {
         listingId: currentListing.id,
-        listing:currentListing,
+        listing: currentListing,
         userId: userInfo?.id,
         tripData: {
           days: calculateDaysDifference(),
           startDate: state.startDate,
           endDate: state.endDate,
           guests,
-          listingPrice: parseFloat((
-            (userInfo?.typeUser === "B2B"
+          extraService: 0,
+          listingPrice: parseFloat(
+            userInfo?.typeUser === "B2B"
               ? currentListing.priceB2b
-              : currentListing.price)
-          )).toFixed(2),
-          tax: parseFloat((
-            (userInfo?.typeUser === "B2B"
-              ? currentListing.priceB2b
-              : currentListing.price) *
-            calculateDaysDifference() *
-            (currentListing.tax / 100)
-          )).toFixed(2),
-          priceHT: parseFloat((
-            (userInfo?.typeUser === "B2B"
-              ? currentListing.priceB2b
-              : currentListing.price) * calculateDaysDifference()
-          )).toFixed(2),
-          price: parseFloat((
-            (userInfo?.typeUser === "B2B"
-              ? currentListing.priceB2b
-              : currentListing.price) *
-              calculateDaysDifference() +
+              : currentListing.price
+          ).toFixed(2),
+          tax: parseFloat(
             (userInfo?.typeUser === "B2B"
               ? currentListing.priceB2b
               : currentListing.price) *
               calculateDaysDifference() *
               (currentListing.tax / 100)
-          )).toFixed(2),
+          ).toFixed(2),
+          priceHT: parseFloat(
+            (userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b
+              : currentListing.price) * calculateDaysDifference()
+          ).toFixed(2),
+          price: parseFloat(
+            (userInfo?.typeUser === "B2B"
+              ? currentListing.priceB2b
+              : currentListing.price) *
+              calculateDaysDifference() +
+              (userInfo?.typeUser === "B2B"
+                ? currentListing.priceB2b
+                : currentListing.price) *
+                calculateDaysDifference() *
+                (currentListing.tax / 100)
+          ).toFixed(2),
         },
       };
       //const response = await addTrip(data);
       //if (response) {
-        //router.push("/trips");
-        //router.push(`/reservation/${currentListing.id}`,query: {
-          // Add your object as a query parameter
-          //data: JSON.stringify(currentListing),
-        //})
+      //router.push("/trips");
+      //router.push(`/reservation/${currentListing.id}`,query: {
+      // Add your object as a query parameter
+      //data: JSON.stringify(currentListing),
+      //})
 
-        router.push(`/reservation/${currentListing.id}?data=${JSON.stringify(data)}`)
-        /*router.push({
+      router.push(
+        `/reservation/${currentListing.id}?data=${JSON.stringify(data)}`
+      );
+      /*router.push({
           path: `reservation/${currentListing.id}`,
           query: {
             // Add your object as a query parameter
             data: JSON.stringify(data),
           },
         });*/
-        setLoading(false);
+      setLoading(false);
       //}
     }
   };
@@ -204,8 +207,8 @@ export default function TripScheduler() {
       <div className="flex border border-gray-400 rounded-lg p-4 gap-2 items-start px-8">
         <span>
           <strong>This is a rare find. </strong>
-          {currentListing?.listingCreatedBy?.firstName}'s place on Votre Salle is
-          usually fully booked.
+          {currentListing?.listingCreatedBy?.firstName}'s place on Votre Salle
+          is usually fully booked.
         </span>
         <Daimond />
       </div>

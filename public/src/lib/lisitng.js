@@ -22,9 +22,11 @@ export const createLisitngAPI = async (listingData) => {
 
 export const updateLisitngAPI = async (listingId, prestation) => {
   const result = (
-    await axios.patch(createUrl(`/api/listings/${listingId}`), {
-      prestation,
-    }).catch((error) => console.log(error))
+    await axios
+      .patch(createUrl(`/api/listings/${listingId}`), {
+        prestation,
+      })
+      .catch((error) => console.log(error))
   )?.data;
 
   console.log({ result });
@@ -248,4 +250,3 @@ export const deleteTripAPI = async (id) => {
   }
   return result;
 };
-
