@@ -52,6 +52,7 @@ export const ListingShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={LISTING_TITLE_FIELD} />
             </ReferenceField>
+            <TextField label="status" source="status" />
             <TextField label="tripinfo" source="tripinfo" />
             <DateField source="updatedAt" label="Updated At" />
             <ReferenceField label="user" source="user.id" reference="User">

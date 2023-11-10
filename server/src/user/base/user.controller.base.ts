@@ -365,6 +365,7 @@ export class UserControllerBase {
           },
         },
 
+        status: true,
         tripinfo: true,
         updatedAt: true,
 
