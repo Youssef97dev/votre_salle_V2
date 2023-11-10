@@ -69,6 +69,7 @@ export class TripControllerBase {
           },
         },
 
+        status: true,
         tripinfo: true,
         updatedAt: true,
 
@@ -109,6 +110,7 @@ export class TripControllerBase {
           },
         },
 
+        status: true,
         tripinfo: true,
         updatedAt: true,
 
@@ -151,6 +153,7 @@ export class TripControllerBase {
           },
         },
 
+        status: true,
         tripinfo: true,
         updatedAt: true,
 
@@ -209,6 +212,7 @@ export class TripControllerBase {
             },
           },
 
+          status: true,
           tripinfo: true,
           updatedAt: true,
 
@@ -256,6 +260,7 @@ export class TripControllerBase {
             },
           },
 
+          status: true,
           tripinfo: true,
           updatedAt: true,
 

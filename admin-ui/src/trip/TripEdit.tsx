@@ -5,6 +5,7 @@ import {
   EditProps,
   ReferenceInput,
   SelectInput,
+  TextInput,
 } from "react-admin";
 import { ListingTitle } from "../listing/ListingTitle";
 import { UserTitle } from "../user/UserTitle";
@@ -16,6 +17,7 @@ export const TripEdit = (props: EditProps): React.ReactElement => {
         <ReferenceInput source="listing.id" reference="Listing" label="listing">
           <SelectInput optionText={ListingTitle} />
         </ReferenceInput>
+        <TextInput label="status" source="status" />
         <div />
         <ReferenceInput source="user.id" reference="User" label="user">
           <SelectInput optionText={UserTitle} />

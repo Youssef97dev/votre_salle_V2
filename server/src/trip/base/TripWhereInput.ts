@@ -15,6 +15,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { ListingWhereUniqueInput } from "../../listing/base/ListingWhereUniqueInput";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
@@ -42,6 +43,17 @@ class TripWhereInput {
     nullable: true,
   })
   listing?: ListingWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  status?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

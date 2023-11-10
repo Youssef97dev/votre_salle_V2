@@ -339,6 +339,7 @@ export class ListingControllerBase {
           },
         },
 
+        status: true,
         tripinfo: true,
         updatedAt: true,
 
