@@ -203,6 +203,7 @@ export const addTrip = async (data) => {
     },
     user: { id: data.userId },
     tripinfo: data.tripData,
+    status: "Active",
   };
   const result = await axios.post(createUrl("/api/trips"), { ...query });
   if (!result) {
@@ -226,6 +227,24 @@ export const getUserTrips = async (userId) => {
   )?.data;
 
   console.log({ result });
+  return result;
+};
+
+export const getActiveTrips = async () => {
+  const query = qs.stringify({
+    where: {
+      status: "Active",
+    },
+    select: {
+      tripinfo: {
+        startDate: true,
+        endDate: true,
+      },
+    },
+  });
+  const result = (
+    await axios.get(createUrl(`/api/trips?${query}`)).catch(() => null)
+  )?.data;
   return result;
 };
 

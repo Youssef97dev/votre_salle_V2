@@ -72,21 +72,10 @@ export default function TripScheduler() {
       //const response = await addTrip(data);
       //if (response) {
       //router.push("/trips");
-      //router.push(`/reservation/${currentListing.id}`,query: {
-      // Add your object as a query parameter
-      //data: JSON.stringify(currentListing),
-      //})
 
       router.push(
         `/reservation/${currentListing.id}?data=${JSON.stringify(data)}`
       );
-      /*router.push({
-          path: `reservation/${currentListing.id}`,
-          query: {
-            // Add your object as a query parameter
-            data: JSON.stringify(data),
-          },
-        });*/
       setLoading(false);
       //}
     }

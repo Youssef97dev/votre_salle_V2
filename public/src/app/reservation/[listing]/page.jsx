@@ -5,57 +5,93 @@ import { userAppStore } from "airbnb/store/store";
 import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
-import { getListing } from "airbnb/lib/lisitng";
+import { getActiveTrips, addTrip } from "airbnb/lib/lisitng";
 import { useRouter, useSearchParams } from "next/navigation";
 import Daimond from "airbnb/svg/daimond";
 import Image from "next/image";
 import AnimateHeight from "react-animate-height";
+import { addDays } from "date-fns";
+import { DotLoader } from "react-spinners";
+import Spinner from "airbnb/components/common/Spinner";
 
 import AirBnbLogoShort from "airbnb/svg/airbnb-logo-short";
 import { AiOutlineLeftCircle } from "react-icons/ai";
-
-import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import Calender from "airbnb/components/common/Calender";
 
 const page = ({ params: { listing } }) => {
+  // Routing & Queries
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // current user
+  const { userInfo } = userAppStore();
+
+  // current reservation state
   const [reservationData, setReservationData] = useState(
     JSON.parse(searchParams.get("data"))
   );
-  const [active, setActive] = useState("1");
-  const [selectedPoses, setSelectedPoses] = useState([]);
-  const [prestation, setPrestation] = useState({
-    poseCafe: [],
-    poseDejeunner: [],
-    poseDinner: [],
-  });
+
+  // loading
+  const [loading, setLoading] = useState(true);
+
+  // Popups and Accordion state
   const [guestsPopup, setGuestsPopup] = useState(false);
   const [datePopup, setDatePopup] = useState(false);
-  const [guestsNumber, setGuestsNumber] = useState(
-    reservationData.tripData.guests
-  );
-  const [dateArray, setDateArray] = useState([]);
+  const [active, setActive] = useState("1");
 
+  // All Reservations
+  const [activeTripData, setActiveTripData] = useState([]);
   const [dateState, setDateState] = useState([
     {
-      startDate: new Date(reservationData.tripData.startDate),
-      endDate: new Date(reservationData.tripData.endDate),
+      startDate: addDays(new Date(reservationData.tripData.startDate), 1),
+      endDate: addDays(new Date(reservationData.tripData.endDate), 1),
       key: "selection",
     },
   ]);
 
-  const getDates = () => {
-    if (
-      reservationData.tripData.startDate &&
-      reservationData.tripData.endDate
-    ) {
-      const start = new Date(
-        reservationData.tripData.startDate.replace(/-/g, "/")
+  // current guest numbers and dates reservation
+  const [guestsNumber, setGuestsNumber] = useState(
+    reservationData.tripData.guests
+  );
+
+  // current extraServices
+  const [selectedPoses, setSelectedPoses] = useState([]);
+
+  // already reserved dates
+  const [dateArray, setDateArray] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getActiveTrips();
+      setActiveTripData(...activeTripData, data);
+      console.log("data: ", reservationData);
+      console.log(
+        "start date:",
+        new Date(reservationData.tripData.startDate.replace(/-/g, "/"))
+          .toISOString()
+          .split("T")[0]
       );
-      const end = new Date(reservationData.tripData.endDate.replace(/-/g, "/"));
+    };
+    if (userInfo) {
+      getData();
+    }
+  }, []);
+
+  const calculateDaysDifference = () => {
+    const startDate = new Date(dateState[0].startDate);
+    const endDate = new Date(dateState[0].endDate);
+    const timeDifference = endDate.getTime() - startDate.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    console.log("Calc: ", daysDifference);
+    return daysDifference;
+  };
+
+  const getDates = (startDate, endDate) => {
+    if (startDate && endDate) {
+      const start = new Date(startDate.replace(/-/g, "/"));
+      const end = new Date(endDate.replace(/-/g, "/"));
       const days = Math.floor((end - start) / (1000 * 60 * 60 * 24));
       const dates = [];
       for (let i = 0; i <= days; i++) {
@@ -154,12 +190,69 @@ const page = ({ params: { listing } }) => {
     setGuestsPopup(false);
   };
 
-  useEffect(() => {
-    console.log(reservationData);
-    console.log("new date :", new Date("2023-11-18".replace(/-/g, "/")));
-    console.log("start date :", reservationData.tripData.startDate);
-    getDates();
-  }, []);
+  const handleUpdateTripDate = async () => {
+    const days = await calculateDaysDifference();
+    const startDate = new Date(dateState[0].startDate)
+      .toISOString()
+      .split("T")[0];
+    const endDate = new Date(dateState[0].endDate).toISOString().split("T")[0];
+    const priceHT = parseFloat(
+      reservationData.tripData.listingPrice * days
+    ).toFixed(2);
+    const tax = parseFloat(
+      priceHT * (reservationData.listing.tax / 100)
+    ).toFixed(2);
+    const price = parseFloat(parseFloat(priceHT) + parseFloat(tax)).toFixed(2);
+    console.log(price);
+
+    setReservationData({
+      ...reservationData,
+      tripData: {
+        ...reservationData.tripData,
+        startDate,
+        endDate,
+        days,
+        priceHT,
+        tax,
+        price,
+      },
+    });
+    console.log(reservationData.tripData);
+    setDatePopup(false);
+  };
+
+  const showDatePopup = () => {
+    activeTripData.forEach((trip) => {
+      getDates(trip.tripinfo.startDate, trip.tripinfo.endDate);
+    });
+    setDatePopup(true);
+  };
+
+  const handleReservationSubmit = async () => {
+    const data = {
+      listingId: reservationData.listingId,
+      userId: userInfo?.id,
+      tripData: {
+        days: reservationData.tripData.days,
+        startDate: reservationData.tripData.startDate,
+        endDate: reservationData.tripData.endDate,
+        guests: reservationData.tripData.guests,
+        extraServices: "",
+        extraServicesPrice: reservationData.tripData.extraService,
+        listingPrice: reservationData.tripData.listingPrice,
+        tax: reservationData.listing.tax,
+        taxPrice: reservationData.tripData.tax,
+        priceHT: reservationData.tripData.priceHT,
+        price: reservationData.tripData.price,
+      },
+    };
+
+    const response = await addTrip(data);
+    if (response) {
+      router.push("/trips");
+    }
+  };
+
   return (
     <div className="grid grid-rows-new-reservation h-[150vh]">
       {/* Header */}
@@ -191,10 +284,26 @@ const page = ({ params: { listing } }) => {
             <div className="flex justify-between items-center">
               <div className="flex flex-col">
                 <span className="font-medium">Dates</span>
-                <span className="text-sm text-gray-500">15-20 nov</span>
+                <span className="text-sm text-gray-500">
+                  {addDays(
+                    new Date(reservationData.tripData.startDate),
+                    1
+                  ).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "2-digit",
+                  })}
+                  {" - "}
+                  {addDays(
+                    new Date(reservationData.tripData.endDate),
+                    1
+                  ).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "2-digit",
+                  })}
+                </span>
               </div>
               <span
-                onClick={() => setDatePopup(true)}
+                onClick={() => showDatePopup()}
                 className="underline cursor-pointer"
               >
                 Update
@@ -392,7 +501,7 @@ const page = ({ params: { listing } }) => {
         </div>
 
         {/* Right Side */}
-        <div className="flex flex-col gap-2 w-full h-full">
+        <div className="flex flex-col gap-5 w-full h-full">
           <div className="flex flex-col gap-2 border border-[#d3d3d3] rounded-lg p-5">
             <div className="flex gap-3 border-b border-[#d3d3d3] pb-4 ">
               <div className="relative w-24 h-24">
@@ -441,6 +550,12 @@ const page = ({ params: { listing } }) => {
               <span>{reservationData.tripData.price} MAD</span>
             </div>
           </div>
+          <button
+            onClick={() => handleReservationSubmit()}
+            className="flex flex-row gap-2 w-full text-center items-center justify-center py-3 bg-slate-600 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer"
+          >
+            reserver
+          </button>
         </div>
       </div>
 
@@ -495,7 +610,7 @@ const page = ({ params: { listing } }) => {
                 />
               </div>
             </div>
-            <div className="absolute flex flex-row font-medium text-white shadow-2xl px-1 py-2 bg-white gap-2 justify-between bottom-0 left-0 border border-[#d3d3d3] w-full h-16">
+            <div className="absolute flex flex-row font-medium text-white shadow-2xl px-1 py-2 bg-white gap-2 justify-between bottom-0 right-0 w-[50%] h-16">
               <button
                 onClick={() => setDatePopup(false)}
                 className="w-full rounded-xl bg-orange-600"
@@ -503,7 +618,7 @@ const page = ({ params: { listing } }) => {
                 Cancel
               </button>
               <button
-                //onClick={() => handleUpdateGuestsNumber()}
+                onClick={() => handleUpdateTripDate()}
                 className="w-full rounded-xl bg-sky-900"
               >
                 Update
