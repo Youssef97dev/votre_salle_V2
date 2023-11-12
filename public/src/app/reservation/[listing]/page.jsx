@@ -106,58 +106,70 @@ const page = ({ params: { listing } }) => {
   };
 
   const handlePose = (pose) => {
-    const newExtraServices = parseFloat(
-      parseFloat(pose.price) * reservationData.tripData.guests
-    ).toFixed(2);
+    const selectedPosesByType = {}; // Object to store selected poses by type
 
-    if (selectedPoses.includes(pose)) {
-      const newListingPrice = parseFloat(
-        parseFloat(reservationData.tripData.listingPrice) -
-          parseFloat(newExtraServices)
-      ).toFixed(2);
+    // Initialize selectedPosesByType with an empty array for each type
+    selectedPoses.forEach((selectedPose) => {
+      const type = selectedPose.type;
+      if (!selectedPosesByType[type]) {
+        selectedPosesByType[type] = [];
+      }
+      selectedPosesByType[type].push(selectedPose);
+    });
 
-      const { newPriceHT, newTaxPrice, newTotal } =
-        calculationPrice(newListingPrice);
+    const isPoseSelected = selectedPoses.includes(pose);
+    const extraServices =
+      parseFloat(pose.price) * reservationData.tripData.guests;
 
-      // Deselect the pose by removing it from the selectedPoses array
-      setSelectedPoses(
-        selectedPoses.filter((selectedPose) => selectedPose !== pose)
-      );
-      setReservationData({
-        ...reservationData,
-        tripData: {
-          ...reservationData.tripData,
-          listingPrice: newListingPrice,
-          priceHT: newPriceHT,
-          tax: newTaxPrice,
-          extraService:
-            reservationData.tripData.extraService - newExtraServices,
-          price: newTotal,
-        },
-      });
+    let newListingPrice = parseFloat(reservationData.tripData.listingPrice);
+
+    // Adjust newListingPrice based on the selected poses of the same type
+    if (isPoseSelected) {
+      newListingPrice -= extraServices;
     } else {
-      const newListingPrice = parseFloat(
-        parseFloat(newExtraServices) +
-          parseFloat(reservationData.tripData.listingPrice)
-      ).toFixed(2);
-
-      const { newPriceHT, newTaxPrice, newTotal } =
-        calculationPrice(newListingPrice);
-
-      // Select the pose by adding it to the selectedPoses array
-      setSelectedPoses([...selectedPoses, pose]);
-      setReservationData({
-        ...reservationData,
-        tripData: {
-          ...reservationData.tripData,
-          listingPrice: newListingPrice,
-          priceHT: newPriceHT,
-          tax: newTaxPrice,
-          extraService: newExtraServices,
-          price: newTotal,
-        },
-      });
+      const prevPosesOfType = selectedPosesByType[pose.type] || [];
+      const prevPosesPrice = prevPosesOfType.reduce(
+        (total, prevPose) => total + parseFloat(prevPose.price),
+        0
+      );
+      newListingPrice =
+        newListingPrice -
+        prevPosesPrice * reservationData.tripData.guests +
+        extraServices;
     }
+
+    const { newPriceHT, newTaxPrice, newTotal } =
+      calculationPrice(newListingPrice);
+
+    const updatedReservationData = {
+      ...reservationData,
+      tripData: {
+        ...reservationData.tripData,
+        listingPrice: newListingPrice.toFixed(2),
+        priceHT: newPriceHT,
+        tax: newTaxPrice,
+        extraService: isPoseSelected
+          ? reservationData.tripData.extraService - extraServices
+          : extraServices,
+        price: newTotal,
+      },
+    };
+
+    // Update selectedPosesByType for the current pose type
+    const updatedSelectedPosesByType = {
+      ...selectedPosesByType,
+      [pose.type]: isPoseSelected
+        ? selectedPosesByType[pose.type].filter((p) => p !== pose)
+        : [pose],
+    };
+
+    // Flatten the updatedSelectedPosesByType to get the final selectedPoses array
+    const updatedSelectedPoses = Object.values(
+      updatedSelectedPosesByType
+    ).flat();
+
+    setSelectedPoses(updatedSelectedPoses);
+    setReservationData(updatedReservationData);
   };
 
   const calculationPrice = (priceListing) => {

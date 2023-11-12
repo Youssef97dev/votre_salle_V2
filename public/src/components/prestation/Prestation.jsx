@@ -36,6 +36,7 @@ const Prestation = ({ data, setShowPrestation }) => {
           updatedPoseCafe[index] = {
             ...updatedPoseCafe[index],
             [key]: key === "price" ? parseFloat(value) : value,
+            type: "cafe",
           };
         }
         return updatedPoseCafe;
@@ -48,6 +49,7 @@ const Prestation = ({ data, setShowPrestation }) => {
           updatedPoseDej[index] = {
             ...updatedPoseDej[index],
             [key]: key === "price" ? parseFloat(value) : value,
+            type: "dejeunner",
           };
         }
         return updatedPoseDej;
@@ -60,6 +62,7 @@ const Prestation = ({ data, setShowPrestation }) => {
           updatedPoseDinner[index] = {
             ...updatedPoseDinner[index],
             [key]: key === "price" ? parseFloat(value) : value,
+            type: "dinner",
           };
         }
         return updatedPoseDinner;
