@@ -66,13 +66,6 @@ const page = ({ params: { listing } }) => {
     const getData = async () => {
       const data = await getActiveTrips();
       setActiveTripData(...activeTripData, data);
-      console.log("data: ", reservationData);
-      console.log(
-        "start date:",
-        new Date(reservationData.tripData.startDate.replace(/-/g, "/"))
-          .toISOString()
-          .split("T")[0]
-      );
     };
     if (userInfo) {
       getData();
@@ -84,7 +77,6 @@ const page = ({ params: { listing } }) => {
     const endDate = new Date(dateState[0].endDate);
     const timeDifference = endDate.getTime() - startDate.getTime();
     const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-    console.log("Calc: ", daysDifference);
     return daysDifference;
   };
 
@@ -93,13 +85,17 @@ const page = ({ params: { listing } }) => {
       const start = new Date(startDate.replace(/-/g, "/"));
       const end = new Date(endDate.replace(/-/g, "/"));
       const days = Math.floor((end - start) / (1000 * 60 * 60 * 24));
-      const dates = [];
-      for (let i = 0; i <= days; i++) {
-        const currentDate = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
-        dates.push(currentDate);
-      }
-      console.log("dates :", dates);
-      setDateArray(dates);
+      setDateArray((prevDateArray) => {
+        const newDates = [...prevDateArray];
+
+        for (let i = 0; i <= days; i++) {
+          const currentDate = new Date(
+            start.getTime() + i * 24 * 60 * 60 * 1000
+          );
+          newDates.push(currentDate);
+        }
+        return newDates;
+      });
     }
   };
 
@@ -203,7 +199,6 @@ const page = ({ params: { listing } }) => {
       priceHT * (reservationData.listing.tax / 100)
     ).toFixed(2);
     const price = parseFloat(parseFloat(priceHT) + parseFloat(tax)).toFixed(2);
-    console.log(price);
 
     setReservationData({
       ...reservationData,
@@ -217,7 +212,6 @@ const page = ({ params: { listing } }) => {
         price,
       },
     });
-    console.log(reservationData.tripData);
     setDatePopup(false);
   };
 

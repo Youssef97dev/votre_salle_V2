@@ -7,6 +7,10 @@ import { addTrip } from "airbnb/lib/lisitng";
 import { useRouter } from "next/navigation";
 import { ClockLoader } from "react-spinners";
 
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import Calender from "airbnb/components/common/Calender";
+
 export default function TripScheduler() {
   const router = useRouter();
   const { currentListing, userInfo } = userAppStore();
