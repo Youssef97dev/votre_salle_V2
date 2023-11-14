@@ -55,18 +55,18 @@ const page = () => {
         {/* Content */}
         <div className="mb-5 p-3">
           <Tab.Group>
-            <div className="mx-10 mb-5 sm:mb-0 flex flex-row gap-4">
-              <Tab.List className="flex w-fit flex-col justify-start space-y-3">
+            <div className="mx-10 mb-5 sm:mb-0 flex flex-col gap-4">
+              <Tab.List className="flex w-full flex-row justify-end items-center gap-3">
                 {userListings.map((listing, index) => (
                   <Tab as={Fragment} key={index}>
                     {({ selected }) => (
-                      <div className="text-center !outline-none">
+                      <div className="text-center !outline-none border border-blue-950 rounded-lg">
                         <button
                           className={`${
                             selected
                               ? "!bg-blue-950 text-white !outline-none"
                               : ""
-                          } block rounded-md p-3.5 py-2 transition-all duration-300 hover:bg-blue-950 hover:text-white w-full text-left`}
+                          } block rounded-lg p-3.5 py-2 transition-all duration-300 hover:bg-blue-950 hover:text-white w-full text-left`}
                         >
                           {listing.title}
                         </button>
@@ -75,7 +75,7 @@ const page = () => {
                   </Tab>
                 ))}
               </Tab.List>
-              <Tab.Panels className="w-3/4">
+              <Tab.Panels className="w-full">
                 {userListings.map((listing, index) => (
                   <Tab.Panel key={index}>
                     <div className="active">

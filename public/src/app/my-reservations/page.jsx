@@ -7,6 +7,7 @@ import {
   getUserListings,
   getUserReservedTrips,
   deleteTripAPI,
+  EditStatusTrip,
 } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 import dynamic from "next/dynamic";
@@ -30,6 +31,7 @@ export default function Page() {
   const [reservationData, setReservationData] = useState([]);
   const [initialRecords, setInitialRecords] = useState([]);
   const [records, setRecords] = useState(initialRecords);
+  const [relaunchData, setRelaunchData] = useState(false);
   const [loading, setLoading] = useState(true);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [isClient, setIsClient] = useState(false);
@@ -51,7 +53,7 @@ export default function Page() {
     if (userInfo) {
       getData();
     }
-  }, []);
+  }, [relaunchData]);
 
   // Func Search bar
   useEffect(() => {
@@ -100,7 +102,7 @@ export default function Page() {
     }
   }
 
-  const deleteTrip = async (id) => {
+  const deleteTrip = async (id, status) => {
     const result = await Swal.fire({
       icon: "warning",
       title: "Confirmation du suppression",
@@ -114,25 +116,23 @@ export default function Page() {
 
     if (result.value) {
       try {
-        const data = await deleteTripAPI(id);
+        const data = await EditStatusTrip(
+          id,
+          status === "Active" ? "UnActive" : "Active"
+        );
+
         if (data.status === 200) {
-          setReservationData((prevItems) =>
-            prevItems?.filter((u) => u.id !== id)
-          );
-          setInitialRecords((prevInitialRecords) =>
-            prevInitialRecords?.filter((u) => u.id !== id)
-          );
-          setRecords((prevRecords) => prevRecords?.filter((u) => u.id !== id));
+          setRelaunchData((prev) => !prev);
           Swal.fire({
-            title: "Supprimé!",
-            text: "Votre réservation a été supprimé.",
+            title: "Annuler!",
+            text: "Votre réservation a été annulé.",
             icon: "success",
             customClass: "sweet-alerts",
           });
         } else {
           Swal.fire({
             title: "Error!",
-            text: "Votre réservation n'a été pas supprimé.",
+            text: "Votre réservation n'a été pas annulé.",
             icon: "warning",
             customClass: "sweet-alerts",
           });
@@ -140,7 +140,7 @@ export default function Page() {
       } catch (error) {
         Swal.fire({
           title: "Error!",
-          text: "Error sur la suppression.",
+          text: "Error sur l'annulation.",
           icon: "error",
           customClass: "sweet-alerts",
         });
@@ -253,12 +253,12 @@ export default function Page() {
                           title: "Actions",
                           sortable: false,
                           textAlignment: "center",
-                          render: ({ id }) => (
+                          render: ({ id, status }) => (
                             <div className="px-6 py-4">
                               <button
                                 type="button"
                                 className="flex hover:text-danger"
-                                onClick={() => deleteTrip(id)}
+                                onClick={() => deleteTrip(id, status)}
                               >
                                 <svg
                                   width="24"

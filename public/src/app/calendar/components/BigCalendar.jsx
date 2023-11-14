@@ -5,12 +5,8 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Swal from "sweetalert2";
-import {
-  getUserReservedTrips,
-  getCurrentListingTrips,
-} from "airbnb/lib/lisitng";
-import "../../../styles/fullcalendar.css";
 import { userAppStore } from "airbnb/store/store";
+import "../../../styles/fullcalendar.css";
 
 const BigCalendar = ({ listing }) => {
   const now = new Date();
@@ -51,7 +47,7 @@ const BigCalendar = ({ listing }) => {
       title: reservation.user.firstName + " " + reservation.user.lastName,
       start: reservation.tripinfo.startDate,
       end: reservation.tripinfo.endDate,
-      className: "primary",
+      className: "success",
       description: "testestes",
     }));
 

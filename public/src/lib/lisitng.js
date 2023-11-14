@@ -213,6 +213,20 @@ export const addTrip = async (data) => {
   }
 };
 
+export const EditStatusTrip = async (tripId, status) => {
+  const query = {
+    status,
+  };
+  const result = await axios.patch(createUrl(`/api/trips/${tripId}`), {
+    ...query,
+  });
+  if (!result) {
+    alert("failed");
+  } else {
+    return result;
+  }
+};
+
 export const getUserTrips = async (userId) => {
   const query = qs.stringify({
     where: {
@@ -240,18 +254,6 @@ export const getActiveTrips = async () => {
         startDate: true,
         endDate: true,
       },
-    },
-  });
-  const result = (
-    await axios.get(createUrl(`/api/trips?${query}`)).catch(() => null)
-  )?.data;
-  return result;
-};
-
-export const getCurrentListingTrips = async (listingId) => {
-  const query = qs.stringify({
-    where: {
-      listing: { id: listingId },
     },
   });
   const result = (
