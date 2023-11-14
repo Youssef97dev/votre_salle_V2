@@ -248,6 +248,18 @@ export const getActiveTrips = async () => {
   return result;
 };
 
+export const getCurrentListingTrips = async (listingId) => {
+  const query = qs.stringify({
+    where: {
+      listing: { id: listingId },
+    },
+  });
+  const result = (
+    await axios.get(createUrl(`/api/trips?${query}`)).catch(() => null)
+  )?.data;
+  return result;
+};
+
 export const getUserReservedTrips = async (userId) => {
   const query = qs.stringify({
     where: {

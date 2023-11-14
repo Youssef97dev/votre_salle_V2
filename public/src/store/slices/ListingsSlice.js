@@ -41,4 +41,6 @@ export const createLisitingsSlice = (set, get) => ({
   setRelaunchData: () => {
     set({ relaunchData: !get().relaunchData });
   },
+  reservations: [],
+  setReservations: (reservations) => set({ reservations }),
 });

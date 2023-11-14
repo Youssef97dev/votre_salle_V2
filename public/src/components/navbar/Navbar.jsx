@@ -104,8 +104,9 @@ function Navbar() {
       },
     },
     {
-      name: "Account",
+      name: "Calendar",
       callBack: () => {
+        router.push("/calendar");
         setIsContextMenuVisible(false);
       },
     },
@@ -131,7 +132,7 @@ function Navbar() {
   };
 
   useEffect(() => {
-    console.log("user :",userInfo);
+    console.log("user :", userInfo);
   }, []);
 
   return (
