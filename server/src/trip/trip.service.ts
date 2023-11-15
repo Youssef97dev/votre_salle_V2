@@ -20,16 +20,18 @@ export class TripService extends TripServiceBase {
 
     // Send email notifications to the owner and client here
     // You can use an email sending library like Nodemailer.
-    await this.sendEmailNotification(
-      reservation.user.username,
-      "Confirmation de votre réservation",
-      reservation
-    );
-    await this.sendEmailNotificationToOwner(
-      reservation.listing.listingCreatedBy.username,
-      "New Reservation",
-      reservation
-    );
+    if (reservation?.tripinfo?.type === "reservation") {
+      await this.sendEmailNotification(
+        reservation.user.username,
+        "Confirmation de votre réservation",
+        reservation
+      );
+      await this.sendEmailNotificationToOwner(
+        reservation.listing.listingCreatedBy.username,
+        "New Reservation",
+        reservation
+      );
+    }
 
     return reservation;
   }

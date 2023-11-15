@@ -83,7 +83,7 @@ const page = ({ params: { listing } }) => {
   const getDates = (startDate, endDate) => {
     if (startDate && endDate) {
       const start = new Date(startDate.replace(/-/g, "/"));
-      const end = new Date(endDate.replace(/-/g, "/"));
+      const end = new Date(endDate.replace(/-/g, "/")) - 1;
       const days = Math.floor((end - start) / (1000 * 60 * 60 * 24));
       setDateArray((prevDateArray) => {
         const newDates = [...prevDateArray];
@@ -250,6 +250,8 @@ const page = ({ params: { listing } }) => {
         taxPrice: reservationData.tripData.tax,
         priceHT: reservationData.tripData.priceHT,
         price: reservationData.tripData.price,
+        description: "",
+        type: "reservation",
       },
     };
 

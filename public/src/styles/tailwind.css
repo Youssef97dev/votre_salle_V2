@@ -1,0 +1,105 @@
+/* calendar css */
+@import "./fullcalendar.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  html {
+    @apply scroll-smooth;
+  }
+
+  /* Panel */
+  .panel {
+    @apply relative rounded-md bg-white p-5 shadow;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply relative flex items-center justify-center rounded-md border px-5 py-2 text-sm font-semibold shadow-[0_10px_20px_-10px] outline-none transition duration-300 hover:shadow-none;
+  }
+  .btn-lg {
+    @apply px-7 py-2.5 text-base;
+  }
+  .btn-sm {
+    @apply px-2.5 py-1.5 text-xs;
+  }
+  .btn[disabled] {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  .btn-primary {
+    @apply border-[#4361EE] bg-[#4361EE] text-white shadow-[#4361EE]/60;
+  }
+  .btn-outline-primary {
+    @apply border-[#4361EE] text-[#4361EE] shadow-none hover:bg-[#4361EE] hover:text-white;
+  }
+
+  .btn-secondary {
+    @apply border-[#805DCA] bg-[#805DCA] text-white shadow-[#805DCA]/60;
+  }
+  .btn-outline-secondary {
+    @apply border-[#805DCA] text-[#805DCA] shadow-none hover:bg-[#805DCA] hover:text-white;
+  }
+
+  .btn-success {
+    @apply border-[#00AB55] bg-[#00AB55] text-white shadow-[#00AB55]/60;
+  }
+  .btn-outline-success {
+    @apply border-[#00AB55] text-[#00AB55] shadow-none hover:bg-[#00AB55] hover:text-white;
+  }
+
+  .btn-danger {
+    @apply border-[#E7515A] bg-[#E7515A] text-white shadow-[#E7515A]/60;
+  }
+  .btn-outline-danger {
+    @apply border-[#E7515A] text-[#E7515A] shadow-none hover:bg-[#E7515A] hover:text-white;
+  }
+
+  .btn-warning {
+    @apply border-[#E2A03F] bg-[#E2A03F] text-white shadow-[#E2A03F]/60;
+  }
+  .btn-outline-warning {
+    @apply border-[#E2A03F] text-[#E2A03F] shadow-none hover:bg-[#E2A03F] hover:text-white;
+  }
+
+  .btn-info {
+    @apply border-[#2196F3] bg-[#2196F3] text-white shadow-[#2196F3]/60;
+  }
+  .btn-outline-info {
+    @apply border-[#2196F3] text-[#2196F3] shadow-none hover:bg-[#2196F3] hover:text-white;
+  }
+
+  .btn-dark {
+    @apply border-[#3B3F5C] bg-[#3B3F5C] text-white shadow-[#3B3F5C]/60;
+  }
+
+  .btn-outline-dark {
+    @apply border-[#3B3F5C] text-[#3B3F5C] shadow-none hover:bg-[#3B3F5C] hover:text-white;
+  }
+
+  /* Form */
+  .form-input,
+  .form-textarea,
+  .form-select,
+  .form-multiselect {
+    @apply w-full rounded-md border border-gray-400 bg-white px-4 py-2 text-sm font-semibold text-black !outline-none focus:border-[#4361EE] focus:ring-transparent;
+  }
+
+  .form-input-lg,
+  .form-textarea-lg,
+  .form-select-lg,
+  .form-multiselect-lg {
+    @apply py-2.5 text-base;
+  }
+  .form-input-sm,
+  .form-textarea-sm,
+  .form-select-sm,
+  .form-multiselect-sm {
+    @apply py-1.5 text-xs;
+  }
+  label {
+    @apply mb-1.5 block font-semibold;
+  }
+}

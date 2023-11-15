@@ -6,12 +6,14 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Swal from "sweetalert2";
 import { userAppStore } from "airbnb/store/store";
+import { addTrip } from "airbnb/lib/lisitng";
 import "../../../styles/fullcalendar.css";
+import "../../../styles/tailwind.css";
 
 const BigCalendar = ({ listing }) => {
   const now = new Date();
 
-  const { isAuthModalOpen, userInfo, reservations, setReservations } =
+  const { isAuthModalOpen, userInfo, reservations, setRelaunchData } =
     userAppStore();
 
   const [reservationData, setReservationData] = useState([]);
@@ -25,8 +27,9 @@ const BigCalendar = ({ listing }) => {
     start: "",
     end: "",
     description: "",
-    type: "primary",
+    type: "danger",
   };
+  const [params, setParams] = useState(defaultParams);
 
   useEffect(() => {
     console.log(
@@ -44,11 +47,19 @@ const BigCalendar = ({ listing }) => {
   useEffect(() => {
     const newEvents = reservationData.map((reservation) => ({
       id: reservation.id,
-      title: reservation.user.firstName + " " + reservation.user.lastName,
+      title:
+        reservation.tripinfo?.type === "Stop Reservation"
+          ? reservation.tripinfo.type
+          : reservation.user.firstName + " " + reservation.user.lastName,
       start: reservation.tripinfo.startDate,
       end: reservation.tripinfo.endDate,
-      className: "success",
-      description: "testestes",
+      className:
+        reservation.status === "Active"
+          ? reservation.tripinfo?.type === "Stop Reservation"
+            ? "danger"
+            : "primary"
+          : "bg-orange-500 border border-orange-700",
+      description: reservation.tripinfo?.description || "",
     }));
 
     setEvents(newEvents);
@@ -61,11 +72,148 @@ const BigCalendar = ({ listing }) => {
     // return dt.getMonth() < 10 ? '0' + month : month;
   };
 
+  const dateFormat = (dt) => {
+    dt = new Date(dt);
+    const month =
+      dt.getMonth() + 1 < 10 ? "0" + (dt.getMonth() + 1) : dt.getMonth() + 1;
+    const date = dt.getDate() < 10 ? "0" + dt.getDate() : dt.getDate();
+    dt = dt.getFullYear() + "-" + month + "-" + date;
+    console.log(dt);
+    return dt;
+  };
+
+  const editEvent = (data = null) => {
+    let params = JSON.parse(JSON.stringify(defaultParams));
+    setParams(params);
+    if (data) {
+      let obj = JSON.parse(JSON.stringify(data.event));
+      console.log("obj", obj);
+      setParams({
+        id: obj.id ? obj.id : null,
+        title: obj.title ? obj.title : "Stop Reservation",
+        start: dateFormat(obj.start),
+        end: dateFormat(obj.end),
+        type: "danger",
+        description: obj.extendedProps ? obj.extendedProps.description : "",
+      });
+      setMinStartDate(new Date());
+      setMinEndDate(dateFormat(obj.start));
+      (obj?.title === "Stop Reservation" || obj?.title === undefined) &&
+        setIsAddEventModal(true);
+    } else {
+      setMinStartDate(new Date());
+      setMinEndDate(new Date());
+      setIsAddEventModal(true);
+    }
+  };
+
+  const editDate = (data) => {
+    let obj = {
+      event: {
+        start: data.start,
+        end: data.end,
+      },
+    };
+    editEvent(obj);
+  };
+
+  const handleStopReservation = async (event) => {
+    const data = {
+      listingId: listing.id,
+      userId: userInfo?.id,
+      tripData: {
+        startDate: event.start,
+        endDate: event.end,
+        description: event.description,
+        type: event.title,
+      },
+      status: "Active",
+    };
+
+    try {
+      const response = await addTrip(data);
+      if (response) {
+        return response;
+      }
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const saveEvent = () => {
+    if (!params.title) {
+      return true;
+    }
+    if (!params.start) {
+      return true;
+    }
+    if (!params.end) {
+      return true;
+    }
+    //add event
+    let maxEventId = 0;
+    if (events) {
+      maxEventId = events.reduce(
+        (max, character) => (character.id > max ? character.id : max),
+        events[0].id
+      );
+    }
+    maxEventId = maxEventId + 1;
+    let event = {
+      id: maxEventId,
+      title: params.title,
+      start: params.start,
+      end: params.end,
+      description: params.description,
+      className: params.type,
+    };
+    let dataevent = events || [];
+    dataevent = dataevent.concat([event]);
+    setTimeout(() => {
+      setEvents(dataevent);
+    });
+    console.log(dataevent);
+    const response = handleStopReservation(event);
+    if (response) {
+      showMessage("Reservation has been stoped.");
+      setRelaunchData();
+    }
+    setIsAddEventModal(false);
+  };
+
+  const startDateChange = (event) => {
+    const dateStr = event.target.value;
+    if (dateStr) {
+      setMinEndDate(dateFormat(dateStr));
+      setParams({ ...params, start: dateStr, end: "" });
+    }
+  };
+
+  const changeValue = (e) => {
+    const { value, id } = e.target;
+    setParams({ ...params, [id]: value });
+  };
+
+  const showMessage = (msg = "", type = "success") => {
+    const toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      customClass: { container: "toast" },
+    });
+    toast.fire({
+      icon: type,
+      title: msg,
+      padding: "10px 20px",
+    });
+  };
+
   return (
     <>
       <div className="panel mb-5">
         <div className="mb-4 flex flex-col items-center justify-center sm:flex-row sm:justify-between">
-          <button
+          {/*<button
             type="button"
             className="flex items-center bg-blue-950 shadow-md shadow-blue-200 text-white px-4 py-2 rounded-lg"
             //onClick={() => editEvent()}
@@ -83,7 +231,7 @@ const BigCalendar = ({ listing }) => {
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
             Create Event
-          </button>
+  </button>*/}
         </div>
         <div className="calendar-wrapper">
           <FullCalendar
@@ -98,15 +246,15 @@ const BigCalendar = ({ listing }) => {
             dayMaxEvents={true}
             selectable={true}
             droppable={true}
-            //eventClick={(event) => editEvent(event)}
-            //select={(Event) => editDate(event)}
+            eventClick={(event) => editEvent(event)}
+            select={(event) => editDate(event)}
             events={events}
           />
         </div>
       </div>
 
       {/* add event modal */}
-      {/*<Transition appear show={isAddEventModal} as={Fragment}>
+      <Transition appear show={isAddEventModal} as={Fragment}>
         <Dialog
           as="div"
           onClose={() => setIsAddEventModal(false)}
@@ -136,10 +284,10 @@ const BigCalendar = ({ listing }) => {
                 leave-from="opacity-100 scale-100"
                 leave-to="opacity-0 scale-95"
               >
-                <Dialog.Panel className="panel w-full max-w-lg overflow-hidden rounded-lg border-0 p-0 text-black dark:text-white-dark">
+                <Dialog.Panel className="panel w-full max-w-lg overflow-hidden rounded-lg border-0 p-0 text-black">
                   <button
                     type="button"
-                    className="absolute top-4 text-gray-400 outline-none hover:text-gray-800 ltr:right-4 rtl:left-4 dark:hover:text-gray-600"
+                    className="absolute top-4 text-gray-400 outline-none hover:text-gray-800 right-4"
                     onClick={() => setIsAddEventModal(false)}
                   >
                     <svg
@@ -157,7 +305,7 @@ const BigCalendar = ({ listing }) => {
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                   </button>
-                  <div className="bg-[#fbfbfb] py-3 text-lg font-medium ltr:pl-5 ltr:pr-[50px] rtl:pr-5 rtl:pl-[50px] dark:bg-[#121c2c]">
+                  <div className="bg-[#fbfbfb] py-3 text-lg font-medium pl-5 pr-[50px]">
                     {params.id ? "Edit Event" : "Add Event"}
                   </div>
                   <div className="p-5">
@@ -181,7 +329,7 @@ const BigCalendar = ({ listing }) => {
                         <label htmlFor="dateStart">From :</label>
                         <input
                           id="start"
-                          type="datetime-local"
+                          type="date"
                           name="start"
                           className="form-input"
                           placeholder="Event Start Date"
@@ -199,7 +347,7 @@ const BigCalendar = ({ listing }) => {
                         <label htmlFor="dateEnd">To :</label>
                         <input
                           id="end"
-                          type="datetime-local"
+                          type="date"
                           name="end"
                           className="form-input"
                           placeholder="Event End Date"
@@ -221,63 +369,6 @@ const BigCalendar = ({ listing }) => {
                           onChange={(e) => changeValue(e)}
                         ></textarea>
                       </div>
-                      <div>
-                        <label>Badge:</label>
-                        <div className="mt-3">
-                          <label className="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
-                            <input
-                              type="radio"
-                              className="form-radio"
-                              name="type"
-                              value="primary"
-                              checked={params.type === "primary"}
-                              onChange={(e) =>
-                                setParams({ ...params, type: e.target.value })
-                              }
-                            />
-                            <span className="ltr:pl-2 rtl:pr-2">Work</span>
-                          </label>
-                          <label className="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
-                            <input
-                              type="radio"
-                              className="form-radio text-info"
-                              name="type"
-                              value="info"
-                              checked={params.type === "info"}
-                              onChange={(e) =>
-                                setParams({ ...params, type: e.target.value })
-                              }
-                            />
-                            <span className="ltr:pl-2 rtl:pr-2">Travel</span>
-                          </label>
-                          <label className="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
-                            <input
-                              type="radio"
-                              className="form-radio text-success"
-                              name="type"
-                              value="success"
-                              checked={params.type === "success"}
-                              onChange={(e) =>
-                                setParams({ ...params, type: e.target.value })
-                              }
-                            />
-                            <span className="ltr:pl-2 rtl:pr-2">Personal</span>
-                          </label>
-                          <label className="inline-flex cursor-pointer">
-                            <input
-                              type="radio"
-                              className="form-radio text-danger"
-                              name="type"
-                              value="danger"
-                              checked={params.type === "danger"}
-                              onChange={(e) =>
-                                setParams({ ...params, type: e.target.value })
-                              }
-                            />
-                            <span className="ltr:pl-2 rtl:pr-2">Important</span>
-                          </label>
-                        </div>
-                      </div>
                       <div className="!mt-8 flex items-center justify-end">
                         <button
                           type="button"
@@ -289,9 +380,9 @@ const BigCalendar = ({ listing }) => {
                         <button
                           type="button"
                           onClick={() => saveEvent()}
-                          className="btn btn-primary ltr:ml-4 rtl:mr-4"
+                          className="btn btn-primary ml-4"
                         >
-                          {params.id ? "Update Event" : "Create Event"}
+                          {params.id ? "Update stop sales" : "Stop sales"}
                         </button>
                       </div>
                     </form>
@@ -301,7 +392,7 @@ const BigCalendar = ({ listing }) => {
             </div>
           </div>
         </Dialog>
-                            </Transition>*/}
+      </Transition>
     </>
   );
 };

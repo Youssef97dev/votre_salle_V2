@@ -223,8 +223,8 @@ export default function Page() {
                         {
                           accessor: "Status",
                           textAlignment: "center",
-                          render: ({ tripinfo }) => (
-                            <div className="px-6 py-4">
+                          render: ({ tripinfo, status }) => (
+                            <div className="flex gap-1">
                               <span
                                 className={`${
                                   checkDateStatus(
@@ -238,12 +238,21 @@ export default function Page() {
                                       ) === "Checked In"
                                     ? "bg-green-500"
                                     : "bg-red-500"
-                                }  text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}
+                                }  text-white text-xs font-medium mr-2 px-2.5 py-1 rounded`}
                               >
                                 {checkDateStatus(
                                   tripinfo?.startDate,
                                   tripinfo?.endDate
                                 )}
+                              </span>
+                              <span
+                                className={`${
+                                  status === "Active"
+                                    ? "bg-blue-700"
+                                    : "bg-red-500"
+                                }  text-white text-xs font-medium mr-2 px-2.5 py-1 rounded`}
+                              >
+                                {status}
                               </span>
                             </div>
                           ),
