@@ -1,17 +1,13 @@
 import { userAppStore } from "airbnb/store/store";
 import React, { useState } from "react";
 
+import "../../styles/tailwind.css";
+
 export default function FloorPlan() {
   const { placeSpace, setPlaceSpace } = userAppStore();
 
-  const handleIncrement = (type) => {
-    setPlaceSpace({ ...placeSpace, [type]: placeSpace[type] + 1 });
-  };
-
-  const handleDecrement = (type) => {
-    if (placeSpace[type] > 1) {
-      setPlaceSpace({ ...placeSpace, [type]: placeSpace[type] - 1 });
-    }
+  const handleChangeGuest = (e) => {
+    setPlaceSpace({ ...placeSpace, guests: e.target.value });
   };
 
   return (
@@ -20,10 +16,12 @@ export default function FloorPlan() {
         <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl">
           Share some basics about your place
         </h2>
-        <p className="text-xs md:text-base" >You'll add more details later, such as bed types.</p>
+        <p className="text-xs md:text-base">
+          You'll add more details later, such as bed types.
+        </p>
       </div>
-      <div className="flex  flex-col w-[95%] sm:w-[80%] md:w-[60%] lg:w-[40%] gap-5">
-        {Object.keys(placeSpace).map((place) => (
+      <div className="flex justify-center items-center w-[95%] sm:w-[80%] md:w-[60%] lg:w-[40%] gap-5">
+        {/*Object.keys(placeSpace).map((place) => (
           <div
             className="flex justify-between w-full text-sm md:text-lg items-center"
             key={place}
@@ -45,7 +43,14 @@ export default function FloorPlan() {
               </button>
             </div>
           </div>
-        ))}
+        ))*/}
+        <span className="font-semibold whitespace-nowrap">Guest Number :</span>
+        <input
+          type="number"
+          className="form-input"
+          min={0}
+          onChange={(e) => handleChangeGuest(e)}
+        />
       </div>
     </div>
   );

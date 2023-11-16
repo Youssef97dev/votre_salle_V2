@@ -46,22 +46,20 @@ function Page() {
       case 2:
         return <ListingTypeSelector />;
       case 3:
-        return <ListingPlaceType />;
-      case 4:
         return <PlaceLocation />;
-      case 5:
+      case 4:
         return <PlaceDetails />;
-      case 6:
+      case 5:
         return <FloorPlan />;
-      case 7:
+      case 6:
         return <StepTwoStarter />;
-      case 8:
+      case 7:
         return <ProcessAmeneties />;
-      case 9:
+      case 8:
         return <Photos />;
-      case 10:
+      case 9:
         return <Title />;
-      case 11:
+      case 10:
         return <ListingCreated />;
       default:
         return <></>;
@@ -74,7 +72,7 @@ function Page() {
         <div className="cursor-pointer" onClick={() => router.push("/")}>
           <AirBnbLogoShort />
         </div>
-        {step <= 13 && (
+        {step <= 9 && (
           <button className="border border-gray-300 text-xs lg:text-base px-5 py-2 rounded-full font-semibold hover:border-gray-700 cursor-pointer">
             Save & exit
           </button>

@@ -166,7 +166,10 @@ export default function ListingCard({
             </button>
           </div>
           <div>
-            <h3 className="font-semibold">{data.title}</h3>
+            <div className="flex gap-2 justify-between items-center">
+              <h3 className="font-semibold">{data.title}</h3>
+              <span className="font-semibold">&#9733; 4,81 </span>
+            </div>
             <h4 className="font-light mb-2">{data.locationType}</h4>
             <span className="font-medium">
               {userInfo?.typeUser === "B2B" ? data.priceB2b : data.price} MAD

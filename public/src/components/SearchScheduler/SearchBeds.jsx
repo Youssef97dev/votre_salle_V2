@@ -2,26 +2,19 @@ import useClickOutside from "airbnb/hooks/useClickOutside";
 import { userAppStore } from "airbnb/store/store";
 import React, { useEffect, useRef } from "react";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+import "../../styles/tailwind.css";
 
 export default function SearchBeds() {
   const { selectionType, searchPlaceSpace, setSearchPlaceSpace } =
     userAppStore();
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const handleIncrement = (type) => {
+  const handleChange = (e) => {
     setSearchPlaceSpace({
       ...searchPlaceSpace,
-      [type]: searchPlaceSpace[type] + 1,
+      guests: e.target.value,
     });
   };
 
-  const handleDecrement = (type) => {
-    if (searchPlaceSpace[type] > 1) {
-      setSearchPlaceSpace({
-        ...searchPlaceSpace,
-        [type]: searchPlaceSpace[type] - 1,
-      });
-    }
-  };
   const [containerRef] = useClickOutside();
 
   return (
@@ -31,10 +24,7 @@ export default function SearchBeds() {
           Who
         </label>
         <span>
-          {searchPlaceSpace.adults +
-            searchPlaceSpace.childrens +
-            searchPlaceSpace.infants +
-            " "}
+          {searchPlaceSpace.guests + " "}
           guests
         </span>
       </div>
@@ -42,12 +32,12 @@ export default function SearchBeds() {
         <div
           className={`${
             isDesktop
-              ? "absolute w-96 right-0 h-max top-24 shadow-lg rounded-3xl bg-white py-10 px-10 z-50"
+              ? "absolute w-96 right-0 h-max top-24 shadow-lg rounded-3xl bg-white py-5 px-5 z-50"
               : "w-full mt-3"
           }`}
-          ref={containerRef}
+          ref={isDesktop ? containerRef : null}
         >
-          <ul className="flex flex-col gap-5">
+          {/*<ul className="flex flex-col gap-5">
             {Object.keys(searchPlaceSpace).map((place) => (
               <li
                 className="flex justify-between w-full text-sm font-medium md:text-lg items-center"
@@ -73,7 +63,17 @@ export default function SearchBeds() {
                 </div>
               </li>
             ))}
-          </ul>
+            </ul>*/}
+          <div className="flex flex-row justify-center items-center gap-3">
+            <span className="font-medium whitespace-nowrap">Guests :</span>
+            <input
+              type="number"
+              min={0}
+              className="form-input"
+              onChange={(e) => handleChange(e)}
+              defaultValue={searchPlaceSpace.guests}
+            />
+          </div>
         </div>
       )}
     </>

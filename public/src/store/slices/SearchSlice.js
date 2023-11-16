@@ -3,9 +3,7 @@ export const createSearchSlice = (set, get) => ({
   setSearchLocation: (location) => set({ searchLocation: location }),
   selectionType: undefined,
   searchPlaceSpace: {
-    adults: 0,
-    childrens: 0,
-    infants: 0,
+    guests: 0,
   },
   dates: undefined,
   searchListings: [],

@@ -2,10 +2,10 @@ export const createProcessSlice = (set, get) => ({
   resetNewListingData: () =>
     set({
       locationType: undefined,
-      placeType: undefined,
+      placeType: "An entire place",
       mapData: undefined,
       locationData: undefined,
-      placeSpace: { bathrooms: 1, beds: 1, guests: 4 },
+      placeSpace: { guests: 10 },
       prestation: {
         poseCafe: [],
         poseDejeunner: [],
@@ -21,13 +21,13 @@ export const createProcessSlice = (set, get) => ({
     }),
   locationType: undefined,
   setLocationType: (locationType) => set({ locationType }),
-  placeType: undefined,
+  placeType: "An entire place",
   setPlaceType: (placeType) => set({ placeType }),
   mapData: undefined,
   setMapData: (mapData) => set({ mapData }),
   locationData: undefined,
   setLocationData: (locationData) => set({ locationData }),
-  placeSpace: { bathrooms: 1, beds: 1, guests: 4 },
+  placeSpace: { guests: 4 },
   setPlaceSpace: (placeSpace) => set({ placeSpace }),
   prestation: {
     poseCafe: [],
