@@ -69,56 +69,10 @@ export const getListing = async (listingId) => {
 export const getSearchListing = async (searchTerm) => {
   const query = qs.stringify({
     where: {
-      OR: [
-        {
-          locationData: {
-            path: ["place"],
-            string_contains: searchTerm,
-          },
-        },
-        {
-          locationData: {
-            path: ["region"],
-            string_contains: searchTerm,
-          },
-        },
-        {
-          locationData: {
-            path: ["country"],
-            string_contains: searchTerm,
-          },
-        },
-        {
-          locationData: {
-            path: ["district"],
-            string_contains: searchTerm,
-          },
-        },
-        {
-          locationData: {
-            path: ["landmark"],
-            string_contains: searchTerm,
-          },
-        },
-        {
-          locationData: {
-            path: ["locality"],
-            string_contains: searchTerm,
-          },
-        },
-        {
-          locationData: {
-            path: ["postcode"],
-            string_contains: searchTerm,
-          },
-        },
-        {
-          locationData: {
-            path: ["neighborhood"],
-            string_contains: searchTerm,
-          },
-        },
-      ],
+      placeSpace: {
+        path: ["guests"],
+        lte: parseInt(searchTerm?.guests, 10).toString(),
+      },
     },
   });
   const result = await axios.get(createUrl(`/api/listings?${query}`));

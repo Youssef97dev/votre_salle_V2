@@ -1,4 +1,6 @@
 export const createSearchSlice = (set, get) => ({
+  listingInfo: undefined,
+  setListingInfo: (listing) => set({ listingInfo: listing }),
   searchLocation: undefined,
   setSearchLocation: (location) => set({ searchLocation: location }),
   selectionType: undefined,

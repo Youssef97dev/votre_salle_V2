@@ -32,8 +32,8 @@ export default function SearchMap() {
     <div className="h-full w-full">
       <Map
         initialViewState={{
-          longitude: searchLocation?.longitude ?? 72.5714,
-          latitude: searchLocation?.latitude ?? 23.0225,
+          longitude: searchLocation?.address?.longitude ?? 72.5714,
+          latitude: searchLocation?.address?.latitude ?? 23.0225,
           zoom: 5,
         }}
         mapStyle="mapbox://styles/mapbox/streets-v9"

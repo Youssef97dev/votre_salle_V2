@@ -82,7 +82,7 @@ export default function SearchAddress() {
                   setSearchText(address.address);
                   setSearchedAddresss([]);
                   setSelectionType(undefined);
-                  setSearchLocation(address);
+                  setSearchLocation({ ...searchLocation, address });
                 }}
               >
                 <div

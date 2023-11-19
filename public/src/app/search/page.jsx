@@ -15,18 +15,24 @@ import dynamic from "next/dynamic";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 
 export default function Page() {
-  const { isAuthModalOpen, searchLocation, setSearchListings, searchListings } =
-    userAppStore();
+  const {
+    isAuthModalOpen,
+    searchLocation,
+    setSearchListings,
+    searchListings,
+    listingInfo,
+  } = userAppStore();
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
   useEffect(() => {
+    console.log("searchLocation : ", searchLocation);
     const getData = async () => {
       setSearchListings([]);
-      const data = await getSearchListing(searchLocation.address);
-      console.log("data : ", data);
+      const data = await getSearchListing(searchLocation);
+      console.log("searchLocation : ", searchLocation);
       setSearchListings(data);
     };
-    if (searchLocation.address) {
+    if (searchLocation) {
       getData();
     }
   }, [searchLocation, setSearchListings]);

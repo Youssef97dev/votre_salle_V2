@@ -5,14 +5,22 @@ import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import "../../styles/tailwind.css";
 
 export default function SearchBeds() {
-  const { selectionType, searchPlaceSpace, setSearchPlaceSpace } =
-    userAppStore();
+  const {
+    selectionType,
+    searchPlaceSpace,
+    setSearchPlaceSpace,
+    setSearchLocation,
+    searchLocation,
+  } = userAppStore();
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const handleChange = (e) => {
     setSearchPlaceSpace({
       ...searchPlaceSpace,
       guests: e.target.value,
     });
+
+    setSearchLocation({ ...searchLocation, guests: e.target.value });
+    console.log(searchLocation);
   };
 
   const [containerRef] = useClickOutside();
