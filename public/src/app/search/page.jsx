@@ -50,7 +50,7 @@ export default function Page() {
             ))}
           </div>
         </div>
-        <div className="">{isDesktop && <SearchMap />}</div>
+        {/*<div className="">{isDesktop && <SearchMap />}</div>*/}
       </div>
       <CompactFooter />
       {isAuthModalOpen && <AuthModal />}

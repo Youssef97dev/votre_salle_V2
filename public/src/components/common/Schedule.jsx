@@ -20,14 +20,16 @@ export default function Schedule() {
     setSelectionType,
     setShowScheduleBar,
     showScheduleBar,
+    setSearchLocation,
+    searchLocation,
   } = userAppStore();
-  const [state, setState] = useState([
-    {
+  const [state, setState] = useState(
+    [{
       startDate: new Date(),
       endDate: addDays(new Date(), 7),
       key: "selection",
-    },
-  ]);
+    }],
+  );
 
   function formatDate(dateString) {
     const options = { month: "long", day: "numeric" };
@@ -36,6 +38,7 @@ export default function Schedule() {
   }
 
   const handleSearch = () => {
+    setSearchLocation({ ...searchLocation, tripDate:state[0] });
     setSelectionType(undefined);
     if (showScheduleBar) {
       setShowScheduleBar();
@@ -60,7 +63,7 @@ export default function Schedule() {
         className="flex flex-col hover:bg-gray-100 px-10 py-4 rounded-full cursor-pointer items-center justify-center"
       >
         <label htmlFor="" className="text-xs font-semibold flex flex-col    ">
-          Check inn
+          Check in
         </label>
         <span>{formatDate(state[0]?.startDate)}</span>
         {selectionType === "check-in" && (

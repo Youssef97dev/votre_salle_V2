@@ -262,20 +262,20 @@ const page = ({ params: { listing } }) => {
   };
 
   return (
-    <div className="grid grid-rows-new-reservation h-[150vh]">
+    <div className="grid sm:grid-rows-new-reservation grid-rows-new-reservation-mobile md:h-[150vh] h-[170vh]">
       {/* Header */}
       <div className="pl-5 cursor-pointer" onClick={() => router.push("/")}>
         <AirBnbLogoShort />
       </div>
 
       {/* Label */}
-      <div className="flex items-center gap-2 px-5">
+      <div className="flex items-center gap-2 md:px-48 sm:px-20 px-5">
         <AiOutlineLeftCircle size={20} />
         <span className="font-semibold text-3xl">Confirm and pay</span>
       </div>
 
       {/* Content */}
-      <div className="flex gap-16 px-40 w-full h-full">
+      <div className="flex md:flex-row flex-col gap-5 md:gap-16 md:px-48 sm:px-20 px-5 w-full h-full">
         {/* Left Side  */}
         <div className="flex flex-col gap-2 w-full h-full ">
           <div className="flex border border-[#d3d3d3] rounded-lg p-4 gap-2 justify-between items-center ">
@@ -509,7 +509,7 @@ const page = ({ params: { listing } }) => {
         </div>
 
         {/* Right Side */}
-        <div className="flex flex-col gap-5 w-full h-full">
+        <div className="flex flex-col gap-2  w-full h-full">
           <div className="flex flex-col gap-2 border border-[#d3d3d3] rounded-lg p-5">
             <div className="flex gap-3 border-b border-[#d3d3d3] pb-4 ">
               <div className="relative w-24 h-24">

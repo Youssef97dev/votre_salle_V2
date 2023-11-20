@@ -67,21 +67,100 @@ export const getListing = async (listingId) => {
 };
 
 export const getSearchListing = async (searchTerm) => {
+  console.log(searchTerm)
   const query = qs.stringify({
     where: {
-      placeSpace: {
-        path: ["guests"],
-        lte: parseInt(searchTerm?.guests, 10).toString(),
-      },
+          OR: [
+            {
+              locationData:{
+                path:["place"],
+                string_contains: searchTerm?.address?.address
+              },
+            },
+            {
+              locationData:{
+                path:["region"],
+                string_contains: searchTerm?.address?.address
+              }
+            },
+            {
+              locationData:{
+                path:["country"],
+                string_contains: searchTerm?.address?.address
+              }
+            },
+            {
+              locationData:{
+                path:["district"],
+                string_contains: searchTerm?.address?.address
+              }
+            },
+            {
+              locationData:{
+                path:["landmark"],
+                string_contains: searchTerm?.address?.address
+              }
+            },
+            {
+              locationData:{
+                path:["locality"],
+                string_contains: searchTerm?.address?.address
+              }
+            },
+            {
+              locationData:{
+                path:["postcode"],
+                string_contains: searchTerm?.address?.address
+              }
+            },
+            {
+              locationData:{
+                path:["neighborhood"],
+                string_contains: searchTerm?.address?.address
+              }
+            },
+          ],
+          AND:[
+            searchTerm?.guests && {
+              placeSpace: {
+                path: ["guests"],
+                lte: searchTerm?.guests,
+              },
+            },
+          ]
+          
     },
   });
   const result = await axios.get(createUrl(`/api/listings?${query}`));
+
   if (!result) {
     console.log("not found");
   }
 
-  console.log({ result });
-  return result.data;
+    const filteredListings = searchTerm?.tripDate && result.data.filter(listing=>
+      !listing.trips.some(trip => {
+        const tripStartDate = new Date(trip.tripinfo.startDate);
+        const tripEndDate = new Date(trip.tripinfo.endDate);
+        const searchStartDate = new Date(searchTerm.tripDate.startDate);
+        const searchEndDate = new Date(searchTerm.tripDate.endDate);
+        console.log("tripStartDate", tripStartDate)
+        console.log("tripEndDate", tripEndDate)
+        console.log("searchStartDate", searchStartDate)
+        console.log("searchEndDate", searchEndDate)
+    
+        return (
+          (tripStartDate <= searchStartDate && tripEndDate >= searchStartDate) ||
+          (tripStartDate <= searchEndDate && tripEndDate >= searchEndDate) ||
+          (tripStartDate >= searchStartDate && tripEndDate <= searchEndDate)
+        );
+      })
+    )
+
+    console.log("filtred:", filteredListings)
+
+    return searchTerm?.tripDate ? filteredListings :  result.data;
+  
+  
 };
 
 export const getUserListings = async (userId) => {

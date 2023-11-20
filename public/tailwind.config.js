@@ -19,6 +19,7 @@ module.exports = {
       gridTemplateRows: {
         "new-listing": "10vh 80vh 10vh",
         "new-reservation": "10vh 15vh 115vh 10vh",
+        "new-reservation-mobile": "10vh 10vh 120vh 30vh",
       },
     },
     screens: {

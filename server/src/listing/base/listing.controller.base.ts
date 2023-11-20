@@ -119,6 +119,12 @@ export class ListingControllerBase {
           },
         },
 
+        trips:{
+          select:{
+            tripinfo:true,
+          }
+        },
+
         locationData: true,
         locationType: true,
         mapData: true,
