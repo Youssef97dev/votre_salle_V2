@@ -111,8 +111,9 @@ function Navbar() {
       },
     },
     {
-      name: "Help",
+      name: "Statistics",
       callBack: () => {
+        router.push("/statistics");
         setIsContextMenuVisible(false);
       },
     },

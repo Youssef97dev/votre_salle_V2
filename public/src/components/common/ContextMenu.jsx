@@ -69,7 +69,8 @@ export default function ContextMenu({
                   name !== "Manage My Listings" &&
                   name !== "Manage My Reservations" &&
                   name !== "Add Your Hall" &&
-                  name !== "Calendar"
+                  name !== "Calendar" &&
+                  name !== "Statistics"
               )
               .map(({ name, callBack }) => (
                 <li

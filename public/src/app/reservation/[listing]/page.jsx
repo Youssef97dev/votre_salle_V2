@@ -45,8 +45,8 @@ const page = ({ params: { listing } }) => {
   const [activeTripData, setActiveTripData] = useState([]);
   const [dateState, setDateState] = useState([
     {
-      startDate: addDays(new Date(reservationData.tripData.startDate), 1),
-      endDate: addDays(new Date(reservationData.tripData.endDate), 1),
+      startDate: new Date(reservationData.tripData.startDate),
+      endDate: new Date(reservationData.tripData.endDate),
       key: "selection",
     },
   ]);
@@ -64,7 +64,7 @@ const page = ({ params: { listing } }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getActiveTrips();
+      const data = await getActiveTrips(reservationData.listingId);
       setActiveTripData(...activeTripData, data);
     };
     if (userInfo) {
@@ -82,8 +82,8 @@ const page = ({ params: { listing } }) => {
 
   const getDates = (startDate, endDate) => {
     if (startDate && endDate) {
-      const start = new Date(startDate.replace(/-/g, "/"));
-      const end = new Date(endDate.replace(/-/g, "/")) - 1;
+      const start = new Date(startDate.split("T")[0].replace(/-/g, "/"));
+      const end = new Date(endDate.split("T")[0].replace(/-/g, "/")) - 1;
       const days = Math.floor((end - start) / (1000 * 60 * 60 * 24));
       setDateArray((prevDateArray) => {
         const newDates = [...prevDateArray];
@@ -200,10 +200,8 @@ const page = ({ params: { listing } }) => {
 
   const handleUpdateTripDate = async () => {
     const days = await calculateDaysDifference();
-    const startDate = new Date(dateState[0].startDate)
-      .toISOString()
-      .split("T")[0];
-    const endDate = new Date(dateState[0].endDate).toISOString().split("T")[0];
+    const startDate = new Date(dateState[0].startDate);
+    const endDate = new Date(dateState[0].endDate);
     const priceHT = parseFloat(
       reservationData.tripData.listingPrice * days
     ).toFixed(2);
@@ -240,8 +238,8 @@ const page = ({ params: { listing } }) => {
       userId: userInfo?.id,
       tripData: {
         days: reservationData.tripData.days,
-        startDate: reservationData.tripData.startDate,
-        endDate: reservationData.tripData.endDate,
+        startDate: addDays(reservationData.tripData.startDate, 1),
+        endDate: addDays(reservationData.tripData.endDate, 1),
         guests: reservationData.tripData.guests,
         extraServices: "",
         extraServicesPrice: reservationData.tripData.extraService,
@@ -293,18 +291,14 @@ const page = ({ params: { listing } }) => {
               <div className="flex flex-col">
                 <span className="font-medium">Dates</span>
                 <span className="text-sm text-gray-500">
-                  {addDays(
-                    new Date(reservationData.tripData.startDate),
-                    1
-                  ).toLocaleDateString(undefined, {
-                    month: "short",
-                    day: "2-digit",
-                  })}
+                  {
+                    new Date(reservationData.tripData.startDate).toLocaleDateString(undefined, {
+                      month: "short",
+                      day: "2-digit",
+                    })}
                   {" - "}
-                  {addDays(
-                    new Date(reservationData.tripData.endDate),
-                    1
-                  ).toLocaleDateString(undefined, {
+                  {
+                    new Date(reservationData.tripData.endDate).toLocaleDateString(undefined, {
                     month: "short",
                     day: "2-digit",
                   })}

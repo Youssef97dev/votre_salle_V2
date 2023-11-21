@@ -51,8 +51,8 @@ const BigCalendar = ({ listing }) => {
         reservation.tripinfo?.type === "Stop Reservation"
           ? reservation.tripinfo.type
           : reservation.user.firstName + " " + reservation.user.lastName,
-      start: reservation.tripinfo.startDate,
-      end: reservation.tripinfo.endDate,
+      start: reservation.tripinfo.startDate.split("T")[0],
+      end: reservation.tripinfo.endDate.split("T")[0],
       className:
         reservation.status === "Active"
           ? reservation.tripinfo?.type === "Stop Reservation"
@@ -61,7 +61,7 @@ const BigCalendar = ({ listing }) => {
           : "bg-orange-500 border border-orange-700",
       description: reservation.tripinfo?.description || "",
     }));
-
+    console.log(newEvents);
     setEvents(newEvents);
   }, [reservationData]);
 
