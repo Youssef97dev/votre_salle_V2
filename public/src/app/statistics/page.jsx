@@ -12,6 +12,9 @@ import React, { useEffect, useState, Fragment } from "react";
 import { getUserReservedTrips, getUserListings } from "airbnb/lib/lisitng";
 import { Tab } from "@headlessui/react";
 
+// Components
+import Charts from "./components/Charts";
+
 const page = () => {
 
     const {
@@ -34,9 +37,7 @@ const page = () => {
       useEffect(() => {
         const getData = async () => {
           const data = await getUserListings(userInfo?.id);
-          const reservations = await getUserReservedTrips(userInfo?.id);
           setUserListings(data);
-          setReservations(reservations);
           console.log(data);
         };
         if (userInfo) {
@@ -76,7 +77,7 @@ const page = () => {
                 {userListings.map((listing, index) => (
                   <Tab.Panel key={index}>
                     <div className="active">
-                      ff
+                      <Charts listing={listing} />
                     </div>
                   </Tab.Panel>
                 ))}
