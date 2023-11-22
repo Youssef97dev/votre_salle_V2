@@ -41,9 +41,11 @@ export default function Home() {
     userInfo,
     wishLists,
     setWishLists,
+    setSearchLocation,
   } = userAppStore();
   useEffect(() => {
     const getUser = async () => {
+      setSearchLocation(undefined)
       setLoadingUser(true);
       const data = await me();
       setUserInfo(data);

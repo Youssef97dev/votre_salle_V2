@@ -71,49 +71,49 @@ export const getSearchListing = async (searchTerm) => {
   const query = qs.stringify({
     where: {
           OR: [
-            {
+            searchTerm?.address?.address && {
               locationData:{
                 path:["place"],
                 string_contains: searchTerm?.address?.address
               },
             },
-            {
+            searchTerm?.address?.address && {
               locationData:{
                 path:["region"],
                 string_contains: searchTerm?.address?.address
               }
             },
-            {
+            searchTerm?.address?.address && {
               locationData:{
                 path:["country"],
                 string_contains: searchTerm?.address?.address
               }
             },
-            {
+            searchTerm?.address?.address && {
               locationData:{
                 path:["district"],
                 string_contains: searchTerm?.address?.address
               }
             },
-            {
+            searchTerm?.address?.address && {
               locationData:{
                 path:["landmark"],
                 string_contains: searchTerm?.address?.address
               }
             },
-            {
+            searchTerm?.address?.address && {
               locationData:{
                 path:["locality"],
                 string_contains: searchTerm?.address?.address
               }
             },
-            {
+            searchTerm?.address?.address && {
               locationData:{
                 path:["postcode"],
                 string_contains: searchTerm?.address?.address
               }
             },
-            {
+            searchTerm?.address?.address && {
               locationData:{
                 path:["neighborhood"],
                 string_contains: searchTerm?.address?.address
@@ -137,7 +137,7 @@ export const getSearchListing = async (searchTerm) => {
     console.log("not found");
   }
 
-    const filteredListings = searchTerm?.tripDate && result.data.filter(listing=>
+    const filteredListings = (searchTerm?.tripDate?.startDate !== '' && searchTerm?.tripDate?.endDate !== '') ? result.data.filter(listing=>
       !listing.trips.some(trip => {
         const tripStartDate = new Date(trip.tripinfo.startDate);
         const tripEndDate = new Date(trip.tripinfo.endDate);
@@ -154,11 +154,11 @@ export const getSearchListing = async (searchTerm) => {
           (tripStartDate >= searchStartDate && tripEndDate <= searchEndDate)
         );
       })
-    )
+    ) : result.data;
 
     console.log("filtred:", filteredListings)
 
-    return searchTerm?.tripDate ? filteredListings :  result.data;
+    return filteredListings;
   
   
 };

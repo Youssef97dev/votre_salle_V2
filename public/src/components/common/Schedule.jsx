@@ -25,8 +25,8 @@ export default function Schedule() {
   } = userAppStore();
   const [state, setState] = useState(
     [{
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: searchLocation?.tripDate?.startDate || '',
+      endDate: searchLocation?.tripDate?.endDate || '',
       key: "selection",
     }],
   );
