@@ -10,7 +10,7 @@ const ReservationChart = ({reservations, chartData, isLoading}) => {
     const countReservationsByMonth = () => {
         const monthlyCounts = {};
 
-        reservations.forEach((reservation) => {
+        reservations?.forEach((reservation) => {
             const startDate = new Date(reservation.tripinfo.startDate);
             const monthYear = `${startDate.getFullYear()}-${startDate.getMonth() + 1}`;
             if (monthlyCounts[monthYear]) {

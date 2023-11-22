@@ -9,7 +9,7 @@ const RevenueChart = ({reservations, chartData, isLoading}) => {
     const totalPriceByMonth  = () => {
         const monthlyTotalPrices  = {};
 
-        reservations.forEach((reservation) => {
+        reservations?.forEach((reservation) => {
             const startDate = new Date(reservation.tripinfo.startDate);
             const monthYear = `${startDate.getFullYear()}-${startDate.getMonth() + 1}`;
             const price = parseFloat(reservation.tripinfo.price);
