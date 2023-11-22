@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic';
 const DynamicChart = dynamic(() => import('react-apexcharts'), { ssr: false });
-import ReactApexChart from 'react-apexcharts';
 
 
 const ReservationChart = ({reservations, chartData}) => {
@@ -91,7 +90,7 @@ const columnChart = {
   return (
     <div className='flex flex-col justify-center items-center gap-4 '>
         <span className='font-semibold'>Number of Reservations Per month</span>
-        {/* <DynamicChart series={chartSeries} options={columnChart.options} className="rounded-lg w-full bg-white shadow-lg shadow-[#7f5dca6c] overflow-hidden" type="bar" height={300} /> */}
+        <DynamicChart series={chartSeries} options={columnChart.options} className="rounded-lg w-full bg-white shadow-lg shadow-[#7f5dca6c] overflow-hidden" type="bar" height={300} />
     </div>
   )
 }
