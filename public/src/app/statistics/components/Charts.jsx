@@ -9,6 +9,7 @@ import RevenueChart from './RevenueChart';
 const Charts = ({listing}) => {
     const [shouldRender, setShouldRender] = useState(false);
     const [reservations, setReservations] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         // Set shouldRender to true only in the client-side environment
@@ -16,9 +17,12 @@ const Charts = ({listing}) => {
     }, []);
 
     useEffect(()=>{
+      
         const getData = async () => {
+            setIsLoading(true);
             const data = await getActiveTrips(listing.id);
             setReservations(data);
+            setIsLoading(false);
           };
             getData();
     },[]);
@@ -39,8 +43,8 @@ const Charts = ({listing}) => {
 
   return shouldRender ? (
     <div className='flex flex-col gap-5'>
-        <ReservationChart reservations={reservations} chartData={chartData} />
-        <RevenueChart reservations={reservations} chartData={chartData} />
+        <ReservationChart reservations={reservations} chartData={chartData} isLoading={isLoading} />
+        <RevenueChart reservations={reservations} chartData={chartData} isLoading={isLoading} />
     </div>
   ) : null
 }

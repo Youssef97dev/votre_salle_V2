@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { RingLoader } from 'react-spinners';
 import dynamic from 'next/dynamic';
 const DynamicChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 
-const ReservationChart = ({reservations, chartData}) => {
+const ReservationChart = ({reservations, chartData, isLoading}) => {
 
     // Function to count reservations per month
     const countReservationsByMonth = () => {
@@ -34,7 +35,7 @@ const columnChart = {
     options: {
         chart: {
             height: 300,
-            type: 'bar',
+            type: 'area',
             zoom: {
                 enabled: false,
             },
@@ -47,9 +48,8 @@ const columnChart = {
             enabled: false,
         },
         stroke: {
-            show: true,
-            width: 1,
-            colors: ['transparent'],
+            width: 2,
+            curve: 'smooth',
         },
         plotOptions: {
             bar: {
@@ -65,7 +65,7 @@ const columnChart = {
             categories: chartData.map(monthYear => {
                 const [year, month] = monthYear.split('-');
                 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                return `${monthNames[parseInt(month) - 1]}-${year}`;
+                return `${monthNames[parseInt(month) - 1]}`;
             }),
             axisBorder: {
                 color: '#e0e6ed',
@@ -88,9 +88,9 @@ const columnChart = {
     },
 };
   return (
-    <div className='flex flex-col justify-center items-center gap-4 '>
+    <div className='flex flex-col justify-center items-center gap-4  rounded-lg bg-violet-100 shadow-lg shadow-[#7f5dca6c] px-0 md:px-3 py-2'>
         <span className='font-semibold'>Number of Reservations Per month</span>
-        <DynamicChart series={chartSeries} options={columnChart.options} className="rounded-lg w-full bg-white shadow-lg shadow-[#7f5dca6c] overflow-hidden" type="bar" height={300} />
+        {isLoading ? <RingLoader color='#7f5dca6c' size={50} /> : <DynamicChart series={chartSeries} options={columnChart.options} className="rounded-lg w-full  overflow-hidden" type="area" height={300} />}
     </div>
   )
 }

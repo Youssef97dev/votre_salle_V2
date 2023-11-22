@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { RingLoader } from 'react-spinners';
 import dynamic from 'next/dynamic';
 const DynamicChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-const RevenueChart = ({reservations, chartData}) => {
+const RevenueChart = ({reservations, chartData, isLoading}) => {
 
     // Function to count reservations per month
     const totalPriceByMonth  = () => {
@@ -41,13 +42,13 @@ const columnChart = {
                 show: false,
             },
         },
-        colors: ['#805dca'],
+        colors: ['#e2a03f'],
         dataLabels: {
             enabled: false,
         },
         stroke: {
             show: true,
-            width: 1,
+            width: 2,
             colors: ['transparent'],
         },
         plotOptions: {
@@ -64,7 +65,7 @@ const columnChart = {
             categories: chartData.map(monthYear => {
                 const [year, month] = monthYear.split('-');
                 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                return `${monthNames[parseInt(month) - 1]}-${year}`;
+                return `${monthNames[parseInt(month) - 1]}`;
             }),
             axisBorder: {
                 color: '#e0e6ed',
@@ -88,9 +89,9 @@ const columnChart = {
 };
 
   return (
-    <div className='flex flex-col justify-center items-center gap-4 '>
+    <div className='flex flex-col justify-center items-center gap-4 bg-amber-100 rounded-lg shadow-lg shadow-[#e2a13f71] px-0 md:px-3 py-2'>
         <span className='font-semibold'>Total Price Per month</span>
-        <DynamicChart series={chartSeries} options={columnChart.options} className="rounded-lg w-full bg-white shadow-lg shadow-[#7f5dca6c] overflow-hidden" type="bar" height={300} />
+        {isLoading ? <RingLoader color='#e2a13f71' size={50} /> : <DynamicChart series={chartSeries} options={columnChart.options} className="rounded-lg w-full overflow-hidden" type="bar" height={300} />}
     </div>
   )
 }
