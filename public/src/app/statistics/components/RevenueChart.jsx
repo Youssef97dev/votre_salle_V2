@@ -91,7 +91,7 @@ const columnChart = {
   return (
     <div className='flex flex-col justify-center items-center gap-4 '>
         <span className='font-semibold'>Total Price Per month</span>
-        <DynamicChart series={chartSeries} options={columnChart.options} className="rounded-lg w-full bg-white shadow-lg shadow-[#7f5dca6c] overflow-hidden" type="bar" height={300} />
+        {/* <DynamicChart series={chartSeries} options={columnChart.options} className="rounded-lg w-full bg-white shadow-lg shadow-[#7f5dca6c] overflow-hidden" type="bar" height={300} /> */}
     </div>
   )
 }
