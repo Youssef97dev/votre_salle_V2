@@ -43,6 +43,9 @@ export default function Home() {
     wishLists,
     setWishLists,
     setSearchLocation,
+    setMaxValueRange,
+    setMinValueRange,
+    discardSearch,
   } = userAppStore();
   useEffect(() => {
     const getUser = async () => {
@@ -58,15 +61,20 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => {
       setLoadingData(true);
-      const data = await getAllListings(locationType);
+      const { data, maxPrice, minPrice } = await getAllListings(
+        locationType,
+        userInfo?.typeUser
+      );
       setListings(data);
+      setMaxValueRange(maxPrice);
+      setMinValueRange(minPrice);
       const wishlists = await getUserWishlists(userInfo?.id);
       const wishListsId = wishlists?.map(({ listing }) => listing.id);
       setWishLists(wishListsId);
       setLoadingData(false);
     };
     getData();
-  }, [setListings, setWishLists, userInfo?.id, locationType]);
+  }, [setListings, setWishLists, userInfo?.id, locationType, discardSearch]);
 
   return (
     <>

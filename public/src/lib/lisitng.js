@@ -38,7 +38,7 @@ export const updateLisitngAPI = async (listingId, prestation) => {
   return result;
 };
 
-export const getAllListings = async (locationType) => {
+export const getAllListings = async (locationType, typeUser) => {
   const query =
     locationType !== "All"
       ? qs.stringify({
@@ -49,14 +49,27 @@ export const getAllListings = async (locationType) => {
           orderBy: { createdAt: "desc" },
         });
 
-  const result = await axios.get(createUrl(`/api/listings?${query}`));
+  try {
+    const result = await axios.get(createUrl(`/api/listings?${query}`));
+    console.log(result);
+    const maxPrice = Math.max(
+      ...result.data.map((listing) =>
+        typeUser === "B2C" ? listing.price : listing.priceB2b
+      )
+    );
 
-  if (!result) {
+    const minPrice = Math.min(
+      ...result.data.map((listing) =>
+        typeUser === "B2C" ? listing.price : listing.priceB2b
+      )
+    );
+
+    return { data: result.data, maxPrice, minPrice };
+  } catch (error) {
+    console.log(error);
     alert("Could not get listings");
     return [];
   }
-  console.log(result.data);
-  return result.data;
 };
 
 export const getListing = async (listingId) => {
@@ -67,68 +80,67 @@ export const getListing = async (listingId) => {
 };
 
 export const getSearchListing = async (searchTerm) => {
-  console.log(searchTerm)
+  console.log(searchTerm);
   const query = qs.stringify({
     where: {
-          OR: [
-            searchTerm?.address?.address && {
-              locationData:{
-                path:["place"],
-                string_contains: searchTerm?.address?.address
-              },
-            },
-            searchTerm?.address?.address && {
-              locationData:{
-                path:["region"],
-                string_contains: searchTerm?.address?.address
-              }
-            },
-            searchTerm?.address?.address && {
-              locationData:{
-                path:["country"],
-                string_contains: searchTerm?.address?.address
-              }
-            },
-            searchTerm?.address?.address && {
-              locationData:{
-                path:["district"],
-                string_contains: searchTerm?.address?.address
-              }
-            },
-            searchTerm?.address?.address && {
-              locationData:{
-                path:["landmark"],
-                string_contains: searchTerm?.address?.address
-              }
-            },
-            searchTerm?.address?.address && {
-              locationData:{
-                path:["locality"],
-                string_contains: searchTerm?.address?.address
-              }
-            },
-            searchTerm?.address?.address && {
-              locationData:{
-                path:["postcode"],
-                string_contains: searchTerm?.address?.address
-              }
-            },
-            searchTerm?.address?.address && {
-              locationData:{
-                path:["neighborhood"],
-                string_contains: searchTerm?.address?.address
-              }
-            },
-          ],
-          AND:[
-            searchTerm?.guests && {
-              placeSpace: {
-                path: ["guests"],
-                lte: searchTerm?.guests,
-              },
-            },
-          ]
-          
+      OR: [
+        searchTerm?.address?.address && {
+          locationData: {
+            path: ["place"],
+            string_contains: searchTerm?.address?.address,
+          },
+        },
+        searchTerm?.address?.address && {
+          locationData: {
+            path: ["region"],
+            string_contains: searchTerm?.address?.address,
+          },
+        },
+        searchTerm?.address?.address && {
+          locationData: {
+            path: ["country"],
+            string_contains: searchTerm?.address?.address,
+          },
+        },
+        searchTerm?.address?.address && {
+          locationData: {
+            path: ["district"],
+            string_contains: searchTerm?.address?.address,
+          },
+        },
+        searchTerm?.address?.address && {
+          locationData: {
+            path: ["landmark"],
+            string_contains: searchTerm?.address?.address,
+          },
+        },
+        searchTerm?.address?.address && {
+          locationData: {
+            path: ["locality"],
+            string_contains: searchTerm?.address?.address,
+          },
+        },
+        searchTerm?.address?.address && {
+          locationData: {
+            path: ["postcode"],
+            string_contains: searchTerm?.address?.address,
+          },
+        },
+        searchTerm?.address?.address && {
+          locationData: {
+            path: ["neighborhood"],
+            string_contains: searchTerm?.address?.address,
+          },
+        },
+      ],
+      AND: [
+        searchTerm?.guests && {
+          placeSpace: {
+            path: ["guests"],
+            lte: searchTerm?.guests,
+          },
+        },
+      ],
     },
   });
   const result = await axios.get(createUrl(`/api/listings?${query}`));
@@ -137,30 +149,36 @@ export const getSearchListing = async (searchTerm) => {
     console.log("not found");
   }
 
-    const filteredListings = (searchTerm?.tripDate?.startDate !== '' && searchTerm?.tripDate?.endDate !== '') ? result.data.filter(listing=>
-      !listing.trips.some(trip => {
-        const tripStartDate = new Date(trip.tripinfo.startDate);
-        const tripEndDate = new Date(trip.tripinfo.endDate);
-        const searchStartDate = new Date(searchTerm.tripDate.startDate);
-        const searchEndDate = new Date(searchTerm.tripDate.endDate);
-        console.log("tripStartDate", tripStartDate)
-        console.log("tripEndDate", tripEndDate)
-        console.log("searchStartDate", searchStartDate)
-        console.log("searchEndDate", searchEndDate)
-    
-        return (
-          (tripStartDate <= searchStartDate && tripEndDate >= searchStartDate) ||
-          (tripStartDate <= searchEndDate && tripEndDate >= searchEndDate) ||
-          (tripStartDate >= searchStartDate && tripEndDate <= searchEndDate)
-        );
-      })
-    ) : result.data;
+  const filteredListings =
+    searchTerm?.tripDate?.startDate !== "" &&
+    searchTerm?.tripDate?.endDate !== ""
+      ? result.data.filter(
+          (listing) =>
+            !listing.trips.some((trip) => {
+              const tripStartDate = new Date(trip.tripinfo.startDate);
+              const tripEndDate = new Date(trip.tripinfo.endDate);
+              const searchStartDate = new Date(searchTerm.tripDate.startDate);
+              const searchEndDate = new Date(searchTerm.tripDate.endDate);
+              console.log("tripStartDate", tripStartDate);
+              console.log("tripEndDate", tripEndDate);
+              console.log("searchStartDate", searchStartDate);
+              console.log("searchEndDate", searchEndDate);
 
-    console.log("filtred:", filteredListings)
+              return (
+                (tripStartDate <= searchStartDate &&
+                  tripEndDate >= searchStartDate) ||
+                (tripStartDate <= searchEndDate &&
+                  tripEndDate >= searchEndDate) ||
+                (tripStartDate >= searchStartDate &&
+                  tripEndDate <= searchEndDate)
+              );
+            })
+        )
+      : result.data;
 
-    return filteredListings;
-  
-  
+  console.log("filtred:", filteredListings);
+
+  return filteredListings;
 };
 
 export const getUserListings = async (userId) => {
@@ -280,7 +298,7 @@ export const getUserTrips = async (userId) => {
 export const getActiveTrips = async (listingId) => {
   const query = qs.stringify({
     where: {
-      listing: {id:listingId},
+      listing: { id: listingId },
       status: "Active",
     },
     select: {
@@ -293,7 +311,7 @@ export const getActiveTrips = async (listingId) => {
   const result = (
     await axios.get(createUrl(`/api/trips?${query}`)).catch(() => null)
   )?.data;
-  console.log("result trip active:", result)
+  console.log("result trip active:", result);
   return result;
 };
 

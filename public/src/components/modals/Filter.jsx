@@ -19,38 +19,20 @@ const Filter = ({ showFilter, setShowFilter }) => {
     setMin,
     setMax,
     setFilter,
-    originalListings,
-    setOriginalListings,
+    setDiscardSearch,
+    maxValueRange,
+    minValueRange,
+    setMaxValueRange,
+    setMinValueRange,
   } = userAppStore();
-
-  const [maxValueRange, setMaxValueRange] = useState(0);
-  const [minValueRange, setMinValueRange] = useState(0);
   const [rangeValue, setRangeValue] = useState([]);
-
-  useEffect(() => {
-    setMaxValueRange(
-      Math.max(
-        ...listings.map((listing) =>
-          userInfo.typeUser === "B2C" ? listing.price : listing.priceB2b
-        )
-      )
-    );
-    setMinValueRange(
-      Math.min(
-        ...listings.map((listing) =>
-          userInfo.typeUser === "B2C" ? listing.price : listing.priceB2b
-        )
-      )
-    );
-    setOriginalListings(listings);
-  }, []);
 
   useEffect(() => {
     setRangeValue([
       filter?.price ? min : minValueRange,
       filter?.price ? max : maxValueRange,
     ]);
-  }, [maxValueRange, minValueRange]);
+  }, []);
 
   const changeRangeValue = (value) => {
     setRangeValue(value);
@@ -60,7 +42,7 @@ const Filter = ({ showFilter, setShowFilter }) => {
   };
 
   const handleDiscard = () => {
-    filter.price && setListings(originalListings);
+    filter.price && setDiscardSearch();
     setFilter({ ...filter, price: false });
     setShowFilter(false);
   };
@@ -138,10 +120,11 @@ const Filter = ({ showFilter, setShowFilter }) => {
                       </label>
                       <input
                         id="minField"
+                        name="minValue"
                         value={rangeValue[0]}
                         type="text"
                         onChange={(e) =>
-                          setRangeValue([e.target.value, rangeValue[1]])
+                          changeRangeValue([e.target.value, rangeValue[1]])
                         }
                         className="shadow appearance-none rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       />
@@ -156,10 +139,11 @@ const Filter = ({ showFilter, setShowFilter }) => {
                       </label>
                       <input
                         id="maxField"
+                        name="maxValue"
                         value={rangeValue[1]}
                         type="text"
                         onChange={(e) =>
-                          setRangeValue([rangeValue[0], e.target.value])
+                          changeRangeValue([rangeValue[0], e.target.value])
                         }
                         className="shadow appearance-none rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       />
@@ -172,14 +156,14 @@ const Filter = ({ showFilter, setShowFilter }) => {
                     type="button"
                     className="btn btn-outline-danger"
                   >
-                    Discard
+                    Reset
                   </button>
                   <button
                     onClick={() => handleSave()}
                     type="button"
                     className="btn btn-primary ml-4"
                   >
-                    Save
+                    Show
                   </button>
                 </div>
               </div>

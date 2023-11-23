@@ -21,6 +21,12 @@ export const createSearchSlice = (set, get) => ({
   setFilter: (filter) => {
     set({ filter });
   },
-  originalListings: undefined,
-  setOriginalListings: (originalListings) => set({ originalListings }),
+  maxValueRange: 0,
+  minValueRange: 0,
+  setMaxValueRange: (maxValueRange) => set({ maxValueRange }),
+  setMinValueRange: (minValueRange) => set({ minValueRange }),
+  discardSearch: false,
+  setDiscardSearch: () => {
+    set({ discardSearch: !get().discardSearch });
+  },
 });
