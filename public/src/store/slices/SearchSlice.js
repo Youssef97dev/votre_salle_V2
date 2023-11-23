@@ -13,4 +13,14 @@ export const createSearchSlice = (set, get) => ({
   setSearchPlaceSpace: (searchPlaceSpace) => set({ searchPlaceSpace }),
   setSelectionType: (type) => set({ selectionType: type }),
   setDates: (dates) => set({ dates }),
+  max: 0,
+  min: 0,
+  filter: { price: false, equipement: false },
+  setMax: (max) => set({ max }),
+  setMin: (min) => set({ min }),
+  setFilter: (filter) => {
+    set({ filter });
+  },
+  originalListings: undefined,
+  setOriginalListings: (originalListings) => set({ originalListings }),
 });

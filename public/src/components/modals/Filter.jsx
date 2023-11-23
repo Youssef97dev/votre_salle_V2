@@ -1,72 +1,194 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { useState, useEffect, Fragment } from 'react';
+import { Dialog, Transition } from "@headlessui/react";
+import { useState, useEffect, Fragment } from "react";
 
 import { userAppStore } from "airbnb/store/store";
 
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
 
-const Filter = ({showFilter, setShowFilter}) => {
-    const {
-        listings,
-        setListings,
-        userInfo,
-    } = userAppStore();
+import { RiSeparator } from "react-icons/ri";
 
-    const [maxPrice, setMaxPrice] = useState(Math.max(...listings.map(item => item.price)));
-    const [minPrice, setMinPrice] = useState(Math.min(...listings.map(item => item.price)));
-    
+const Filter = ({ showFilter, setShowFilter }) => {
+  const {
+    listings,
+    setListings,
+    userInfo,
+    min,
+    max,
+    filter,
+    setMin,
+    setMax,
+    setFilter,
+    originalListings,
+    setOriginalListings,
+  } = userAppStore();
 
-    useEffect(()=>{
-        console.log("maxPrice", maxPrice)
-        console.log("minPrice", minPrice)
-    },[])
+  const [maxValueRange, setMaxValueRange] = useState(0);
+  const [minValueRange, setMinValueRange] = useState(0);
+  const [rangeValue, setRangeValue] = useState([]);
+
+  useEffect(() => {
+    setMaxValueRange(
+      Math.max(
+        ...listings.map((listing) =>
+          userInfo.typeUser === "B2C" ? listing.price : listing.priceB2b
+        )
+      )
+    );
+    setMinValueRange(
+      Math.min(
+        ...listings.map((listing) =>
+          userInfo.typeUser === "B2C" ? listing.price : listing.priceB2b
+        )
+      )
+    );
+    setOriginalListings(listings);
+  }, []);
+
+  useEffect(() => {
+    setRangeValue([
+      filter?.price ? min : minValueRange,
+      filter?.price ? max : maxValueRange,
+    ]);
+  }, [maxValueRange, minValueRange]);
+
+  const changeRangeValue = (value) => {
+    setRangeValue(value);
+    !filter.price && setFilter({ ...filter, price: true });
+    setMin(value[0]);
+    setMax(value[1]);
+  };
+
+  const handleDiscard = () => {
+    filter.price && setListings(originalListings);
+    setFilter({ ...filter, price: false });
+    setShowFilter(false);
+  };
+
+  const handleSave = () => {
+    if (userInfo.typeUser === "B2C") {
+      setListings(
+        listings.filter(
+          (listing) => listing.price >= min && listing.price <= max
+        )
+      );
+    } else {
+      setListings(
+        listings.filter(
+          (listing) => listing.priceB2b >= min && listing.priceB2b <= max
+        )
+      );
+    }
+
+    setShowFilter(false);
+  };
+
   return (
     <Transition appear show={showFilter} as={Fragment}>
-                <Dialog as="div" open={showFilter} onClose={() => setShowFilter(false)}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0" />
-                    </Transition.Child>
-                    <div id="fadein_left_modal" className="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto">
-                        <div className="flex items-center justify-center min-h-screen px-4">
-                            <Dialog.Panel className="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg my-8 text-black animate__animated animate__fadeInUp">
-                                <div className="flex bg-[#fbfbfb] items-center justify-between px-5 py-3 border-b border-gray-300">
-                                    <h5 className="font-bold text-lg">Filter</h5>
-                                    <button onClick={() => setShowFilter(false)} type="button" className="text-white-dark hover:text-dark">
-                                        X
-                                    </button>
-                                </div>
-                                <div className="p-4">
-                                    <div className='flex flex-col gap-5 w-full'>
-                                        <div className='flex flex-col'>
-                                            <span className='font-semibold text-lg'>Price range</span>
-                                            <span className='text-sm'>Price per day, taxes included</span>
-                                        </div>
-                                        <RangeSlider min={minPrice} max={maxPrice} step={10} onInput={(e)=>console.log(e)} />
-                                    </div>
-                                    <div className="flex justify-end items-center mt-8 pt-2 border-t border-gray-300">
-                                        <button onClick={() => setShowFilter(false)} type="button" className="btn btn-outline-danger">
-                                            Discard
-                                        </button>
-                                        <button onClick={() => setShowFilter(false)} type="button" className="btn btn-primary ml-4">
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </Dialog.Panel>
-                        </div>
+      <Dialog as="div" open={showFilter} onClose={() => setShowFilter(false)}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0" />
+        </Transition.Child>
+        <div
+          id="fadein_left_modal"
+          className="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto"
+        >
+          <div className="flex items-center justify-center min-h-screen px-4">
+            <Dialog.Panel className="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg my-8 text-black animate__animated animate__fadeInUp">
+              <div className="flex bg-[#fbfbfb] items-center justify-between px-5 py-3 border-b border-gray-300">
+                <h5 className="font-bold text-lg">Filter</h5>
+                <button
+                  onClick={() => setShowFilter(false)}
+                  type="button"
+                  className="text-white-dark hover:text-dark"
+                >
+                  X
+                </button>
+              </div>
+              <div className="p-4">
+                <div className="flex flex-col gap-8 w-full">
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-lg">Price range</span>
+                    <span className="text-sm">
+                      Price per day, taxes included
+                    </span>
+                  </div>
+                  <RangeSlider
+                    min={minValueRange}
+                    max={maxValueRange}
+                    step={10}
+                    value={rangeValue}
+                    onInput={(value) => changeRangeValue(value)}
+                  />
+                  <div className="flex gap-2 justify-between items-center">
+                    <div className="flex flex-col w-full border border-gray-500 rounded-lg">
+                      <label
+                        htmlFor="minField"
+                        className="block text-gray-400 text-xs font-semibold m-1"
+                      >
+                        Minimum
+                      </label>
+                      <input
+                        id="minField"
+                        value={rangeValue[0]}
+                        type="text"
+                        onChange={(e) =>
+                          setRangeValue([e.target.value, rangeValue[1]])
+                        }
+                        className="shadow appearance-none rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
                     </div>
-                </Dialog>
-            </Transition>
-  )
-}
+                    <RiSeparator size={35} color="#6b7280" />
+                    <div className="flex flex-col w-full border border-gray-500 rounded-lg">
+                      <label
+                        htmlFor="maxField"
+                        className="block text-gray-400 text-xs font-semibold m-1"
+                      >
+                        Maximum
+                      </label>
+                      <input
+                        id="maxField"
+                        value={rangeValue[1]}
+                        type="text"
+                        onChange={(e) =>
+                          setRangeValue([rangeValue[0], e.target.value])
+                        }
+                        className="shadow appearance-none rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-end items-center mt-8 pt-2 border-t border-gray-300">
+                  <button
+                    onClick={() => handleDiscard()}
+                    type="button"
+                    className="btn btn-outline-danger"
+                  >
+                    Discard
+                  </button>
+                  <button
+                    onClick={() => handleSave()}
+                    type="button"
+                    className="btn btn-primary ml-4"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </Dialog.Panel>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
+  );
+};
 
-export default Filter
+export default Filter;
