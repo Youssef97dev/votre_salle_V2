@@ -43,4 +43,8 @@ export const createLisitingsSlice = (set, get) => ({
   },
   reservations: [],
   setReservations: (reservations) => set({ reservations }),
+  loadingUser: true,
+  loadingData: true,
+  setLoadingUser: (loadingUser) => set({ loadingUser }),
+  setLoadingData: (loadingData) => set({ loadingData }),
 });
