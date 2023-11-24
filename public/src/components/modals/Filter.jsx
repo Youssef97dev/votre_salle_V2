@@ -1,4 +1,4 @@
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition, Switch } from "@headlessui/react";
 import { useState, useEffect, Fragment } from "react";
 
 import { userAppStore } from "airbnb/store/store";
@@ -42,24 +42,30 @@ const Filter = ({ showFilter, setShowFilter }) => {
   };
 
   const handleDiscard = () => {
-    filter.price && setDiscardSearch();
-    setFilter({ ...filter, price: false });
+    (filter.price || filter.switch) && setDiscardSearch();
+    setFilter({ ...filter, price: false, switch: false });
     setShowFilter(false);
   };
 
   const handleSave = () => {
-    if (userInfo.typeUser === "B2C") {
-      setListings(
-        listings.filter(
-          (listing) => listing.price >= min && listing.price <= max
-        )
-      );
-    } else {
-      setListings(
-        listings.filter(
-          (listing) => listing.priceB2b >= min && listing.priceB2b <= max
-        )
-      );
+    if (filter.price) {
+      if (userInfo.typeUser === "B2C") {
+        setListings(
+          listings.filter(
+            (listing) => listing.price >= min && listing.price <= max
+          )
+        );
+      } else {
+        setListings(
+          listings.filter(
+            (listing) => listing.priceB2b >= min && listing.priceB2b <= max
+          )
+        );
+      }
+    }
+
+    if (filter.switch) {
+      setListings(listings.filter((listing) => listing.tax === "0"));
     }
 
     setShowFilter(false);
@@ -97,6 +103,7 @@ const Filter = ({ showFilter, setShowFilter }) => {
               </div>
               <div className="p-4">
                 <div className="flex flex-col gap-8 w-full">
+                  {/* Start Price Range */}
                   <div className="flex flex-col">
                     <span className="font-semibold text-lg">Price range</span>
                     <span className="text-sm">
@@ -149,6 +156,44 @@ const Filter = ({ showFilter, setShowFilter }) => {
                       />
                     </div>
                   </div>
+                  {/* End Price Range */}
+
+                  {/* Start Hors Tax */}
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-lg">
+                      Excluding taxes
+                    </span>
+                    <span className="text-sm">
+                      {"Show total (excluding taxes)"}
+                    </span>
+                  </div>
+                  <Switch
+                    checked={filter.switch}
+                    onChange={() =>
+                      setFilter({ ...filter, switch: !filter.switch })
+                    }
+                    className={`${filter.switch ? "bg-blue-700" : "bg-gray-500"}
+          relative inline-flex h-[25px] w-[54px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75`}
+                  >
+                    <span className="sr-only">Use setting</span>
+                    <span
+                      aria-hidden="true"
+                      className={`${
+                        filter.switch ? "translate-x-7" : "translate-x-0"
+                      }
+            pointer-events-none inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                    />
+                  </Switch>
+                  {/* End Hors Tax */}
+
+                  {/* Start Prestation */}
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-lg">Eating Breaks</span>
+                    <span className="text-sm">
+                      coffee break / lunch break / dinner break
+                    </span>
+                  </div>
+                  {/* End Prestation */}
                 </div>
                 <div className="flex justify-end items-center mt-8 pt-2 border-t border-gray-300">
                   <button

@@ -15,7 +15,7 @@ export const createSearchSlice = (set, get) => ({
   setDates: (dates) => set({ dates }),
   max: 0,
   min: 0,
-  filter: { price: false, equipement: false },
+  filter: { price: false, equipement: false, switch: false },
   setMax: (max) => set({ max }),
   setMin: (min) => set({ min }),
   setFilter: (filter) => {
