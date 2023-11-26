@@ -47,6 +47,7 @@ export default function Home() {
     discardSearch,
     setLoadingUser,
     setLoadingData,
+    filter,
   } = userAppStore();
 
   useEffect(() => {
@@ -81,6 +82,26 @@ export default function Home() {
     };
     getData();
   }, [setListings, setWishLists, userInfo?.id, locationType, discardSearch]);
+
+  const countTrueValues = () => {
+    let count = 0;
+    let hasSpecial = false;
+
+    Object.keys(filter).forEach((key) => {
+      if (filter[key]) {
+        if (key === "coffe" || key === "lunch" || key === "dinner") {
+          if (!hasSpecial) {
+            hasSpecial = true;
+            count += 1;
+          }
+        } else {
+          count += 1;
+        }
+      }
+    });
+
+    return count;
+  };
 
   return (
     isClient && (
@@ -189,9 +210,11 @@ export default function Home() {
           >
             <IoFilterOutline size={20} />
             <span>Filters</span>
-            <span className="absolute -top-2 -right-2 rounded-full bg-black border border-white px-2 py-[3px] text-white text-[11px]">
-              1
-            </span>
+            {countTrueValues() !== 0 && (
+              <span className="absolute -top-2 -right-2 rounded-full bg-black border border-white px-2 py-[3px] text-white text-[11px]">
+                {countTrueValues()}
+              </span>
+            )}
           </button>
         </div>
 
