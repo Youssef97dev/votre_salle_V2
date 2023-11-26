@@ -1,6 +1,6 @@
 import { get } from "http";
 import { createUrl, post } from "./http";
-import qs from "qs";
+import * as qs from "qs";
 import axios from "axios";
 import { data } from "autoprefixer";
 
@@ -177,6 +177,48 @@ export const getSearchListing = async (searchTerm) => {
       : result.data;
 
   console.log("filtred:", filteredListings);
+
+  return filteredListings;
+};
+
+export const getFiltredListing = async (
+  typeUser,
+  max,
+  min,
+  tax,
+  coffe,
+  lunch,
+  dinner
+) => {
+  const result = await axios.get(createUrl(`/api/listings`));
+
+  const filteredListings = result?.data.filter((listing) => {
+    const isB2C = typeUser === "B2C";
+    const priceCondition = isB2C ? listing.price : listing.priceB2b;
+
+    const withinPriceRange =
+      max && min ? priceCondition >= min && priceCondition <= max : true;
+    const hasZeroTax = tax ? listing.tax === "0" : true;
+    const hasPoseCoffe = coffe ? listing.prestation?.poseCafe.length > 0 : true;
+    const hasPoseLunch = lunch
+      ? listing.prestation?.poseDejeunner.length > 0
+      : true;
+    const hasPoseDinner = dinner
+      ? listing.prestation?.poseDinner.length > 0
+      : true;
+
+    return (
+      withinPriceRange &&
+      hasZeroTax &&
+      hasPoseCoffe &&
+      hasPoseLunch &&
+      hasPoseDinner
+    );
+  });
+
+  if (!result) {
+    console.log("not found");
+  }
 
   return filteredListings;
 };

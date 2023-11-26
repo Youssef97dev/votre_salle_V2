@@ -119,10 +119,10 @@ export class ListingControllerBase {
           },
         },
 
-        trips:{
-          select:{
-            tripinfo:true,
-          }
+        trips: {
+          select: {
+            tripinfo: true,
+          },
         },
 
         locationData: true,

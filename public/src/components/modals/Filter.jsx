@@ -1,6 +1,7 @@
 import { Dialog, Transition, Switch } from "@headlessui/react";
 import { useState, useEffect, Fragment } from "react";
 
+import { getFiltredListing } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 
 import RangeSlider from "react-range-slider-input";
@@ -42,30 +43,40 @@ const Filter = ({ showFilter, setShowFilter }) => {
   };
 
   const handleDiscard = () => {
-    (filter.price || filter.switch) && setDiscardSearch();
-    setFilter({ ...filter, price: false, switch: false });
+    (filter.price ||
+      filter.switch ||
+      filter.coffe ||
+      filter.lunch ||
+      filter.dinner) &&
+      setDiscardSearch();
+    setFilter({
+      ...filter,
+      price: false,
+      switch: false,
+      coffe: false,
+      lunch: false,
+      dinner: false,
+    });
     setShowFilter(false);
   };
 
-  const handleSave = () => {
-    if (filter.price) {
-      if (userInfo.typeUser === "B2C") {
-        setListings(
-          listings.filter(
-            (listing) => listing.price >= min && listing.price <= max
-          )
-        );
-      } else {
-        setListings(
-          listings.filter(
-            (listing) => listing.priceB2b >= min && listing.priceB2b <= max
-          )
-        );
-      }
-    }
+  const handleSave = async () => {
+    const max_ = filter.price && max;
+    const min_ = filter.price && min;
+    const tax_ = filter.switch && "0";
 
-    if (filter.switch) {
-      setListings(listings.filter((listing) => listing.tax === "0"));
+    const filteredListings = await getFiltredListing(
+      userInfo.typeUser,
+      max_,
+      min_,
+      tax_,
+      filter?.coffe,
+      filter?.lunch,
+      filter?.dinner
+    );
+
+    if (filteredListings) {
+      setListings(filteredListings);
     }
 
     setShowFilter(false);
@@ -189,9 +200,126 @@ const Filter = ({ showFilter, setShowFilter }) => {
                   {/* Start Prestation */}
                   <div className="flex flex-col">
                     <span className="font-semibold text-lg">Eating Breaks</span>
-                    <span className="text-sm">
+                    <span className="text-sm mb-3">
                       coffee break / lunch break / dinner break
                     </span>
+                    <div className="inline-flex items-center">
+                      <label
+                        className="relative flex items-center p-1 rounded-full cursor-pointer"
+                        htmlFor="cafe"
+                        data-ripple-dark="true"
+                      >
+                        <input
+                          id="cafe"
+                          type="checkbox"
+                          onChange={(e) =>
+                            setFilter({ ...filter, coffe: e.target.checked })
+                          }
+                          checked={filter.coffe}
+                          className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-950 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
+                        />
+                        <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3.5 w-3.5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            stroke="currentColor"
+                            strokeWidth="1"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                        </div>
+                      </label>
+                      <label
+                        className="mt-px text-gray-950 font-medium cursor-pointer select-none"
+                        htmlFor="cafe"
+                      >
+                        Coffee break
+                      </label>
+                    </div>
+                    <div className="inline-flex items-center">
+                      <label
+                        className="relative flex items-center p-1 rounded-full cursor-pointer"
+                        htmlFor="lunch"
+                        data-ripple-dark="true"
+                      >
+                        <input
+                          id="lunch"
+                          type="checkbox"
+                          onChange={(e) =>
+                            setFilter({ ...filter, lunch: e.target.checked })
+                          }
+                          checked={filter.lunch}
+                          className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-950 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
+                        />
+                        <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3.5 w-3.5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            stroke="currentColor"
+                            strokeWidth="1"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                        </div>
+                      </label>
+                      <label
+                        className="mt-px text-gray-950 font-medium cursor-pointer select-none"
+                        htmlFor="lunch"
+                      >
+                        Lunch break
+                      </label>
+                    </div>
+                    <div className="inline-flex items-center">
+                      <label
+                        className="relative flex items-center p-1 rounded-full cursor-pointer"
+                        htmlFor="dinner"
+                        data-ripple-dark="true"
+                      >
+                        <input
+                          id="dinner"
+                          type="checkbox"
+                          onChange={(e) =>
+                            setFilter({ ...filter, dinner: e.target.checked })
+                          }
+                          checked={filter.dinner}
+                          className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-950 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
+                        />
+                        <div className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3.5 w-3.5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            stroke="currentColor"
+                            strokeWidth="1"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                        </div>
+                      </label>
+                      <label
+                        className="mt-px text-gray-950 font-medium cursor-pointer select-none"
+                        htmlFor="dinner"
+                      >
+                        Dinner break
+                      </label>
+                    </div>
                   </div>
                   {/* End Prestation */}
                 </div>
