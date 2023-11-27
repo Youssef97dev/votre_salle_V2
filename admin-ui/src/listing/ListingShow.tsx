@@ -41,6 +41,29 @@ export const ListingShow = (props: ShowProps): React.ReactElement => {
         <TextField label="tax" source="tax" />
         <TextField label="title" source="title" />
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceManyField
+          reference="Review"
+          target="listingId"
+          label="Reviews"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="comments" source="comments" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <ReferenceField
+              label="listing"
+              source="listing.id"
+              reference="Listing"
+            >
+              <TextField source={LISTING_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ratings" source="ratings" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="user" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField reference="Trip" target="listingId" label="trips">
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />

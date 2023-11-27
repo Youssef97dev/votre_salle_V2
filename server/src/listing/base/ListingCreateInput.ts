@@ -22,6 +22,7 @@ import { Type } from "class-transformer";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { ReviewCreateNestedManyWithoutListingsInput } from "./ReviewCreateNestedManyWithoutListingsInput";
 import { Decimal } from "decimal.js";
 import { TripCreateNestedManyWithoutListingsInput } from "./TripCreateNestedManyWithoutListingsInput";
 import { WishlistCreateNestedManyWithoutListingsInput } from "./WishlistCreateNestedManyWithoutListingsInput";
@@ -121,6 +122,18 @@ class ListingCreateInput {
   @IsNumber()
   @Field(() => Number)
   priceB2b!: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReviewCreateNestedManyWithoutListingsInput,
+  })
+  @ValidateNested()
+  @Type(() => ReviewCreateNestedManyWithoutListingsInput)
+  @IsOptional()
+  @Field(() => ReviewCreateNestedManyWithoutListingsInput, {
+    nullable: true,
+  })
+  reviews?: ReviewCreateNestedManyWithoutListingsInput;
 
   @ApiProperty({
     required: true,

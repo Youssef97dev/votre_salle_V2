@@ -1,5 +1,6 @@
 import { JsonValue } from "type-fest";
 import { Listing } from "../listing/Listing";
+import { Review } from "../review/Review";
 import { Trip } from "../trip/Trip";
 import { Wishlist } from "../wishlist/Wishlist";
 
@@ -11,6 +12,7 @@ export type User = {
   lastName: string | null;
   listings?: Array<Listing>;
   phone: string | null;
+  reviews?: Array<Review>;
   roles: JsonValue;
   trips?: Array<Trip>;
   typeUser: string;

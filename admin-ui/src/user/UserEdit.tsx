@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { ListingTitle } from "../listing/ListingTitle";
+import { ReviewTitle } from "../review/ReviewTitle";
 import { TripTitle } from "../trip/TripTitle";
 import { WishlistTitle } from "../wishlist/WishlistTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
@@ -32,6 +33,14 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         </ReferenceArrayInput>
         <PasswordInput label="Password" source="password" />
         <TextInput label="phone" source="phone" />
+        <ReferenceArrayInput
+          source="reviews"
+          reference="Review"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ReviewTitle} />
+        </ReferenceArrayInput>
         <SelectArrayInput
           source="roles"
           choices={ROLES_OPTIONS}

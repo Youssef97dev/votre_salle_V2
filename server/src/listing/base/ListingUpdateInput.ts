@@ -22,6 +22,7 @@ import { Type } from "class-transformer";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { ReviewUpdateManyWithoutListingsInput } from "./ReviewUpdateManyWithoutListingsInput";
 import { Decimal } from "decimal.js";
 import { TripUpdateManyWithoutListingsInput } from "./TripUpdateManyWithoutListingsInput";
 import { WishlistUpdateManyWithoutListingsInput } from "./WishlistUpdateManyWithoutListingsInput";
@@ -154,6 +155,18 @@ class ListingUpdateInput {
     nullable: true,
   })
   priceB2b?: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReviewUpdateManyWithoutListingsInput,
+  })
+  @ValidateNested()
+  @Type(() => ReviewUpdateManyWithoutListingsInput)
+  @IsOptional()
+  @Field(() => ReviewUpdateManyWithoutListingsInput, {
+    nullable: true,
+  })
+  reviews?: ReviewUpdateManyWithoutListingsInput;
 
   @ApiProperty({
     required: false,
