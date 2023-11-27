@@ -23,6 +23,7 @@ import { User } from "../../user/base/User";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { Review } from "../../review/base/Review";
 import { Decimal } from "decimal.js";
 import { Trip } from "../../trip/base/Trip";
 import { Wishlist } from "../../wishlist/base/Wishlist";
@@ -137,6 +138,15 @@ class Listing {
   @IsNumber()
   @Field(() => Number)
   priceB2b!: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Review],
+  })
+  @ValidateNested()
+  @Type(() => Review)
+  @IsOptional()
+  reviews?: Array<Review>;
 
   @ApiProperty({
     required: true,

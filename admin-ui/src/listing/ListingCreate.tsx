@@ -13,6 +13,7 @@ import {
 } from "react-admin";
 
 import { UserTitle } from "../user/UserTitle";
+import { ReviewTitle } from "../review/ReviewTitle";
 import { TripTitle } from "../trip/TripTitle";
 import { WishlistTitle } from "../wishlist/WishlistTitle";
 
@@ -38,6 +39,14 @@ export const ListingCreate = (props: CreateProps): React.ReactElement => {
         <div />
         <NumberInput label="price" source="price" />
         <NumberInput label="priceB2b" source="priceB2b" />
+        <ReferenceArrayInput
+          source="reviews"
+          reference="Review"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ReviewTitle} />
+        </ReferenceArrayInput>
         <NumberInput label="tax" source="tax" />
         <TextInput label="title" source="title" />
         <ReferenceArrayInput

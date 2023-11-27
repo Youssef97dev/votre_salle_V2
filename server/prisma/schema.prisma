@@ -16,6 +16,7 @@ model User {
   listings    Listing[]
   password    String
   phone       String?
+  reviews     Review[]
   roles       Json
   trips       Trip[]
   typeUser    String
@@ -40,6 +41,7 @@ model Listing {
   prestation         Json?
   price              Float
   priceB2b           Float
+  reviews            Review[]
   tax                Decimal
   title              String
   trips              Trip[]
@@ -67,4 +69,16 @@ model Trip {
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+}
+
+model Review {
+  comments  String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  listing   Listing? @relation(fields: [listingId], references: [id])
+  listingId String?
+  ratings   Decimal?
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
 }

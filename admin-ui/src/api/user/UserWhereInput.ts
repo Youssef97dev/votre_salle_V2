@@ -2,6 +2,7 @@ import { JsonFilter } from "../../util/JsonFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ListingListRelationFilter } from "../listing/ListingListRelationFilter";
+import { ReviewListRelationFilter } from "../review/ReviewListRelationFilter";
 import { TripListRelationFilter } from "../trip/TripListRelationFilter";
 import { WishlistListRelationFilter } from "../wishlist/WishlistListRelationFilter";
 
@@ -12,6 +13,7 @@ export type UserWhereInput = {
   lastName?: StringNullableFilter;
   listings?: ListingListRelationFilter;
   phone?: StringNullableFilter;
+  reviews?: ReviewListRelationFilter;
   trips?: TripListRelationFilter;
   typeUser?: StringFilter;
   username?: StringFilter;
