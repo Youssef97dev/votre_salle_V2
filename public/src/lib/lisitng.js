@@ -337,6 +337,24 @@ export const getUserTrips = async (userId) => {
   return result;
 };
 
+export const getUserTripsByStatus = async (userId, status) => {
+  const query = qs.stringify({
+    where: {
+      user : {id: userId},
+      status,
+    },
+    select: {
+      listing: true,
+    },
+  });
+  const result = (
+    await axios.get(createUrl(`/api/trips?${query}`)).catch(() => null)
+  )?.data;
+
+  console.log({ result });
+  return result;
+};
+
 export const getActiveTrips = async (listingId) => {
   const query = qs.stringify({
     where: {

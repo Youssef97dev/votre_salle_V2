@@ -57,8 +57,9 @@ function Navbar() {
 
   const authenticatedContextMenuOptions = [
     {
-      name: "Messages",
+      name: "Profile",
       callBack: () => {
+        router.push("/profile");
         setIsContextMenuVisible(false);
       },
     },

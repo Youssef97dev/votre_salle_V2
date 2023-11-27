@@ -27,6 +27,17 @@ input DecimalFilter {
   notIn: [Float!]
 }
 
+input DecimalNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
+
 input FloatFilter {
   equals: Float
   gt: Float
@@ -68,6 +79,7 @@ type Listing {
   prestation: JSON
   price: Float!
   priceB2b: Float!
+  reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
   tax: Float!
   title: String!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
@@ -88,6 +100,7 @@ input ListingCreateInput {
   prestation: JSON
   price: Float!
   priceB2b: Float!
+  reviews: ReviewCreateNestedManyWithoutListingsInput
   tax: Float!
   title: String!
   trips: TripCreateNestedManyWithoutListingsInput
@@ -137,6 +150,7 @@ input ListingUpdateInput {
   prestation: JSON
   price: Float
   priceB2b: Float
+  reviews: ReviewUpdateManyWithoutListingsInput
   tax: Float
   title: String
   trips: TripUpdateManyWithoutListingsInput
@@ -163,6 +177,7 @@ input ListingWhereInput {
   prestation: JsonFilter
   price: FloatFilter
   priceB2b: FloatFilter
+  reviews: ReviewListRelationFilter
   tax: DecimalFilter
   title: StringFilter
   trips: TripListRelationFilter
@@ -179,16 +194,19 @@ type MetaQueryPayload {
 
 type Mutation {
   createListing(data: ListingCreateInput!): Listing!
+  createReview(data: ReviewCreateInput!): Review!
   createTrip(data: TripCreateInput!): Trip!
   createUser(data: UserCreateInput!): User!
   createWishlist(data: WishlistCreateInput!): Wishlist!
   deleteListing(where: ListingWhereUniqueInput!): Listing!
+  deleteReview(where: ReviewWhereUniqueInput!): Review!
   deleteTrip(where: TripWhereUniqueInput!): Trip!
   deleteUser(where: UserWhereUniqueInput!): User!
   deleteWishlist(where: WishlistWhereUniqueInput!): Wishlist!
   login(credentials: Credentials!): UserInfo!
   signup(credentials: Credentials!): UserInfo!
   updateListing(data: ListingUpdateInput!, where: ListingWhereUniqueInput!): Listing!
+  updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review!
   updateTrip(data: TripUpdateInput!, where: TripWhereUniqueInput!): Trip!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   updateWishlist(data: WishlistUpdateInput!, where: WishlistWhereUniqueInput!): Wishlist!
@@ -196,6 +214,7 @@ type Mutation {
 
 type Query {
   _listingsMeta(where: ListingWhereInput): MetaQueryPayload!
+  _reviewsMeta(where: ReviewWhereInput): MetaQueryPayload!
   _tripsMeta(where: TripWhereInput): MetaQueryPayload!
   _usersMeta(where: UserWhereInput): MetaQueryPayload!
   _wishlistsMeta(where: WishlistWhereInput): MetaQueryPayload!
@@ -203,6 +222,8 @@ type Query {
   listing(where: ListingWhereUniqueInput!): Listing
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
   me: User!
+  review(where: ReviewWhereUniqueInput!): Review
+  reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
   trip(where: TripWhereUniqueInput!): Trip
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
   user(where: UserWhereUniqueInput!): User
@@ -215,6 +236,78 @@ type Query {
 enum QueryMode {
   Default
   Insensitive
+}
+
+type Review {
+  comments: String
+  createdAt: DateTime!
+  id: String!
+  listing: Listing
+  ratings: Float
+  updatedAt: DateTime!
+  user: User
+}
+
+input ReviewCreateInput {
+  comments: String
+  listing: ListingWhereUniqueInput
+  ratings: Float
+  user: UserWhereUniqueInput
+}
+
+input ReviewCreateNestedManyWithoutListingsInput {
+  connect: [ReviewWhereUniqueInput!]
+}
+
+input ReviewCreateNestedManyWithoutUsersInput {
+  connect: [ReviewWhereUniqueInput!]
+}
+
+input ReviewListRelationFilter {
+  every: ReviewWhereInput
+  none: ReviewWhereInput
+  some: ReviewWhereInput
+}
+
+input ReviewOrderByInput {
+  comments: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  listingId: SortOrder
+  ratings: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input ReviewUpdateInput {
+  comments: String
+  listing: ListingWhereUniqueInput
+  ratings: Float
+  user: UserWhereUniqueInput
+}
+
+input ReviewUpdateManyWithoutListingsInput {
+  connect: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+}
+
+input ReviewUpdateManyWithoutUsersInput {
+  connect: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+}
+
+input ReviewWhereInput {
+  comments: StringNullableFilter
+  id: StringFilter
+  listing: ListingWhereUniqueInput
+  ratings: DecimalNullableFilter
+  user: UserWhereUniqueInput
+}
+
+input ReviewWhereUniqueInput {
+  id: String!
 }
 
 enum SortOrder {
@@ -332,6 +425,7 @@ type User {
   lastName: String
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
   phone: String
+  reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
   roles: JSON!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
   typeUser: String!
@@ -347,6 +441,7 @@ input UserCreateInput {
   listings: ListingCreateNestedManyWithoutUsersInput
   password: String!
   phone: String
+  reviews: ReviewCreateNestedManyWithoutUsersInput
   roles: JSON!
   trips: TripCreateNestedManyWithoutUsersInput
   typeUser: String!
@@ -382,6 +477,7 @@ input UserUpdateInput {
   listings: ListingUpdateManyWithoutUsersInput
   password: String
   phone: String
+  reviews: ReviewUpdateManyWithoutUsersInput
   roles: JSON
   trips: TripUpdateManyWithoutUsersInput
   typeUser: String
@@ -396,6 +492,7 @@ input UserWhereInput {
   lastName: StringNullableFilter
   listings: ListingListRelationFilter
   phone: StringNullableFilter
+  reviews: ReviewListRelationFilter
   trips: TripListRelationFilter
   typeUser: StringFilter
   username: StringFilter
