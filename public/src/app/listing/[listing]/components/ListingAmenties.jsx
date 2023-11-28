@@ -18,7 +18,7 @@ export default function ListingAmenties() {
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 pb-4 border-b border-gray-300">
       <h4 className="text-base md:text-xl font-semibold ">Amenties</h4>
       <ul className="grid md:grid-cols-5 gap-2 grid-cols-1">
         {currentListing.placeAmeneties?.slice(0,4).map((amenity) => (

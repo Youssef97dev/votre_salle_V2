@@ -11,6 +11,7 @@ import ListingPhotos from "./components/ListingPhotos";
 import TripScheduler from "./components/TripScheduler";
 import ListingAmenties from "./components/ListingAmenties";
 import ListingMap from "./components/ListingMap";
+import Reviews from "./components/Reviews";
 import { getListing } from "airbnb/lib/lisitng";
 import dynamic from "next/dynamic";
 
@@ -87,12 +88,24 @@ export default function Page({ params: { listing } }) {
                           </span>
                         </li>
                       ))}
+                      {currentListing?.reviews && <li
+                          className="border border-gray-300 p-3 rounded-lg flex flex-row md:flex-col justify-start items-center gap-3 md:gap-0 md:items-start w-full md:w-32"
+                          
+                        >
+                          <span className="text-xs md:text-2xl font-semibold">
+                            {currentListing?.reviews?.length}
+                          </span>
+                          <span className="capitalize text-sm md:text-base">
+                            Review
+                          </span>
+                        </li>}
                     </ul>
                   </div>
                   <p className="font-medium md:font-semibold text-sm md:text-base">
                     {currentListing?.description}
                   </p>
                   <ListingAmenties />
+                  <Reviews />
                   <ListingMap />
                 </div>
                 {isDesktop && (

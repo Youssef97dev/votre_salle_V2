@@ -177,6 +177,8 @@ export class ListingControllerBase {
           },
         },
 
+        reviews:true,
+
         locationData: true,
         locationType: true,
         mapData: true,
