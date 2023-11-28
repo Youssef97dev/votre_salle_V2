@@ -396,3 +396,21 @@ export const deleteTripAPI = async (id) => {
   }
   return result;
 };
+
+export const addReview = async (data) => {
+  const query = {
+    listing: {
+      id: data.listingId,
+    },
+    user: { id: data.userId },
+    ratings: parseFloat(data.rate),
+    comments: data.comment,
+  };
+  const result = await axios.post(createUrl("/api/reviews"), { ...query });
+  console.log(result)
+  if (!result) {
+    alert("failed");
+  } else {
+    return result;
+  }
+};

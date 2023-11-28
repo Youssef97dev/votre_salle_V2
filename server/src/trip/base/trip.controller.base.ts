@@ -107,6 +107,9 @@ export class TripControllerBase {
             id: true,
             title: true,
             listingCreatedById: true,
+            locationData:true,
+            photos:true,
+            reviews: true,
           },
         },
 
