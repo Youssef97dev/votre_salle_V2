@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   addToWishList,
@@ -8,7 +8,7 @@ import {
   removeFromWishListAPI,
 } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
-import { IoMdHeart } from "react-icons/io";
+import { IoMdHeart, IoMdStar } from "react-icons/io";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -40,6 +40,7 @@ export default function ListingCard({
 
   const [hover, setHover] = useState(false);
   const [showPrestation, setShowPrestation] = useState(false);
+  const [rating, setRating] = useState(0);
 
   const router = useRouter();
   const deleteListing = async () => {
@@ -65,6 +66,15 @@ export default function ListingCard({
       setWishListsPage(wishListsPage);
     }
   };
+
+  useEffect(()=>{
+    // Calculate the total ratings and the number of reviews
+    const totalRatings = data.reviews.reduce((sum, review) => sum + parseFloat(review.ratings), 0);
+    const numberOfReviews = data.reviews.length;
+    // Calculate the average rating
+    const averageRating = totalRatings / numberOfReviews;
+    setRating(averageRating);
+  }, [])
 
   return (
     <div className="col-span-1 group">
@@ -183,7 +193,7 @@ export default function ListingCard({
               ) : (
                 <>
                   <h3 className="font-semibold">{data.title}</h3>
-                  <span className="font-semibold">&#9733; 4,81 </span>
+                  {rating > 0 && <span className="font-semibold flex items-center gap-2"><IoMdStar size={15} /> {rating}</span>}
                 </>
               )}
             </div>
