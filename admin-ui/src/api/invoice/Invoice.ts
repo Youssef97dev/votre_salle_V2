@@ -3,7 +3,7 @@ import { User } from "../user/User";
 
 export type Invoice = {
   createdAt: Date;
-  id: bigint;
+  id: number;
   status: string | null;
   trips?: Trip | null;
   updatedAt: Date;

@@ -37,8 +37,8 @@ class Invoice {
     type: Number,
   })
   @IsInt()
-  @Field(() => GraphQLBigInt)
-  id!: bigint;
+  @Field(() => Number)
+  id!: number;
 
   @ApiProperty({
     required: false,
