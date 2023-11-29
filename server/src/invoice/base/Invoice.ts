@@ -11,7 +11,13 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsOptional, ValidateNested } from "class-validator";
+import {
+  IsDate,
+  IsInt,
+  IsString,
+  IsOptional,
+  ValidateNested,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { Trip } from "../../trip/base/Trip";
 import { User } from "../../user/base/User";
@@ -28,11 +34,11 @@ class Invoice {
 
   @ApiProperty({
     required: true,
-    type: String,
+    type: Number,
   })
-  @IsString()
-  @Field(() => String)
-  id!: string;
+  @IsInt()
+  @Field(() => GraphQLBigInt)
+  id!: bigint;
 
   @ApiProperty({
     required: false,

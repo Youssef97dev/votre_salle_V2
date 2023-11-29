@@ -1,10 +1,10 @@
-import { StringFilter } from "../../util/StringFilter";
+import { BigIntFilter } from "../../util/BigIntFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { TripWhereUniqueInput } from "../trip/TripWhereUniqueInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
 export type InvoiceWhereInput = {
-  id?: StringFilter;
+  id?: BigIntFilter;
   status?: StringNullableFilter;
   trips?: TripWhereUniqueInput;
   user?: UserWhereUniqueInput;

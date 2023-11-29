@@ -87,7 +87,7 @@ model Review {
 
 model Invoice {
   createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
+  id        BigInt   @id @default(autoincrement())
   status    String?
   trips     Trip?    @relation(fields: [tripsId], references: [id])
   tripsId   String?  @unique

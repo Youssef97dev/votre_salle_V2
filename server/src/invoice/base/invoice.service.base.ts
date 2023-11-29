@@ -47,7 +47,7 @@ export class InvoiceServiceBase {
     return this.prisma.invoice.delete(args);
   }
 
-  async getTrips(parentId: string): Promise<Trip | null> {
+  async getTrips(parentId: number): Promise<Trip | null> {
     return this.prisma.invoice
       .findUnique({
         where: { id: parentId },
@@ -55,7 +55,7 @@ export class InvoiceServiceBase {
       .trips();
   }
 
-  async getUser(parentId: string): Promise<User | null> {
+  async getUser(parentId: number): Promise<User | null> {
     return this.prisma.invoice
       .findUnique({
         where: { id: parentId },
