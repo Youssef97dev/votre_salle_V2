@@ -51,6 +51,12 @@ export class TripControllerBase {
       data: {
         ...data,
 
+        invoice: data.invoice
+          ? {
+              connect: data.invoice,
+            }
+          : undefined,
+
         listing: {
           connect: data.listing,
         },
@@ -62,6 +68,12 @@ export class TripControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        invoice: {
+          select: {
+            id: true,
+          },
+        },
 
         listing: {
           select: {
@@ -101,6 +113,12 @@ export class TripControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        invoice: {
+          select: {
+            id: true,
+          },
+        },
 
         listing: {
           select: {
@@ -150,6 +168,12 @@ export class TripControllerBase {
         createdAt: true,
         id: true,
 
+        invoice: {
+          select: {
+            id: true,
+          },
+        },
+
         listing: {
           select: {
             id: true,
@@ -197,6 +221,12 @@ export class TripControllerBase {
         data: {
           ...data,
 
+          invoice: data.invoice
+            ? {
+                connect: data.invoice,
+              }
+            : undefined,
+
           listing: {
             connect: data.listing,
           },
@@ -208,6 +238,12 @@ export class TripControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          invoice: {
+            select: {
+              id: true,
+            },
+          },
 
           listing: {
             select: {
@@ -256,6 +292,12 @@ export class TripControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          invoice: {
+            select: {
+              id: true,
+            },
+          },
 
           listing: {
             select: {

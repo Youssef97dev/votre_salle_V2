@@ -8,6 +8,7 @@ import {
   ReferenceField,
 } from "react-admin";
 import Pagination from "../Components/Pagination";
+import { INVOICE_TITLE_FIELD } from "../invoice/InvoiceTitle";
 import { LISTING_TITLE_FIELD } from "../listing/ListingTitle";
 import { USER_TITLE_FIELD } from "../user/UserTitle";
 
@@ -23,6 +24,9 @@ export const TripList = (props: ListProps): React.ReactElement => {
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <ReferenceField label="Invoice" source="invoice.id" reference="Invoice">
+          <TextField source={INVOICE_TITLE_FIELD} />
+        </ReferenceField>
         <ReferenceField label="listing" source="listing.id" reference="Listing">
           <TextField source={LISTING_TITLE_FIELD} />
         </ReferenceField>

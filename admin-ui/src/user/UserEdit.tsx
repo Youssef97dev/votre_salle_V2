@@ -10,6 +10,7 @@ import {
   PasswordInput,
 } from "react-admin";
 
+import { InvoiceTitle } from "../invoice/InvoiceTitle";
 import { ListingTitle } from "../listing/ListingTitle";
 import { ReviewTitle } from "../review/ReviewTitle";
 import { TripTitle } from "../trip/TripTitle";
@@ -22,6 +23,14 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
       <SimpleForm>
         <div />
         <TextInput label="First Name" source="firstName" />
+        <ReferenceArrayInput
+          source="invoices"
+          reference="Invoice"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={InvoiceTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Last Name" source="lastName" />
         <ReferenceArrayInput
           source="listings"

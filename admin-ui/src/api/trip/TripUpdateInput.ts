@@ -1,8 +1,10 @@
+import { InvoiceWhereUniqueInput } from "../invoice/InvoiceWhereUniqueInput";
 import { ListingWhereUniqueInput } from "../listing/ListingWhereUniqueInput";
 import { InputJsonValue } from "../../types";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
 export type TripUpdateInput = {
+  invoice?: InvoiceWhereUniqueInput | null;
   listing?: ListingWhereUniqueInput;
   status?: string | null;
   tripinfo?: InputJsonValue;

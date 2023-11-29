@@ -4,6 +4,7 @@ import { ListingModule } from "./listing/listing.module";
 import { WishlistModule } from "./wishlist/wishlist.module";
 import { TripModule } from "./trip/trip.module";
 import { ReviewModule } from "./review/review.module";
+import { InvoiceModule } from "./invoice/invoice.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -26,6 +27,7 @@ import { AuthModule } from "./auth/auth.module";
     WishlistModule,
     TripModule,
     ReviewModule,
+    InvoiceModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

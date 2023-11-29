@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { InvoiceWhereUniqueInput } from "../../invoice/base/InvoiceWhereUniqueInput";
 import { ListingWhereUniqueInput } from "../../listing/base/ListingWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { JsonFilter } from "../../util/JsonFilter";
@@ -31,6 +32,18 @@ class TripWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => InvoiceWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => InvoiceWhereUniqueInput)
+  @IsOptional()
+  @Field(() => InvoiceWhereUniqueInput, {
+    nullable: true,
+  })
+  invoice?: InvoiceWhereUniqueInput;
 
   @ApiProperty({
     required: false,

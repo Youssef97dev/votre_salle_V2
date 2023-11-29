@@ -13,6 +13,7 @@ import {
 
 import { LISTING_TITLE_FIELD } from "./ListingTitle";
 import { USER_TITLE_FIELD } from "../user/UserTitle";
+import { INVOICE_TITLE_FIELD } from "../invoice/InvoiceTitle";
 
 export const ListingShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -68,6 +69,13 @@ export const ListingShow = (props: ShowProps): React.ReactElement => {
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
+            <ReferenceField
+              label="Invoice"
+              source="invoice.id"
+              reference="Invoice"
+            >
+              <TextField source={INVOICE_TITLE_FIELD} />
+            </ReferenceField>
             <ReferenceField
               label="listing"
               source="listing.id"

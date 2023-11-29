@@ -50,6 +50,17 @@ class TripOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  invoiceId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   listingId?: SortOrder;
 
   @ApiProperty({

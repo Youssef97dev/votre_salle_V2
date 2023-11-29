@@ -25,6 +25,10 @@ import { ReviewList } from "./review/ReviewList";
 import { ReviewCreate } from "./review/ReviewCreate";
 import { ReviewEdit } from "./review/ReviewEdit";
 import { ReviewShow } from "./review/ReviewShow";
+import { InvoiceList } from "./invoice/InvoiceList";
+import { InvoiceCreate } from "./invoice/InvoiceCreate";
+import { InvoiceEdit } from "./invoice/InvoiceEdit";
+import { InvoiceShow } from "./invoice/InvoiceShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -85,6 +89,13 @@ const App = (): React.ReactElement => {
           edit={ReviewEdit}
           create={ReviewCreate}
           show={ReviewShow}
+        />
+        <Resource
+          name="Invoice"
+          list={InvoiceList}
+          edit={InvoiceEdit}
+          create={InvoiceCreate}
+          show={InvoiceShow}
         />
       </Admin>
     </div>

@@ -13,6 +13,7 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { Invoice } from "../../invoice/base/Invoice";
 import { Listing } from "../../listing/base/Listing";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -36,6 +37,15 @@ class Trip {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => Invoice,
+  })
+  @ValidateNested()
+  @Type(() => Invoice)
+  @IsOptional()
+  invoice?: Invoice | null;
 
   @ApiProperty({
     required: true,
