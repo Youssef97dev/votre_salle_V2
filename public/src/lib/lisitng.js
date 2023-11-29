@@ -414,3 +414,21 @@ export const addReview = async (data) => {
     return result;
   }
 };
+
+// Invoice
+export const addInvoice = async (data) => {
+  const query = {
+    listing: {
+      id: data.listingId,
+    },
+    user: { id: data.userId },
+    tripinfo: data.tripData,
+    status: "Active",
+  };
+  const result = await axios.post(createUrl("/api/invoices"), { ...query });
+  if (!result) {
+    alert("failed");
+  } else {
+    return result;
+  }
+};

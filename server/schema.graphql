@@ -49,6 +49,63 @@ input FloatFilter {
   notIn: [Float!]
 }
 
+type Invoice {
+  createdAt: DateTime!
+  id: String!
+  status: String
+  trips: Trip
+  updatedAt: DateTime!
+  user: User
+}
+
+input InvoiceCreateInput {
+  status: String
+  trips: TripWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input InvoiceCreateNestedManyWithoutUsersInput {
+  connect: [InvoiceWhereUniqueInput!]
+}
+
+input InvoiceListRelationFilter {
+  every: InvoiceWhereInput
+  none: InvoiceWhereInput
+  some: InvoiceWhereInput
+}
+
+input InvoiceOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  status: SortOrder
+  tripsId: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input InvoiceUpdateInput {
+  status: String
+  trips: TripWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input InvoiceUpdateManyWithoutUsersInput {
+  connect: [InvoiceWhereUniqueInput!]
+  disconnect: [InvoiceWhereUniqueInput!]
+  set: [InvoiceWhereUniqueInput!]
+}
+
+input InvoiceWhereInput {
+  id: StringFilter
+  status: StringNullableFilter
+  trips: TripWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input InvoiceWhereUniqueInput {
+  id: String!
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -193,11 +250,13 @@ type MetaQueryPayload {
 }
 
 type Mutation {
+  createInvoice(data: InvoiceCreateInput!): Invoice!
   createListing(data: ListingCreateInput!): Listing!
   createReview(data: ReviewCreateInput!): Review!
   createTrip(data: TripCreateInput!): Trip!
   createUser(data: UserCreateInput!): User!
   createWishlist(data: WishlistCreateInput!): Wishlist!
+  deleteInvoice(where: InvoiceWhereUniqueInput!): Invoice!
   deleteListing(where: ListingWhereUniqueInput!): Listing!
   deleteReview(where: ReviewWhereUniqueInput!): Review!
   deleteTrip(where: TripWhereUniqueInput!): Trip!
@@ -205,6 +264,7 @@ type Mutation {
   deleteWishlist(where: WishlistWhereUniqueInput!): Wishlist!
   login(credentials: Credentials!): UserInfo!
   signup(credentials: Credentials!): UserInfo!
+  updateInvoice(data: InvoiceUpdateInput!, where: InvoiceWhereUniqueInput!): Invoice!
   updateListing(data: ListingUpdateInput!, where: ListingWhereUniqueInput!): Listing!
   updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review!
   updateTrip(data: TripUpdateInput!, where: TripWhereUniqueInput!): Trip!
@@ -213,12 +273,15 @@ type Mutation {
 }
 
 type Query {
+  _invoicesMeta(where: InvoiceWhereInput): MetaQueryPayload!
   _listingsMeta(where: ListingWhereInput): MetaQueryPayload!
   _reviewsMeta(where: ReviewWhereInput): MetaQueryPayload!
   _tripsMeta(where: TripWhereInput): MetaQueryPayload!
   _usersMeta(where: UserWhereInput): MetaQueryPayload!
   _wishlistsMeta(where: WishlistWhereInput): MetaQueryPayload!
   checkUser(CheckUserValues: CheckUserValues!): User!
+  invoice(where: InvoiceWhereUniqueInput!): Invoice
+  invoices(orderBy: [InvoiceOrderByInput!], skip: Float, take: Float, where: InvoiceWhereInput): [Invoice!]!
   listing(where: ListingWhereUniqueInput!): Listing
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
   me: User!
@@ -348,6 +411,7 @@ input StringNullableFilter {
 type Trip {
   createdAt: DateTime!
   id: String!
+  invoice: Invoice
   listing: Listing
   status: String
   tripinfo: JSON
@@ -356,6 +420,7 @@ type Trip {
 }
 
 input TripCreateInput {
+  invoice: InvoiceWhereUniqueInput
   listing: ListingWhereUniqueInput!
   status: String
   tripinfo: JSON
@@ -379,6 +444,7 @@ input TripListRelationFilter {
 input TripOrderByInput {
   createdAt: SortOrder
   id: SortOrder
+  invoiceId: SortOrder
   listingId: SortOrder
   status: SortOrder
   tripinfo: SortOrder
@@ -387,6 +453,7 @@ input TripOrderByInput {
 }
 
 input TripUpdateInput {
+  invoice: InvoiceWhereUniqueInput
   listing: ListingWhereUniqueInput
   status: String
   tripinfo: JSON
@@ -407,6 +474,7 @@ input TripUpdateManyWithoutUsersInput {
 
 input TripWhereInput {
   id: StringFilter
+  invoice: InvoiceWhereUniqueInput
   listing: ListingWhereUniqueInput
   status: StringNullableFilter
   tripinfo: JsonFilter
@@ -422,6 +490,7 @@ type User {
   createdAt: DateTime!
   firstName: String
   id: String!
+  invoices(orderBy: [InvoiceOrderByInput!], skip: Float, take: Float, where: InvoiceWhereInput): [Invoice!]!
   lastName: String
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
   phone: String
@@ -437,6 +506,7 @@ type User {
 input UserCreateInput {
   companyInfo: JSON
   firstName: String
+  invoices: InvoiceCreateNestedManyWithoutUsersInput
   lastName: String
   listings: ListingCreateNestedManyWithoutUsersInput
   password: String!
@@ -473,6 +543,7 @@ input UserOrderByInput {
 input UserUpdateInput {
   companyInfo: JSON
   firstName: String
+  invoices: InvoiceUpdateManyWithoutUsersInput
   lastName: String
   listings: ListingUpdateManyWithoutUsersInput
   password: String
@@ -489,6 +560,7 @@ input UserWhereInput {
   companyInfo: JsonFilter
   firstName: StringNullableFilter
   id: StringFilter
+  invoices: InvoiceListRelationFilter
   lastName: StringNullableFilter
   listings: ListingListRelationFilter
   phone: StringNullableFilter

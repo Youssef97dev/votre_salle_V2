@@ -114,11 +114,7 @@ export class TripControllerBase {
         createdAt: true,
         id: true,
 
-        invoice: {
-          select: {
-            id: true,
-          },
-        },
+        invoice: true,
 
         listing: {
           select: {

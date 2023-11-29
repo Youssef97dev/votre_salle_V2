@@ -7,6 +7,7 @@ import {
   getUserListings,
   getUserReservedTrips,
   deleteTripAPI,
+  addInvoice,
   EditStatusTrip,
 } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
@@ -20,6 +21,9 @@ import Spinner from "airbnb/components/common/Spinner";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
+
+import { GrStatusDisabled } from "react-icons/gr";
+import { LiaFileInvoiceSolid } from "react-icons/lia";
 
 export default function Page() {
   const router = useRouter();
@@ -91,48 +95,44 @@ export default function Page() {
     const providedStartDate = new Date(startDate);
     const providedEndtDate = new Date(endDate);
 
-    if (providedStartDate > currentDate) {
-      if (currentDate < providedEndtDate) {
-        return "Checked In";
-      } else if (currentDate > providedEndtDate) {
-        return "Checked Out";
-      }
-    } else if (providedStartDate < currentDate) {
+    if (currentDate < providedEndtDate && currentDate > providedStartDate) {
+      return "Checked In";
+    }else if (currentDate > providedEndtDate){
+      return "Checked Out";
+    }else {
       return "Upcoming";
     }
+
   }
 
-  const deleteTrip = async (id, status) => {
+  const cancelTrip = async (id, status) => {
     const result = await Swal.fire({
       icon: "warning",
-      title: "Confirmation du suppression",
-      text: "Voulez vous supprimer cette reservation?",
+      title: "Cancelation confirmation",
+      text: "Do you want to cancel this reservation?",
       showCancelButton: true,
-      confirmButtonText: "Supprimer",
-      cancelButtonText: "Annuler",
+      confirmButtonText: "Cancel",
+      cancelButtonText: "Discard",
       padding: "2em",
       customClass: "sweet-alerts",
     });
 
     if (result.value) {
       try {
-        const data = await EditStatusTrip(
-          id,
-          status === "Active" ? "UnActive" : "Active"
-        );
+        const data = await EditStatusTrip(id,"Canceled");
 
         if (data.status === 200) {
           setRelaunchData((prev) => !prev);
           Swal.fire({
-            title: "Annuler!",
-            text: "Votre réservation a été annulé.",
+            title: "Cancel!",
+            text: "Your reservation has been canceled.",
             icon: "success",
             customClass: "sweet-alerts",
           });
         } else {
           Swal.fire({
             title: "Error!",
-            text: "Votre réservation n'a été pas annulé.",
+            text: "Your reservation has not been canceled.",
             icon: "warning",
             customClass: "sweet-alerts",
           });
@@ -140,7 +140,50 @@ export default function Page() {
       } catch (error) {
         Swal.fire({
           title: "Error!",
-          text: "Error sur l'annulation.",
+          text: "Error Cancelation.",
+          icon: "error",
+          customClass: "sweet-alerts",
+        });
+      }
+    }
+  };
+
+  const invoiceTrip = async (id) => {
+    const result = await Swal.fire({
+      icon: "info",
+      title: "Billing confirmation",
+      text: "Do you want to invoice this reservation?",
+      showCancelButton: true,
+      confirmButtonText: "Invoice",
+      cancelButtonText: "Discard",
+      padding: "2em",
+      customClass: "sweet-alerts",
+    });
+
+    if (result.value) {
+      try {
+        const data = await EditStatusTrip(id,"Invoice");
+
+        if (data.status === 200) {
+          setRelaunchData((prev) => !prev);
+          Swal.fire({
+            title: "Invoice!",
+            text: "Your reservation has been billed.",
+            icon: "success",
+            customClass: "sweet-alerts",
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "Your reservation has not been billed.",
+            icon: "warning",
+            customClass: "sweet-alerts",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          text: "Error Billing.",
           icon: "error",
           customClass: "sweet-alerts",
         });
@@ -231,13 +274,13 @@ export default function Page() {
                                     tripinfo?.startDate,
                                     tripinfo?.endDate
                                   ) === "Upcoming"
-                                    ? "bg-orange-500"
+                                    ? "bg-yellow-500"
                                     : checkDateStatus(
                                         tripinfo?.startDate,
                                         tripinfo?.endDate
                                       ) === "Checked In"
-                                    ? "bg-green-500"
-                                    : "bg-red-500"
+                                    ? "bg-blue-500"
+                                    : "bg-pink-500"
                                 }  text-white text-xs font-medium mr-2 px-2.5 py-1 rounded`}
                               >
                                 {checkDateStatus(
@@ -248,8 +291,8 @@ export default function Page() {
                               <span
                                 className={`${
                                   status === "Active"
-                                    ? "bg-blue-700"
-                                    : "bg-red-500"
+                                    ? "bg-green-500"
+                                    : status === "Invoice" ? "bg-teal-500" : "bg-red-500"
                                 }  text-white text-xs font-medium mr-2 px-2.5 py-1 rounded`}
                               >
                                 {status}
@@ -262,55 +305,30 @@ export default function Page() {
                           title: "Actions",
                           sortable: false,
                           textAlignment: "center",
-                          render: ({ id, status }) => (
-                            <div className="px-6 py-4">
+                          render: ({ id, status, tripinfo }) => (
+                            <div className="flex justify-between items-center gap-2 px-6 py-4">
                               <button
                                 type="button"
-                                className="flex hover:text-danger"
-                                onClick={() => deleteTrip(id, status)}
+                                className="flex hover:text-red-500"
+                                onClick={() => cancelTrip(id, status)}
                               >
-                                <svg
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-5 w-5"
-                                >
-                                  <path
-                                    d="M20.5001 6H3.5"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                  ></path>
-                                  <path
-                                    d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                  ></path>
-                                  <path
-                                    opacity="0.5"
-                                    d="M9.5 11L10 16"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                  ></path>
-                                  <path
-                                    opacity="0.5"
-                                    d="M14.5 11L14 16"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                  ></path>
-                                  <path
-                                    opacity="0.5"
-                                    d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                  ></path>
-                                </svg>
+                                <GrStatusDisabled size={20} />
                               </button>
+                              {( checkDateStatus(
+                                    tripinfo?.startDate,
+                                    tripinfo?.endDate
+                                  ) === "Checked In" || checkDateStatus(
+                                    tripinfo?.startDate,
+                                    tripinfo?.endDate
+                                  ) === "Checked Out")  && status === "Active" &&
+                                  <button
+                                  type="button"
+                                  className="flex hover:text-teal-500"
+                                  onClick={() => invoiceTrip(id, status)}
+                                >
+                                  <LiaFileInvoiceSolid size={20} />
+                                </button>
+                              }
                             </div>
                           ),
                         },
