@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsInt } from "class-validator";
+import { Transform } from "class-transformer";
 
 @InputType()
 class InvoiceWhereUniqueInput {
@@ -20,8 +21,11 @@ class InvoiceWhereUniqueInput {
     type: Number,
   })
   @IsInt()
-  @Field(() => GraphQLBigInt)
-  id!: bigint;
+  @Transform((prop) => parseInt(prop.value), {
+    toClassOnly: true,
+  })
+  @Field(() => Number)
+  id!: number;
 }
 
 export { InvoiceWhereUniqueInput as InvoiceWhereUniqueInput };

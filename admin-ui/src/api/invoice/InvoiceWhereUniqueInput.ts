@@ -1,3 +1,3 @@
 export type InvoiceWhereUniqueInput = {
-  id: bigint;
+  id: number;
 };

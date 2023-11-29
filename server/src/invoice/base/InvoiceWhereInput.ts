@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { BigIntFilter } from "../../util/BigIntFilter";
+import { IntFilter } from "../../util/IntFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
@@ -22,14 +22,14 @@ import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 class InvoiceWhereInput {
   @ApiProperty({
     required: false,
-    type: BigIntFilter,
+    type: IntFilter,
   })
-  @Type(() => BigIntFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => BigIntFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  id?: BigIntFilter;
+  id?: IntFilter;
 
   @ApiProperty({
     required: false,
