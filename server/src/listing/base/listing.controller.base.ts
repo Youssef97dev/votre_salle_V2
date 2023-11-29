@@ -431,6 +431,12 @@ export class ListingControllerBase {
         createdAt: true,
         id: true,
 
+        invoice: {
+          select: {
+            id: true,
+          },
+        },
+
         listing: {
           select: {
             id: true,

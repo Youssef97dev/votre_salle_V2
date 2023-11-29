@@ -26,6 +26,7 @@ import { TripCountArgs } from "./TripCountArgs";
 import { TripFindManyArgs } from "./TripFindManyArgs";
 import { TripFindUniqueArgs } from "./TripFindUniqueArgs";
 import { Trip } from "./Trip";
+import { Invoice } from "../../invoice/base/Invoice";
 import { Listing } from "../../listing/base/Listing";
 import { User } from "../../user/base/User";
 import { TripService } from "../trip.service";
@@ -91,6 +92,12 @@ export class TripResolverBase {
       data: {
         ...args.data,
 
+        invoice: args.data.invoice
+          ? {
+              connect: args.data.invoice,
+            }
+          : undefined,
+
         listing: {
           connect: args.data.listing,
         },
@@ -115,6 +122,12 @@ export class TripResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          invoice: args.data.invoice
+            ? {
+                connect: args.data.invoice,
+              }
+            : undefined,
 
           listing: {
             connect: args.data.listing,
@@ -152,6 +165,27 @@ export class TripResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Invoice, {
+    nullable: true,
+    name: "invoice",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Invoice",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldInvoice(
+    @graphql.Parent() parent: Trip
+  ): Promise<Invoice | null> {
+    const result = await this.service.getInvoice(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

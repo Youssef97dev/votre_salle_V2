@@ -26,6 +26,8 @@ import { UserCountArgs } from "./UserCountArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
+import { InvoiceFindManyArgs } from "../../invoice/base/InvoiceFindManyArgs";
+import { Invoice } from "../../invoice/base/Invoice";
 import { ListingFindManyArgs } from "../../listing/base/ListingFindManyArgs";
 import { Listing } from "../../listing/base/Listing";
 import { ReviewFindManyArgs } from "../../review/base/ReviewFindManyArgs";
@@ -138,6 +140,26 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Invoice], { name: "invoices" })
+  @nestAccessControl.UseRoles({
+    resource: "Invoice",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldInvoices(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: InvoiceFindManyArgs
+  ): Promise<Invoice[]> {
+    const results = await this.service.findInvoices(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

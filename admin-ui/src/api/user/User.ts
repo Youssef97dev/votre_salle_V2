@@ -1,4 +1,5 @@
 import { JsonValue } from "type-fest";
+import { Invoice } from "../invoice/Invoice";
 import { Listing } from "../listing/Listing";
 import { Review } from "../review/Review";
 import { Trip } from "../trip/Trip";
@@ -9,6 +10,7 @@ export type User = {
   createdAt: Date;
   firstName: string | null;
   id: string;
+  invoices?: Array<Invoice>;
   lastName: string | null;
   listings?: Array<Listing>;
   phone: string | null;

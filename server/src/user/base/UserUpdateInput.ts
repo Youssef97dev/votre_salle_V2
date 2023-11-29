@@ -15,8 +15,9 @@ import { IsJSONValue } from "@app/custom-validators";
 import { IsOptional, IsString, ValidateNested } from "class-validator";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
-import { ListingUpdateManyWithoutUsersInput } from "./ListingUpdateManyWithoutUsersInput";
+import { InvoiceUpdateManyWithoutUsersInput } from "./InvoiceUpdateManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { ListingUpdateManyWithoutUsersInput } from "./ListingUpdateManyWithoutUsersInput";
 import { ReviewUpdateManyWithoutUsersInput } from "./ReviewUpdateManyWithoutUsersInput";
 import { TripUpdateManyWithoutUsersInput } from "./TripUpdateManyWithoutUsersInput";
 import { WishlistUpdateManyWithoutUsersInput } from "./WishlistUpdateManyWithoutUsersInput";
@@ -43,6 +44,18 @@ class UserUpdateInput {
     nullable: true,
   })
   firstName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => InvoiceUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => InvoiceUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => InvoiceUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  invoices?: InvoiceUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

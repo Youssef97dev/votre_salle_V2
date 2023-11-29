@@ -15,8 +15,9 @@ import { IsJSONValue } from "@app/custom-validators";
 import { IsOptional, IsString, ValidateNested } from "class-validator";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
-import { ListingCreateNestedManyWithoutUsersInput } from "./ListingCreateNestedManyWithoutUsersInput";
+import { InvoiceCreateNestedManyWithoutUsersInput } from "./InvoiceCreateNestedManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { ListingCreateNestedManyWithoutUsersInput } from "./ListingCreateNestedManyWithoutUsersInput";
 import { ReviewCreateNestedManyWithoutUsersInput } from "./ReviewCreateNestedManyWithoutUsersInput";
 import { TripCreateNestedManyWithoutUsersInput } from "./TripCreateNestedManyWithoutUsersInput";
 import { WishlistCreateNestedManyWithoutUsersInput } from "./WishlistCreateNestedManyWithoutUsersInput";
@@ -43,6 +44,18 @@ class UserCreateInput {
     nullable: true,
   })
   firstName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => InvoiceCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => InvoiceCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => InvoiceCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  invoices?: InvoiceCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

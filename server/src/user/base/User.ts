@@ -16,6 +16,7 @@ import { IsOptional, IsDate, IsString, ValidateNested } from "class-validator";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Type } from "class-transformer";
+import { Invoice } from "../../invoice/base/Invoice";
 import { Listing } from "../../listing/base/Listing";
 import { Review } from "../../review/base/Review";
 import { Trip } from "../../trip/base/Trip";
@@ -59,6 +60,15 @@ class User {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Invoice],
+  })
+  @ValidateNested()
+  @Type(() => Invoice)
+  @IsOptional()
+  invoices?: Array<Invoice>;
 
   @ApiProperty({
     required: false,

@@ -11,8 +11,10 @@ import {
   ReferenceField,
 } from "react-admin";
 
+import { TRIP_TITLE_FIELD } from "../trip/TripTitle";
 import { USER_TITLE_FIELD } from "./UserTitle";
 import { LISTING_TITLE_FIELD } from "../listing/ListingTitle";
+import { INVOICE_TITLE_FIELD } from "../invoice/InvoiceTitle";
 
 export const UserShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -28,6 +30,24 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <TextField label="typeUser" source="typeUser" />
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Username" source="username" />
+        <ReferenceManyField
+          reference="Invoice"
+          target="userId"
+          label="Invoices"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <TextField label="status" source="status" />
+            <ReferenceField label="trips" source="trip.id" reference="Trip">
+              <TextField source={TRIP_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="user" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField
           reference="Listing"
           target="listingCreatedById"
@@ -82,6 +102,13 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
+            <ReferenceField
+              label="Invoice"
+              source="invoice.id"
+              reference="Invoice"
+            >
+              <TextField source={INVOICE_TITLE_FIELD} />
+            </ReferenceField>
             <ReferenceField
               label="listing"
               source="listing.id"

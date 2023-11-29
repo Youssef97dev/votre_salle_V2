@@ -27,6 +27,9 @@ import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserUpdateInput } from "./UserUpdateInput";
 import { User } from "./User";
+import { InvoiceFindManyArgs } from "../../invoice/base/InvoiceFindManyArgs";
+import { Invoice } from "../../invoice/base/Invoice";
+import { InvoiceWhereUniqueInput } from "../../invoice/base/InvoiceWhereUniqueInput";
 import { ListingFindManyArgs } from "../../listing/base/ListingFindManyArgs";
 import { Listing } from "../../listing/base/Listing";
 import { ListingWhereUniqueInput } from "../../listing/base/ListingWhereUniqueInput";
@@ -226,6 +229,115 @@ export class UserControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/invoices")
+  @ApiNestedQuery(InvoiceFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Invoice",
+    action: "read",
+    possession: "any",
+  })
+  async findManyInvoices(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Invoice[]> {
+    const query = plainToClass(InvoiceFindManyArgs, request.query);
+    const results = await this.service.findInvoices(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        status: true,
+
+        trips: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/invoices")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async connectInvoices(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: InvoiceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      invoices: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/invoices")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async updateInvoices(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: InvoiceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      invoices: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/invoices")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectInvoices(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: InvoiceWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      invoices: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -471,6 +583,12 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        invoice: {
+          select: {
+            id: true,
+          },
+        },
 
         listing: {
           select: {

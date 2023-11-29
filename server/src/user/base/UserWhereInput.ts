@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { InvoiceListRelationFilter } from "../../invoice/base/InvoiceListRelationFilter";
 import { ListingListRelationFilter } from "../../listing/base/ListingListRelationFilter";
 import { ReviewListRelationFilter } from "../../review/base/ReviewListRelationFilter";
 import { TripListRelationFilter } from "../../trip/base/TripListRelationFilter";
@@ -55,6 +56,18 @@ class UserWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => InvoiceListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => InvoiceListRelationFilter)
+  @IsOptional()
+  @Field(() => InvoiceListRelationFilter, {
+    nullable: true,
+  })
+  invoices?: InvoiceListRelationFilter;
 
   @ApiProperty({
     required: false,
