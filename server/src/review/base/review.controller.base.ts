@@ -119,6 +119,8 @@ export class ReviewControllerBase {
         user: {
           select: {
             id: true,
+            firstName: true,
+            lastName: true,
           },
         },
       },

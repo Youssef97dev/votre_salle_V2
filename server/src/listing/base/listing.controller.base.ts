@@ -177,7 +177,21 @@ export class ListingControllerBase {
           },
         },
 
-        reviews:true,
+        reviews: {
+          select : {
+            comments: true,
+            createdAt: true,
+            id:true,
+            ratings: true,
+            userId: true,
+            user: {
+              select: {
+                firstName: true,
+                lastName: true,
+              }
+            }
+          }
+        },
 
         locationData: true,
         locationType: true,
