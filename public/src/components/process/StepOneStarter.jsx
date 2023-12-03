@@ -17,7 +17,7 @@ export default function StepOneStarter() {
           </p>
         </div>
         <div className="w-full h-full">
-          <video src="/home.mp4" autoPlay loop controls={false}></video>
+          <img src="/img4.png"></img>
         </div>
       </div>
     </div>

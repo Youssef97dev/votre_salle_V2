@@ -50,16 +50,14 @@ function Page() {
       case 4:
         return <PlaceDetails />;
       case 5:
-        return <FloorPlan />;
-      case 6:
         return <StepTwoStarter />;
-      case 7:
+      case 6:
         return <ProcessAmeneties />;
-      case 8:
+      case 7:
         return <Photos />;
-      case 9:
+      case 8:
         return <Title />;
-      case 10:
+      case 9:
         return <ListingCreated />;
       default:
         return <></>;

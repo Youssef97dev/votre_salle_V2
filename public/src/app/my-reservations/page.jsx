@@ -97,12 +97,11 @@ export default function Page() {
 
     if (currentDate < providedEndtDate && currentDate > providedStartDate) {
       return "Checked In";
-    }else if (currentDate > providedEndtDate){
+    } else if (currentDate > providedEndtDate) {
       return "Checked Out";
-    }else {
+    } else {
       return "Upcoming";
     }
-
   }
 
   const cancelTrip = async (id, status) => {
@@ -119,7 +118,7 @@ export default function Page() {
 
     if (result.value) {
       try {
-        const data = await EditStatusTrip(id,"Canceled");
+        const data = await EditStatusTrip(id, "Canceled");
 
         if (data.status === 200) {
           setRelaunchData((prev) => !prev);
@@ -149,6 +148,11 @@ export default function Page() {
   };
 
   const invoiceTrip = async (id) => {
+    const data = {
+      userId: userInfo?.id,
+      tripId: id,
+    };
+
     const result = await Swal.fire({
       icon: "info",
       title: "Billing confirmation",
@@ -162,16 +166,19 @@ export default function Page() {
 
     if (result.value) {
       try {
-        const data = await EditStatusTrip(id,"Invoice");
+        const addedInvoice = await addInvoice(data);
 
-        if (data.status === 200) {
-          setRelaunchData((prev) => !prev);
-          Swal.fire({
-            title: "Invoice!",
-            text: "Your reservation has been billed.",
-            icon: "success",
-            customClass: "sweet-alerts",
-          });
+        if (addedInvoice.status === 201) {
+          const data = await EditStatusTrip(id, "Invoice");
+          if (data.status === 200) {
+            setRelaunchData((prev) => !prev);
+            Swal.fire({
+              title: "Invoice!",
+              text: "Your reservation has been billed.",
+              icon: "success",
+              customClass: "sweet-alerts",
+            });
+          }
         } else {
           Swal.fire({
             title: "Error!",
@@ -292,7 +299,9 @@ export default function Page() {
                                 className={`${
                                   status === "Active"
                                     ? "bg-green-500"
-                                    : status === "Invoice" ? "bg-teal-500" : "bg-red-500"
+                                    : status === "Invoice"
+                                    ? "bg-teal-500"
+                                    : "bg-red-500"
                                 }  text-white text-xs font-medium mr-2 px-2.5 py-1 rounded`}
                               >
                                 {status}
@@ -305,7 +314,7 @@ export default function Page() {
                           title: "Actions",
                           sortable: false,
                           textAlignment: "center",
-                          render: ({ id, status, tripinfo }) => (
+                          render: ({ id, status, tripinfo, listing }) => (
                             <div className="flex justify-between items-center gap-2 px-6 py-4">
                               <button
                                 type="button"
@@ -314,21 +323,23 @@ export default function Page() {
                               >
                                 <GrStatusDisabled size={20} />
                               </button>
-                              {( checkDateStatus(
-                                    tripinfo?.startDate,
-                                    tripinfo?.endDate
-                                  ) === "Checked In" || checkDateStatus(
-                                    tripinfo?.startDate,
-                                    tripinfo?.endDate
-                                  ) === "Checked Out")  && status === "Active" &&
+                              {(checkDateStatus(
+                                tripinfo?.startDate,
+                                tripinfo?.endDate
+                              ) === "Checked In" ||
+                                checkDateStatus(
+                                  tripinfo?.startDate,
+                                  tripinfo?.endDate
+                                ) === "Checked Out") &&
+                                status === "Active" && (
                                   <button
-                                  type="button"
-                                  className="flex hover:text-teal-500"
-                                  onClick={() => invoiceTrip(id, status)}
-                                >
-                                  <LiaFileInvoiceSolid size={20} />
-                                </button>
-                              }
+                                    type="button"
+                                    className="flex hover:text-teal-500"
+                                    onClick={() => invoiceTrip(id)}
+                                  >
+                                    <LiaFileInvoiceSolid size={20} />
+                                  </button>
+                                )}
                             </div>
                           ),
                         },

@@ -109,6 +109,7 @@ export class InvoiceControllerBase {
         trips: {
           select: {
             id: true,
+            tripinfo: true,
           },
         },
 
@@ -117,6 +118,9 @@ export class InvoiceControllerBase {
         user: {
           select: {
             id: true,
+            firstName: true,
+            lastName: true,
+            username: true,
           },
         },
       },

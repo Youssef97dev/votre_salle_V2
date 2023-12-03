@@ -340,7 +340,7 @@ export const getUserTrips = async (userId) => {
 export const getUserTripsByStatus = async (userId, status) => {
   const query = qs.stringify({
     where: {
-      user : {id: userId},
+      user: { id: userId },
       status,
     },
     select: {
@@ -407,7 +407,7 @@ export const addReview = async (data) => {
     comments: data.comment,
   };
   const result = await axios.post(createUrl("/api/reviews"), { ...query });
-  console.log(result)
+  console.log(result);
   if (!result) {
     alert("failed");
   } else {
@@ -418,12 +418,11 @@ export const addReview = async (data) => {
 // Invoice
 export const addInvoice = async (data) => {
   const query = {
-    listing: {
-      id: data.listingId,
+    trips: {
+      id: data.tripId,
     },
     user: { id: data.userId },
-    tripinfo: data.tripData,
-    status: "Active",
+    status: "Pending",
   };
   const result = await axios.post(createUrl("/api/invoices"), { ...query });
   if (!result) {

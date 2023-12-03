@@ -49,9 +49,20 @@ input FloatFilter {
   notIn: [Float!]
 }
 
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
 type Invoice {
   createdAt: DateTime!
-  id: String!
+  id: Float!
   status: String
   trips: Trip
   updatedAt: DateTime!
@@ -96,14 +107,14 @@ input InvoiceUpdateManyWithoutUsersInput {
 }
 
 input InvoiceWhereInput {
-  id: StringFilter
+  id: IntFilter
   status: StringNullableFilter
   trips: TripWhereUniqueInput
   user: UserWhereUniqueInput
 }
 
 input InvoiceWhereUniqueInput {
-  id: String!
+  id: Float!
 }
 
 """

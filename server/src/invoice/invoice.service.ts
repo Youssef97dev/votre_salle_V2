@@ -1,10 +1,103 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { InvoiceServiceBase } from "./base/invoice.service.base";
+import { MailerService } from "@nestjs-modules/mailer";
+import puppeteer from "puppeteer";
+import fs from "fs-extra";
+import path, { join } from "path";
+import * as hbs from "handlebars";
+import moment from "moment";
 
 @Injectable()
 export class InvoiceService extends InvoiceServiceBase {
-  constructor(protected readonly prisma: PrismaService) {
+  constructor(
+    protected readonly prisma: PrismaService,
+    private readonly mailerService: MailerService
+  ) {
     super(prisma);
+  }
+
+  private async compile(templateName: any, data: any) {
+    const filePath = path.join(
+      process.cwd(),
+      "src/templates",
+      `${templateName}.hbs`
+    );
+    const html = await fs.readFile(filePath, "utf-8");
+    return hbs.compile(html)(data);
+  }
+
+  private async generateInvoice(invoice: any) {
+    try {
+      const invoiceFormatted = {
+        id: invoice.id.toString().padStart(4, "0"),
+        createdAt: moment(invoice.createdAt).format("DD/MM/YYYY"),
+        title: invoice.trips.listing.title,
+        startDate: moment(invoice.trips.tripinfo.startDate).format(
+          "DD/MM/YYYY"
+        ),
+        endDate: moment(invoice.trips.tripinfo.endDate).format("DD/MM/YYYY"),
+        days: invoice.trips.tripinfo.days,
+        priceHT: invoice.trips.tripinfo.priceHT,
+        taxPrice: invoice.trips.tripinfo.taxPrice,
+        price: invoice.trips.tripinfo.price,
+      };
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      const content = await this.compile("invoice-template", invoiceFormatted);
+
+      await page.setContent(content);
+      await page.emulateMediaType("screen");
+      await page.pdf({
+        path: `src/documents/facture-${invoiceFormatted.id}.pdf`,
+        format: "A4",
+        printBackground: true,
+      });
+      console.log(invoice);
+      await browser.close();
+      await this.sendMail(
+        invoice.trips.user.username,
+        "Facture pour votre reservation",
+        invoiceFormatted
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  private async sendMail(to: string, subject: string, data: any) {
+    try {
+      // Use the MailerService to send the email
+      await this.mailerService.sendMail({
+        to,
+        subject,
+        attachments: [
+          {
+            path: join(
+              process.cwd(),
+              "src/documents",
+              `facture-${data.id}.pdf`
+            ),
+            filename: `facture-${data.id}.pdf`,
+            contentDisposition: "attachment",
+          },
+        ],
+      });
+    } catch (error) {
+      // Handle any email sending errors here
+      console.error("Email sending error:", error);
+    }
+  }
+
+  async createAndSend(data: any) {
+    try {
+      const invoice: any = await this.create(data);
+      await this.generateInvoice(invoice);
+
+      return invoice;
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   }
 }

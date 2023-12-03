@@ -42,10 +42,9 @@ function Overview() {
               <strong className="text-base lg:text-2xl text-airbnb-light-black">
                 <h3>{title}</h3>
               </strong>
-              <p className="text-airbnb-light-gray text-xs lg:text-lg">{description}</p>
-            </div>
-            <div className="relative w-40 lg:w-48 h-24 lg:h-32  object-cover">
-              <Image src={image} alt="overview" fill />
+              <p className="text-airbnb-light-gray text-xs lg:text-lg">
+                {description}
+              </p>
             </div>
           </li>
         ))}

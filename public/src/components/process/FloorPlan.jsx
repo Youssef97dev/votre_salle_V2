@@ -21,29 +21,6 @@ export default function FloorPlan() {
         </p>
       </div>
       <div className="flex justify-center items-center w-[95%] sm:w-[80%] md:w-[60%] lg:w-[40%] gap-5">
-        {/*Object.keys(placeSpace).map((place) => (
-          <div
-            className="flex justify-between w-full text-sm md:text-lg items-center"
-            key={place}
-          >
-            <span className="capitalize ">{place}</span>
-            <div className="flex gap-10 items-center justify-between w-48">
-              <button
-                className="border border-gray-200 py-[5px]  md:py-[10px] rounded-full px-3 md:px-5 flex items-center justify-center hover:border-gray-500"
-                onClick={() => handleDecrement(place)}
-              >
-                -
-              </button>
-              <span className="min-w-[20px]">{placeSpace[place]}</span>
-              <button
-                className="border border-gray-200 py-[5px] md:py-[10px] rounded-full px-[10px] md:px-[18px] flex items-center justify-center hover:border-gray-500"
-                onClick={() => handleIncrement(place)}
-              >
-                +
-              </button>
-            </div>
-          </div>
-        ))*/}
         <span className="font-semibold whitespace-nowrap">Guest Number :</span>
         <input
           type="number"

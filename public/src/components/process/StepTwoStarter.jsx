@@ -16,7 +16,7 @@ export default function StepTwoStarter() {
           </p>
         </div>
         <div className="w-full h-full">
-          <video src="/home2.mp4" autoPlay loop controls={false}></video>
+          <img src="/img4.png"></img>
         </div>
       </div>
     </div>
