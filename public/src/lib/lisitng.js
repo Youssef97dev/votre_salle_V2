@@ -432,3 +432,17 @@ export const addInvoice = async (data) => {
     return result;
   }
 };
+
+export const getInvoicesByUser = async (id) => {
+  const query = qs.stringify({
+    where: {
+      user: { id },
+    },
+  });
+  const result = (
+    await axios.get(createUrl(`/api/invoices?${query}`)).catch(() => null)
+  )?.data;
+
+  console.log({ result });
+  return result;
+};

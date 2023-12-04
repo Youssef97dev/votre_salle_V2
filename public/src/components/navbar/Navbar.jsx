@@ -119,6 +119,13 @@ function Navbar() {
       },
     },
     {
+      name: "Invoices",
+      callBack: () => {
+        router.push("/invoices");
+        setIsContextMenuVisible(false);
+      },
+    },
+    {
       name: "Logout",
       callBack: () => {
         setIsContextMenuVisible(false);
