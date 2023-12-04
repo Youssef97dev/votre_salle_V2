@@ -105,7 +105,7 @@ export default function Page() {
 
   }
 
-  const cancelTrip = async (id, status) => {
+  const cancelTrip = async (id) => {
     const result = await Swal.fire({
       icon: "warning",
       title: "Cancelation confirmation",
@@ -148,7 +148,7 @@ export default function Page() {
     }
   };
 
-  const invoiceTrip = async (id) => {
+  const invoiceTrip = async (id, user) => {
     const result = await Swal.fire({
       icon: "info",
       title: "Billing confirmation",
@@ -162,20 +162,35 @@ export default function Page() {
 
     if (result.value) {
       try {
-        const data = await EditStatusTrip(id,"Invoice");
+        
+        const queryData = {
+          tripId: id,
+          userId: user.id,
+        }
+        const invoiceResult = await addInvoice(queryData);
 
-        if (data.status === 200) {
-          setRelaunchData((prev) => !prev);
-          Swal.fire({
-            title: "Invoice!",
-            text: "Your reservation has been billed.",
-            icon: "success",
-            customClass: "sweet-alerts",
-          });
-        } else {
+        if(invoiceResult.status === 201){
+          const data = await EditStatusTrip(id,"Invoice");
+          if (data.status === 200) {
+            setRelaunchData((prev) => !prev);
+            Swal.fire({
+              title: "Invoice!",
+              text: "Your reservation has been billed.",
+              icon: "success",
+              customClass: "sweet-alerts",
+            });
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "Your reservation has not been billed.",
+              icon: "warning",
+              customClass: "sweet-alerts",
+            });
+          }
+        }else{
           Swal.fire({
             title: "Error!",
-            text: "Your reservation has not been billed.",
+            text: "Invoice didn't inserted.",
             icon: "warning",
             customClass: "sweet-alerts",
           });
@@ -305,15 +320,15 @@ export default function Page() {
                           title: "Actions",
                           sortable: false,
                           textAlignment: "center",
-                          render: ({ id, status, tripinfo }) => (
+                          render: ({ id, status, tripinfo, user }) => (
                             <div className="flex justify-between items-center gap-2 px-6 py-4">
-                              <button
+                              {status !== "Invoice" && status !== "Canceled" && <button
                                 type="button"
                                 className="flex hover:text-red-500"
-                                onClick={() => cancelTrip(id, status)}
+                                onClick={() => cancelTrip(id)}
                               >
                                 <GrStatusDisabled size={20} />
-                              </button>
+                              </button>}
                               {( checkDateStatus(
                                     tripinfo?.startDate,
                                     tripinfo?.endDate
@@ -324,7 +339,7 @@ export default function Page() {
                                   <button
                                   type="button"
                                   className="flex hover:text-teal-500"
-                                  onClick={() => invoiceTrip(id, status)}
+                                  onClick={() => invoiceTrip(id, user)}
                                 >
                                   <LiaFileInvoiceSolid size={20} />
                                 </button>

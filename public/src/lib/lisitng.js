@@ -418,14 +418,14 @@ export const addReview = async (data) => {
 // Invoice
 export const addInvoice = async (data) => {
   const query = {
-    listing: {
-      id: data.listingId,
+    trips: {
+      id: data.tripId,
     },
     user: { id: data.userId },
-    tripinfo: data.tripData,
-    status: "Active",
+    status: "Pending",
   };
   const result = await axios.post(createUrl("/api/invoices"), { ...query });
+  console.log(result);
   if (!result) {
     alert("failed");
   } else {
