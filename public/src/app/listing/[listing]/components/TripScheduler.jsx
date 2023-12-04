@@ -3,7 +3,7 @@ import Daimond from "airbnb/svg/daimond";
 import React, { useState, useEffect } from "react";
 import { BsFillFlagFill } from "react-icons/bs";
 import { addDays } from "date-fns";
-import { addTrip } from "airbnb/lib/lisitng";
+import moment from "moment/moment";
 import { useRouter } from "next/navigation";
 import { ClockLoader } from "react-spinners";
 
@@ -14,17 +14,23 @@ import Calender from "airbnb/components/common/Calender";
 export default function TripScheduler() {
   const router = useRouter();
   const { currentListing, userInfo } = userAppStore();
-  const [state, setState] = useState({
-    startDate: new Date().toISOString().slice(0, 10),
-    endDate: addDays(new Date(), 7).toISOString().slice(0, 10),
-  });
+  const [state, setState] = useState([{
+    startDate: new Date(),
+    endDate: addDays(new Date(), 7),
+    key: "selection",
+  },]);
 
+  const [showCalendar, setShowCalendar] = useState(false)
   const [guests, setGuests] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  useEffect(()=>{
+    setShowCalendar(false);
+  },[state])
+
   const calculateDaysDifference = () => {
-    const startDate = new Date(state.startDate);
-    const endDate = new Date(state.endDate);
+    const startDate = new Date(state[0].startDate);
+    const endDate = new Date(state[0].endDate);
     const timeDifference = endDate.getTime() - startDate.getTime();
     const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
     return daysDifference;
@@ -39,8 +45,8 @@ export default function TripScheduler() {
         userId: userInfo?.id,
         tripData: {
           days: calculateDaysDifference(),
-          startDate: state.startDate,
-          endDate: state.endDate,
+          startDate: state[0].startDate,
+          endDate: state[0].endDate,
           guests,
           extraService: 0,
           listingPrice: parseFloat(
@@ -99,29 +105,25 @@ export default function TripScheduler() {
         </div>
         <div className="flex flex-col w-full">
           <div className="grid grid-cols-2 w-full">
-            <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
+            <div onClick={()=> setShowCalendar(true)} className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
               <label className="font-semibold text-xs">CHECK-IN</label>
-              <input
-                type="date"
-                className="text-sm accent-airbnb-theme-color"
-                value={state.startDate.toString()}
-                name="startDate"
-                onChange={(e) =>
-                  setState({ ...state, [e.target.name]: e.target.value })
-                }
-              />
+              <span>{state[0].startDate.toLocaleDateString()}</span>
+              {showCalendar && <div className="absolute right-2 top-12">
+              <Calender
+                  state={state}
+                  setState={setState}
+                />
+              </div>}
             </div>
             <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tr-md cursor-pointer">
-              <label className="font-semibold text-xs">CHECK-OUT</label>
-              <input
-                type="date"
-                className="text-sm accent-airbnb-theme-color"
-                value={state.endDate.toString()}
-                name="endDate"
-                onChange={(e) =>
-                  setState({ ...state, [e.target.name]: e.target.value })
-                }
-              />
+              <label onClick={()=> setShowCalendar(true)} className="font-semibold text-xs">CHECK-OUT</label>
+              <span>{state[0].endDate.toLocaleDateString()}</span>
+              {showCalendar && <div className="absolute right-2 top-12">
+              <Calender
+                  state={state}
+                  setState={setState}
+                />
+              </div>}
             </div>
           </div>
           <div>

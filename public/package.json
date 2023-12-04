@@ -28,6 +28,7 @@
     "eslint-config-next": "13.4.6",
     "mantine-datatable": "^6.0.0",
     "mapbox-gl": "^2.15.0",
+    "moment": "^2.29.4",
     "next": "13.4.6",
     "next-cloudinary": "^4.13.0",
     "postcss": "8.4.24",

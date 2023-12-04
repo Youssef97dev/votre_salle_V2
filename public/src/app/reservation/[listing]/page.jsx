@@ -45,8 +45,8 @@ const page = ({ params: { listing } }) => {
   const [activeTripData, setActiveTripData] = useState([]);
   const [dateState, setDateState] = useState([
     {
-      startDate: new Date(reservationData.tripData.startDate),
-      endDate: new Date(reservationData.tripData.endDate),
+      startDate: addDays(new Date(reservationData.tripData.startDate), -1),
+      endDate: addDays(new Date(reservationData.tripData.endDate), -1),
       key: "selection",
     },
   ]);
@@ -62,13 +62,19 @@ const page = ({ params: { listing } }) => {
   // already reserved dates
   const [dateArray, setDateArray] = useState([]);
 
+  useEffect(()=>{
+    console.log("date state:", dateState);
+  }, [])
+
   useEffect(() => {
     const getData = async () => {
       const data = await getActiveTrips(reservationData.listingId);
       setActiveTripData(...activeTripData, data);
     };
     if (userInfo) {
-      getData();
+      getData(); 
+      console.log("start date :", reservationData.tripData.startDate)
+      console.log("end date :", reservationData.tripData.endDate)
     }
   }, []);
 
@@ -200,8 +206,8 @@ const page = ({ params: { listing } }) => {
 
   const handleUpdateTripDate = async () => {
     const days = await calculateDaysDifference();
-    const startDate = new Date(dateState[0].startDate);
-    const endDate = new Date(dateState[0].endDate);
+    const startDate = dateState[0].startDate;
+    const endDate = dateState[0].endDate;
     const priceHT = parseFloat(
       reservationData.tripData.listingPrice * days
     ).toFixed(2);
@@ -238,8 +244,8 @@ const page = ({ params: { listing } }) => {
       userId: userInfo?.id,
       tripData: {
         days: reservationData.tripData.days,
-        startDate: addDays(reservationData.tripData.startDate, 1),
-        endDate: addDays(reservationData.tripData.endDate, 1),
+        startDate: addDays(new Date(dateState[0].startDate), 1),
+        endDate: addDays(new Date(dateState[0].endDate), 1),
         guests: reservationData.tripData.guests,
         extraServices: "",
         extraServicesPrice: reservationData.tripData.extraService,
