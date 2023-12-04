@@ -23,7 +23,7 @@ export class InvoiceService extends InvoiceServiceBase {
       "src/templates",
       `${templateName}.hbs`
     );
-    const html = await fs.readFile(filePath, "utf-8");
+    const html = await fs.promises.readFile(filePath, "utf-8");
     return hbs.compile(html)(data);
   }
 
@@ -55,11 +55,7 @@ export class InvoiceService extends InvoiceServiceBase {
       });
       console.log(invoice);
       await browser.close();
-      await this.sendMail(
-        invoice.trips.user.username,
-        "Facture pour votre reservation",
-        invoiceFormatted
-      );
+      return invoiceFormatted;
     } catch (error) {
       console.log(error);
     }
@@ -67,17 +63,14 @@ export class InvoiceService extends InvoiceServiceBase {
 
   private async sendMail(to: string, subject: string, data: any) {
     try {
+      const filePath = path.join(process.cwd(),"src/documents",`facture-${data.id}.pdf`)
       // Use the MailerService to send the email
       await this.mailerService.sendMail({
         to,
         subject,
         attachments: [
           {
-            path: join(
-              process.cwd(),
-              "src/documents",
-              `facture-${data.id}.pdf`
-            ),
+            path: `src/documents/facture-${data.id}.pdf`,
             filename: `facture-${data.id}.pdf`,
             contentDisposition: "attachment",
           },
@@ -92,7 +85,12 @@ export class InvoiceService extends InvoiceServiceBase {
   async createAndSend(data: any) {
     try {
       const invoice: any = await this.create(data);
-      await this.generateInvoice(invoice);
+      const invoiceFormatted = await this.generateInvoice(invoice);
+      await this.sendMail(
+        invoice.trips.user.username,
+        "Facture pour votre reservation",
+        invoiceFormatted
+      );
 
       return invoice;
     } catch (error) {

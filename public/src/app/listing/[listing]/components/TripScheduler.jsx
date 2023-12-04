@@ -6,6 +6,7 @@ import { addDays } from "date-fns";
 import moment from "moment/moment";
 import { useRouter } from "next/navigation";
 import { ClockLoader } from "react-spinners";
+import { getActiveTrips } from "airbnb/lib/lisitng";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -23,6 +24,8 @@ export default function TripScheduler() {
   const [showCalendar, setShowCalendar] = useState(false)
   const [guests, setGuests] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [activeTripData, setActiveTripData] = useState([]);
+  const [desabledDateArray, setDesabledDateArray] = useState([]);
 
   useEffect(()=>{
     setShowCalendar(false);
@@ -34,6 +37,42 @@ export default function TripScheduler() {
     const timeDifference = endDate.getTime() - startDate.getTime();
     const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
     return daysDifference;
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getActiveTrips(currentListing.id);
+      setActiveTripData(...activeTripData, data);
+    };
+    if (userInfo) {
+      getData();
+    }
+  }, []);
+
+const getDates = (startDate, endDate) => {
+    if (startDate && endDate) {
+      const start = new Date(startDate.split("T")[0].replace(/-/g, "/"));
+      const end = new Date(endDate.split("T")[0].replace(/-/g, "/")) - 1;
+      const days = Math.floor((end - start) / (1000 * 60 * 60 * 24));
+      setDesabledDateArray((prevDateArray) => {
+        const newDates = [...prevDateArray];
+
+        for (let i = 0; i <= days; i++) {
+          const currentDate = new Date(
+            start.getTime() + i * 24 * 60 * 60 * 1000
+          );
+          newDates.push(currentDate);
+        }
+        return newDates;
+      });
+    }
+  };
+
+  const showDate = () => {
+    activeTripData.forEach((trip) => {
+      getDates(trip.tripinfo.startDate, trip.tripinfo.endDate);
+    });
+    setShowCalendar(true);
   };
 
   const handleReservation = async () => {
@@ -105,23 +144,25 @@ export default function TripScheduler() {
         </div>
         <div className="flex flex-col w-full">
           <div className="grid grid-cols-2 w-full">
-            <div onClick={()=> setShowCalendar(true)} className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
+            <div onClick={()=> showDate()} className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
               <label className="font-semibold text-xs">CHECK-IN</label>
               <span>{state[0].startDate.toLocaleDateString()}</span>
               {showCalendar && <div className="absolute right-2 top-12">
               <Calender
                   state={state}
                   setState={setState}
+                  disabledDates={desabledDateArray}
                 />
               </div>}
             </div>
             <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tr-md cursor-pointer">
-              <label onClick={()=> setShowCalendar(true)} className="font-semibold text-xs">CHECK-OUT</label>
+              <label onClick={()=> showDate()} className="font-semibold text-xs">CHECK-OUT</label>
               <span>{state[0].endDate.toLocaleDateString()}</span>
               {showCalendar && <div className="absolute right-2 top-12">
               <Calender
                   state={state}
                   setState={setState}
+                  disabledDates={desabledDateArray}
                 />
               </div>}
             </div>
