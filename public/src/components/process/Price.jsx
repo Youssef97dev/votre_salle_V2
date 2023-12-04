@@ -6,10 +6,6 @@ export default function Price() {
     userAppStore();
   return (
     <>
-      {/* <div className="flex flex-col gap-2">
-          <h2 className="font-semibold text-4xl">Now, set your price</h2>
-          <p>You can change it anytime.</p>
-  </div>*/}
       <div className="flex flex-col lg:flex-row gap-3 lg:gap-1 w-[95%] lg:w-[38%]">
         <div className="flex flex-col gap-2 w-full relative">
           <span className="border-r font-medium border-gray-500 pr-1 absolute  left-2 top-5 lg:top-8 transform -translate-y-1/2 text-lg  lg:text-xl text-neutral-600">

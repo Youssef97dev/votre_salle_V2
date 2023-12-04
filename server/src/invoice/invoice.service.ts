@@ -1,50 +1,103 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { InvoiceServiceBase } from "./base/invoice.service.base";
-import * as path from 'path';
-import * as pdf from 'html-pdf';
-import * as fs from 'fs';
+import { MailerService } from "@nestjs-modules/mailer";
+import puppeteer from "puppeteer";
+import fs from "fs-extra";
+import path, { join } from "path";
+import * as hbs from "handlebars";
+import moment from "moment";
 
 @Injectable()
 export class InvoiceService extends InvoiceServiceBase {
-  constructor(protected readonly prisma: PrismaService) {
+  constructor(
+    protected readonly prisma: PrismaService,
+    private readonly mailerService: MailerService
+  ) {
     super(prisma);
   }
 
-  async generateInvoice(data: any) {
-    const invoice: any = await this.findOne(data);
+  private async compile(templateName: any, data: any) {
+    const filePath = path.join(
+      process.cwd(),
+      "src/templates",
+      `${templateName}.hbs`
+    );
+    const html = await fs.readFile(filePath, "utf-8");
+    return hbs.compile(html)(data);
+  }
 
-    const invoiceData = {
-      invoiceId: invoice.id,
-      customerName: 'John Doe',
-      // Add more invoice data...
-      totalPrice: invoice.price, // Total price example
-      // Add other necessary data...
-    };
+  private async generateInvoice(invoice: any) {
+    try {
+      const invoiceFormatted = {
+        id: invoice.id.toString().padStart(4, "0"),
+        createdAt: moment(invoice.createdAt).format("DD/MM/YYYY"),
+        title: invoice.trips.listing.title,
+        startDate: moment(invoice.trips.tripinfo.startDate).format(
+          "DD/MM/YYYY"
+        ),
+        endDate: moment(invoice.trips.tripinfo.endDate).format("DD/MM/YYYY"),
+        days: invoice.trips.tripinfo.days,
+        priceHT: invoice.trips.tripinfo.priceHT,
+        taxPrice: invoice.trips.tripinfo.taxPrice,
+        price: invoice.trips.tripinfo.price,
+      };
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      const content = await this.compile("invoice-template", invoiceFormatted);
 
-    // Read the HTML invoice template
-    const htmlTemplate = fs.readFileSync('../templates/invoice-template.html', 'utf-8');
-
-    // Replace placeholders in the HTML template with actual invoice data
-    const populatedHTML = htmlTemplate
-      .replace('{{invoiceId}}', invoiceData.invoiceId)
-      .replace('{{customerName}}', invoiceData.customerName)
-      .replace('{{totalPrice}}', invoiceData.totalPrice);
-
-    // Options for PDF generation (page size, orientation, etc.)
-    const pdfOptions = { format: 'A4' }; // Customize as needed
-
-
-    // Generate PDF from HTML using html-pdf
-    return new Promise<string>((resolve, reject) => {
-      pdf.create(populatedHTML).toFile('invoice.pdf', (err, res) => {
-        if (err) {
-          reject(err);
-        } else {
-          console.log('PDF file generated successfully');
-          resolve('invoice.pdf'); // Resolve with the file name or path
-        }
+      await page.setContent(content);
+      await page.emulateMediaType("screen");
+      await page.pdf({
+        path: `src/documents/facture-${invoiceFormatted.id}.pdf`,
+        format: "A4",
+        printBackground: true,
       });
-    });
+      console.log(invoice);
+      await browser.close();
+      await this.sendMail(
+        invoice.trips.user.username,
+        "Facture pour votre reservation",
+        invoiceFormatted
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  private async sendMail(to: string, subject: string, data: any) {
+    try {
+      // Use the MailerService to send the email
+      await this.mailerService.sendMail({
+        to,
+        subject,
+        attachments: [
+          {
+            path: join(
+              process.cwd(),
+              "src/documents",
+              `facture-${data.id}.pdf`
+            ),
+            filename: `facture-${data.id}.pdf`,
+            contentDisposition: "attachment",
+          },
+        ],
+      });
+    } catch (error) {
+      // Handle any email sending errors here
+      console.error("Email sending error:", error);
+    }
+  }
+
+  async createAndSend(data: any) {
+    try {
+      const invoice: any = await this.create(data);
+      await this.generateInvoice(invoice);
+
+      return invoice;
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   }
 }
