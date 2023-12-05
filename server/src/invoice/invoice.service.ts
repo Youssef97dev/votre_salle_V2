@@ -44,7 +44,6 @@ export class InvoiceService extends InvoiceServiceBase {
         price: invoice.trips.tripinfo.price,
       };
       const browser = await puppeteer.launch({
-        executablePath: executablePath(),
         headless: false,
       });
       const page = await browser.newPage();
