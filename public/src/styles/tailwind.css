@@ -79,6 +79,32 @@
     @apply border-[#3B3F5C] text-[#3B3F5C] shadow-none hover:bg-[#3B3F5C] hover:text-white;
   }
 
+  /* Badge */
+  .badge {
+    @apply relative my-1 rounded border border-transparent px-2 py-0.5 text-xs font-semibold text-white;
+  }
+  .badge-outline-primary {
+    @apply border-[#4361EE] text-[#4361EE] hover:bg-[#eaf1ff];
+  }
+  .badge-outline-secondary {
+    @apply border-[#805dca] text-[#805dca] hover:bg-[#ebe4f7];
+  }
+  .badge-outline-success {
+    @apply border-[#00AB55] text-[#00AB55] hover:bg-[#ddf5f0];
+  }
+  .badge-outline-danger {
+    @apply border-[#e7515a] text-[#e7515a] hover:bg-[#fff5f5];
+  }
+  .badge-outline-warning {
+    @apply border-[#E2A03F] text-[#E2A03F] hover:bg-[#fff9ed];
+  }
+  .badge-outline-info {
+    @apply border-[#2196F3] text-[#2196F3] hover:bg-[#e7f7ff];
+  }
+  .badge-outline-dark {
+    @apply border-[#3B3F5C] text-[#3B3F5C] hover:bg-[#eaeaec];
+  }
+
   /* Form */
   .form-input,
   .form-textarea,

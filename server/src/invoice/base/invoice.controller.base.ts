@@ -110,6 +110,7 @@ export class InvoiceControllerBase {
           select: {
             id: true,
             tripinfo: true,
+            user: true,
           },
         },
 

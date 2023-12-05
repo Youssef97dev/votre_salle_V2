@@ -446,3 +446,17 @@ export const getInvoicesByUser = async (id) => {
   console.log({ result });
   return result;
 };
+
+export const changeInvoiceStatus = async (invoiceId, status) => {
+  const query = {
+    status,
+  };
+  const result = await axios.patch(createUrl(`/api/invoices/${invoiceId}`), {
+    ...query,
+  });
+  if (!result) {
+    alert("failed");
+  } else {
+    return result;
+  }
+};
