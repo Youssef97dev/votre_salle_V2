@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { InvoiceServiceBase } from "./base/invoice.service.base";
 import { MailerService } from "@nestjs-modules/mailer";
-import puppeteer, { Configuration } from "puppeteer";
+import puppeteer, { executablePath } from "puppeteer";
 import fs from "fs-extra";
 import path, { join } from "path";
 import * as hbs from "handlebars";
@@ -43,7 +43,16 @@ export class InvoiceService extends InvoiceServiceBase {
         taxPrice: invoice.trips.tripinfo.taxPrice,
         price: invoice.trips.tripinfo.price,
       };
-      const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch({
+        headless: "new",
+        executablePath: `/usr/bin/chromium-browser`,
+        args: [
+          `--no-sandbox`,
+          `--headless`,
+          `--disable-gpu`,
+          `--disable-dev-shm-usage`,
+        ],
+      });
       const page = await browser.newPage();
       const content = await this.compile("invoice-template", invoiceFormatted);
 
