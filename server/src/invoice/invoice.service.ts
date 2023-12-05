@@ -45,7 +45,7 @@ export class InvoiceService extends InvoiceServiceBase {
       };
       const browser = await puppeteer.launch({
         headless: "new",
-        executablePath: `/usr/bin/chromium-browser`,
+        executablePath: executablePath(),
         args: [
           `--no-sandbox`,
           `--headless`,
