@@ -21,7 +21,11 @@ const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 
 // APIs
-import { getInvoicesByUser, changeInvoiceStatus } from "airbnb/lib/lisitng";
+import {
+  getInvoicesByUser,
+  changeInvoiceStatus,
+  downloadInvoice,
+} from "airbnb/lib/lisitng";
 
 // Store
 import { userAppStore } from "airbnb/store/store";
@@ -236,7 +240,7 @@ const page = () => {
                               <button
                                 type="button"
                                 className="text-[#3B3F5C] hover:text-[#E2A03F]"
-                                //onClick={() => cancelTrip(id, status)}
+                                onClick={() => downloadInvoice(id)}
                               >
                                 <FaFileDownload size={20} />
                               </button>

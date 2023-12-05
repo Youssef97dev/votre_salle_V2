@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Dammuso({width_ = 35, height_ = 35} ) {
+export default function Dammuso({ width_ = 35, height_ = 35 }) {
   return (
     <div>
       <div className="i16dha0p dir dir-ltr" aria-hidden="true">

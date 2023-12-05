@@ -107,7 +107,7 @@ export default function Home() {
     isClient && (
       <div className="max-h-[100vh] h-[100vh]">
         <Navbar />
-        <div className="w-full flex justify-between gap-5 items-center mt-3 px-6 md:px-20">
+        <div className="w-full flex justify-between gap-5 items-center mt-3 px-6 md:px-20 panel-home">
           <div className="swiper w-[90%]" id="slider5">
             <div className="swiper-wrapper  px-10">
               <Swiper
@@ -136,7 +136,7 @@ export default function Home() {
                     onClick={() => setLocationType("All")}
                     className="w-max flex flex-col items-center justify-between h-16 cursor-pointer hover:text-[#3232FF] text-[#000033]"
                   >
-                    <span className="h-10 w-10  flex items-center justify-center ">
+                    <span className="h-10 w-10  flex items-center justify-center">
                       <Dammuso />
                     </span>
                     <div
@@ -153,7 +153,7 @@ export default function Home() {
                       onClick={() => setLocationType(data.name)}
                       className="w-max flex flex-col items-center justify-between h-16 cursor-pointer hover:text-[#3232FF] text-[#000033]"
                     >
-                      <span className="h-10 w-10  flex items-center justify-center ">
+                      <span className="h-10 w-10  flex items-center justify-center">
                         {data.svgPath}
                       </span>
                       <div

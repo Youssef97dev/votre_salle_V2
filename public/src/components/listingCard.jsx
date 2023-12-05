@@ -67,17 +67,20 @@ export default function ListingCard({
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     // Calculate the total ratings and the number of reviews
-    const totalRatings = data.reviews.reduce((sum, review) => sum + parseFloat(review.ratings), 0);
+    const totalRatings = data.reviews.reduce(
+      (sum, review) => sum + parseFloat(review.ratings),
+      0
+    );
     const numberOfReviews = data.reviews.length;
     // Calculate the average rating
     const averageRating = totalRatings / numberOfReviews;
     setRating(averageRating);
-  }, [])
+  }, []);
 
   return (
-    <div className="col-span-1 group">
+    <div className="col-span-1 group panel-home">
       <div
         className="flex flex-col gap-2 w-full"
         onClick={() => router.push(`/listing/${data.id}`)}
@@ -193,7 +196,11 @@ export default function ListingCard({
               ) : (
                 <>
                   <h3 className="font-semibold">{data.title}</h3>
-                  {rating > 0 && <span className="font-semibold flex items-center gap-2"><IoMdStar size={15} /> {rating.toFixed(1)}</span>}
+                  {rating > 0 && (
+                    <span className="font-semibold flex items-center gap-2">
+                      <IoMdStar size={15} /> {rating.toFixed(1)}
+                    </span>
+                  )}
                 </>
               )}
             </div>

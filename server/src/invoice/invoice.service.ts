@@ -27,8 +27,9 @@ export class InvoiceService extends InvoiceServiceBase {
     return hbs.compile(html)(data);
   }
 
-  private async generateInvoice(invoice: any) {
+  async generateInvoice(data: any) {
     try {
+      const invoice: any = await this.findOne(data);
       const invoiceFormatted = {
         id: invoice.id.toString().padStart(4, "0"),
         createdAt: moment(invoice.createdAt).format("DD/MM/YYYY"),
@@ -48,22 +49,25 @@ export class InvoiceService extends InvoiceServiceBase {
 
       await page.setContent(content);
       await page.emulateMediaType("screen");
-      await page.pdf({
-        path: `src/documents/facture-${invoiceFormatted.id}.pdf`,
+      const pdfBuffer = await page.pdf({
         format: "A4",
         printBackground: true,
       });
       console.log(invoice);
       await browser.close();
-      return invoiceFormatted;
+      return pdfBuffer;
     } catch (error) {
       console.log(error);
     }
   }
 
-  private async sendMail(to: string, subject: string, data: any) {
+  /*private async sendMail(to: string, subject: string, data: any) {
     try {
-      const filePath = path.join(process.cwd(),"src/documents",`facture-${data.id}.pdf`)
+      const filePath = path.join(
+        process.cwd(),
+        "src/documents",
+        `facture-${data.id}.pdf`
+      );
       // Use the MailerService to send the email
       await this.mailerService.sendMail({
         to,
@@ -80,9 +84,9 @@ export class InvoiceService extends InvoiceServiceBase {
       // Handle any email sending errors here
       console.error("Email sending error:", error);
     }
-  }
+  }*/
 
-  async createAndSend(data: any) {
+  /*async createAndSend(data: any) {
     try {
       const invoice: any = await this.create(data);
       const invoiceFormatted = await this.generateInvoice(invoice);
@@ -97,5 +101,5 @@ export class InvoiceService extends InvoiceServiceBase {
       console.log(error);
       return;
     }
-  }
+  }*/
 }

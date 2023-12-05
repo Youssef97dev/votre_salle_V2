@@ -2,7 +2,6 @@ import { get } from "http";
 import { createUrl, post } from "./http";
 import * as qs from "qs";
 import axios from "axios";
-import { data } from "autoprefixer";
 
 export const createLisitngAPI = async (listingData) => {
   const result = (
@@ -458,5 +457,24 @@ export const changeInvoiceStatus = async (invoiceId, status) => {
     alert("failed");
   } else {
     return result;
+  }
+};
+
+export const downloadInvoice = async (invoiceId) => {
+  try {
+    const response = await axios.get(
+      createUrl(`/api/invoices/${invoiceId}/generate`),
+      {
+        responseType: "blob",
+      }
+    );
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "facture.pdf");
+    document.body.appendChild(link);
+    link.click();
+  } catch (error) {
+    alert("Error downloading PDF:", error);
   }
 };

@@ -7,6 +7,7 @@ import { InvoiceControllerBase } from "./base/invoice.controller.base";
 import { Invoice } from "./base/Invoice";
 import { InvoiceWhereUniqueInput } from "./base/InvoiceWhereUniqueInput";
 import { InvoiceCreateInput } from "./base/InvoiceCreateInput";
+import { Response } from "express";
 
 @swagger.ApiTags("invoices")
 @common.Controller("invoices")
@@ -19,7 +20,7 @@ export class InvoiceController extends InvoiceControllerBase {
     super(service, rolesBuilder);
   }
 
-  /*@common.Get("/:id/generate")
+  @common.Get("/:id/generate")
   @swagger.ApiOkResponse({ type: Invoice })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
@@ -30,8 +31,11 @@ export class InvoiceController extends InvoiceControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async generateInvoice(@common.Param() params: InvoiceWhereUniqueInput) {
-    await this.service.generateInvoice({
+  async generateInvoice(
+    @common.Param() params: InvoiceWhereUniqueInput,
+    @common.Res() res: Response
+  ) {
+    const pdfBuffer = await this.service.generateInvoice({
       where: params,
       select: {
         createdAt: true,
@@ -70,9 +74,16 @@ export class InvoiceController extends InvoiceControllerBase {
         },
       },
     });
-  }*/
 
-  @common.Post()
+    await res.setHeader(
+      "Content-Disposition",
+      'attachment; filename="Facture.pdf"'
+    );
+    await res.setHeader("Content-Type", "application/pdf");
+    res.send(pdfBuffer); // Send the PDF buffer as the response
+  }
+
+  /*@common.Post()
   @swagger.ApiCreatedResponse({ type: Invoice })
   @nestAccessControl.UseRoles({
     resource: "Invoice",
@@ -136,5 +147,5 @@ export class InvoiceController extends InvoiceControllerBase {
         },
       },
     });
-  }
+  }*/
 }

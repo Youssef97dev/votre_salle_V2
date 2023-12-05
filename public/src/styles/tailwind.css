@@ -15,6 +15,14 @@
     @apply relative rounded-md bg-white p-5 shadow;
   }
 
+  .panel-home {
+    @apply relative rounded-lg bg-white p-3 shadow-lg shadow-slate-300;
+  }
+
+  .panel-icon {
+    @apply relative rounded-full bg-white !p-5 shadow-lg shadow-slate-300;
+  }
+
   /* Buttons */
   .btn {
     @apply relative flex items-center justify-center rounded-md border px-5 py-2 text-sm font-semibold shadow-[0_10px_20px_-10px] outline-none transition duration-300 hover:shadow-none;
