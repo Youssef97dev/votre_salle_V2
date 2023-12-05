@@ -44,14 +44,7 @@ export class InvoiceService extends InvoiceServiceBase {
         price: invoice.trips.tripinfo.price,
       };
       const browser = await puppeteer.launch({
-        headless: "new",
-        executablePath: executablePath(),
-        args: [
-          `--no-sandbox`,
-          `--headless`,
-          `--disable-gpu`,
-          `--disable-dev-shm-usage`,
-        ],
+        ignoreDefaultArgs: ["--disable-extensions"],
       });
       const page = await browser.newPage();
       const content = await this.compile("invoice-template", invoiceFormatted);
