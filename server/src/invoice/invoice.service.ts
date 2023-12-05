@@ -49,6 +49,7 @@ export class InvoiceService extends InvoiceServiceBase {
       const page = await browser.newPage();
       const content = await this.compile("invoice-template", invoiceFormatted);
 
+      await page.setCacheEnabled(false);
       await page.setContent(content);
       await page.emulateMediaType("screen");
       const pdfBuffer = await page.pdf({
