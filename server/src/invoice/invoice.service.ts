@@ -1,19 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { InvoiceServiceBase } from "./base/invoice.service.base";
-import { MailerService } from "@nestjs-modules/mailer";
-import puppeteer, { executablePath } from "puppeteer";
+import puppeteer from "puppeteer";
 import fs from "fs-extra";
-import path, { join } from "path";
+import path from "path";
 import * as hbs from "handlebars";
 import moment from "moment";
 
 @Injectable()
 export class InvoiceService extends InvoiceServiceBase {
-  constructor(
-    protected readonly prisma: PrismaService,
-    private readonly mailerService: MailerService
-  ) {
+  constructor(protected readonly prisma: PrismaService) {
     super(prisma);
   }
 
@@ -46,8 +42,6 @@ export class InvoiceService extends InvoiceServiceBase {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
       const content = await this.compile("invoice-template", invoiceFormatted);
-
-      await page.setCacheEnabled(false);
       await page.setContent(content);
       await page.emulateMediaType("screen");
       const pdfBuffer = await page.pdf({
