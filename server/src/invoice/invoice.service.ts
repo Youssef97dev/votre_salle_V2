@@ -45,6 +45,7 @@ export class InvoiceService extends InvoiceServiceBase {
       };
       const browser = await puppeteer.launch({
         executablePath: executablePath(),
+        headless: false,
       });
       const page = await browser.newPage();
       const content = await this.compile("invoice-template", invoiceFormatted);
