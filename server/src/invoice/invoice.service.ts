@@ -48,7 +48,6 @@ export class InvoiceService extends InvoiceServiceBase {
         format: "A4",
         printBackground: true,
       });
-      console.log(invoice);
       await browser.close();
       return pdfBuffer;
     } catch (error) {
