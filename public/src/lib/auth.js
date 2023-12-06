@@ -7,17 +7,13 @@ export const me = async () => {
 };
 
 export const login = async (username, password) => {
-  const result = (
-    await post(createUrl("/api/login"), { username, password }).catch(
-      () => null
-    )
-  )?.data;
-
-  if (!result) {
-    return alert("Could not login");
+  try {
+    const result = await post(createUrl("/api/login"), { username, password });
+    setStoredJwt(result.data.accessToken);
+    return me();
+  } catch (error) {
+    return error;
   }
-  setStoredJwt(result.accessToken);
-  return me();
 };
 
 export const signup = async (
@@ -29,8 +25,8 @@ export const signup = async (
   roles,
   companyInfo
 ) => {
-  const result = (
-    await post(createUrl("/api/signup"), {
+  try {
+    const result = await post(createUrl("/api/signup"), {
       username,
       password,
       firstName,
@@ -39,14 +35,12 @@ export const signup = async (
       typeUser: "B2C",
       roles,
       companyInfo,
-    }).catch(() => null)
-  )?.data;
-
-  if (!result) {
-    return alert("Could not sign up");
+    });
+    setStoredJwt(result.data.accessToken);
+    return me();
+  } catch (error) {
+    return error;
   }
-  setStoredJwt(result.accessToken);
-  return me();
 };
 
 export const checkUser = async (email) => {

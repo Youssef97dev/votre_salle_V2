@@ -30,14 +30,14 @@ function Navbar() {
     {
       name: "Login",
       callBack: () => {
-        setAuthModal();
+        router.push("/auth/signin");
         setIsContextMenuVisible(false);
       },
     },
     {
       name: "Signup",
       callBack: () => {
-        setAuthModal();
+        router.push("/auth/signup");
         setIsContextMenuVisible(false);
       },
     },
