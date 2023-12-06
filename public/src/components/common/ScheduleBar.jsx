@@ -9,11 +9,11 @@ export default function ScheduleBar() {
       onClick={setShowScheduleBar}
     >
       <div className="flex items-center gap-5 border p-2 rounded-full w-max ">
-        <span className="pl-5 cursor-pointer hidden md:block">Anywhere</span>
+        <span className="pl-5 cursor-pointer hidden md:block">City</span>
         <span className="text-zinc-600 hidden md:block">|</span>
-        <span className="cursor-pointer hidden md:block">Any week</span>
+        <span className="cursor-pointer hidden md:block">Date</span>
         <span className="text-zinc-600 hidden md:block">|</span>
-        <span className="cursor-pointer hidden md:block">Add guests</span>
+        <span className="cursor-pointer hidden md:block">Guests number</span>
         <span className=" bg-airbnb-theme-color flex items-center justify-center p-2 rounded-full cursor-pointer">
           <HiOutlineSearch className="text-white" />
         </span>

@@ -7,7 +7,7 @@ function Overview() {
     {
       title: "Tell us about your place",
       description:
-        "Share some basic info, such as where it is and how many guests can stay.",
+        "Share some basic info, such as where it is and how many guests.",
       image: "/overview1.jpeg",
     },
     {
@@ -19,7 +19,7 @@ function Overview() {
     {
       title: "Finish up and publish",
       description:
-        "Choose if you'd like to start with an experienced guest, set a starting price and publish your listing.",
+        "Set a starting price for B2C and B2B and publish your listing.",
       image: "/overview3.png",
     },
   ];

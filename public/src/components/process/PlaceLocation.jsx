@@ -34,17 +34,13 @@ export default function PlaceLocation() {
   return (
     <div className="flex flex-col items-center justify-center h-full mx-2 gap-2 md:gap-5">
       <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl ">
-        Which of these best describes your place?
+        Choose your location
       </h2>
-      <p className="text-xs md:text-base">
-        Your address is only shared with guests after they’ve made a
-        reservation.
-      </p>
       <div className="w-full h-full md:h-[400px] md:w-[700px] ">
         <Map
           initialViewState={{
             longitude: -8.008889,
-            latitude: 31.630000,
+            latitude: 31.63,
             zoom: 13,
           }}
           mapStyle="mapbox://styles/mapbox/streets-v9"

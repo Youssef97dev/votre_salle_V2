@@ -8,11 +8,12 @@ export default function StepTwoStarter() {
         <div className="flex flex-col gap-4 text-airbnb-light-black">
           <h3 className="text-lg md:text-2xl">Step 2</h3>
           <h1 className="text-xl md:text-4xl">
-            <strong>Make your place stand out</strong>
+            <strong>Make your hall stand out</strong>
           </h1>
           <p className="text-base md:text-xl">
             In this step, you’ll add some of the amenities your place offers,
-            plus 5 or more photos. Then you’ll create a title and description.
+            plus 5 or more photos. Then you’ll create a title, description,
+            guests number and price.
           </p>
         </div>
         <div className="w-full h-full">

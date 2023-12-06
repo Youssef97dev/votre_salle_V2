@@ -107,7 +107,7 @@ export default function Home() {
     isClient && (
       <div className="max-h-[100vh] h-[100vh]">
         <Navbar />
-        <div className="w-full flex justify-between gap-5 items-center mt-3 px-6 md:px-20 panel-home">
+        <div className="w-full flex justify-between gap-5 items-center mt-3 px-6 md:px-20 ">
           <div className="swiper w-[90%]" id="slider5">
             <div className="swiper-wrapper  px-10">
               <Swiper

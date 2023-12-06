@@ -8,12 +8,11 @@ export default function StepOneStarter() {
         <div className="flex flex-col gap-4 text-airbnb-light-black">
           <h3 className="text-lg md:text-2xl">Step 1</h3>
           <h1 className="text-xl md:text-4xl">
-            <strong>Tel us about your place</strong>
+            <strong>Tel us about your Hall</strong>
           </h1>
           <p className="text-base md:text-xl">
-            In this step, we'll ask you which type of property you have and if
-            guests will book the entire place or just a room. Then let us know
-            the location and how many guests can stay.
+            In this step, we'll ask you which type of hall you have. Then let us
+            know the location and how many guests.
           </p>
         </div>
         <div className="w-full h-full">

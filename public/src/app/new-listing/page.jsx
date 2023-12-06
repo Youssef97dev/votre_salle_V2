@@ -76,7 +76,7 @@ function Page() {
           </button>
         )}
       </header>
-      <div>{getComponent()}</div>
+      <div className="flex justify-center items-center">{getComponent()}</div>
       {/* {step <= 13 && ( */}
       <footer
         className={`flex ${
