@@ -70,6 +70,7 @@ export class InvoiceController extends InvoiceControllerBase {
             username: true,
             phone: true,
             companyInfo: true,
+            profileLogo: true,
           },
         },
       },

@@ -37,12 +37,12 @@ export class AuthController {
   }
   @Post("signup")
   @UseInterceptors(
-    FileInterceptor("profile_logo", {
+    FileInterceptor("profileLogo", {
       fileFilter: (req, file, cb) => {
         if (file.originalname.match(/^.*\.(jpg|png|jpeg)$/)) {
           cb(null, true);
         } else {
-          cb(new MulterError("LIMIT_UNEXPECTED_FILE", "profile_logo"), false);
+          cb(new MulterError("LIMIT_UNEXPECTED_FILE", "profileLogo"), false);
         }
       },
       storage: diskStorage({
@@ -55,8 +55,8 @@ export class AuthController {
   )
   async signup(
     @Body() body: SignupCredentials,
-    @UploadedFile() profile_logo?: Express.Multer.File
+    @UploadedFile() profileLogo?: Express.Multer.File
   ): Promise<UserInfo> {
-    return this.authService.signup(body);
+    return this.authService.signup(body, profileLogo);
   }
 }

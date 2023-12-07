@@ -505,6 +505,8 @@ type User {
   lastName: String
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
   phone: String
+  profileImage: String
+  profileLogo: String
   reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
   roles: JSON!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
@@ -522,6 +524,8 @@ input UserCreateInput {
   listings: ListingCreateNestedManyWithoutUsersInput
   password: String!
   phone: String
+  profileImage: String
+  profileLogo: String
   reviews: ReviewCreateNestedManyWithoutUsersInput
   roles: JSON!
   trips: TripCreateNestedManyWithoutUsersInput
@@ -545,6 +549,8 @@ input UserOrderByInput {
   lastName: SortOrder
   password: SortOrder
   phone: SortOrder
+  profileImage: SortOrder
+  profileLogo: SortOrder
   roles: SortOrder
   typeUser: SortOrder
   updatedAt: SortOrder
@@ -559,6 +565,8 @@ input UserUpdateInput {
   listings: ListingUpdateManyWithoutUsersInput
   password: String
   phone: String
+  profileImage: String
+  profileLogo: String
   reviews: ReviewUpdateManyWithoutUsersInput
   roles: JSON
   trips: TripUpdateManyWithoutUsersInput
@@ -575,6 +583,8 @@ input UserWhereInput {
   lastName: StringNullableFilter
   listings: ListingListRelationFilter
   phone: StringNullableFilter
+  profileImage: StringNullableFilter
+  profileLogo: StringNullableFilter
   reviews: ReviewListRelationFilter
   trips: TripListRelationFilter
   typeUser: StringFilter

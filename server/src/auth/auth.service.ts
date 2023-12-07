@@ -12,6 +12,7 @@ import { PasswordService } from "./password.service";
 import { TokenService } from "./token.service";
 import { UserInfo } from "./UserInfo";
 import { User } from "src/user/base/User";
+import { JsonValue } from "type-fest";
 
 @Injectable()
 export class AuthService {
@@ -54,7 +55,10 @@ export class AuthService {
       ...user,
     };
   }
-  async signup(credentials: SignupCredentials): Promise<UserInfo> {
+  async signup(
+    credentials: SignupCredentials,
+    profileLogo?: Express.Multer.File
+  ): Promise<UserInfo> {
     // Extract the username and password from the body of the request
     const {
       username,
@@ -67,16 +71,18 @@ export class AuthService {
       companyInfo,
     } = credentials;
     // Here we attempt to create a new user
-    const user = await this.userService.create({
+    const user = await this.userService.createUser({
       data: {
         username,
         password,
         firstName,
         lastName,
-        companyInfo: { companyInfo },
+        companyInfo:
+          typeof companyInfo === "string" ? JSON.parse(companyInfo) : null,
         phone,
         typeUser,
         roles: [roles],
+        profileLogo: profileLogo ? profileLogo.filename : null,
       },
     });
     // If creating a new user fails throw an error
@@ -101,7 +107,7 @@ export class AuthService {
   async me(authorization: string = ""): Promise<User> {
     const bearer = authorization.replace(/^Bearer\s/, "");
     const username = this.tokenService.decodeToken(bearer);
-    const result = await this.userService.findOne({
+    const result: any = await this.userService.user({
       where: { username },
       select: {
         createdAt: true,
@@ -122,7 +128,7 @@ export class AuthService {
   }
 
   async checkUser(email: string) {
-    const userStatus = await this.userService.findOne({
+    const userStatus: any = await this.userService.user({
       where: { username: email },
       select: { username: true, firstName: true, lastName: true },
     });

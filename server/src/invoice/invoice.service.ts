@@ -25,7 +25,7 @@ export class InvoiceService extends InvoiceServiceBase {
 
   async generateInvoice(data: any) {
     try {
-      const invoice: any = await this.findOne(data);
+      const invoice: any = await this.invoice(data);
       const invoiceFormatted = {
         id: invoice.id.toString().padStart(4, "0"),
         createdAt: moment(invoice.createdAt).format("DD/MM/YYYY"),
@@ -38,6 +38,7 @@ export class InvoiceService extends InvoiceServiceBase {
         priceHT: invoice.trips.tripinfo.priceHT,
         taxPrice: invoice.trips.tripinfo.taxPrice,
         price: invoice.trips.tripinfo.price,
+        profileLogo: invoice.user.profileLogo,
       };
       const browser = await puppeteer.launch();
       const page = await browser.newPage();

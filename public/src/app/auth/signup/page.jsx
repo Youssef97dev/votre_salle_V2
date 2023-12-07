@@ -7,6 +7,8 @@ import { checkUser, signup } from "airbnb/lib/auth";
 import { useRouter } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import "../../../styles/tailwind.css";
+import "../../../styles/file-upload-with-preview.css";
+import ImageUploading, { ImageListType } from "react-images-uploading";
 
 const page = () => {
   const router = useRouter();
@@ -23,13 +25,38 @@ const page = () => {
     idFiscale: "",
     ice: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [loadingSend, setLoadingSend] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [images, setImages] = useState([]);
+  const maxNumber = 69;
+
+  // Callback to handle file selection
+  const handleImageUpload = (imageList, addUpdateIndex) => {
+    setImages(imageList);
+    const uploadedFile = imageList ? imageList[0]?.file : null;
+    if (uploadedFile) {
+      // Get the current timestamp
+      const timestamp = Date.now();
+
+      // Create a new File object with the updated name
+      const renamedFile = new File(
+        [uploadedFile],
+        timestamp + "-" + uploadedFile.name,
+        {
+          type: uploadedFile.type,
+          lastModified: uploadedFile.lastModified,
+        }
+      );
+
+      setSelectedFile(renamedFile);
+    }
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setLoading(true);
     if (email && password && firstName && lastName && phone && role) {
+      setLoadingSend(true);
       const data = await signup(
         email,
         password,
@@ -37,16 +64,17 @@ const page = () => {
         lastName,
         phone,
         role,
-        companyInfo
+        companyInfo,
+        selectedFile
       );
       if (data?.response?.data?.error) {
         setErrorMessage(data.response.data.message);
-        setLoading(false);
+        setLoadingSend(false);
       } else {
         setUserInfo(data);
         setIsLoggedIn(true);
         router.push("/");
-        setLoading(false);
+        setLoadingSend(false);
       }
     }
   };
@@ -221,6 +249,70 @@ const page = () => {
                   />
                 </div>
               </div>
+              <div
+                className="custom-file-container"
+                data-upload-id="myFirstImage"
+              >
+                <div className="label-container">
+                  <label>Logo </label>
+                  <button
+                    type="button"
+                    className="custom-file-container__image-clear"
+                    title="Clear Image"
+                    onClick={() => {
+                      setImages([]);
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+                <label className="custom-file-container__custom-file"></label>
+                <input
+                  type="file"
+                  className="custom-file-container__custom-file__custom-file-input"
+                  accept="image/*"
+                />
+                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                <ImageUploading
+                  value={images}
+                  onChange={handleImageUpload}
+                  maxNumber={maxNumber}
+                >
+                  {({ imageList, onImageUpload }) => (
+                    <div className="upload__image-wrapper">
+                      <button
+                        type="button"
+                        className="custom-file-container__custom-file__custom-file-control"
+                        onClick={onImageUpload}
+                      >
+                        Choose File...
+                      </button>
+                      &nbsp;
+                      {imageList.map((image, index) => (
+                        <div
+                          key={index}
+                          className="custom-file-container__image-preview relative"
+                        >
+                          <img
+                            src={image.dataURL}
+                            alt="img"
+                            className="m-auto"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </ImageUploading>
+                {/*images.length === 0 ? (
+                  <img
+                    src="/assets/images/file-preview.svg"
+                    className="max-w-md w-full m-auto"
+                    alt=""
+                  />
+                ) : (
+                  ""
+                )*/}
+              </div>
             </>
           )}
           <div>
@@ -235,7 +327,11 @@ const page = () => {
             </label>
           </div>
           <button type="submit" className="btn btn-primary w-full">
-            {!loading ? "SIGN UP" : <BeatLoader color="#fff" size={10} />}
+            {!loadingSend ? (
+              "SIGN UP"
+            ) : (
+              <BeatLoader loading={loadingSend} color="#fff" size={10} />
+            )}
           </button>
         </form>
         <div className="relative my-7 h-5 text-center before:absolute before:inset-0 before:m-auto before:h-[1px] before:w-full before:bg-[#ebedf2]">

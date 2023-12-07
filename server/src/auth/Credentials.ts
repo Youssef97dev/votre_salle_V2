@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { InputType, Field } from "@nestjs/graphql";
 import { IsString } from "class-validator";
 import { JsonValue } from "type-fest";
-import { IsJSONValue } from "@app/custom-validators";
+import { IsJSONValue } from "../validators";
 import GraphQLJSON from "graphql-type-json";
 
 @InputType()

@@ -16,7 +16,7 @@ export class TripService extends TripServiceBase {
 
   async createWithEmailNotification(data: any) {
     // Create the reservation using the base service
-    const reservation: any = await this.create(data);
+    const reservation: any = await this.createTrip(data);
 
     // Send email notifications to the owner and client here
     // You can use an email sending library like Nodemailer.
