@@ -8,22 +8,24 @@ generator client {
 }
 
 model User {
-  companyInfo Json?
-  createdAt   DateTime   @default(now())
-  firstName   String?
-  id          String     @id @default(cuid())
-  invoices    Invoice[]
-  lastName    String?
-  listings    Listing[]
-  password    String
-  phone       String?
-  reviews     Review[]
-  roles       Json
-  trips       Trip[]
-  typeUser    String
-  updatedAt   DateTime   @updatedAt
-  username    String     @unique
-  wishlists   Wishlist[]
+  companyInfo  Json?
+  createdAt    DateTime   @default(now())
+  firstName    String?
+  id           String     @id @default(cuid())
+  invoices     Invoice[]
+  lastName     String?
+  listings     Listing[]
+  password     String
+  phone        String?
+  profileImage String?
+  profileLogo  String?
+  reviews      Review[]
+  roles        Json
+  trips        Trip[]
+  typeUser     String
+  updatedAt    DateTime   @updatedAt
+  username     String     @unique
+  wishlists    Wishlist[]
 }
 
 model Listing {

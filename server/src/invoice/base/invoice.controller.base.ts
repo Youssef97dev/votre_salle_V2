@@ -22,11 +22,10 @@ import { InvoiceService } from "../invoice.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { InvoiceCreateInput } from "./InvoiceCreateInput";
-import { InvoiceWhereInput } from "./InvoiceWhereInput";
-import { InvoiceWhereUniqueInput } from "./InvoiceWhereUniqueInput";
-import { InvoiceFindManyArgs } from "./InvoiceFindManyArgs";
-import { InvoiceUpdateInput } from "./InvoiceUpdateInput";
 import { Invoice } from "./Invoice";
+import { InvoiceFindManyArgs } from "./InvoiceFindManyArgs";
+import { InvoiceWhereUniqueInput } from "./InvoiceWhereUniqueInput";
+import { InvoiceUpdateInput } from "./InvoiceUpdateInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -46,8 +45,10 @@ export class InvoiceControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async create(@common.Body() data: InvoiceCreateInput): Promise<Invoice> {
-    return await this.service.create({
+  async createInvoice(
+    @common.Body() data: InvoiceCreateInput
+  ): Promise<Invoice> {
+    return await this.service.createInvoice({
       data: {
         ...data,
 
@@ -97,9 +98,9 @@ export class InvoiceControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findMany(@common.Req() request: Request): Promise<Invoice[]> {
+  async invoices(@common.Req() request: Request): Promise<Invoice[]> {
     const args = plainToClass(InvoiceFindManyArgs, request.query);
-    return this.service.findMany({
+    return this.service.invoices({
       ...args,
       select: {
         createdAt: true,
@@ -140,10 +141,10 @@ export class InvoiceControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findOne(
+  async invoice(
     @common.Param() params: InvoiceWhereUniqueInput
   ): Promise<Invoice | null> {
-    const result = await this.service.findOne({
+    const result = await this.service.invoice({
       where: params,
       select: {
         createdAt: true,
@@ -185,12 +186,12 @@ export class InvoiceControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async update(
+  async updateInvoice(
     @common.Param() params: InvoiceWhereUniqueInput,
     @common.Body() data: InvoiceUpdateInput
   ): Promise<Invoice | null> {
     try {
-      return await this.service.update({
+      return await this.service.updateInvoice({
         where: params,
         data: {
           ...data,
@@ -248,11 +249,11 @@ export class InvoiceControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async delete(
+  async deleteInvoice(
     @common.Param() params: InvoiceWhereUniqueInput
   ): Promise<Invoice | null> {
     try {
-      return await this.service.delete({
+      return await this.service.deleteInvoice({
         where: params,
         select: {
           createdAt: true,

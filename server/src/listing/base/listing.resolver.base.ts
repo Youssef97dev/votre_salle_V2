@@ -19,13 +19,13 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { CreateListingArgs } from "./CreateListingArgs";
-import { UpdateListingArgs } from "./UpdateListingArgs";
-import { DeleteListingArgs } from "./DeleteListingArgs";
+import { Listing } from "./Listing";
 import { ListingCountArgs } from "./ListingCountArgs";
 import { ListingFindManyArgs } from "./ListingFindManyArgs";
 import { ListingFindUniqueArgs } from "./ListingFindUniqueArgs";
-import { Listing } from "./Listing";
+import { CreateListingArgs } from "./CreateListingArgs";
+import { UpdateListingArgs } from "./UpdateListingArgs";
+import { DeleteListingArgs } from "./DeleteListingArgs";
 import { ReviewFindManyArgs } from "../../review/base/ReviewFindManyArgs";
 import { Review } from "../../review/base/Review";
 import { TripFindManyArgs } from "../../trip/base/TripFindManyArgs";
@@ -67,7 +67,7 @@ export class ListingResolverBase {
   async listings(
     @graphql.Args() args: ListingFindManyArgs
   ): Promise<Listing[]> {
-    return this.service.findMany(args);
+    return this.service.listings(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -80,7 +80,7 @@ export class ListingResolverBase {
   async listing(
     @graphql.Args() args: ListingFindUniqueArgs
   ): Promise<Listing | null> {
-    const result = await this.service.findOne(args);
+    const result = await this.service.listing(args);
     if (result === null) {
       return null;
     }
@@ -97,7 +97,7 @@ export class ListingResolverBase {
   async createListing(
     @graphql.Args() args: CreateListingArgs
   ): Promise<Listing> {
-    return await this.service.create({
+    return await this.service.createListing({
       ...args,
       data: {
         ...args.data,
@@ -120,7 +120,7 @@ export class ListingResolverBase {
     @graphql.Args() args: UpdateListingArgs
   ): Promise<Listing | null> {
     try {
-      return await this.service.update({
+      return await this.service.updateListing({
         ...args,
         data: {
           ...args.data,
@@ -130,7 +130,7 @@ export class ListingResolverBase {
           },
         },
       });
-    } catch (error:any) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
           `No resource was found for ${JSON.stringify(args.where)}`
@@ -150,8 +150,8 @@ export class ListingResolverBase {
     @graphql.Args() args: DeleteListingArgs
   ): Promise<Listing | null> {
     try {
-      return await this.service.delete(args);
-    } catch (error:any) {
+      return await this.service.deleteListing(args);
+    } catch (error) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
           `No resource was found for ${JSON.stringify(args.where)}`
@@ -168,7 +168,7 @@ export class ListingResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldReviews(
+  async findReviews(
     @graphql.Parent() parent: Listing,
     @graphql.Args() args: ReviewFindManyArgs
   ): Promise<Review[]> {
@@ -188,7 +188,7 @@ export class ListingResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldTrips(
+  async findTrips(
     @graphql.Parent() parent: Listing,
     @graphql.Args() args: TripFindManyArgs
   ): Promise<Trip[]> {
@@ -208,7 +208,7 @@ export class ListingResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldWishlists(
+  async findWishlists(
     @graphql.Parent() parent: Listing,
     @graphql.Args() args: WishlistFindManyArgs
   ): Promise<Wishlist[]> {
@@ -231,7 +231,7 @@ export class ListingResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldListingCreatedBy(
+  async getListingCreatedBy(
     @graphql.Parent() parent: Listing
   ): Promise<User | null> {
     const result = await this.service.getListingCreatedBy(parent.id);

@@ -22,11 +22,10 @@ import { ReviewService } from "../review.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { ReviewCreateInput } from "./ReviewCreateInput";
-import { ReviewWhereInput } from "./ReviewWhereInput";
-import { ReviewWhereUniqueInput } from "./ReviewWhereUniqueInput";
-import { ReviewFindManyArgs } from "./ReviewFindManyArgs";
-import { ReviewUpdateInput } from "./ReviewUpdateInput";
 import { Review } from "./Review";
+import { ReviewFindManyArgs } from "./ReviewFindManyArgs";
+import { ReviewWhereUniqueInput } from "./ReviewWhereUniqueInput";
+import { ReviewUpdateInput } from "./ReviewUpdateInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -46,8 +45,8 @@ export class ReviewControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async create(@common.Body() data: ReviewCreateInput): Promise<Review> {
-    return await this.service.create({
+  async createReview(@common.Body() data: ReviewCreateInput): Promise<Review> {
+    return await this.service.createReview({
       data: {
         ...data,
 
@@ -98,9 +97,9 @@ export class ReviewControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findMany(@common.Req() request: Request): Promise<Review[]> {
+  async reviews(@common.Req() request: Request): Promise<Review[]> {
     const args = plainToClass(ReviewFindManyArgs, request.query);
-    return this.service.findMany({
+    return this.service.reviews({
       ...args,
       select: {
         comments: true,
@@ -139,10 +138,10 @@ export class ReviewControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findOne(
+  async review(
     @common.Param() params: ReviewWhereUniqueInput
   ): Promise<Review | null> {
-    const result = await this.service.findOne({
+    const result = await this.service.review({
       where: params,
       select: {
         comments: true,
@@ -185,12 +184,12 @@ export class ReviewControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async update(
+  async updateReview(
     @common.Param() params: ReviewWhereUniqueInput,
     @common.Body() data: ReviewUpdateInput
   ): Promise<Review | null> {
     try {
-      return await this.service.update({
+      return await this.service.updateReview({
         where: params,
         data: {
           ...data,
@@ -249,11 +248,11 @@ export class ReviewControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async delete(
+  async deleteReview(
     @common.Param() params: ReviewWhereUniqueInput
   ): Promise<Review | null> {
     try {
-      return await this.service.delete({
+      return await this.service.deleteReview({
         where: params,
         select: {
           comments: true,

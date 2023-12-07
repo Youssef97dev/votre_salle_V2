@@ -19,13 +19,13 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { CreateReviewArgs } from "./CreateReviewArgs";
-import { UpdateReviewArgs } from "./UpdateReviewArgs";
-import { DeleteReviewArgs } from "./DeleteReviewArgs";
+import { Review } from "./Review";
 import { ReviewCountArgs } from "./ReviewCountArgs";
 import { ReviewFindManyArgs } from "./ReviewFindManyArgs";
 import { ReviewFindUniqueArgs } from "./ReviewFindUniqueArgs";
-import { Review } from "./Review";
+import { CreateReviewArgs } from "./CreateReviewArgs";
+import { UpdateReviewArgs } from "./UpdateReviewArgs";
+import { DeleteReviewArgs } from "./DeleteReviewArgs";
 import { Listing } from "../../listing/base/Listing";
 import { User } from "../../user/base/User";
 import { ReviewService } from "../review.service";
@@ -60,7 +60,7 @@ export class ReviewResolverBase {
     possession: "any",
   })
   async reviews(@graphql.Args() args: ReviewFindManyArgs): Promise<Review[]> {
-    return this.service.findMany(args);
+    return this.service.reviews(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -73,7 +73,7 @@ export class ReviewResolverBase {
   async review(
     @graphql.Args() args: ReviewFindUniqueArgs
   ): Promise<Review | null> {
-    const result = await this.service.findOne(args);
+    const result = await this.service.review(args);
     if (result === null) {
       return null;
     }
@@ -88,7 +88,7 @@ export class ReviewResolverBase {
     possession: "any",
   })
   async createReview(@graphql.Args() args: CreateReviewArgs): Promise<Review> {
-    return await this.service.create({
+    return await this.service.createReview({
       ...args,
       data: {
         ...args.data,
@@ -119,7 +119,7 @@ export class ReviewResolverBase {
     @graphql.Args() args: UpdateReviewArgs
   ): Promise<Review | null> {
     try {
-      return await this.service.update({
+      return await this.service.updateReview({
         ...args,
         data: {
           ...args.data,
@@ -157,7 +157,7 @@ export class ReviewResolverBase {
     @graphql.Args() args: DeleteReviewArgs
   ): Promise<Review | null> {
     try {
-      return await this.service.delete(args);
+      return await this.service.deleteReview(args);
     } catch (error) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
@@ -178,9 +178,7 @@ export class ReviewResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldListing(
-    @graphql.Parent() parent: Review
-  ): Promise<Listing | null> {
+  async getListing(@graphql.Parent() parent: Review): Promise<Listing | null> {
     const result = await this.service.getListing(parent.id);
 
     if (!result) {
@@ -199,9 +197,7 @@ export class ReviewResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldUser(
-    @graphql.Parent() parent: Review
-  ): Promise<User | null> {
+  async getUser(@graphql.Parent() parent: Review): Promise<User | null> {
     const result = await this.service.getUser(parent.id);
 
     if (!result) {

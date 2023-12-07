@@ -24,6 +24,8 @@ const CREATE_INPUT = {
   lastName: "exampleLastName",
   password: "examplePassword",
   phone: "examplePhone",
+  profileImage: "exampleProfileImage",
+  profileLogo: "exampleProfileLogo",
   typeUser: "exampleTypeUser",
   updatedAt: new Date(),
   username: "exampleUsername",
@@ -35,6 +37,8 @@ const CREATE_RESULT = {
   lastName: "exampleLastName",
   password: "examplePassword",
   phone: "examplePhone",
+  profileImage: "exampleProfileImage",
+  profileLogo: "exampleProfileLogo",
   typeUser: "exampleTypeUser",
   updatedAt: new Date(),
   username: "exampleUsername",
@@ -47,6 +51,8 @@ const FIND_MANY_RESULT = [
     lastName: "exampleLastName",
     password: "examplePassword",
     phone: "examplePhone",
+    profileImage: "exampleProfileImage",
+    profileLogo: "exampleProfileLogo",
     typeUser: "exampleTypeUser",
     updatedAt: new Date(),
     username: "exampleUsername",
@@ -59,17 +65,19 @@ const FIND_ONE_RESULT = {
   lastName: "exampleLastName",
   password: "examplePassword",
   phone: "examplePhone",
+  profileImage: "exampleProfileImage",
+  profileLogo: "exampleProfileLogo",
   typeUser: "exampleTypeUser",
   updatedAt: new Date(),
   username: "exampleUsername",
 };
 
 const service = {
-  create() {
+  createUser() {
     return CREATE_RESULT;
   },
-  findMany: () => FIND_MANY_RESULT,
-  findOne: ({ where }: { where: { id: string } }) => {
+  users: () => FIND_MANY_RESULT,
+  user: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;

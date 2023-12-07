@@ -13,6 +13,8 @@ export type UserUpdateInput = {
   listings?: ListingUpdateManyWithoutUsersInput;
   password?: string;
   phone?: string | null;
+  profileImage?: string | null;
+  profileLogo?: string | null;
   reviews?: ReviewUpdateManyWithoutUsersInput;
   roles?: InputJsonValue;
   trips?: TripUpdateManyWithoutUsersInput;

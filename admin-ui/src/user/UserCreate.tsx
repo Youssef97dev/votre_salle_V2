@@ -42,6 +42,8 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
         </ReferenceArrayInput>
         <PasswordInput label="Password" source="password" />
         <TextInput label="phone" source="phone" />
+        <TextInput label="Profile Image" source="profileImage" />
+        <TextInput label="Profile Logo" source="profileLogo" />
         <ReferenceArrayInput
           source="reviews"
           reference="Review"

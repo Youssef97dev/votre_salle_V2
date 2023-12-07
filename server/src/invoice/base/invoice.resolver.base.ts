@@ -19,13 +19,13 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { CreateInvoiceArgs } from "./CreateInvoiceArgs";
-import { UpdateInvoiceArgs } from "./UpdateInvoiceArgs";
-import { DeleteInvoiceArgs } from "./DeleteInvoiceArgs";
+import { Invoice } from "./Invoice";
 import { InvoiceCountArgs } from "./InvoiceCountArgs";
 import { InvoiceFindManyArgs } from "./InvoiceFindManyArgs";
 import { InvoiceFindUniqueArgs } from "./InvoiceFindUniqueArgs";
-import { Invoice } from "./Invoice";
+import { CreateInvoiceArgs } from "./CreateInvoiceArgs";
+import { UpdateInvoiceArgs } from "./UpdateInvoiceArgs";
+import { DeleteInvoiceArgs } from "./DeleteInvoiceArgs";
 import { Trip } from "../../trip/base/Trip";
 import { User } from "../../user/base/User";
 import { InvoiceService } from "../invoice.service";
@@ -62,7 +62,7 @@ export class InvoiceResolverBase {
   async invoices(
     @graphql.Args() args: InvoiceFindManyArgs
   ): Promise<Invoice[]> {
-    return this.service.findMany(args);
+    return this.service.invoices(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -75,7 +75,7 @@ export class InvoiceResolverBase {
   async invoice(
     @graphql.Args() args: InvoiceFindUniqueArgs
   ): Promise<Invoice | null> {
-    const result = await this.service.findOne(args);
+    const result = await this.service.invoice(args);
     if (result === null) {
       return null;
     }
@@ -92,7 +92,7 @@ export class InvoiceResolverBase {
   async createInvoice(
     @graphql.Args() args: CreateInvoiceArgs
   ): Promise<Invoice> {
-    return await this.service.create({
+    return await this.service.createInvoice({
       ...args,
       data: {
         ...args.data,
@@ -123,7 +123,7 @@ export class InvoiceResolverBase {
     @graphql.Args() args: UpdateInvoiceArgs
   ): Promise<Invoice | null> {
     try {
-      return await this.service.update({
+      return await this.service.updateInvoice({
         ...args,
         data: {
           ...args.data,
@@ -161,7 +161,7 @@ export class InvoiceResolverBase {
     @graphql.Args() args: DeleteInvoiceArgs
   ): Promise<Invoice | null> {
     try {
-      return await this.service.delete(args);
+      return await this.service.deleteInvoice(args);
     } catch (error) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
@@ -182,9 +182,7 @@ export class InvoiceResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldTrips(
-    @graphql.Parent() parent: Invoice
-  ): Promise<Trip | null> {
+  async getTrips(@graphql.Parent() parent: Invoice): Promise<Trip | null> {
     const result = await this.service.getTrips(parent.id);
 
     if (!result) {
@@ -203,9 +201,7 @@ export class InvoiceResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldUser(
-    @graphql.Parent() parent: Invoice
-  ): Promise<User | null> {
+  async getUser(@graphql.Parent() parent: Invoice): Promise<User | null> {
     const result = await this.service.getUser(parent.id);
 
     if (!result) {

@@ -13,6 +13,8 @@ export type UserCreateInput = {
   listings?: ListingCreateNestedManyWithoutUsersInput;
   password: string;
   phone?: string | null;
+  profileImage?: string | null;
+  profileLogo?: string | null;
   reviews?: ReviewCreateNestedManyWithoutUsersInput;
   roles: InputJsonValue;
   trips?: TripCreateNestedManyWithoutUsersInput;

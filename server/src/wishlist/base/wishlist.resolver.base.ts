@@ -19,13 +19,13 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { CreateWishlistArgs } from "./CreateWishlistArgs";
-import { UpdateWishlistArgs } from "./UpdateWishlistArgs";
-import { DeleteWishlistArgs } from "./DeleteWishlistArgs";
+import { Wishlist } from "./Wishlist";
 import { WishlistCountArgs } from "./WishlistCountArgs";
 import { WishlistFindManyArgs } from "./WishlistFindManyArgs";
 import { WishlistFindUniqueArgs } from "./WishlistFindUniqueArgs";
-import { Wishlist } from "./Wishlist";
+import { CreateWishlistArgs } from "./CreateWishlistArgs";
+import { UpdateWishlistArgs } from "./UpdateWishlistArgs";
+import { DeleteWishlistArgs } from "./DeleteWishlistArgs";
 import { Listing } from "../../listing/base/Listing";
 import { User } from "../../user/base/User";
 import { WishlistService } from "../wishlist.service";
@@ -62,7 +62,7 @@ export class WishlistResolverBase {
   async wishlists(
     @graphql.Args() args: WishlistFindManyArgs
   ): Promise<Wishlist[]> {
-    return this.service.findMany(args);
+    return this.service.wishlists(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -75,7 +75,7 @@ export class WishlistResolverBase {
   async wishlist(
     @graphql.Args() args: WishlistFindUniqueArgs
   ): Promise<Wishlist | null> {
-    const result = await this.service.findOne(args);
+    const result = await this.service.wishlist(args);
     if (result === null) {
       return null;
     }
@@ -92,7 +92,7 @@ export class WishlistResolverBase {
   async createWishlist(
     @graphql.Args() args: CreateWishlistArgs
   ): Promise<Wishlist> {
-    return await this.service.create({
+    return await this.service.createWishlist({
       ...args,
       data: {
         ...args.data,
@@ -119,7 +119,7 @@ export class WishlistResolverBase {
     @graphql.Args() args: UpdateWishlistArgs
   ): Promise<Wishlist | null> {
     try {
-      return await this.service.update({
+      return await this.service.updateWishlist({
         ...args,
         data: {
           ...args.data,
@@ -153,7 +153,7 @@ export class WishlistResolverBase {
     @graphql.Args() args: DeleteWishlistArgs
   ): Promise<Wishlist | null> {
     try {
-      return await this.service.delete(args);
+      return await this.service.deleteWishlist(args);
     } catch (error) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
@@ -174,7 +174,7 @@ export class WishlistResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldListing(
+  async getListing(
     @graphql.Parent() parent: Wishlist
   ): Promise<Listing | null> {
     const result = await this.service.getListing(parent.id);
@@ -195,9 +195,7 @@ export class WishlistResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldUser(
-    @graphql.Parent() parent: Wishlist
-  ): Promise<User | null> {
+  async getUser(@graphql.Parent() parent: Wishlist): Promise<User | null> {
     const result = await this.service.getUser(parent.id);
 
     if (!result) {

@@ -14,6 +14,8 @@ export type User = {
   lastName: string | null;
   listings?: Array<Listing>;
   phone: string | null;
+  profileImage: string | null;
+  profileLogo: string | null;
   reviews?: Array<Review>;
   roles: JsonValue;
   trips?: Array<Trip>;

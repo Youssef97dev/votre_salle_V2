@@ -15,6 +15,8 @@ export type UserWhereInput = {
   lastName?: StringNullableFilter;
   listings?: ListingListRelationFilter;
   phone?: StringNullableFilter;
+  profileImage?: StringNullableFilter;
+  profileLogo?: StringNullableFilter;
   reviews?: ReviewListRelationFilter;
   trips?: TripListRelationFilter;
   typeUser?: StringFilter;
