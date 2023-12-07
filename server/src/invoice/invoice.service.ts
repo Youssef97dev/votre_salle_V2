@@ -26,6 +26,12 @@ export class InvoiceService extends InvoiceServiceBase {
   async generateInvoice(data: any) {
     try {
       const invoice: any = await this.invoice(data);
+      // Read the image file
+      const imageFile = fs.readFileSync(
+        path.join(process.cwd(), "src/uploads", `${invoice.user.profileLogo}`)
+      );
+      const base64Image = Buffer.from(imageFile).toString("base64");
+      const dataURL = `data:image/*;base64,${base64Image}`;
       const invoiceFormatted = {
         id: invoice.id.toString().padStart(4, "0"),
         createdAt: moment(invoice.createdAt).format("DD/MM/YYYY"),
@@ -38,7 +44,7 @@ export class InvoiceService extends InvoiceServiceBase {
         priceHT: invoice.trips.tripinfo.priceHT,
         taxPrice: invoice.trips.tripinfo.taxPrice,
         price: invoice.trips.tripinfo.price,
-        profileLogo: invoice.user.profileLogo,
+        profileLogo: dataURL,
       };
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
