@@ -10,7 +10,13 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Invoice, Trip, User } from "@prisma/client";
+
+import {
+  Prisma,
+  Invoice, // @ts-ignore
+  Trip, // @ts-ignore
+  User,
+} from "@prisma/client";
 
 export class InvoiceServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -21,27 +27,27 @@ export class InvoiceServiceBase {
     return this.prisma.invoice.count(args);
   }
 
-  async findMany<T extends Prisma.InvoiceFindManyArgs>(
+  async invoices<T extends Prisma.InvoiceFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceFindManyArgs>
   ): Promise<Invoice[]> {
     return this.prisma.invoice.findMany(args);
   }
-  async findOne<T extends Prisma.InvoiceFindUniqueArgs>(
+  async invoice<T extends Prisma.InvoiceFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceFindUniqueArgs>
   ): Promise<Invoice | null> {
     return this.prisma.invoice.findUnique(args);
   }
-  async create<T extends Prisma.InvoiceCreateArgs>(
+  async createInvoice<T extends Prisma.InvoiceCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceCreateArgs>
   ): Promise<Invoice> {
     return this.prisma.invoice.create<T>(args);
   }
-  async update<T extends Prisma.InvoiceUpdateArgs>(
+  async updateInvoice<T extends Prisma.InvoiceUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceUpdateArgs>
   ): Promise<Invoice> {
     return this.prisma.invoice.update<T>(args);
   }
-  async delete<T extends Prisma.InvoiceDeleteArgs>(
+  async deleteInvoice<T extends Prisma.InvoiceDeleteArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceDeleteArgs>
   ): Promise<Invoice> {
     return this.prisma.invoice.delete(args);

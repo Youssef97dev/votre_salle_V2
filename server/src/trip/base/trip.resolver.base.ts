@@ -19,13 +19,13 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { CreateTripArgs } from "./CreateTripArgs";
-import { UpdateTripArgs } from "./UpdateTripArgs";
-import { DeleteTripArgs } from "./DeleteTripArgs";
+import { Trip } from "./Trip";
 import { TripCountArgs } from "./TripCountArgs";
 import { TripFindManyArgs } from "./TripFindManyArgs";
 import { TripFindUniqueArgs } from "./TripFindUniqueArgs";
-import { Trip } from "./Trip";
+import { CreateTripArgs } from "./CreateTripArgs";
+import { UpdateTripArgs } from "./UpdateTripArgs";
+import { DeleteTripArgs } from "./DeleteTripArgs";
 import { Invoice } from "../../invoice/base/Invoice";
 import { Listing } from "../../listing/base/Listing";
 import { User } from "../../user/base/User";
@@ -61,7 +61,7 @@ export class TripResolverBase {
     possession: "any",
   })
   async trips(@graphql.Args() args: TripFindManyArgs): Promise<Trip[]> {
-    return this.service.findMany(args);
+    return this.service.trips(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -72,7 +72,7 @@ export class TripResolverBase {
     possession: "own",
   })
   async trip(@graphql.Args() args: TripFindUniqueArgs): Promise<Trip | null> {
-    const result = await this.service.findOne(args);
+    const result = await this.service.trip(args);
     if (result === null) {
       return null;
     }
@@ -87,7 +87,7 @@ export class TripResolverBase {
     possession: "any",
   })
   async createTrip(@graphql.Args() args: CreateTripArgs): Promise<Trip> {
-    return await this.service.create({
+    return await this.service.createTrip({
       ...args,
       data: {
         ...args.data,
@@ -118,7 +118,7 @@ export class TripResolverBase {
   })
   async updateTrip(@graphql.Args() args: UpdateTripArgs): Promise<Trip | null> {
     try {
-      return await this.service.update({
+      return await this.service.updateTrip({
         ...args,
         data: {
           ...args.data,
@@ -156,7 +156,7 @@ export class TripResolverBase {
   })
   async deleteTrip(@graphql.Args() args: DeleteTripArgs): Promise<Trip | null> {
     try {
-      return await this.service.delete(args);
+      return await this.service.deleteTrip(args);
     } catch (error) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
@@ -177,9 +177,7 @@ export class TripResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldInvoice(
-    @graphql.Parent() parent: Trip
-  ): Promise<Invoice | null> {
+  async getInvoice(@graphql.Parent() parent: Trip): Promise<Invoice | null> {
     const result = await this.service.getInvoice(parent.id);
 
     if (!result) {
@@ -198,9 +196,7 @@ export class TripResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldListing(
-    @graphql.Parent() parent: Trip
-  ): Promise<Listing | null> {
+  async getListing(@graphql.Parent() parent: Trip): Promise<Listing | null> {
     const result = await this.service.getListing(parent.id);
 
     if (!result) {
@@ -219,7 +215,7 @@ export class TripResolverBase {
     action: "read",
     possession: "any",
   })
-  async resolveFieldUser(@graphql.Parent() parent: Trip): Promise<User | null> {
+  async getUser(@graphql.Parent() parent: Trip): Promise<User | null> {
     const result = await this.service.getUser(parent.id);
 
     if (!result) {

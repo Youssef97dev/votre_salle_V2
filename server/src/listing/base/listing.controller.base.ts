@@ -22,11 +22,10 @@ import { ListingService } from "../listing.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { ListingCreateInput } from "./ListingCreateInput";
-import { ListingWhereInput } from "./ListingWhereInput";
-import { ListingWhereUniqueInput } from "./ListingWhereUniqueInput";
-import { ListingFindManyArgs } from "./ListingFindManyArgs";
-import { ListingUpdateInput } from "./ListingUpdateInput";
 import { Listing } from "./Listing";
+import { ListingFindManyArgs } from "./ListingFindManyArgs";
+import { ListingWhereUniqueInput } from "./ListingWhereUniqueInput";
+import { ListingUpdateInput } from "./ListingUpdateInput";
 import { ReviewFindManyArgs } from "../../review/base/ReviewFindManyArgs";
 import { Review } from "../../review/base/Review";
 import { ReviewWhereUniqueInput } from "../../review/base/ReviewWhereUniqueInput";
@@ -55,8 +54,10 @@ export class ListingControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async create(@common.Body() data: ListingCreateInput): Promise<Listing> {
-    return await this.service.create({
+  async createListing(
+    @common.Body() data: ListingCreateInput
+  ): Promise<Listing> {
+    return await this.service.createListing({
       data: {
         ...data,
 
@@ -104,9 +105,9 @@ export class ListingControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findMany(@common.Req() request: Request): Promise<Listing[]> {
+  async listings(@common.Req() request: Request): Promise<Listing[]> {
     const args = plainToClass(ListingFindManyArgs, request.query);
-    return this.service.findMany({
+    return this.service.listings({
       ...args,
       select: {
         createdAt: true,
@@ -148,10 +149,10 @@ export class ListingControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findOne(
+  async listing(
     @common.Param() params: ListingWhereUniqueInput
   ): Promise<Listing | null> {
-    const result = await this.service.findOne({
+    const result = await this.service.listing({
       where: params,
       select: {
         createdAt: true,
@@ -199,12 +200,12 @@ export class ListingControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async update(
+  async updateListing(
     @common.Param() params: ListingWhereUniqueInput,
     @common.Body() data: ListingUpdateInput
   ): Promise<Listing | null> {
     try {
-      return await this.service.update({
+      return await this.service.updateListing({
         where: params,
         data: {
           ...data,
@@ -260,11 +261,11 @@ export class ListingControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async delete(
+  async deleteListing(
     @common.Param() params: ListingWhereUniqueInput
   ): Promise<Listing | null> {
     try {
-      return await this.service.delete({
+      return await this.service.deleteListing({
         where: params,
         select: {
           createdAt: true,
@@ -310,7 +311,7 @@ export class ListingControllerBase {
     action: "read",
     possession: "any",
   })
-  async findManyReviews(
+  async findReviews(
     @common.Req() request: Request,
     @common.Param() params: ListingWhereUniqueInput
   ): Promise<Review[]> {
@@ -361,7 +362,7 @@ export class ListingControllerBase {
         connect: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },
@@ -383,7 +384,7 @@ export class ListingControllerBase {
         set: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },
@@ -405,7 +406,7 @@ export class ListingControllerBase {
         disconnect: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },
@@ -420,7 +421,7 @@ export class ListingControllerBase {
     action: "read",
     possession: "any",
   })
-  async findManyTrips(
+  async findTrips(
     @common.Req() request: Request,
     @common.Param() params: ListingWhereUniqueInput
   ): Promise<Trip[]> {
@@ -477,7 +478,7 @@ export class ListingControllerBase {
         connect: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },
@@ -499,7 +500,7 @@ export class ListingControllerBase {
         set: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },
@@ -521,7 +522,7 @@ export class ListingControllerBase {
         disconnect: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },
@@ -536,7 +537,7 @@ export class ListingControllerBase {
     action: "read",
     possession: "any",
   })
-  async findManyWishlists(
+  async findWishlists(
     @common.Req() request: Request,
     @common.Param() params: ListingWhereUniqueInput
   ): Promise<Wishlist[]> {
@@ -585,7 +586,7 @@ export class ListingControllerBase {
         connect: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },
@@ -607,7 +608,7 @@ export class ListingControllerBase {
         set: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },
@@ -629,7 +630,7 @@ export class ListingControllerBase {
         disconnect: body,
       },
     };
-    await this.service.update({
+    await this.service.updateListing({
       where: params,
       data,
       select: { id: true },

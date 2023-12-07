@@ -8,6 +8,8 @@ export type UserOrderByInput = {
   lastName?: SortOrder;
   password?: SortOrder;
   phone?: SortOrder;
+  profileImage?: SortOrder;
+  profileLogo?: SortOrder;
   roles?: SortOrder;
   typeUser?: SortOrder;
   updatedAt?: SortOrder;

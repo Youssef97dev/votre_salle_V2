@@ -15,7 +15,7 @@ import { InvoiceWhereUniqueInput } from "../../invoice/base/InvoiceWhereUniqueIn
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { ListingWhereUniqueInput } from "../../listing/base/ListingWhereUniqueInput";
-import { IsJSONValue } from "@app/custom-validators";
+import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";

@@ -49,11 +49,11 @@ const FIND_ONE_RESULT = {
 };
 
 const service = {
-  create() {
+  createReview() {
     return CREATE_RESULT;
   },
-  findMany: () => FIND_MANY_RESULT,
-  findOne: ({ where }: { where: { id: string } }) => {
+  reviews: () => FIND_MANY_RESULT,
+  review: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
