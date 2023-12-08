@@ -378,6 +378,10 @@ export const getUserReservedTrips = async (userId) => {
   const query = qs.stringify({
     where: {
       listing: { listingCreatedById: userId },
+      tripinfo: {
+        path: ["type"],
+        string_contains: "reservation",
+      },
     },
   });
   const result = (

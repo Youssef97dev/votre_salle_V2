@@ -125,7 +125,9 @@ export class ListingControllerBase {
 
         trips: {
           select: {
+            id: true,
             tripinfo: true,
+            user: true,
           },
         },
 

@@ -14,6 +14,10 @@ import dynamic from "next/dynamic";
 
 import { Tab } from "@headlessui/react";
 import BigCalendar from "./components/BigCalendar";
+import StopSales from "./components/StopSales";
+
+import "@bitnoi.se/react-scheduler/dist/style.css";
+import { Scheduler, SchedulerData } from "@bitnoi.se/react-scheduler";
 
 const page = () => {
   const {
@@ -28,6 +32,10 @@ const page = () => {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   const [isClient, setIsClient] = useState(false);
+  const [scheduleData, setScheduleData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAddEventModal, setIsAddEventModal] = useState(false);
+  const [singleListing, setSingleListing] = useState({});
 
   useEffect(() => {
     setIsClient(true);
@@ -35,16 +43,55 @@ const page = () => {
 
   useEffect(() => {
     const getData = async () => {
+      setIsLoading(true);
       const data = await getUserListings(userInfo?.id);
       const reservations = await getUserReservedTrips(userInfo?.id);
       setUserListings(data);
       setReservations(reservations);
+      console.log("userListings", data);
+      console.log("reservations", reservations);
       console.log(data);
+      setIsLoading(false);
     };
     if (userInfo) {
       getData();
     }
   }, [userInfo, setUserListings, relaunchData]);
+
+  useEffect(() => {
+    const newData = userListings.map((listing) => ({
+      id: listing.id,
+      label: {
+        icon: listing.photos[0],
+        title: listing.title,
+        subtitle: "Click for Stop sales",
+      },
+      data: listing.trips.map((trip) => ({
+        id: trip.id,
+        startDate: trip.tripinfo.startDate,
+        endDate: trip.tripinfo.endDate,
+        occupancy: 1800,
+        title:
+          trip.tripinfo.type === "reservation"
+            ? `${trip.user.firstName} ${trip.user.lastName}`
+            : trip.tripinfo.type,
+        subtitle: "",
+        description: "",
+        bgColor: `${
+          trip.tripinfo.type === "reservation" ? "#4361ee" : "#e7515a"
+        }`,
+      })),
+    }));
+
+    console.log(newData);
+    setScheduleData((prevScheduleData) => [...prevScheduleData, ...newData]);
+  }, [reservations, userListings]);
+
+  const openModalStopSales = (item) => {
+    console.log(item);
+    setSingleListing(item);
+    setIsAddEventModal(true);
+  };
 
   return (
     isClient && (
@@ -53,7 +100,7 @@ const page = () => {
         <Navbar />
 
         {/* Content */}
-        <div className="mb-5 p-3">
+        {/*<div className="mb-5 p-3">
           <Tab.Group>
             <div className="mx-10 mb-5 sm:mb-0 flex flex-col gap-4">
               <Tab.List className="flex w-full flex-row justify-end items-center gap-3">
@@ -86,7 +133,28 @@ const page = () => {
               </Tab.Panels>
             </div>
           </Tab.Group>
+        </div>*/}
+        <div className="panel h-[80vh]">
+          <Scheduler
+            data={scheduleData}
+            isLoading={isLoading}
+            onRangeChange={(newRange) => console.log("renge", newRange)}
+            onTileClick={() => setIsAddEventModal(true)}
+            onItemClick={(item) => openModalStopSales(item)}
+            config={{
+              zoom: 1,
+              filterButtonState: -1,
+              includeTakenHoursOnWeekendsInDayView: false,
+            }}
+          />
         </div>
+        {isAddEventModal && (
+          <StopSales
+            isAddEventModal={isAddEventModal}
+            setIsAddEventModal={setIsAddEventModal}
+            listing={singleListing}
+          />
+        )}
 
         {/* Footer */}
         <CompactFooter />
