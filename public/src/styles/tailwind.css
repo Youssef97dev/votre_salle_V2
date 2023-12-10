@@ -1,6 +1,12 @@
 /* calendar css */
 @import "./fullcalendar.css";
 
+/* Animate css */
+@import "./animate.css";
+
+/* file upload with preview */
+@import "./file-upload-with-preview.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

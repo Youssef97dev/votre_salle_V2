@@ -23,6 +23,7 @@ function Navbar() {
     setInitialView,
     showScheduleBar,
     setShowScheduleBar,
+    setSidebarMenuOpen,
   } = userAppStore();
   const [isContextMenuVisible, setIsContextMenuVisible] = useState(false);
 
@@ -137,7 +138,8 @@ function Navbar() {
 
   const showContextMenu = (e) => {
     e.preventDefault();
-    setIsContextMenuVisible(true);
+    //setIsContextMenuVisible(true);
+    setSidebarMenuOpen(true);
   };
 
   useEffect(() => {

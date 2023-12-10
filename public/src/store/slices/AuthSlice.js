@@ -1,6 +1,7 @@
 export const createAuthSlice = (set, get) => ({
   isAuthModalOpen: false,
   isLoggedIn: false,
+  sidebarMenuOpen: false,
   userInfo: null,
   setAuthModal: () => {
     set({ isAuthModalOpen: !get().isAuthModalOpen });
@@ -10,5 +11,8 @@ export const createAuthSlice = (set, get) => ({
   },
   setUserInfo: (userInfo) => {
     set({ userInfo });
+  },
+  setSidebarMenuOpen: (status) => {
+    set({ sidebarMenuOpen: status });
   },
 });
