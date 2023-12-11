@@ -6,6 +6,8 @@ import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+import { FaStar } from "react-icons/fa";
+
 const InfoProfile = () => {
     // current user
   const { userInfo } = userAppStore();
@@ -33,11 +35,11 @@ const InfoProfile = () => {
   }, []);
 
   return (
-    <div className='rounded-xl flex gap-2 justify-center items-center px-2 py-8 shadow-lg shadow-neutral-400'>
+    <div className='rounded-xl flex flex-col gap-2 px-2 py-8 shadow-lg shadow-neutral-400 border border-neutral-300'>
         {loading ? (
           <Skeleton height="100%" />
-        ) : (
-          <>
+        ) : (<>
+          <div className="flex gap-2 justify-center items-center pb-3 border-b border-neutral-200">
           <div className="flex flex-col flex-1 justify-center items-center" style={{flexBasis:"60%"}}>
         <span>
         {userInfo ? (
@@ -63,6 +65,10 @@ const InfoProfile = () => {
         <div className="flex-1 font-semibold text-base" style={{flexBasis:"40%"}}>
             {timeSinceCreated} <span className="font-medium text-xs">at Votre Salles</span>
         </div>
+          </div>
+          <div className="flex justify-center items-center gap-2 font-medium">
+            <FaStar color="#e2a03f" size={18} /> {"4.5 (112)"}
+          </div>
           </>
         )}
     </div>

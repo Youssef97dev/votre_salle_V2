@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-
-import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
@@ -23,6 +21,7 @@ import DetailProfile from "./components/DetailProfile";
 
 const page = () => {
     const [isClient, setIsClient] = useState(false);
+    const isDesktop = useMediaQuery("(min-width: 768px)");
 
     useEffect(() => {
         setIsClient(true);
@@ -31,15 +30,16 @@ const page = () => {
   return isClient && (
     <div className="max-h-[100vh] h-[100vh]" >
         <Navbar />
-        <div className="flex gap-5 px-44 py-10 w-full h-full ">
-            <div className="flex-1" style={{flexBasis:"30%"}}>
+        <div className="flex flex-col lg:flex-row gap-5 px-5 sm:px-12 lg:px-20 py-10 w-full h-full ">
+            <div className="flex-1" style={{flexBasis: isDesktop && "30%"}}>
                 <InfoProfile />
             </div>
-            <div className="flex-1 shadow-lg shadow-neutral-400 rounded-xl p-2" style={{flexBasis:"70%"}}>
+            <div className="flex-1 shadow-lg shadow-neutral-400 rounded-xl p-2" style={{flexBasis: isDesktop && "70%"}}>
                 <DetailProfile />
             </div>
         </div>
         <CompactFooter />
+        {!isDesktop && <NavbarMobile />}
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { userAppStore } from "airbnb/store/store";
 import { getUserTripsByStatus } from "airbnb/lib/lisitng";
 
 import ReviewsClient from "./ReviewsClient";
+import EditProfile from "./EditProfile";
 
 import { Tab } from '@headlessui/react';
 import { Fragment } from 'react';
@@ -52,7 +53,7 @@ const DetailProfile = () => {
 <Tab.Panels>
     <Tab.Panel>
         <div className="active pt-5">
-            gggg
+            <EditProfile />
         </div>
     </Tab.Panel>
     <Tab.Panel>
