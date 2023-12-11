@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const Sidebar = () => {
   const router = useRouter();
-  const { userInfo, sidebarMenuOpen, setSidebarMenuOpen } = userAppStore();
+  const { userInfo, setUserInfo, sidebarMenuOpen, setSidebarMenuOpen } = userAppStore();
   const sidebarMenuRef = useRef(null); // Create a ref for the context menu element
   useEffect(() => {
     const handleOutsideClick = (event) => {
