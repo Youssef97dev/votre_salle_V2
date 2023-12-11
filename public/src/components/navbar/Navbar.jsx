@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import Schedule from "../common/Schedule";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import ScheduleMobile from "../common/ScheduleMobile";
+import Sidebar from "../common/Sidebar";
 
 function Navbar() {
   const router = useRouter();
@@ -24,121 +25,11 @@ function Navbar() {
     showScheduleBar,
     setShowScheduleBar,
     setSidebarMenuOpen,
+    sidebarMenuOpen,
   } = userAppStore();
-  const [isContextMenuVisible, setIsContextMenuVisible] = useState(false);
-
-  const contextMenuOptions = [
-    {
-      name: "Login",
-      callBack: () => {
-        router.push("/auth/signin");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Signup",
-      callBack: () => {
-        router.push("/auth/signup");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Add Your Hall",
-      callBack: () => {
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Help",
-      callBack: () => {
-        setIsContextMenuVisible(false);
-      },
-    },
-  ];
-
-  const authenticatedContextMenuOptions = [
-    {
-      name: "Profile",
-      callBack: () => {
-        router.push("/profile");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Notifications",
-      callBack: () => {
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "My Reservations",
-      callBack: () => {
-        router.push("/trips");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "My Wishlists",
-      callBack: () => {
-        router.push("/wishlist");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Manage My Listings",
-      callBack: () => {
-        router.push("/my-listings");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Manage My Reservations",
-      callBack: () => {
-        router.push("/my-reservations");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Add Your Hall",
-      callBack: () => {
-        router.push("new-listing");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Calendar",
-      callBack: () => {
-        router.push("/calendar");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Statistics",
-      callBack: () => {
-        router.push("/statistics");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Invoices",
-      callBack: () => {
-        router.push("/invoices");
-        setIsContextMenuVisible(false);
-      },
-    },
-    {
-      name: "Logout",
-      callBack: () => {
-        setIsContextMenuVisible(false);
-        setUserInfo(null);
-        localStorage.clear();
-      },
-    },
-  ];
 
   const showContextMenu = (e) => {
     e.preventDefault();
-    //setIsContextMenuVisible(true);
     setSidebarMenuOpen(true);
   };
 
@@ -203,20 +94,10 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        {isContextMenuVisible && (
-          <ContextMenu
-            options={
-              !userInfo ? contextMenuOptions : authenticatedContextMenuOptions
-            }
-            cordinates={{
-              x: window.innerWidth - 250,
-              y: 70,
-            }}
-            contextMenu={isContextMenuVisible}
-            setContextMenu={setIsContextMenuVisible}
-            userInfo={userInfo}
-          />
-        )}
+        {sidebarMenuOpen && (<>
+          <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"></div>
+          <Sidebar />
+        </>)}
       </div>
       {showScheduleBar && isDesktop && (
         <div className="flex justify-center">

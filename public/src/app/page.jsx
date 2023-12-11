@@ -2,7 +2,6 @@
 import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
-import Spinner from "airbnb/components/common/Spinner";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
@@ -27,8 +26,6 @@ import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import { IoFilterOutline } from "react-icons/io5";
 import Filter from "airbnb/components/modals/Filter";
 
-import Sidebar from "airbnb/components/common/Sidebar";
-
 export default function Home() {
   const [locationType, setLocationType] = useState("All");
   const isDesktop = useMediaQuery("(min-width: 1024px)");
@@ -50,7 +47,6 @@ export default function Home() {
     setLoadingUser,
     setLoadingData,
     filter,
-    sidebarMenuOpen,
   } = userAppStore();
 
   useEffect(() => {
@@ -110,7 +106,7 @@ export default function Home() {
     isClient && (
       <div className="max-h-[100vh] h-[100vh]">
         <Navbar />
-        {sidebarMenuOpen && <Sidebar />}
+        
         <div className="w-full flex justify-between gap-5 items-center mt-3 px-6 md:px-20 ">
           <div className="swiper w-[90%]" id="slider5">
             <div className="swiper-wrapper  px-10">
