@@ -9,6 +9,16 @@ import { IoClose } from "react-icons/io5";
 import { FaInstagram , FaFacebook, FaYoutube  } from "react-icons/fa";
 import ContextMenu from "../common/ContextMenu";
 
+// Icons
+import { CgProfile } from "react-icons/cg";
+import { IoMdNotificationsOutline, IoMdAdd } from "react-icons/io";
+import { FaListCheck } from "react-icons/fa6";
+import { FaRegHeart, FaRegCalendarAlt, FaChartBar  } from "react-icons/fa";
+import { MdLogout, MdOutlineSettings, MdHelpOutline } from "react-icons/md";
+import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
+import { PiSignInBold } from "react-icons/pi";
+import { SiGnuprivacyguard } from "react-icons/si";
+
 
 import Link from "next/link";
 
@@ -37,6 +47,7 @@ const Sidebar = () => {
 
   const contextMenuOptions = [
     {
+      icon: <PiSignInBold />,
       name: "Login",
       callBack: () => {
         router.push("/auth/signin");
@@ -44,6 +55,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <SiGnuprivacyguard />,
       name: "Signup",
       callBack: () => {
         router.push("/auth/signup");
@@ -51,12 +63,14 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <IoMdAdd />,
       name: "Add Your Hall",
       callBack: () => {
         setSidebarMenuOpen(false);
       },
     },
     {
+      icon: <MdHelpOutline />,
       name: "Help",
       callBack: () => {
         setSidebarMenuOpen(false);
@@ -66,6 +80,7 @@ const Sidebar = () => {
 
   const authenticatedContextMenuOptions = [
     {
+      icon: <CgProfile />,
       name: "Profile",
       callBack: () => {
         router.push("/profile");
@@ -73,12 +88,14 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <IoMdNotificationsOutline />,
       name: "Notifications",
       callBack: () => {
         setSidebarMenuOpen(false);
       },
     },
     {
+      icon: <FaListCheck />,
       name: "My Reservations",
       callBack: () => {
         router.push("/trips");
@@ -86,6 +103,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <FaRegHeart />,
       name: "My Wishlists",
       callBack: () => {
         router.push("/wishlist");
@@ -93,6 +111,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <MdOutlineSettings />,
       name: "Manage My Listings",
       callBack: () => {
         router.push("/my-listings");
@@ -100,6 +119,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <MdOutlineSettings />,
       name: "Manage My Reservations",
       callBack: () => {
         router.push("/my-reservations");
@@ -107,6 +127,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <IoMdAdd />,
       name: "Add Your Hall",
       callBack: () => {
         router.push("new-listing");
@@ -114,6 +135,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <FaRegCalendarAlt />,
       name: "Calendar",
       callBack: () => {
         router.push("/calendar");
@@ -121,6 +143,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <FaChartBar  />,
       name: "Statistics",
       callBack: () => {
         router.push("/statistics");
@@ -128,6 +151,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <LiaFileInvoiceDollarSolid />,
       name: "Invoices",
       callBack: () => {
         router.push("/invoices");
@@ -135,6 +159,7 @@ const Sidebar = () => {
       },
     },
     {
+      icon: <MdLogout />,
       name: "Logout",
       callBack: () => {
         setSidebarMenuOpen(false);
@@ -147,7 +172,7 @@ const Sidebar = () => {
   return (
     <div
       ref={sidebarMenuRef}
-      className={`shadow-2xl text-neutral-700 border border-gray-200 flex flex-col gap-7 top-0 right-0 w-full sm:w-[28vw] bg-white py-2 px-3 fixed h-full z-50 animate__animated animate__faster ${
+      className={`shadow-2xl text-neutral-700 border border-gray-200 flex flex-col space-y-2 lg:space-y-6 top-0 right-0 w-full sm:w-[50vw] lg:w-[28vw] bg-white py-2 px-3 fixed h-full z-50 animate__animated animate__faster ${
         sidebarMenuOpen ? "animate__fadeInRight" : "animate__fadeOutLeft"
       }`}
     >
@@ -158,7 +183,7 @@ const Sidebar = () => {
       <div className="font-medium">
         Discover the most outstanding articles on all topics of life. Write your stories and share them
       </div>
-      <div className="flex space-x-4 items-center">
+      <div className="flex space-x-4 items-center p-2">
       <Link
             href="#"
             className="font-bold hover:text-pink-500"

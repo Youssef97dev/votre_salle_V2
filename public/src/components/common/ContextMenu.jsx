@@ -12,12 +12,13 @@ export default function ContextMenu({
   return (
       <ul>
         {userInfo?.roles[0] === "owner"
-          ? options.map(({ name, callBack }) => (
+          ? options.map(({ icon, name, callBack }) => (
               <li
-                className="hover:bg-[#3b3f5c] hover:text-white rounded-2xl pl-5 pr-10  py-2 cursor-pointer"
+                className="flex items-center gap-3 p-2 rounded-2xl cursor-pointer hover:bg-[#3b3f5c] hover:text-white"
                 onClick={(e) => handleClick(e, callBack)}
                 key={name}
               >
+                <span>{icon}</span>
                 <span className="">{name}</span>
               </li>
             ))
@@ -31,12 +32,13 @@ export default function ContextMenu({
                   name !== "Statistics" &&
                   name !== "invoices"
               )
-              .map(({ name, callBack }) => (
+              .map(({ icon, name, callBack }) => (
                 <li
-                  className="hover:bg-gray-100 pl-5 pr-10  py-2 cursor-pointer"
+                  className="flex items-center gap-3 p-2 rounded-2xl cursor-pointer hover:bg-[#3b3f5c] hover:text-white"
                   onClick={(e) => handleClick(e, callBack)}
                   key={name}
                 >
+                  <span>{icon}</span>
                   <span className="">{name}</span>
                 </li>
               ))}
