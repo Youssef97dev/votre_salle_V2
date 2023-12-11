@@ -297,11 +297,27 @@ export const addTrip = async (data) => {
     tripinfo: data.tripData,
     status: "Active",
   };
-  const result = await axios.post(createUrl("/api/trips"), { ...query });
-  if (!result) {
-    alert("failed");
-  } else {
+  try{
+    const result = await axios.post(createUrl("/api/trips"), { ...query });
     return result;
+  }catch(error){
+    return error
+  }
+};
+
+export const updateTrip = async (tripId, data) => {
+  const query = {
+    tripinfo: data.tripData,
+    status: data.status,
+  };
+  try{
+    const result = await axios.patch(createUrl(`/api/trips/${tripId}`), {
+      ...query,
+    });
+    return result;
+  }catch(error){
+    console.log(error)
+    return error;
   }
 };
 
@@ -393,11 +409,12 @@ export const getUserReservedTrips = async (userId) => {
 };
 
 export const deleteTripAPI = async (id) => {
-  const result = await axios.delete(createUrl(`/api/trips/${id}`));
-  if (!result) {
-    console.log("cannot delete");
+  try{
+    const result = await axios.delete(createUrl(`/api/trips/${id}`));
+    return result
+  }catch(error){
+    return error
   }
-  return result;
 };
 
 export const addReview = async (data) => {

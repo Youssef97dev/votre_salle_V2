@@ -25,9 +25,8 @@ const page = () => {
     userInfo,
     setUserListings,
     userListings,
-    relaunchData,
-    reservations,
-    setReservations,
+    setRelaunchTrips,
+    relaunchTrips,
   } = userAppStore();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -45,18 +44,14 @@ const page = () => {
     const getData = async () => {
       setIsLoading(true);
       const data = await getUserListings(userInfo?.id);
-      const reservations = await getUserReservedTrips(userInfo?.id);
       setUserListings(data);
-      setReservations(reservations);
-      console.log("userListings", data);
-      console.log("reservations", reservations);
-      console.log(data);
       setIsLoading(false);
+      console.log("hi");
     };
     if (userInfo) {
       getData();
     }
-  }, [userInfo, setUserListings, relaunchData]);
+  }, [userInfo, relaunchTrips, setRelaunchTrips]);
 
   useEffect(() => {
     const newData = userListings.map((listing) => ({
@@ -76,16 +71,15 @@ const page = () => {
             ? `${trip.user.firstName} ${trip.user.lastName}`
             : trip.tripinfo.type,
         subtitle: "",
-        description: "",
+        description: trip.tripinfo?.description && trip.tripinfo.description,
         bgColor: `${
           trip.tripinfo.type === "reservation" ? "#4361ee" : "#e7515a"
         }`,
       })),
     }));
-
     console.log(newData);
-    setScheduleData((prevScheduleData) => [...prevScheduleData, ...newData]);
-  }, [reservations, userListings]);
+    setScheduleData(() => [...newData]);
+  }, [userListings]);
 
   const openModalStopSales = (item) => {
     console.log(item);
@@ -138,8 +132,7 @@ const page = () => {
           <Scheduler
             data={scheduleData}
             isLoading={isLoading}
-            onRangeChange={(newRange) => console.log("renge", newRange)}
-            onTileClick={() => setIsAddEventModal(true)}
+            onTileClick={(item) => item?.title === "Stop sales" && openModalStopSales(item)}
             onItemClick={(item) => openModalStopSales(item)}
             config={{
               zoom: 1,

@@ -2,19 +2,23 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Swal from "sweetalert2";
 import { userAppStore } from "airbnb/store/store";
-import { addTrip } from "airbnb/lib/lisitng";
+import { addTrip, deleteTripAPI, updateTrip } from "airbnb/lib/lisitng";
+import { BeatLoader } from "react-spinners";
 
 const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
   const now = new Date();
 
-  const { isAuthModalOpen, userInfo, reservations, setRelaunchData } =
+  const { isAuthModalOpen, userInfo, reservations, setRelaunchTrips } =
     userAppStore();
   const defaultParams = {
-    start: "",
-    end: "",
-    description: "",
+    id: listing?.title === "Stop sales" ? listing?.id : null,
+    start: listing?.startDate || "",
+    end: listing?.endDate || "",
+    description: listing?.description || "",
   };
   const [params, setParams] = useState(defaultParams);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+  const [isUpdateLoading, setIsUpdateLoading] = useState(false);
 
   const changeValue = (e) => {
     const { value, id } = e.target;
@@ -36,16 +40,34 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
 
     try {
       const response = await addTrip(data);
-      if (response) {
         return response;
-      }
     } catch (error) {
       return error;
     }
-    return data;
   };
 
-  const saveEvent = () => {
+  const handleUpdateStopReservation = async (event) => {
+    const data = {
+      tripData: {
+        startDate: event.start,
+        endDate: event.end,
+        description: event.description,
+        type: "Stop sales",
+      },
+      status: "Active",
+    };
+
+    try {
+      const response = await updateTrip(params.id, data);
+      return response;
+    } catch (error) {
+      return error;
+    }
+    
+  }
+
+  const saveEvent = async () => {
+    setIsUpdateLoading(true);
     if (!params.start || !params.end) {
       return true;
     }
@@ -55,13 +77,34 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
       end: params.end,
       description: params.description,
     };
-    const response = handleStopReservation(event);
-    if (response) {
-      showMessage("Reservation has been stoped.");
-      setRelaunchData();
+    if(params?.id){
+      const response = await handleUpdateStopReservation(event);
+    if (response.status === 200) {
+      showMessage("Stop reservation has been updated.");
+      setIsUpdateLoading(false);
     }
+    }else{
+      const response = await handleStopReservation(event);
+      console.log("response",response)
+    if (response.status === 201) {
+      showMessage("Reservation has been stoped.");
+      setIsUpdateLoading(false);
+    }
+    }
+    setRelaunchTrips();
     setIsAddEventModal(false);
   };
+
+  const deleteEvent = async (id) => {
+    setIsDeleteLoading(true);
+    const response = await deleteTripAPI(id);
+    if(response?.status === 200){
+      showMessage("Reservation has been deleted.");
+      setRelaunchTrips();
+      setIsDeleteLoading(false);
+    }
+    setIsAddEventModal(false);
+  }
 
   const showMessage = (msg = "", type = "success") => {
     const toast = Swal.mixin({
@@ -186,9 +229,19 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
                         type="button"
                         onClick={() => saveEvent()}
                         className="btn btn-primary ml-4"
+                        disabled={isDeleteLoading || isUpdateLoading}
                       >
-                        {params.id ? "Update stop sales" : "Stop sales"}
+                        
+                        {!isUpdateLoading ? (params.id ? "Update stop sales" : "Stop sales") : <BeatLoader color="#fff" size={5} />}
                       </button>
+                      {params?.id && <button
+                        type="button"
+                        onClick={() => deleteEvent(params.id)}
+                        className="btn btn-warning ml-4"
+                        disabled={isDeleteLoading || isUpdateLoading}
+                      >
+                        {!isDeleteLoading ? "Delete" : <BeatLoader color="#fff" size={5} />}
+                      </button>}
                     </div>
                   </form>
                 </div>
