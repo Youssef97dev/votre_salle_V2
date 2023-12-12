@@ -21,6 +21,7 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput label="Adresse" multiline source="adresse" />
         <div />
         <TextInput label="First Name" source="firstName" />
         <ReferenceArrayInput

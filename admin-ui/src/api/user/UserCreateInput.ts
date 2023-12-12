@@ -6,6 +6,7 @@ import { TripCreateNestedManyWithoutUsersInput } from "./TripCreateNestedManyWit
 import { WishlistCreateNestedManyWithoutUsersInput } from "./WishlistCreateNestedManyWithoutUsersInput";
 
 export type UserCreateInput = {
+  adresse?: string | null;
   companyInfo?: InputJsonValue;
   firstName?: string | null;
   invoices?: InvoiceCreateNestedManyWithoutUsersInput;

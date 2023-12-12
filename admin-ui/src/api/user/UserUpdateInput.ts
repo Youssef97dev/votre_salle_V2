@@ -6,6 +6,7 @@ import { TripUpdateManyWithoutUsersInput } from "./TripUpdateManyWithoutUsersInp
 import { WishlistUpdateManyWithoutUsersInput } from "./WishlistUpdateManyWithoutUsersInput";
 
 export type UserUpdateInput = {
+  adresse?: string | null;
   companyInfo?: InputJsonValue;
   firstName?: string | null;
   invoices?: InvoiceUpdateManyWithoutUsersInput;

@@ -21,6 +21,7 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <TextInput label="Adresse" multiline source="adresse" />
         <div />
         <TextInput label="First Name" source="firstName" />
         <ReferenceArrayInput

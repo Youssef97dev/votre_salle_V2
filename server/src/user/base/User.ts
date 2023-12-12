@@ -11,9 +11,8 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { IsJSONValue } from "../../validators";
-import { IsOptional, IsDate, IsString, ValidateNested } from "class-validator";
-import { Type } from "class-transformer";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Invoice } from "../../invoice/base/Invoice";
@@ -24,6 +23,17 @@ import { Wishlist } from "../../wishlist/base/Wishlist";
 
 @ObjectType()
 class User {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  adresse!: string | null;
+
   @ApiProperty({
     required: false,
   })

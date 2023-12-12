@@ -68,6 +68,7 @@ export class AuthService {
       roles,
       phone,
       typeUser,
+      adresse,
       companyInfo,
     } = credentials;
     // Here we attempt to create a new user
@@ -81,6 +82,7 @@ export class AuthService {
           typeof companyInfo === "string" ? JSON.parse(companyInfo) : null,
         phone,
         typeUser,
+        adresse,
         roles: [roles],
         profileLogo: profileLogo ? profileLogo.filename : null,
       },
@@ -119,6 +121,7 @@ export class AuthService {
         updatedAt: true,
         username: true,
         typeUser: true,
+        adresse:true,
         companyInfo:true,
       },
     });

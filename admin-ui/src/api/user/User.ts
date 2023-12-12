@@ -6,6 +6,7 @@ import { Trip } from "../trip/Trip";
 import { Wishlist } from "../wishlist/Wishlist";
 
 export type User = {
+  adresse: string | null;
   companyInfo: JsonValue;
   createdAt: Date;
   firstName: string | null;

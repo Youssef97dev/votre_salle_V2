@@ -82,6 +82,14 @@ export class SignupCredentials {
   typeUser!: string;
 
   @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String, { nullable: false })
+  adresse!: string;
+
+  @ApiProperty({
     required: false,
   })
   @IsJSONValue()
