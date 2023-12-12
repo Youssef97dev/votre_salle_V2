@@ -2,6 +2,7 @@
 import AirBnbLogo from "airbnb/svg/airbnb-logo";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import { getImage } from "airbnb/lib/lisitng";
 import { FiGlobe } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import ScheduleBar from "../common/ScheduleBar";
@@ -27,6 +28,7 @@ function Navbar() {
     setSidebarMenuOpen,
     sidebarMenuOpen,
   } = userAppStore();
+  const [imageProfile, setImageProfile] = useState("");
 
   const showContextMenu = (e) => {
     e.preventDefault();
@@ -35,7 +37,16 @@ function Navbar() {
 
   useEffect(() => {
     console.log("user :", userInfo);
-  }, []);
+    const getProfileImage = async () => {
+      const image = await getImage(userInfo?.profileImage);
+      console.log(image);
+      setImageProfile(image);
+    }
+    if(userInfo){
+      getProfileImage();
+    }
+
+  }, [userInfo, setUserInfo]);
 
   return (
     <header
@@ -79,9 +90,11 @@ function Navbar() {
               <RxHamburgerMenu className="text-lg" />
               <span>
                 {userInfo ? (
-                  <span className="flex justify-center items-center bg-black text-white h-7 w-7 text-sm rounded-full">
+                  <>
+                  {userInfo?.profileImage ? <img className="w-7 h-7 rounded-full overflow-hidden object-cover" src="/assets/images/profile-12.jpeg" alt="img" /> : <span className="flex justify-center items-center bg-black text-white h-7 w-7 text-sm rounded-full">
                     {userInfo?.firstName?.split("").shift()?.toUpperCase()}
-                  </span>
+                  </span>}
+                  </>
                 ) : (
                   <Image
                     src="/empty-profile.png"

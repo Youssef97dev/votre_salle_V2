@@ -519,3 +519,12 @@ export const updateMyProfile = async (myId, data, selectedFile) => {
     return error;
   }
 };
+
+export const getImage = async (imageName) => {
+  const result = (
+    await axios.get(createUrl(`/api/users/images/?${imageName}`)).catch(() => null)
+  )?.data;
+
+  console.log({ result });
+  return result;
+};

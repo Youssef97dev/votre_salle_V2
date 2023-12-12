@@ -10,6 +10,8 @@ import { UserWhereUniqueInput } from "./base/UserWhereUniqueInput";
 import { isRecordNotFoundError } from "../prisma.util";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { MulterError, diskStorage } from "multer";
+import path from "path";
+import { Response } from 'express';
 
 @swagger.ApiTags("users")
 @common.Controller("users")
@@ -20,6 +22,12 @@ export class UserController extends UserControllerBase {
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {
     super(service, rolesBuilder);
+  }
+
+  @common.Get('/images/:imageName')
+  async getImage(@common.Param('imageName') imageName: string, @common.Res() res: Response) {
+    const imagePath = path.resolve('./src/uploads', imageName);
+    return res.sendFile(imagePath);
   }
 
   @common.Patch("/:id")

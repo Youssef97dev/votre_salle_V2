@@ -112,17 +112,19 @@ export class AuthService {
     const result: any = await this.userService.user({
       where: { username },
       select: {
-        createdAt: true,
-        firstName: true,
         id: true,
+        firstName: true,
         lastName: true,
-        phone:true,
-        roles: true,
-        updatedAt: true,
         username: true,
-        typeUser: true,
+        phone:true,
         adresse:true,
+        roles: true,
+        typeUser: true,
         companyInfo:true,
+        profileImage:true,
+        profileLogo:true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
     if (!result) {
