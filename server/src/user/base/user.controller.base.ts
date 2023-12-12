@@ -64,6 +64,7 @@ export class UserControllerBase {
     return await this.service.createUser({
       data: data,
       select: {
+        adresse: true,
         companyInfo: true,
         createdAt: true,
         firstName: true,
@@ -97,6 +98,7 @@ export class UserControllerBase {
     return this.service.users({
       ...args,
       select: {
+        adresse: true,
         companyInfo: true,
         createdAt: true,
         firstName: true,
@@ -131,6 +133,7 @@ export class UserControllerBase {
     const result = await this.service.user({
       where: params,
       select: {
+        adresse: true,
         companyInfo: true,
         createdAt: true,
         firstName: true,
@@ -174,6 +177,7 @@ export class UserControllerBase {
         where: params,
         data: data,
         select: {
+          adresse: true,
           companyInfo: true,
           createdAt: true,
           firstName: true,
@@ -216,6 +220,7 @@ export class UserControllerBase {
       return await this.service.deleteUser({
         where: params,
         select: {
+          adresse: true,
           companyInfo: true,
           createdAt: true,
           firstName: true,

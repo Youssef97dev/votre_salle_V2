@@ -12,6 +12,7 @@ export const UserList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
+        <TextField label="Adresse" source="adresse" />
         <TextField label="companyInfo" source="companyInfo" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="First Name" source="firstName" />
