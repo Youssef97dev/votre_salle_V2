@@ -30,7 +30,7 @@ const page = () => {
   return isClient && (
     <div className="max-h-[100vh] h-[100vh]" >
         <Navbar />
-        <div className="flex flex-col lg:flex-row gap-5 px-5 sm:px-12 lg:px-20 py-10 w-full h-full ">
+        <div className="flex flex-col lg:flex-row gap-5 px-5 sm:px-12 lg:px-20 py-10 w-full">
             <div className="flex-1" style={{flexBasis: isDesktop && "30%"}}>
                 <InfoProfile />
             </div>

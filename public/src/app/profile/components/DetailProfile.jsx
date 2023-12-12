@@ -18,7 +18,7 @@ const DetailProfile = () => {
     
 
   return (
-    <div>
+    <div className="">
         <Tab.Group>
     <Tab.List className="mt-3 flex flex-wrap gap-2 border-b border-gray-200 font-semibold text-sm">
     <Tab as={Fragment}>

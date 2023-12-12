@@ -114,10 +114,12 @@ export class AuthService {
         firstName: true,
         id: true,
         lastName: true,
+        phone:true,
         roles: true,
         updatedAt: true,
         username: true,
         typeUser: true,
+        companyInfo:true,
       },
     });
     if (!result) {

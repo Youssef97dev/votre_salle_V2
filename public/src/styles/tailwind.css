@@ -21,6 +21,10 @@
     @apply relative rounded-md bg-white p-5 shadow;
   }
 
+  .panel-mobile {
+    @apply relative rounded-md bg-white py-5 px-0 shadow;
+  }
+
   .panel-new-listing {
     @apply relative rounded-lg bg-white p-3 shadow-lg shadow-slate-300;
   }
