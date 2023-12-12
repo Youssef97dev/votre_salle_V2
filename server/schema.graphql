@@ -497,6 +497,7 @@ input TripWhereUniqueInput {
 }
 
 type User {
+  adresse: String
   companyInfo: JSON
   createdAt: DateTime!
   firstName: String
@@ -517,6 +518,7 @@ type User {
 }
 
 input UserCreateInput {
+  adresse: String
   companyInfo: JSON
   firstName: String
   invoices: InvoiceCreateNestedManyWithoutUsersInput
@@ -542,6 +544,7 @@ type UserInfo {
 }
 
 input UserOrderByInput {
+  adresse: SortOrder
   companyInfo: SortOrder
   createdAt: SortOrder
   firstName: SortOrder
@@ -558,6 +561,7 @@ input UserOrderByInput {
 }
 
 input UserUpdateInput {
+  adresse: String
   companyInfo: JSON
   firstName: String
   invoices: InvoiceUpdateManyWithoutUsersInput
@@ -576,6 +580,7 @@ input UserUpdateInput {
 }
 
 input UserWhereInput {
+  adresse: StringNullableFilter
   companyInfo: JsonFilter
   firstName: StringNullableFilter
   id: StringFilter

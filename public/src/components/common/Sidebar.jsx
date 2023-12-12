@@ -172,7 +172,7 @@ const Sidebar = () => {
   return (
     <div
       ref={sidebarMenuRef}
-      className={`shadow-2xl text-neutral-700 border border-gray-200 flex flex-col space-y-2 lg:space-y-6 top-0 right-0 w-full sm:w-[50vw] lg:w-[28vw] bg-white py-2 px-3 fixed h-full z-50 animate__animated animate__faster ${
+      className={`shadow-2xl text-neutral-700 border border-gray-200 flex flex-col space-y-2 lg:space-y-6 top-0 right-0 w-full sm:w-[50vw] lg:w-[20vw] bg-white py-2 px-3 fixed h-full z-50 animate__animated animate__faster ${
         sidebarMenuOpen ? "animate__fadeInRight" : "animate__fadeOutLeft"
       }`}
     >

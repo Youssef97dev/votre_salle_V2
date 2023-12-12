@@ -435,7 +435,7 @@ export const addReview = async (data) => {
   }
 };
 
-// Invoice
+// Invoices
 export const addInvoice = async (data) => {
   const query = {
     trips: {
@@ -497,5 +497,25 @@ export const downloadInvoice = async (invoiceId) => {
     link.click();
   } catch (error) {
     alert("Error downloading PDF:", error);
+  }
+};
+
+// Users
+export const updateMyProfile = async (myId, data, selectedFile) => {
+  try{
+    const formData = new FormData();
+    formData.append("username", data.email);
+    formData.append("phone", data.phone);
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
+    formData.append("adresse", data.adresse);
+    formData.append("companyInfo", JSON.stringify(data.companyInfo));
+    formData.append("profileImage", selectedFile);
+    const result = await axios.patch(createUrl(`/api/users/${myId}`), formData);
+    console.log("data: ", result?.data)
+    return result?.data;
+  }catch(error){
+    console.log(error)
+    return error;
   }
 };

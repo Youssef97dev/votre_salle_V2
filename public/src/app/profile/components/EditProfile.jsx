@@ -1,5 +1,7 @@
 "use client";
 import { userAppStore } from "airbnb/store/store";
+import { updateMyProfile } from "airbnb/lib/lisitng";
+import { checkUser } from "airbnb/lib/auth";
 import React, { useState, useEffect } from "react";
 import { BeatLoader } from "react-spinners";
 import "../../../styles/tailwind.css";
@@ -11,9 +13,10 @@ import { IoMdImages } from "react-icons/io";
 
 const EditProfile = () => {
 
-    const { userInfo } = userAppStore();
+    const { userInfo, setUserInfo } = userAppStore();
 
     const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
     const [enableEdit, setEnableEdit] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const [userData, setUserData] = useState({
@@ -21,6 +24,7 @@ const EditProfile = () => {
         lastName:userInfo?.lastName,
         email:userInfo?.username,
         phone:userInfo?.phone,
+        adresse: userInfo?.adresse,
         companyInfo:{
           rc: userInfo?.companyInfo?.rc,
           cnss: userInfo?.companyInfo?.cnss,
@@ -35,7 +39,7 @@ const EditProfile = () => {
     const maxNumber = 69;
     /* State for image */
 
-    // Callback to handle file selection
+  // Callback to handle file selection
   const handleImageUpload = (imageList, addUpdateIndex) => {
     setImages(imageList);
     const uploadedFile = imageList ? imageList[0]?.file : null;
@@ -54,6 +58,30 @@ const EditProfile = () => {
       );
 
       setSelectedFile(renamedFile);
+    }
+  };
+
+  // Update User
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    if (userData.firstName && userData.lastName && userData.email && userData.phone && userData.adresse) {
+      setIsLoading(true);
+      const userExist = await checkUser(userData?.email);
+      if(userExist && userExist?.username !== userInfo?.username){
+        setErrorMessage("Email already exist!");
+        setIsLoading(false);
+      }else {
+        const data = await updateMyProfile(userInfo?.id,userData,selectedFile);
+        if (data?.response?.data?.error) {
+          setErrorMessage(data.response.data.message);
+          setIsLoading(false);
+        } else {
+          setUserInfo(data);
+          setSuccessMessage("woow");
+          setEnableEdit(false);
+          setIsLoading(false);
+        }
+      }
     }
   };
 
@@ -77,7 +105,7 @@ const EditProfile = () => {
                     />
                   </Switch>
         </div>
-        <form className="space-y-3" /*onSubmit={(e) => handleSignup(e)}*/>
+        <form className="space-y-3" onSubmit={(e) => handleUpdate(e)} >
           <div className="panel custom-file-container" data-upload-id="myFirstImage">
             <div className="label-container">
               <label>Upload image </label>
@@ -167,9 +195,10 @@ const EditProfile = () => {
                 <label htmlFor="adresse">Adresse</label>
                 <textarea
                 id="adresse"
+                value={userData.adresse || ""}
                 className="form-input disabled:bg-slate-300"
                 placeholder="Enter Adresse"
-                //onChange={(e) => setUserData({...userData, [e.target.id]: e.target.value})}
+                onChange={(e) => setUserData({...userData, [e.target.id]: e.target.value})}
                 disabled={!enableEdit}
                 />
             </div>

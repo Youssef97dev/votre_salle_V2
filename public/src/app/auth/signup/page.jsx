@@ -18,6 +18,7 @@ const page = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [adresse, setAdresse] = useState("");
   const [role, setRole] = useState("user");
   const [companyInfo, setCompanyInfo] = useState({
     rc: "",
@@ -63,6 +64,7 @@ const page = () => {
         firstName,
         lastName,
         phone,
+        adresse,
         role,
         companyInfo,
         selectedFile
@@ -123,6 +125,16 @@ const page = () => {
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
+          </div>
+          <div>
+            <label htmlFor="adresse">Adresse</label>
+            <textarea
+              id="adresse"
+              className="form-input"
+              placeholder="Enter Adresse"
+              value={adresse}
+              onChange={(e) => setAdresse(e.target.value)}
+            />
           </div>
           <div>
             <label htmlFor="email">Email</label>

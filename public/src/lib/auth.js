@@ -22,6 +22,7 @@ export const signup = async (
   firstName,
   lastName,
   phone,
+  adresse,
   roles,
   companyInfo,
   selectedFile
@@ -33,6 +34,7 @@ export const signup = async (
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
     formData.append("phone", phone);
+    formData.append("adresse", adresse);
     formData.append("typeUser", "B2C");
     formData.append("roles", roles);
     formData.append("companyInfo", JSON.stringify(companyInfo));
@@ -46,9 +48,10 @@ export const signup = async (
 };
 
 export const checkUser = async (email) => {
-  const result = (
-    await post(createUrl("/api/check-user"), { email }).catch(() => null)
-  )?.data;
-  if (!result) return false;
-  return true;
+  try{
+    const result = await post(createUrl("/api/check-user"), { email })
+    return result.data;
+  }catch(error){
+    return error;
+  }
 };

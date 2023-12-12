@@ -3,6 +3,13 @@ import * as swagger from "@nestjs/swagger";
 import * as nestAccessControl from "nest-access-control";
 import { UserService } from "./user.service";
 import { UserControllerBase } from "./base/user.controller.base";
+import * as errors from "../errors";
+import { User } from "./base/User";
+import { UserUpdateInput } from "./base/UserUpdateInput";
+import { UserWhereUniqueInput } from "./base/UserWhereUniqueInput";
+import { isRecordNotFoundError } from "../prisma.util";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { MulterError, diskStorage } from "multer";
 
 @swagger.ApiTags("users")
 @common.Controller("users")
@@ -13,5 +20,68 @@ export class UserController extends UserControllerBase {
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {
     super(service, rolesBuilder);
+  }
+
+  @common.Patch("/:id")
+  @swagger.ApiOkResponse({ type: User })
+  @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  @common.UseInterceptors(
+    FileInterceptor("profileImage", {
+      fileFilter: (req, file, cb) => {
+        if (file.originalname.match(/^.*\.(jpg|png|jpeg)$/)) {
+          cb(null, true);
+        } else {
+          cb(new MulterError("LIMIT_UNEXPECTED_FILE", "profileImage"), false);
+        }
+      },
+      storage: diskStorage({
+        destination: "./src/uploads",
+        filename: (req, file, cb) => {
+          cb(null, file.originalname);
+        },
+      }),
+    })
+  )
+  async updateUser(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() data: UserUpdateInput,
+    @common.UploadedFile() profileImage?: Express.Multer.File
+  ): Promise<User | null> {
+    try {
+      return await this.service.updateUser({
+        where: params,
+        data: data,
+        select: {
+          adresse: true,
+          companyInfo: true,
+          createdAt: true,
+          firstName: true,
+          id: true,
+          lastName: true,
+          phone: true,
+          profileImage: true,
+          profileLogo: true,
+          roles: true,
+          typeUser: true,
+          updatedAt: true,
+          username: true,
+        },
+      }, profileImage);
+    } catch (error: any) {
+      if (isRecordNotFoundError(error)) {
+        throw new errors.NotFoundException(
+          `No resource was found for ${JSON.stringify(params)}`
+        );
+      }
+      throw error;
+    }
   }
 }
