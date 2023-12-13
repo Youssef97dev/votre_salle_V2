@@ -39,13 +39,11 @@ function Navbar() {
     console.log("user :", userInfo);
     const getProfileImage = async () => {
       const image = await getImage(userInfo?.profileImage);
-      console.log(image);
       setImageProfile(image);
-    }
-    if(userInfo){
+    };
+    if (userInfo) {
       getProfileImage();
     }
-
   }, [userInfo, setUserInfo]);
 
   return (
@@ -91,9 +89,17 @@ function Navbar() {
               <span>
                 {userInfo ? (
                   <>
-                  {userInfo?.profileImage ? <img className="w-7 h-7 rounded-full overflow-hidden object-cover" src="/assets/images/profile-12.jpeg" alt="img" /> : <span className="flex justify-center items-center bg-black text-white h-7 w-7 text-sm rounded-full">
-                    {userInfo?.firstName?.split("").shift()?.toUpperCase()}
-                  </span>}
+                    {userInfo?.profileImage && imageProfile ? (
+                      <img
+                        className="w-7 h-7 rounded-full overflow-hidden object-cover"
+                        src={`data:image/*;base64,${imageProfile}`}
+                        alt="img"
+                      />
+                    ) : (
+                      <span className="flex justify-center items-center bg-black text-white h-7 w-7 text-sm rounded-full">
+                        {userInfo?.firstName?.split("").shift()?.toUpperCase()}
+                      </span>
+                    )}
                   </>
                 ) : (
                   <Image
@@ -107,10 +113,12 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        {sidebarMenuOpen && (<>
-          <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"></div>
-          <Sidebar />
-        </>)}
+        {sidebarMenuOpen && (
+          <>
+            <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40"></div>
+            <Sidebar />
+          </>
+        )}
       </div>
       {showScheduleBar && isDesktop && (
         <div className="flex justify-center">

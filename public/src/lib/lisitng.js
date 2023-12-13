@@ -297,11 +297,11 @@ export const addTrip = async (data) => {
     tripinfo: data.tripData,
     status: "Active",
   };
-  try{
+  try {
     const result = await axios.post(createUrl("/api/trips"), { ...query });
     return result;
-  }catch(error){
-    return error
+  } catch (error) {
+    return error;
   }
 };
 
@@ -310,13 +310,13 @@ export const updateTrip = async (tripId, data) => {
     tripinfo: data.tripData,
     status: data.status,
   };
-  try{
+  try {
     const result = await axios.patch(createUrl(`/api/trips/${tripId}`), {
       ...query,
     });
     return result;
-  }catch(error){
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     return error;
   }
 };
@@ -409,11 +409,11 @@ export const getUserReservedTrips = async (userId) => {
 };
 
 export const deleteTripAPI = async (id) => {
-  try{
+  try {
     const result = await axios.delete(createUrl(`/api/trips/${id}`));
-    return result
-  }catch(error){
-    return error
+    return result;
+  } catch (error) {
+    return error;
   }
 };
 
@@ -502,7 +502,7 @@ export const downloadInvoice = async (invoiceId) => {
 
 // Users
 export const updateMyProfile = async (myId, data, selectedFile) => {
-  try{
+  try {
     const formData = new FormData();
     formData.append("username", data.email);
     formData.append("phone", data.phone);
@@ -512,19 +512,19 @@ export const updateMyProfile = async (myId, data, selectedFile) => {
     formData.append("companyInfo", JSON.stringify(data.companyInfo));
     formData.append("profileImage", selectedFile);
     const result = await axios.patch(createUrl(`/api/users/${myId}`), formData);
-    console.log("data: ", result?.data)
+    console.log("data: ", result?.data);
     return result?.data;
-  }catch(error){
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     return error;
   }
 };
 
 export const getImage = async (imageName) => {
   const result = (
-    await axios.get(createUrl(`/api/users/images/?${imageName}`)).catch(() => null)
-  )?.data;
-
-  console.log({ result });
+    await axios
+      .get(createUrl(`/api/users/images/${imageName}`))
+      .catch(() => null)
+  )?.data?.imageSrc;
   return result;
 };

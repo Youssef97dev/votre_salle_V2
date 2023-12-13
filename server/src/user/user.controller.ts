@@ -11,7 +11,8 @@ import { isRecordNotFoundError } from "../prisma.util";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { MulterError, diskStorage } from "multer";
 import path from "path";
-import { Response } from 'express';
+import { Response } from "express";
+import * as fs from "fs";
 
 @swagger.ApiTags("users")
 @common.Controller("users")
@@ -24,10 +25,15 @@ export class UserController extends UserControllerBase {
     super(service, rolesBuilder);
   }
 
-  @common.Get('/images/:imageName')
-  async getImage(@common.Param('imageName') imageName: string, @common.Res() res: Response) {
-    const imagePath = path.resolve('./src/uploads', imageName);
-    return res.sendFile(imagePath);
+  @common.Get("/images/:imageName")
+  async getImage(
+    @common.Param("imageName") imageName: string,
+    @common.Res() res: Response
+  ) {
+    const imagePath = path.resolve("./src/uploads", imageName);
+    const imageBuffer = fs.readFileSync(imagePath);
+    const base64Image = Buffer.from(imageBuffer).toString("base64");
+    return res.send({ imageSrc: base64Image });
   }
 
   @common.Patch("/:id")
@@ -64,25 +70,28 @@ export class UserController extends UserControllerBase {
     @common.UploadedFile() profileImage?: Express.Multer.File
   ): Promise<User | null> {
     try {
-      return await this.service.updateUser({
-        where: params,
-        data: data,
-        select: {
-          adresse: true,
-          companyInfo: true,
-          createdAt: true,
-          firstName: true,
-          id: true,
-          lastName: true,
-          phone: true,
-          profileImage: true,
-          profileLogo: true,
-          roles: true,
-          typeUser: true,
-          updatedAt: true,
-          username: true,
+      return await this.service.updateUser(
+        {
+          where: params,
+          data: data,
+          select: {
+            adresse: true,
+            companyInfo: true,
+            createdAt: true,
+            firstName: true,
+            id: true,
+            lastName: true,
+            phone: true,
+            profileImage: true,
+            profileLogo: true,
+            roles: true,
+            typeUser: true,
+            updatedAt: true,
+            username: true,
+          },
         },
-      }, profileImage);
+        profileImage
+      );
     } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
