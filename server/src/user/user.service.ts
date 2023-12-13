@@ -34,9 +34,12 @@ export class UserService extends UserServiceBase {
             args.data.password,
             (password) => this.passwordService.hash(password)
           )),
-        
-        companyInfo: typeof args.data.companyInfo === "string" ? JSON.parse(args.data.companyInfo) : null,
-        profileImage: profileImage ? profileImage.filename : null,
+
+        companyInfo:
+          typeof args.data.companyInfo === "string"
+            ? JSON.parse(args.data.companyInfo)
+            : null,
+        profileImage: profileImage && profileImage.filename,
       },
     });
   }

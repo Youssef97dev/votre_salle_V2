@@ -36,6 +36,24 @@ export class UserController extends UserControllerBase {
     return res.send({ imageSrc: base64Image });
   }
 
+  @common.Delete("/images/:imageName")
+  async deleteImage(
+    @common.Param("imageName") imageName: string,
+    @common.Res() res: Response
+  ) {
+    try {
+      const imagePath = path.resolve("./src/uploads", imageName);
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath); // Delete the previous image if it exists
+        return res.status(200).send({ message: "Previous image deleted" });
+      } else {
+        return res.status(404).send({ message: "Image not found" });
+      }
+    } catch (error) {
+      return res.status(500).send({ error: "Failed to delete image" });
+    }
+  }
+
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: User })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
