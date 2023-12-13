@@ -2,23 +2,76 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Swal from "sweetalert2";
 import { userAppStore } from "airbnb/store/store";
-import { addTrip, deleteTripAPI, updateTrip } from "airbnb/lib/lisitng";
+import {
+  addTrip,
+  deleteTripAPI,
+  updateTrip,
+  getActiveTrips,
+} from "airbnb/lib/lisitng";
 import { BeatLoader } from "react-spinners";
+import { addDays } from "date-fns";
+
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import Calender from "airbnb/components/common/Calender";
 
 const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
-  const now = new Date();
-
   const { isAuthModalOpen, userInfo, reservations, setRelaunchTrips } =
     userAppStore();
   const defaultParams = {
     id: listing?.title === "Stop sales" ? listing?.id : null,
-    start: listing?.startDate || "",
-    end: listing?.endDate || "",
     description: listing?.description || "",
   };
   const [params, setParams] = useState(defaultParams);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [isUpdateLoading, setIsUpdateLoading] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [activeTripData, setActiveTripData] = useState([]);
+  const [desabledDateArray, setDesabledDateArray] = useState([]);
+
+  const [dateState, setDateState] = useState([
+    {
+      startDate: listing?.startDate ? new Date(listing?.startDate) : null,
+      endDate: listing?.endDate ? new Date(listing?.endDate) : null,
+      key: "selection",
+    },
+  ]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getActiveTrips(listing?.id);
+      setActiveTripData(...activeTripData, data);
+    };
+    if (userInfo) {
+      getData();
+    }
+  }, []);
+
+  const getDates = (startDate, endDate) => {
+    if (startDate && endDate) {
+      const start = new Date(startDate.split("T")[0].replace(/-/g, "/"));
+      const end = new Date(endDate.split("T")[0].replace(/-/g, "/")) - 1;
+      const days = Math.floor((end - start) / (1000 * 60 * 60 * 24));
+      setDesabledDateArray((prevDateArray) => {
+        const newDates = [...prevDateArray];
+
+        for (let i = 0; i <= days; i++) {
+          const currentDate = new Date(
+            start.getTime() + i * 24 * 60 * 60 * 1000
+          );
+          newDates.push(currentDate);
+        }
+        return newDates;
+      });
+    }
+  };
+
+  const showDate = () => {
+    activeTripData.forEach((trip) => {
+      getDates(trip.tripinfo.startDate, trip.tripinfo.endDate);
+    });
+    setShowCalendar((prev) => !prev);
+  };
 
   const changeValue = (e) => {
     const { value, id } = e.target;
@@ -40,7 +93,7 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
 
     try {
       const response = await addTrip(data);
-        return response;
+      return response;
     } catch (error) {
       return error;
     }
@@ -63,33 +116,32 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
     } catch (error) {
       return error;
     }
-    
-  }
+  };
 
   const saveEvent = async () => {
     setIsUpdateLoading(true);
-    if (!params.start || !params.end) {
+    if (!dateState[0]?.startDate || !dateState[0]?.endDate) {
       return true;
     }
     //add event
     let event = {
-      start: params.start,
-      end: params.end,
+      start: dateState[0]?.startDate,
+      end: dateState[0]?.endDate,
       description: params.description,
     };
-    if(params?.id){
+    if (params?.id) {
       const response = await handleUpdateStopReservation(event);
-    if (response.status === 200) {
-      showMessage("Stop reservation has been updated.");
-      setIsUpdateLoading(false);
-    }
-    }else{
+      if (response.status === 200) {
+        showMessage("Stop reservation has been updated.");
+        setIsUpdateLoading(false);
+      }
+    } else {
       const response = await handleStopReservation(event);
-      console.log("response",response)
-    if (response.status === 201) {
-      showMessage("Reservation has been stoped.");
-      setIsUpdateLoading(false);
-    }
+      console.log("response", response);
+      if (response.status === 201) {
+        showMessage("Reservation has been stoped.");
+        setIsUpdateLoading(false);
+      }
     }
     setRelaunchTrips();
     setIsAddEventModal(false);
@@ -98,13 +150,13 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
   const deleteEvent = async (id) => {
     setIsDeleteLoading(true);
     const response = await deleteTripAPI(id);
-    if(response?.status === 200){
+    if (response?.status === 200) {
       showMessage("Reservation has been deleted.");
       setRelaunchTrips();
       setIsDeleteLoading(false);
     }
     setIsAddEventModal(false);
-  }
+  };
 
   const showMessage = (msg = "", type = "success") => {
     const toast = Swal.mixin({
@@ -152,7 +204,11 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
               leave-from="opacity-100 scale-100"
               leave-to="opacity-0 scale-95"
             >
-              <Dialog.Panel className="panel w-full max-w-lg overflow-hidden rounded-lg border-0 p-0 text-black">
+              <Dialog.Panel
+                className={`panel w-full overflow-hidden rounded-lg border-0 p-0 text-black ${
+                  showCalendar ? "max-w-5xl" : "max-w-lg"
+                }`}
+              >
                 <button
                   type="button"
                   className="absolute top-4 text-gray-400 outline-none hover:text-gray-800 right-4"
@@ -178,33 +234,28 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
                 </div>
                 <div className="p-5">
                   <form className="space-y-5">
-                    <div>
-                      <label htmlFor="dateStart">From :</label>
-                      <input
-                        id="start"
-                        type="date"
-                        name="start"
-                        className="form-input"
-                        placeholder="Event Start Date"
-                        value={params.start || ""}
-                        onChange={(event) => changeValue(event)}
-                        required
-                      />
-                      <div className="mt-2 text-danger" id="startDateErr"></div>
-                    </div>
-                    <div>
-                      <label htmlFor="dateEnd">To :</label>
-                      <input
-                        id="end"
-                        type="date"
-                        name="end"
-                        className="form-input"
-                        placeholder="Event End Date"
-                        value={params.end || ""}
-                        onChange={(e) => changeValue(e)}
-                        required
-                      />
-                      <div className="mt-2 text-danger" id="endDateErr"></div>
+                    <div className="space-y-5" onClick={() => showDate()}>
+                      <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
+                        <label className="font-semibold text-xs">From :</label>
+                        <span>
+                          {dateState[0]?.startDate?.toLocaleDateString()}
+                        </span>
+                      </div>
+                      <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
+                        <label className="font-semibold text-xs">To :</label>
+                        <span>
+                          {dateState[0]?.endDate?.toLocaleDateString()}
+                        </span>
+                      </div>
+                      {showCalendar && (
+                        <div className="">
+                          <Calender
+                            state={dateState}
+                            setState={setDateState}
+                            disabledDates={desabledDateArray}
+                          />
+                        </div>
+                      )}
                     </div>
                     <div>
                       <label htmlFor="description">Event Description :</label>
@@ -231,17 +282,30 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
                         className="btn btn-primary ml-4"
                         disabled={isDeleteLoading || isUpdateLoading}
                       >
-                        
-                        {!isUpdateLoading ? (params.id ? "Update stop sales" : "Stop sales") : <BeatLoader color="#fff" size={5} />}
+                        {!isUpdateLoading ? (
+                          params.id ? (
+                            "Update stop sales"
+                          ) : (
+                            "Stop sales"
+                          )
+                        ) : (
+                          <BeatLoader color="#fff" size={5} />
+                        )}
                       </button>
-                      {params?.id && <button
-                        type="button"
-                        onClick={() => deleteEvent(params.id)}
-                        className="btn btn-warning ml-4"
-                        disabled={isDeleteLoading || isUpdateLoading}
-                      >
-                        {!isDeleteLoading ? "Delete" : <BeatLoader color="#fff" size={5} />}
-                      </button>}
+                      {params?.id && (
+                        <button
+                          type="button"
+                          onClick={() => deleteEvent(params.id)}
+                          className="btn btn-warning ml-4"
+                          disabled={isDeleteLoading || isUpdateLoading}
+                        >
+                          {!isDeleteLoading ? (
+                            "Delete"
+                          ) : (
+                            <BeatLoader color="#fff" size={5} />
+                          )}
+                        </button>
+                      )}
                     </div>
                   </form>
                 </div>

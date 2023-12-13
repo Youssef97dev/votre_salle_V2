@@ -6,6 +6,7 @@ import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
+import { addDays } from "date-fns";
 
 import { userAppStore } from "airbnb/store/store";
 import React, { useEffect, useState, Fragment } from "react";
@@ -64,7 +65,7 @@ const page = () => {
       data: listing.trips.map((trip) => ({
         id: trip.id,
         startDate: trip.tripinfo.startDate,
-        endDate: trip.tripinfo.endDate,
+        endDate: addDays(new Date(trip.tripinfo.endDate), -1),
         occupancy: 1800,
         title:
           trip.tripinfo.type === "reservation"
@@ -132,7 +133,9 @@ const page = () => {
           <Scheduler
             data={scheduleData}
             isLoading={isLoading}
-            onTileClick={(item) => item?.title === "Stop sales" && openModalStopSales(item)}
+            onTileClick={(item) =>
+              item?.title === "Stop sales" && openModalStopSales(item)
+            }
             onItemClick={(item) => openModalStopSales(item)}
             config={{
               zoom: 1,
