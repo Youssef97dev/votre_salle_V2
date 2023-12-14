@@ -10,12 +10,16 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import { Switch } from "@headlessui/react";
 
 import { IoMdImages } from "react-icons/io";
+import { RiAlarmWarningLine } from "react-icons/ri";
 
 const EditProfile = () => {
   const { userInfo, setUserInfo } = userAppStore();
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [MessageAlert, setMessageAlert] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [WhichField, setWhichField] = useState();
+  const [ToggleMessageAlert, setToggleMessageAlert] = useState(false);
+
   const [enableEdit, setEnableEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState({
@@ -38,10 +42,32 @@ const EditProfile = () => {
   const maxNumber = 69;
   /* State for image */
 
-  useEffect(() => {
-    console.log("user info :", userInfo);
-    console.log("selectedFile :", selectedFile);
-  }, [selectedFile]);
+  const validateField = (field, value, regex, minLength, maxLength) => {
+    setWhichField(field);
+
+    if (minLength && value.length < minLength) {
+      setMessageAlert(
+        `Please check ${field}. It must contain at least ${minLength} characters.`
+      );
+      setToggleMessageAlert(true);
+      return false;
+    }
+    if (maxLength && value.length > maxLength) {
+      setMessageAlert(
+        `Please check ${field}. It must not exceed ${maxLength} characters.`
+      );
+      setToggleMessageAlert(true);
+      return false;
+    }
+    if (regex && !regex.test(value)) {
+      setMessageAlert(`Please check ${field}.`);
+      setToggleMessageAlert(true);
+      return false;
+    }
+
+    setWhichField("");
+    return true;
+  };
 
   // Callback to handle file selection
   const handleImageUpload = (imageList, addUpdateIndex) => {
@@ -68,46 +94,108 @@ const EditProfile = () => {
   // Update User
   const handleUpdate = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (
-      userData.firstName &&
-      userData.lastName &&
-      userData.email &&
-      userData.phone &&
-      userData.adresse
+      !validateField("firstName", userData.firstName, undefined, 2, 50) ||
+      !validateField("lastName", userData.lastName, undefined, 2, 50) ||
+      !validateField(
+        "email",
+        userData.email,
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        undefined,
+        255
+      ) ||
+      !validateField(
+        "phone",
+        userData.phone,
+        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+        10,
+        18
+      ) ||
+      !validateField("adresse", userData.adresse, undefined, 2, 255) ||
+      (userInfo?.roles[0] === "owner" &&
+        !validateField("rc", companyInfo.rc, /^[0-9]{4,10}$/, 4, 10)) ||
+      (userInfo?.roles[0] === "owner" &&
+        !validateField(
+          "idFiscale",
+          companyInfo.idFiscale,
+          /^[0-9]{5,10}$/,
+          5,
+          10
+        )) ||
+      (userInfo?.roles[0] === "owner" &&
+        !validateField("cnss", companyInfo.cnss, /^[0-9]{6,10}$/, 6, 10)) ||
+      (userInfo?.roles[0] === "owner" &&
+        !validateField("ice", companyInfo.ice, /^[0-9]{9,10}$/, 9, 10))
     ) {
-      setIsLoading(true);
-      const userExist = await checkUser(userData?.email);
-      if (userExist && userExist?.username !== userInfo?.username) {
-        setErrorMessage("Email already exist!");
+      setIsLoading(false);
+      return;
+    }
+
+    const userExist = await checkUser(userData?.email);
+    if (userExist && userExist?.username !== userInfo?.username) {
+      setWhichField("email");
+      setMessageAlert("Email already exist!");
+      setToggleMessageAlert(true);
+      setIsLoading(false);
+    } else {
+      const data = await updateMyProfile(
+        userInfo?.id,
+        userData,
+        companyInfo,
+        selectedFile
+      );
+      if (data?.response?.data?.error) {
+        setMessageAlert(data.response.data.message);
+        setToggleMessageAlert(true);
         setIsLoading(false);
       } else {
-        const data = await updateMyProfile(
-          userInfo?.id,
-          userData,
-          companyInfo,
-          selectedFile
-        );
-        if (data?.response?.data?.error) {
-          setErrorMessage(data.response.data.message);
-          setIsLoading(false);
-        } else {
-          if (userInfo?.profileImage !== null && selectedFile !== null) {
-            const deletedImage = await deleteImage(userInfo?.profileImage);
-            console.log("deletedImage: ", deletedImage);
-          }
-          setUserInfo(data);
-          setImages([]);
-          setSelectedFile(null);
-          setSuccessMessage("Your profile updated successfully!");
-          setEnableEdit(false);
-          setIsLoading(false);
+        if (userInfo?.profileImage !== null && selectedFile !== null) {
+          const deletedImage = await deleteImage(userInfo?.profileImage);
+          console.log("deletedImage: ", deletedImage);
         }
+        setUserInfo(data);
+        setImages([]);
+        setSelectedFile(null);
+        setSuccessMessage("Your profile updated successfully!");
+        setToggleMessageAlert(true);
+        setEnableEdit(false);
+        setIsLoading(false);
       }
     }
   };
 
   return (
     <div className="panel-mobile md:panel">
+      <div
+        className={`relative mb-2 flex items-center border p-3.5 rounded before:inline-block before:absolute before:top-1/2 before:right-0 before:-mt-2 before:border-r-8 before:border-t-8 before:border-b-8 before:border-t-transparent before:border-b-transparent before:border-r-inherit border-r-[45px] ${
+          ToggleMessageAlert ? "block" : "hidden"
+        } ${
+          MessageAlert !== ""
+            ? "text-[#e2a03f] bg-[#fff9ed] border-[#e2a03f]"
+            : successMessage !== "" &&
+              "text-[#00ab55] bg-[#ddf5f0] border-[#00ab55]"
+        }`}
+      >
+        <span className="absolute -right-9 inset-y-0 text-white w-6 h-6 m-auto">
+          <RiAlarmWarningLine size={18} />
+        </span>
+        <span className="pr-2">
+          <strong className="mr-1">
+            {MessageAlert !== ""
+              ? "Warning!"
+              : successMessage !== "" && "Success!"}
+          </strong>{" "}
+          - {MessageAlert || successMessage}.
+        </span>
+        <button
+          onClick={() => setToggleMessageAlert(false)}
+          type="button"
+          className="ml-auto hover:opacity-80"
+        >
+          X
+        </button>
+      </div>
       <div className="flex justify-end items-center gap-2 ">
         <span className="font-medium">Enable Editing</span>
         <Switch
@@ -184,7 +272,9 @@ const EditProfile = () => {
             <input
               id="firstName"
               type="text"
-              className="form-input disabled:bg-slate-300"
+              className={`form-input disabled:bg-slate-300 ${
+                WhichField === "firstName" ? "border-2 border-[#e2a03f]" : ""
+              }  `}
               placeholder="Enter First Name"
               value={userData.firstName}
               onChange={(e) =>
@@ -198,7 +288,9 @@ const EditProfile = () => {
             <input
               id="lastName"
               type="text"
-              className="form-input disabled:bg-slate-300"
+              className={`form-input disabled:bg-slate-300 ${
+                WhichField === "lastName" ? "border-2 border-[#e2a03f]" : ""
+              }  `}
               placeholder="Enter Last Name"
               value={userData.lastName}
               onChange={(e) =>
@@ -214,7 +306,9 @@ const EditProfile = () => {
             <input
               id="email"
               type="email"
-              className="form-input disabled:bg-slate-300"
+              className={`form-input disabled:bg-slate-300 ${
+                WhichField === "email" ? "border-2 border-[#e2a03f]" : ""
+              }  `}
               placeholder="Enter Email"
               value={userData.email}
               onChange={(e) =>
@@ -228,7 +322,9 @@ const EditProfile = () => {
             <input
               id="phone"
               type="phone"
-              className="form-input disabled:bg-slate-300"
+              className={`form-input disabled:bg-slate-300 ${
+                WhichField === "phone" ? "border-2 border-[#e2a03f]" : ""
+              }  `}
               placeholder="Enter phone"
               value={userData.phone}
               onChange={(e) =>
@@ -244,7 +340,9 @@ const EditProfile = () => {
             <textarea
               id="adresse"
               value={userData.adresse || ""}
-              className="form-input disabled:bg-slate-300"
+              className={`form-input disabled:bg-slate-300 ${
+                WhichField === "adresse" ? "border-2 border-[#e2a03f]" : ""
+              }  `}
               placeholder="Enter Adresse"
               onChange={(e) =>
                 setUserData({ ...userData, [e.target.id]: e.target.value })
@@ -261,7 +359,9 @@ const EditProfile = () => {
                 <input
                   id="rc"
                   type="text"
-                  className="form-input disabled:bg-slate-300"
+                  className={`form-input disabled:bg-slate-300 ${
+                    WhichField === "rc" ? "border-2 border-[#e2a03f]" : ""
+                  }  `}
                   placeholder="Enter Raison Sociale"
                   value={companyInfo.rc}
                   onChange={(e) =>
@@ -278,7 +378,9 @@ const EditProfile = () => {
                 <input
                   id="cnss"
                   type="text"
-                  className="form-input disabled:bg-slate-300"
+                  className={`form-input disabled:bg-slate-300 ${
+                    WhichField === "cnss" ? "border-2 border-[#e2a03f]" : ""
+                  }  `}
                   placeholder="Enter Cnss"
                   value={companyInfo.cnss}
                   onChange={(e) =>
@@ -297,7 +399,11 @@ const EditProfile = () => {
                 <input
                   id="idFiscale"
                   type="text"
-                  className="form-input disabled:bg-slate-300"
+                  className={`form-input disabled:bg-slate-300 ${
+                    WhichField === "idFiscale"
+                      ? "border-2 border-[#e2a03f]"
+                      : ""
+                  }  `}
                   placeholder="Enter identifiant fiscale"
                   value={companyInfo.idFiscale}
                   onChange={(e) =>
@@ -314,7 +420,9 @@ const EditProfile = () => {
                 <input
                   id="ice"
                   type="text"
-                  className="form-input disabled:bg-slate-300"
+                  className={`form-input disabled:bg-slate-300 ${
+                    WhichField === "ice" ? "border-2 border-[#e2a03f]" : ""
+                  }  `}
                   placeholder="Enter Ice"
                   value={companyInfo.ice}
                   onChange={(e) =>
