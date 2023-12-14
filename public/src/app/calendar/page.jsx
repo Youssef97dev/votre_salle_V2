@@ -61,9 +61,11 @@ const page = () => {
         icon: listing.photos[0],
         title: listing.title,
         subtitle: "Click for Stop sales",
+        trips: listing.trips,
       },
       data: listing.trips.map((trip) => ({
         id: trip.id,
+        trips: listing.trips,
         startDate: trip.tripinfo.startDate,
         endDate: addDays(new Date(trip.tripinfo.endDate), -1),
         occupancy: 1800,

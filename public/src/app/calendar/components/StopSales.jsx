@@ -39,8 +39,18 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getActiveTrips(listing?.id);
-      setActiveTripData(...activeTripData, data);
+      const activeTrips =
+        params?.id !== null
+          ? await listing.trips.filter(
+              (trip) =>
+                trip.status === "Active" &&
+                trip.tripinfo.startDate !== listing.startDate &&
+                trip.tripinfo.endDate !== listing.endDate
+            )
+          : await listing.label.trips.filter(
+              (trip) => trip.status === "Active"
+            );
+      setActiveTripData(...activeTripData, activeTrips);
     };
     if (userInfo) {
       getData();
@@ -61,13 +71,14 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
           );
           newDates.push(currentDate);
         }
+        console.log(newDates);
         return newDates;
       });
     }
   };
 
-  const showDate = () => {
-    activeTripData.forEach((trip) => {
+  const showDate = async () => {
+    await activeTripData.forEach((trip) => {
       getDates(trip.tripinfo.startDate, trip.tripinfo.endDate);
     });
     setShowCalendar((prev) => !prev);
@@ -205,9 +216,7 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
               leave-to="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={`panel w-full overflow-hidden rounded-lg border-0 p-0 text-black ${
-                  showCalendar ? "max-w-5xl" : "max-w-lg"
-                }`}
+                className={`panel w-full overflow-hidden rounded-lg border-0 p-0 text-black max-w-5xl`}
               >
                 <button
                   type="button"

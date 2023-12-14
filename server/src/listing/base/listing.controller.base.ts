@@ -128,6 +128,7 @@ export class ListingControllerBase {
             id: true,
             tripinfo: true,
             user: true,
+            status: true,
           },
         },
 
