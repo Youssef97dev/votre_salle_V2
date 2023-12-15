@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         "airbnb-gradient":
-          "linear-gradient(to right, #0000FF 0%, #000033 100%)",
+          "linear-gradient(to right, #4361ee 0%, #2196f3 100%)",
       },
       colors: {
         "airbnb-theme-color": "#000033",
@@ -17,7 +17,7 @@ module.exports = {
         "airbnb-light-gray": "#717171",
       },
       gridTemplateRows: {
-        "new-listing": "10vh 80vh 10vh",
+        "new-listing": "10vh 10vh 80vh 10vh 10vh",
         "new-reservation": "10vh 15vh 115vh 10vh",
         "new-reservation-mobile": "10vh 10vh 120vh 30vh",
       },

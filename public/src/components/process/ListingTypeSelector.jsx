@@ -10,25 +10,23 @@ export default function ListingTypeSelector() {
   };
 
   return (
-    <div className="flex justify-center items-center mx-2  max-h-[80vh] h-[80vh]">
-      <div>
-        <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl">
-          Which of these best describes your place?
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5 max-h-[60vh] md:max-h-[65vh] lg:max-h-[70vh] overflow-auto scroll no-scrollbar my-10 pb-5">
-          {listingTypes.map((type) => (
-            <button
-              key={type.name}
-              className={`flex flex-row gap-3 md:gap-0 items-center md:flex-col font-semibold border border-gray-300 rounded-md p-3 hover:border-gray-950 transition-all duration-300 ${
-                type.name === locationType && "border-gray-950 bg-slate-100"
-              }`}
-              onClick={() => handleSelection(type.name)}
-            >
-              {type.svgPath}
-              <span className="text-sm md:text-base">{type.name}</span>
-            </button>
-          ))}
-        </div>
+    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+      <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
+        Which of these best describes your place?
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-5 px-3 overflow-auto scroll no-scrollbar">
+        {listingTypes.map((type) => (
+          <button
+            key={type.name}
+            className={`flex flex-row gap-3 md:gap-0 items-center md:flex-col font-semibold border border-gray-300 rounded-md p-2 hover:border-gray-950 transition-all duration-300 ${
+              type.name === locationType && "border-gray-950 bg-slate-100"
+            }`}
+            onClick={() => handleSelection(type.name)}
+          >
+            {type.svgPath}
+            <span className="text-sm md:text-base">{type.name}</span>
+          </button>
+        ))}
       </div>
     </div>
   );

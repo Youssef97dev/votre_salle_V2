@@ -17,53 +17,53 @@ export default function ProcessAmeneties() {
     }
   };
   return (
-    <div className="flex items-center justify-center mx-2">
-      <div className="flex flex-col gap-3">
-        <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl">
+    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+      <div className="pb-5 border-b border-[#dbdcdf] w-fit">
+        <h2 className="font-extrabold text-2xl ">
           Tell guests what your place has to offer
         </h2>
-        <p className="text-xs md:text-base">You can add more amenities after you publish your listing.</p>
-        <div className="flex flex-col gap-5 max-h-[63vh] md:max-h-[65vh] overflow-auto scroll no-scrollbar">
-          {AmenetiesType.filter(
-            ({ type }) =>
-              type === locationType || type === "safety" || type === "basic"
-          ).map(({ type, data }) => (
-            <div key={type} className="flex flex-col gap-5">
-              {type === locationType && (
-                <span className="text-base md:text-md font-medium">
-                  Do you have any {`${locationType}`} amenities?
-                </span>
-              )}
-              {type === "safety" && (
-                <span className="text-base md:text-md font-medium">
-                  Do you have any of these safety items?
-                </span>
-              )}
+        <span className="text-sm">
+          You can add more amenities after you publish your listing.
+        </span>
+      </div>
+      <div className="flex flex-col gap-5 w-full max-h-[63vh] md:max-h-[65vh] px-3 overflow-auto scroll">
+        {AmenetiesType.filter(
+          ({ type }) =>
+            type === locationType || type === "safety" || type === "basic"
+        ).map(({ type, data }) => (
+          <div key={type} className="flex flex-col gap-5">
+            {type === locationType && (
+              <span className="text-base md:text-md font-medium">
+                Do you have any {`${locationType}`} amenities?
+              </span>
+            )}
+            {type === "safety" && (
+              <span className="text-base md:text-md font-medium">
+                Do you have any of these safety items?
+              </span>
+            )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
-                {data.map(({ name, svgPath }) => (
-                  <button
-                    key={name}
-                    className={` flex flex-row md:flex-col items-center md:items-start justify-start font-semibold border border-gray-300 rounded-md p-1 md:p-3 hover:border-gray-950 transition-all duration-300 ${
-                      placeAmeneties?.find((amentiy) => amentiy === name) &&
-                      "border-gray-950"
-                    }`}
-                    onClick={() => {
-                      placeAmeneties?.includes(name)
-                        ? removeAmenty(name)
-                        : addAmenety(name);
-                    }}
-                  >
-                    {svgPath}
-                    <span className="text-airbnb-light-black font-medium">
-                      {name}
-                    </span>
-                  </button>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-5 my-2">
+              {data.map(({ name, svgPath }) => (
+                <button
+                  key={name}
+                  className={`flex flex-row gap-3 md:gap-0 items-center justify-center md:flex-col font-semibold border border-gray-300 rounded-md p-2 hover:border-gray-950 transition-all duration-300 ${
+                    placeAmeneties?.find((amentiy) => amentiy === name) &&
+                    "border-gray-950"
+                  }`}
+                  onClick={() => {
+                    placeAmeneties?.includes(name)
+                      ? removeAmenty(name)
+                      : addAmenety(name);
+                  }}
+                >
+                  {svgPath}
+                  <span className="text-sm md:text-base">{name}</span>
+                </button>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

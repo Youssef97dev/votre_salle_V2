@@ -18,10 +18,11 @@ import { userAppStore } from "airbnb/store/store";
 import AirBnbLogoShort from "airbnb/svg/airbnb-logo-short";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import CompactFooter from "airbnb/components/footer/CompactFooter";
 
 function Page() {
   const router = useRouter();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   const { resetNewListingData } = userAppStore();
 
@@ -39,25 +40,25 @@ function Page() {
 
   const getComponent = () => {
     switch (step) {
-      case 0:
-        return <Overview />;
       case 1:
-        return <StepOneStarter />;
+        return <Overview />;
       case 2:
-        return <ListingTypeSelector />;
+        return <StepOneStarter />;
       case 3:
-        return <PlaceLocation />;
+        return <ListingTypeSelector />;
       case 4:
-        return <PlaceDetails />;
+        return <PlaceLocation />;
       case 5:
-        return <StepTwoStarter />;
+        return <PlaceDetails />;
       case 6:
-        return <ProcessAmeneties />;
+        return <StepTwoStarter />;
       case 7:
-        return <Photos />;
+        return <ProcessAmeneties />;
       case 8:
-        return <Title />;
+        return <Photos />;
       case 9:
+        return <Title />;
+      case 10:
         return <ListingCreated />;
       default:
         return <></>;
@@ -65,7 +66,7 @@ function Page() {
   };
 
   return (
-    <div className=" grid grid-rows-new-listing h-[100vh]">
+    <div className=" grid grid-rows-new-listing h-[120vh]">
       <header className="flex items-center px-10 lg:px-20 justify-between">
         <div className="cursor-pointer" onClick={() => router.push("/")}>
           <AirBnbLogoShort />
@@ -76,37 +77,40 @@ function Page() {
           </button>
         )}
       </header>
-      <div className="flex justify-center items-center">{getComponent()}</div>
-      {/* {step <= 13 && ( */}
-      <footer
-        className={`flex ${
-          step > 0 ? "justify-between" : "justify-end"
-        } items-center px-10 lg:px-20 pb-0 lg:pb-4 border-t  lg:border-t-4 border-t-gray-300 `}
-      >
-        {step >= 1 && (
+      <div className="flex gap-2 items-end font-bold mx-[400px]">
+        <span className="font-extrabold text-4xl text-[#3b3f5c]">{step}</span>
+        <span>/ 10</span>
+      </div>
+      <div className="flex justify-center items-center mx-[400px] border border-[#e0e6ed] shadow-lg rounded-lg ">
+        {getComponent()}
+      </div>
+      <div className="flex justify-end items-center gap-5 mx-[400px] ">
+        {step >= 2 && (
           <button
-            className=" py-3 mt-5  px-10 text-airbnb-light-black underline hover:bg-gray-200 text-base font-medium rounded-md cursor-pointer"
             onClick={handlePrevious}
+            className="btn btn-primary rounded-3xl font-bold"
           >
-            Back
+            Go Back
           </button>
         )}
-        {step !== 0 ? (
+        {step === 9 ? (
           <button
-            className="bg-[#222222] py-3 mt-5  px-10 text-white text-base font-medium rounded-md cursor-pointer"
             onClick={handleNext}
+            className="btn btn-primary rounded-3xl font-bold"
           >
-            Next
+            Add Your Hall
           </button>
         ) : (
           <button
-            className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer"
             onClick={handleNext}
+            className="btn btn-primary rounded-3xl font-bold"
           >
-            Get Started
+            Continue
           </button>
         )}
-      </footer>
+      </div>
+      {/* {step <= 13 && ( */}
+      <CompactFooter />
       {/* )} */}
     </div>
   );

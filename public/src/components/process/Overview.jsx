@@ -24,27 +24,21 @@ function Overview() {
     },
   ];
   return (
-    <div className="flex lg:flex-row flex-col  h-full justify-evenly lg:justify-between items-center px-2 lg:px-32 gap-5 lg:gap-20">
-      <div>
-        <strong>
-          <h1 className="text-xl lg:text-5xl leading-normal text-airbnb-light-black">
-            {mainTitle}
-          </h1>
-        </strong>
-      </div>
-      <ul className="flex flex-col gap-10 lg:gap-16">
+    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+      <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit text-airbnb-light-black">
+        {mainTitle}
+      </h2>
+      <ul className="flex flex-col gap-10">
         {data.map(({ description, image, title }, index) => (
-          <li key={title} className="flex items-start justify-start gap-6">
-            <strong className="text-base lg:text-2xl pt-5 text-airbnb-light-black">
+          <li key={title} className="flex items-start justify-start gap-5">
+            <strong className="pt-5 text-airbnb-light-black">
               <h3>{index + 1}</h3>
             </strong>
             <div className="pt-5">
-              <strong className="text-base lg:text-2xl text-airbnb-light-black">
+              <strong className=" text-airbnb-light-black">
                 <h3>{title}</h3>
               </strong>
-              <p className="text-airbnb-light-gray text-xs lg:text-lg">
-                {description}
-              </p>
+              <p className="text-airbnb-light-gray">{description}</p>
             </div>
           </li>
         ))}

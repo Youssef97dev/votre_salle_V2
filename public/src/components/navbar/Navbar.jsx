@@ -72,7 +72,7 @@ function Navbar() {
         <div className="flex-grow basis-0 ">
           <ul className="flex items-center justify-end gap-6 font-medium">
             {userInfo && (
-              <li className="cursor-pointer hidden md:block">
+              <li className="cursor-pointer hidden md:block font-semibold">
                 <span>
                   {userInfo.firstName} {userInfo.lastName}
                 </span>

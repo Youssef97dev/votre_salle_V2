@@ -32,11 +32,11 @@ export default function PlaceLocation() {
     setLocationData({ ...data });
   };
   return (
-    <div className="flex flex-col items-center justify-center h-full mx-2 gap-2 md:gap-5">
-      <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl ">
+    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+      <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
         Choose your location
       </h2>
-      <div className="w-full h-full md:h-[400px] md:w-[700px] ">
+      <div className="w-full h-full rounded-lg">
         <Map
           initialViewState={{
             longitude: -8.008889,

@@ -137,123 +137,139 @@ export default function Title() {
         </div>
           </div>*/}
 
-      <div className="space-y-5 panel">
-        <h1 className="text-xl md:text-4xl">
-          <strong>More informations</strong>
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="gridTitle">Title</label>
-            <input
-              id="gridTitle"
+      <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+        <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
+          More informations
+        </h2>
+        <div className="flex flex-col px-5 items-center gap-5 w-full h-full overflow-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+            <div className="w-full">
+              <label className="font-bold" htmlFor="gridTitle">
+                Title
+              </label>
+              <input
+                id="gridTitle"
+                type="text"
+                value={title}
+                className="form-input"
+                onChange={(e) => {
+                  if (e.target.value.length <= 32) {
+                    setTitle(e.target.value);
+                  }
+                }}
+              />
+              <span className="text-xs md:text-base">{title.length}/32</span>
+            </div>
+            <div className="w-full">
+              <label className="font-bold" htmlFor="gridGuests">
+                Guests
+              </label>
+              <input
+                id="gridGuests"
+                type="number"
+                className="form-input"
+                min={0}
+                onChange={(e) => handleChangeGuest(e)}
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+            <div className="w-full">
+              <label className="font-bold" htmlFor="gridB2C">
+                B2C Price
+              </label>
+              <div className="flex flex-1">
+                <input
+                  id="gridB2C"
+                  type="number"
+                  className="form-input rounded-r-none"
+                  value={price}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setPrice(parseInt(e.target.value));
+                    } else setPrice(0);
+                  }}
+                />
+                <div className="bg-[#eee] flex justify-center items-center  rounded-r-md px-3 font-semibold border border-l-0 border-[#e0e6ed]">
+                  MAD
+                </div>
+              </div>
+            </div>
+            <div className="w-full">
+              <label className="font-bold" htmlFor="gridB2B">
+                B2B Price
+              </label>
+              <div className="flex flex-1">
+                <input
+                  id="gridB2B"
+                  type="number"
+                  className="form-input rounded-r-none"
+                  value={priceB2b}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setPriceB2b(parseInt(e.target.value));
+                    } else setPriceB2b(0);
+                  }}
+                />
+                <div className="bg-[#eee] flex justify-center items-center  rounded-r-md px-3 font-semibold border border-l-0 border-[#e0e6ed]">
+                  MAD
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full">
+            <label className="font-bold" htmlFor="gridDescription">
+              Description
+            </label>
+            <textarea
+              id="gridDescription"
               type="text"
-              value={title}
-              className="form-input"
+              className="form-input h-28 no-scrollbar"
+              value={description}
               onChange={(e) => {
-                if (e.target.value.length <= 32) {
-                  setTitle(e.target.value);
+                if (e.target.value.length <= 500) {
+                  setDescription(e.target.value);
                 }
               }}
             />
-            <span className="text-xs md:text-base">{title.length}/32</span>
+            <span className="text-xs md:text-base">
+              {description.length}/500
+            </span>
           </div>
-          <div>
-            <label htmlFor="gridGuests">Guests</label>
-            <input
-              id="gridGuests"
-              type="number"
-              className="form-input"
-              min={0}
-              onChange={(e) => handleChangeGuest(e)}
-            />
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="gridB2C">B2C Price</label>
-            <div className="flex flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-3 w-full">
+            <label className="inline-flex items-center">
               <input
-                id="gridB2C"
-                type="number"
-                className="form-input rounded-r-none"
-                value={price}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    setPrice(parseInt(e.target.value));
-                  } else setPrice(0);
-                }}
+                type="radio"
+                name="tax"
+                onChange={() => setTax(10)}
+                className="form-radio peer"
+                defaultChecked
               />
-              <div className="bg-[#eee] flex justify-center items-center  rounded-r-md px-3 font-semibold border border-l-0 border-[#e0e6ed]">
-                MAD
-              </div>
-            </div>
-          </div>
-          <div>
-            <label htmlFor="gridB2B">B2B Price</label>
-            <div className="flex flex-1">
+              <span className="peer-checked:text-[#4361ee] font-bold">10%</span>
+            </label>
+
+            <label className="inline-flex items-center">
               <input
-                id="gridB2B"
-                type="number"
-                className="form-input rounded-r-none"
-                value={priceB2b}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    setPriceB2b(parseInt(e.target.value));
-                  } else setPriceB2b(0);
-                }}
+                type="radio"
+                name="tax"
+                onChange={() => setTax(20)}
+                className="form-radio text-[#00ab55] peer"
               />
-              <div className="bg-[#eee] flex justify-center items-center  rounded-r-md px-3 font-semibold border border-l-0 border-[#e0e6ed]">
-                MAD
-              </div>
-            </div>
+              <span className="peer-checked:text-[#00ab55] font-bold">20%</span>
+            </label>
+
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="tax"
+                onChange={() => setTax(0)}
+                className="form-radio text-[#805dca] peer"
+              />
+              <span className="peer-checked:text-[#805dca] font-bold">
+                Exonerer
+              </span>
+            </label>
           </div>
-        </div>
-        <div>
-          <label htmlFor="gridDescription">Description</label>
-          <textarea
-            id="gridDescription"
-            type="text"
-            className="form-input h-28 no-scrollbar"
-            value={description}
-            onChange={(e) => {
-              if (e.target.value.length <= 500) {
-                setDescription(e.target.value);
-              }
-            }}
-          />
-          <span className="text-xs md:text-base">{description.length}/500</span>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3">
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="tax"
-              onChange={() => setTax(10)}
-              className="form-radio peer"
-              defaultChecked
-            />
-            <span className="peer-checked:text-[#4361ee]">10%</span>
-          </label>
-
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="tax"
-              onChange={() => setTax(20)}
-              className="form-radio text-[#00ab55] peer"
-            />
-            <span className="peer-checked:text-[#00ab55]">20%</span>
-          </label>
-
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              name="tax"
-              onChange={() => setTax(0)}
-              className="form-radio text-[#805dca] peer"
-            />
-            <span className="peer-checked:text-[#805dca]">Exonerer</span>
-          </label>
         </div>
       </div>
     </>

@@ -106,7 +106,7 @@ export default function Home() {
     isClient && (
       <div className="max-h-[100vh] h-[100vh]">
         <Navbar />
-        
+
         <div className="w-full flex justify-between gap-5 items-center mt-3 px-6 md:px-20 ">
           <div className="swiper w-[90%]" id="slider5">
             <div className="swiper-wrapper  px-10">
@@ -140,7 +140,7 @@ export default function Home() {
                       <Dammuso />
                     </span>
                     <div
-                      className="text-xs font-semibold break-keep"
+                      className="text-xs font-bold break-keep"
                       style={{ width: "inherit" }}
                     >
                       All
@@ -157,7 +157,7 @@ export default function Home() {
                         {data.svgPath}
                       </span>
                       <div
-                        className="text-xs font-semibold break-keep"
+                        className="text-xs font-bold break-keep"
                         style={{ width: "inherit" }}
                       >
                         {data.name}
@@ -206,7 +206,7 @@ export default function Home() {
           </div>
           <button
             onClick={() => setShowFilter(true)}
-            className="relative font-semibold w-[8%] py-3 flex justify-evenly items-center border-2 border-black rounded-lg"
+            className="relative font-bold w-[8%] py-3 flex justify-evenly items-center border-2 border-black rounded-lg"
           >
             <IoFilterOutline size={20} />
             <span>Filters</span>

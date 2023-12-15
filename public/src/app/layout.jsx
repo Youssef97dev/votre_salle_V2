@@ -2,10 +2,10 @@ import NavigationEvents from "airbnb/components/common/NavigationEvents";
 import "./globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { Suspense } from "react";
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin", "latin-ext"] });
 
 export const metadata = {
   title: "Votre Salles",
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
         type="text/css"
         precedence="default"
       />
-      <body className={inter.className}>
+      <body className={nunito.className}>
         {children}
         <Suspense fallback={null}>
           <NavigationEvents />

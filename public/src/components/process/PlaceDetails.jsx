@@ -10,84 +10,117 @@ export default function PlaceDetails() {
   };
 
   return (
-    <div className="flex justify-center items-center h-full flex-col gap-2 w-full">
-      <div className="flex flex-col gap-3 mx-2">
-        <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl">
-          Confirm your address
-        </h2>
-      </div>
-      <div className="flex flex-col w-full items-center gap-3 h-full overflow-auto no-scrollbar pb-20 pt-5">
-        <div className="flex flex-col gap-2 w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
-          <FormInput
-            isListing
-            name="country"
-            placeholder="Country"
-            setValue={handleChange}
-            type="text"
-            value={locationData?.country}
-          />
-          <FormInput
-            isListing
-            name="neighborhood"
-            placeholder="House, flat, bldg, etc."
-            setValue={handleChange}
-            type="text"
-            value={locationData?.neighborhood}
-          />
+    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+      <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
+        Confirm your address
+      </h2>
+      <div className="flex flex-col items-center gap-5 w-full h-full">
+        <div className="flex gap-3 w-full">
+          <div className="w-full">
+            <label className="font-bold" htmlFor="country">
+              Country
+            </label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              value={locationData?.country}
+              placeholder="Country"
+              className="form-input rounded-2xl focus:shadow-lg"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+            />
+          </div>
+          <div className="w-full">
+            <label className="font-bold" htmlFor="neighborhood">
+              House, flat, bldg, etc.
+            </label>
+            <input
+              type="text"
+              name="neighborhood"
+              id="neighborhood"
+              value={locationData?.neighborhood}
+              placeholder="House, flat, bldg, etc."
+              className="form-input rounded-2xl focus:shadow-lg"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-2 w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
-          <FormInput
-            isListing
-            name="place"
-            placeholder="Area/village (if applicable)"
-            setValue={handleChange}
-            type="text"
-            value={locationData?.place}
-          />{" "}
-          <FormInput
-            isListing
-            name="locality"
-            placeholder="Street Address"
-            setValue={handleChange}
-            type="text"
-            value={locationData?.locality}
-          />
+        <div className="flex gap-3 w-full">
+          <div className="w-full">
+            <label className="font-bold" htmlFor="place">
+              Area/village
+            </label>
+            <input
+              type="text"
+              name="place"
+              id="place"
+              value={locationData?.place}
+              placeholder="Area/village (if applicable)"
+              className="form-input rounded-2xl focus:shadow-lg"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+            />
+          </div>
+          <div className="w-full">
+            <label className="font-bold" htmlFor="locality">
+              Street Address
+            </label>
+            <input
+              type="text"
+              name="locality"
+              id="locality"
+              value={locationData?.locality}
+              placeholder="Street Address"
+              className="form-input rounded-2xl focus:shadow-lg"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-2 w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
-          <FormInput
-            isListing
-            name="landmark"
-            placeholder="Nearby landmark (if applicable)"
-            setValue={handleChange}
-            type="text"
-            value={locationData?.landmark}
-          />{" "}
-          <FormInput
-            isListing
-            name="district"
-            placeholder="City / town"
-            setValue={handleChange}
-            type="text"
-            value={locationData?.district}
-          />
+        <div className="flex gap-3 w-full">
+          <div className="w-full">
+            <label className="font-bold" htmlFor="landmark">
+              Landmark
+            </label>
+            <input
+              type="text"
+              name="landmark"
+              id="landmark"
+              value={locationData?.landmark}
+              placeholder="earby landmark (if applicable)"
+              className="form-input rounded-2xl focus:shadow-lg"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+            />
+          </div>
+          <div className="w-full">
+            <label className="font-bold" htmlFor="district">
+              City / town
+            </label>
+            <input
+              type="text"
+              name="district"
+              id="district"
+              value={locationData?.district}
+              placeholder="City / town"
+              className="form-input rounded-2xl focus:shadow-lg"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-2 w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%]">
-          <FormInput
-            isListing
-            name="postcode"
-            placeholder="PIN code"
-            setValue={handleChange}
-            type="text"
-            value={locationData?.postcode}
-          />{" "}
-          <FormInput
-            isListing
-            name="country"
-            placeholder="Country / province"
-            setValue={handleChange}
-            type="text"
-            value={locationData?.country}
-          />
+        <div className="flex gap-3 w-full">
+          <div className="w-full">
+            <label className="font-bold" htmlFor="postcode">
+              PIN
+            </label>
+            <input
+              type="text"
+              name="postcode"
+              id="postcode"
+              value={locationData?.postcode}
+              placeholder="PIN code"
+              className="form-input rounded-2xl focus:shadow-lg"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+            />
+          </div>
+          <div className="w-full"></div>
         </div>
       </div>
     </div>

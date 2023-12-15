@@ -11,25 +11,29 @@ export default function Photos() {
     setPhotos([...photos, data.info.secure_url]);
   };
   return (
-    <div className="flex gap-5 items-center justify-center flex-col h-full">
-      <h2 className="font-semibold text-lg md:text-3xl lg:text-4xl">Add some photos of your house</h2>
-      <p className="text-xs md:text-base mx-2">
-        You'll need 5 photos to get started. You can add more or make changes
-        later.
-      </p>
+    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+      <div className="pb-5 border-b border-[#dbdcdf] w-fit">
+        <h2 className="font-extrabold text-2xl">
+          Add some photos of your house
+        </h2>
+        <span className="text-sm">
+          You'll need 5 photos to get started. You can add more or make changes
+          later.
+        </span>
+      </div>
       <CldUploadButton
         options={{ multiple: true }}
         onUpload={handleUpload}
         uploadPreset="a1wvb4ge"
       >
-        <span className="bg-airbnb-gradient py-2 md:py-3 mt-5 px-4 md:px-5 text-white text-xs md:text-base font-medium rounded-md cursor-pointer">
+        <span className="bg-airbnb-gradient py-2 md:py-3 mt-5 px-4 md:px-5 text-white text-xs md:text-base font-bold rounded-lg cursor-pointer">
           Upload
         </span>
       </CldUploadButton>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-4 h-[55vh] overflow-auto pb-10 no-scrollbar">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 md:gap-4 h-[55vh] overflow-auto pb-10">
         {photos.map((photo) => (
-          <div className="relative h-36 w-[200px]" key={photo}>
+          <div className="relative h-28 w-[150px]" key={photo}>
             <Image src={photo} fill alt="upload" />
           </div>
         ))}

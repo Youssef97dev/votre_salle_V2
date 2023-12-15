@@ -85,142 +85,139 @@ export default function ListingCard({
         className="flex flex-col gap-2 w-full"
         onClick={() => router.push(`/listing/${data.id}`)}
       >
-        <div className="">
-          <div
-            className="swiper aspect-square w-full relative overflow-hidden rounded-xl mb-3"
-            onMouseOver={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            id={`slider${data.id}`}
-          >
-            {loadingUser || loadingData ? (
-              <Skeleton height="100%" />
-            ) : (
-              <>
-                <div className="swiper-wrapper">
-                  <Swiper
-                    modules={[Navigation, Pagination]}
-                    slidesPerView={1}
-                    spaceBetween={30}
-                    loop={true}
-                    navigation={{
-                      nextEl: `.swiper-button-next-${data.id}`,
-                      prevEl: `.swiper-button-prev-${data.id}`,
-                    }}
-                    pagination={{
-                      clickable: true,
-                      type: "bullets",
-                    }}
-                  >
-                    {data?.photos?.map((photo, index) => (
-                      <SwiperSlide key={index}>
-                        <img
-                          src={photo}
-                          className="rounded-lg object-cover h-full w-full group-hover:scale-110 transition"
-                          alt="slide1"
-                        />
-                        {pathname === "/" && userInfo && (
-                          <div className="absolute z-20 right-2 top-2">
-                            <IoMdHeart
-                              style={{ stroke: "white", strokeWidth: "40" }}
-                              className={`text-3xl ${
-                                wishLists?.includes(data.id)
-                                  ? "text-[#FF385C]"
-                                  : "text-[#00000099]"
-                              }`}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (wishLists?.includes(data.id)) {
-                                  removeWishlist();
-                                } else addWishList();
-                              }}
-                            />
-                          </div>
-                        )}
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
-                <button
-                  onClick={(e) => e.stopPropagation()}
-                  className={`swiper-button-prev-${data.id} ${
-                    hover ? "block" : "hidden"
-                  } place-content-center left-2  p-1 transition text-primary hover:text-white border border-primary  hover:border-primary  bg-[#fff] rounded-full absolute z-[50] top-1/2 -translate-y-1/2`}
+        <div
+          className="swiper aspect-square w-full relative overflow-hidden rounded-xl mb-3"
+          onMouseOver={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          id={`slider${data.id}`}
+        >
+          {loadingUser || loadingData ? (
+            <Skeleton height="100%" />
+          ) : (
+            <>
+              <div className="swiper-wrapper">
+                <Swiper
+                  modules={[Navigation, Pagination]}
+                  slidesPerView={1}
+                  spaceBetween={30}
+                  loop={true}
+                  navigation={{
+                    nextEl: `.swiper-button-next-${data.id}`,
+                    prevEl: `.swiper-button-prev-${data.id}`,
+                  }}
+                  pagination={{
+                    clickable: true,
+                    type: "bullets",
+                  }}
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-w-4 rtl:-rotate-90 rotate-90"
-                  >
-                    <path
-                      d="M19 9L12 15L5 9"
-                      stroke="#000"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </button>
-                <button
-                  onClick={(e) => e.stopPropagation()}
-                  className={`swiper-button-next-${data.id} ${
-                    hover ? "block" : "hidden"
-                  } place-content-center right-2  p-1 transition text-primary hover:text-white border border-primary  hover:border-primary bg-[#fff] rounded-full absolute z-[50] top-1/2 -translate-y-1/2`}
+                  {data?.photos?.map((photo, index) => (
+                    <SwiperSlide key={index}>
+                      <img
+                        src={photo}
+                        className="rounded-lg object-cover h-full w-full group-hover:scale-110 transition"
+                        alt="slide1"
+                      />
+                      {pathname === "/" && userInfo && (
+                        <div className="absolute z-20 right-2 top-2">
+                          <IoMdHeart
+                            style={{ stroke: "white", strokeWidth: "40" }}
+                            className={`text-3xl ${
+                              wishLists?.includes(data.id)
+                                ? "text-[#FF385C]"
+                                : "text-[#00000099]"
+                            }`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (wishLists?.includes(data.id)) {
+                                removeWishlist();
+                              } else addWishList();
+                            }}
+                          />
+                        </div>
+                      )}
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+              <button
+                onClick={(e) => e.stopPropagation()}
+                className={`swiper-button-prev-${data.id} ${
+                  hover ? "block" : "hidden"
+                } place-content-center left-2  p-1 transition text-primary hover:text-white border border-primary  hover:border-primary  bg-[#fff] rounded-full absolute z-[50] top-1/2 -translate-y-1/2`}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-w-4 rtl:-rotate-90 rotate-90"
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-w-4 rtl:rotate-90 -rotate-90"
-                  >
-                    <path
-                      d="M19 9L12 15L5 9"
-                      stroke="#000"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </button>
-              </>
-            )}
-          </div>
-          <div>
-            <div className="flex gap-2 justify-between items-center">
-              {loadingUser || loadingData ? (
-                <Skeleton />
-              ) : (
-                <>
-                  <h3 className="font-semibold">{data.title}</h3>
-                  {rating > 0 && (
-                    <span className="font-semibold flex items-center gap-2">
-                      <IoMdStar size={15} /> {rating.toFixed(1)}
-                    </span>
-                  )}
-                </>
-              )}
-            </div>
-            {loadingUser || loadingData ? (
-              <Skeleton />
-            ) : (
-              <h4 className="font-light mb-2">{data.locationType}</h4>
-            )}
+                  <path
+                    d="M19 9L12 15L5 9"
+                    stroke="#000"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg>
+              </button>
+              <button
+                onClick={(e) => e.stopPropagation()}
+                className={`swiper-button-next-${data.id} ${
+                  hover ? "block" : "hidden"
+                } place-content-center right-2  p-1 transition text-primary hover:text-white border border-primary  hover:border-primary bg-[#fff] rounded-full absolute z-[50] top-1/2 -translate-y-1/2`}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-w-4 rtl:rotate-90 -rotate-90"
+                >
+                  <path
+                    d="M19 9L12 15L5 9"
+                    stroke="#000"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg>
+              </button>
+            </>
+          )}
+        </div>
+        <div>
+          <div className="flex gap-2 justify-between items-center">
             {loadingUser || loadingData ? (
               <Skeleton />
             ) : (
               <>
-                <span className="font-medium">
-                  {userInfo?.typeUser === "B2B" ? data.priceB2b : data.price}{" "}
-                  MAD
-                </span>{" "}
-                <span className="font-light">day</span>
+                <h3 className="font-bold">{data.title}</h3>
+                {rating > 0 && (
+                  <span className="font-bold flex items-center gap-2">
+                    <IoMdStar size={15} /> {rating.toFixed(1)}
+                  </span>
+                )}
               </>
             )}
           </div>
+          {loadingUser || loadingData ? (
+            <Skeleton />
+          ) : (
+            <h4 className="font-light mb-2">{data.locationType}</h4>
+          )}
+          {loadingUser || loadingData ? (
+            <Skeleton />
+          ) : (
+            <>
+              <span className="font-semibold">
+                {userInfo?.typeUser === "B2B" ? data.priceB2b : data.price} MAD
+              </span>{" "}
+              <span className="font-light">/ day</span>
+            </>
+          )}
         </div>
       </div>
       {isMyListing && (
