@@ -28,7 +28,7 @@ export class InvoiceService extends InvoiceServiceBase {
       const invoice: any = await this.invoice(data);
       // Read the image file
       const imageFile = fs.readFileSync(
-        path.join(process.cwd(), "src/uploads", `${invoice.user.profileLogo}`)
+        path.join(process.cwd(), "src/uploads", `${invoice?.user?.profileLogo || "logo-placeholder.png"}`)
       );
       const base64Image = Buffer.from(imageFile).toString("base64");
       const dataURL = `data:image/*;base64,${base64Image}`;
