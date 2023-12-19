@@ -1,17 +1,12 @@
 "use client";
-import Description from "airbnb/components/process/Description";
-import FloorPlan from "airbnb/components/process/FloorPlan";
 import ListingCreated from "airbnb/components/process/ListingCreated";
-import ListingPlaceType from "airbnb/components/process/ListingPlaceType";
 import ListingTypeSelector from "airbnb/components/process/ListingTypeSelector";
 import Overview from "airbnb/components/process/Overview";
 import Photos from "airbnb/components/process/Photos";
 import PlaceDetails from "airbnb/components/process/PlaceDetails";
 import PlaceLocation from "airbnb/components/process/PlaceLocation";
-import Price from "airbnb/components/process/Price";
 import ProcessAmeneties from "airbnb/components/process/ProcessAmeneties";
 import StepOneStarter from "airbnb/components/process/StepOneStarter";
-import StepThreeStarter from "airbnb/components/process/StepThreeStarter";
 import StepTwoStarter from "airbnb/components/process/StepTwoStarter";
 import Title from "airbnb/components/process/Title";
 import { userAppStore } from "airbnb/store/store";
