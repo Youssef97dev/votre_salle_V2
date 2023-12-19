@@ -1,6 +1,4 @@
 import { userAppStore } from "airbnb/store/store";
-import Description from "./Description";
-import Price from "./Price";
 import React from "react";
 
 export default function Title() {

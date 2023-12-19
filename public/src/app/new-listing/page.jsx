@@ -85,14 +85,14 @@ function Page() {
         {getComponent()}
       </div>
       <div className="flex justify-end items-center gap-5 mx-[400px] ">
-        {step >= 2 && (
+        {step >= 2 && step <= 9 ? (
           <button
             onClick={handlePrevious}
             className="btn btn-primary rounded-3xl font-bold"
           >
             Go Back
           </button>
-        )}
+        ) : null}
         {step === 9 ? (
           <button
             onClick={handleNext}
@@ -101,12 +101,14 @@ function Page() {
             Add Your Hall
           </button>
         ) : (
-          <button
-            onClick={handleNext}
-            className="btn btn-primary rounded-3xl font-bold"
-          >
-            Continue
-          </button>
+          step <= 8 && (
+            <button
+              onClick={handleNext}
+              className="btn btn-primary rounded-3xl font-bold"
+            >
+              Continue
+            </button>
+          )
         )}
       </div>
       {/* {step <= 13 && ( */}
