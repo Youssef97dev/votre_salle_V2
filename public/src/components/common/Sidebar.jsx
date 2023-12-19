@@ -6,25 +6,25 @@ import Image from "next/image";
 import { userAppStore } from "airbnb/store/store";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import { IoClose } from "react-icons/io5";
-import { FaInstagram , FaFacebook, FaYoutube  } from "react-icons/fa";
+import { FaInstagram, FaFacebook, FaYoutube } from "react-icons/fa";
 import ContextMenu from "../common/ContextMenu";
 
 // Icons
 import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline, IoMdAdd } from "react-icons/io";
 import { FaListCheck } from "react-icons/fa6";
-import { FaRegHeart, FaRegCalendarAlt, FaChartBar  } from "react-icons/fa";
+import { FaRegHeart, FaRegCalendarAlt, FaChartBar } from "react-icons/fa";
 import { MdLogout, MdOutlineSettings, MdHelpOutline } from "react-icons/md";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { PiSignInBold } from "react-icons/pi";
 import { SiGnuprivacyguard } from "react-icons/si";
 
-
 import Link from "next/link";
 
 const Sidebar = () => {
   const router = useRouter();
-  const { userInfo, setUserInfo, sidebarMenuOpen, setSidebarMenuOpen } = userAppStore();
+  const { userInfo, setUserInfo, sidebarMenuOpen, setSidebarMenuOpen } =
+    userAppStore();
   const sidebarMenuRef = useRef(null); // Create a ref for the context menu element
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -143,7 +143,7 @@ const Sidebar = () => {
       },
     },
     {
-      icon: <FaChartBar  />,
+      icon: <FaChartBar />,
       name: "Statistics",
       callBack: () => {
         router.push("/statistics");
@@ -178,40 +178,31 @@ const Sidebar = () => {
     >
       <div className="flex justify-between items-center ">
         <AirBnbLogo />
-        <IoClose size={25} onClick={()=> setSidebarMenuOpen(false)} className="cursor-pointer" />
-      </div>
-      <div className="font-medium">
-        Discover the most outstanding articles on all topics of life. Write your stories and share them
+        <IoClose
+          size={25}
+          onClick={() => setSidebarMenuOpen(false)}
+          className="cursor-pointer"
+        />
       </div>
       <div className="flex space-x-4 items-center p-2">
-      <Link
-            href="#"
-            className="font-bold hover:text-pink-500"
-          >
-            <FaInstagram size={18} />
-          </Link>
-          <Link
-            href="#"
-            className="font-bold hover:text-blue-800"
-          >
-            <FaFacebook size={18} />
-          </Link>
-          <Link
-            href="#"
-            className="font-bold hover:text-red-500"
-          >
-            <FaYoutube size={18} />
-          </Link>
+        <Link href="#" className="font-bold hover:text-pink-500">
+          <FaInstagram size={18} />
+        </Link>
+        <Link href="#" className="font-bold hover:text-blue-800">
+          <FaFacebook size={18} />
+        </Link>
+        <Link href="#" className="font-bold hover:text-red-500">
+          <FaYoutube size={18} />
+        </Link>
       </div>
       <div className="flex flex-col gap-2">
-      <ContextMenu
-            options={
-              !userInfo ? contextMenuOptions : authenticatedContextMenuOptions
-            }
-            userInfo={userInfo}
-          />
+        <ContextMenu
+          options={
+            !userInfo ? contextMenuOptions : authenticatedContextMenuOptions
+          }
+          userInfo={userInfo}
+        />
       </div>
-      
     </div>
   );
 };
