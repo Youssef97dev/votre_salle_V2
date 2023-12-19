@@ -1,178 +1,103 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { fontFamily: { 'impact': ["Impact",
+      "Haettenschweiler", "Arial Narrow Bold", "sans-serif"], 'mono': ["Courier
+      New", "Courier", "monospace"] }, }, };
+    </script>
     <title>Facture</title>
     <style>
-        .cover-container {
-          position: relative;
-          width: 100%;
-          height: 350px; 
-          overflow: hidden;
-        }
-    
-        .cover-image {
-          width: 100%;
-          height: auto;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-
-        .facture_container{
-            margin-left: 4rem;
-            margin-right: 4rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .facture_header{
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .facture_title h1 {
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-size: 4rem;
-
-        }
-
-        .facture_infos {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .facture_infos h1, .facture_infos h2 {
-            font-weight: normal;
-            font-family: 'Arial Narrow Bold', sans-serif;
-            font-size: medium;
-            text-align: justify;
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 50px;
-         
-        }
-
-        th, td {
-            padding: 20px;
-            text-align: left;
-
-            
-        }
-
-        th {
-            background-color: white;
-            font-size: x-large;
-
-
-        }
-
-        .tab {
-            background-color: white;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: larger;
-
-        }
-        .totals {
-            margin-top: 20px;
-            margin-left: 50%;
-
-        }
-        .titre {
-
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-
-
-        }
+      body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
     </style>
-</head>
-<body>
-    <div class="cover-container">
-        <img class="cover-image" src="https://images.pexels.com/photos/1243046/pexels-photo-1243046.jpeg?cs=srgb&dl=pexels-mixu-1243046.jpg&fm=jpg" alt="Cover Image">
+  </head>
+
+  <body>
+    <div class="flex flex-col gap-2 px-5">
+      <div class="flex flex-row justify-between items-center text-gray-800">
+        <div
+          class="text-[55px]"
+          style="font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'sans-serif';"
+        >FACRTURE</div>
+        <img src="{{profileLogo}}" width="250" height="250" alt="" />
+      </div>
+      <div
+        class="flex flex-row justify-between items-center text-gray-800"
+        style="font-family: 'Courier New', Courier, monospace;"
+      >
+        <div class="flex flex-col text-[20px]">
+          <span>Facture N° : {{id}}</span>
+          <span>Date : {{createdAt}}</span>
+        </div>
+        <div class="pr-10">
+          {{fullName}}
+          <br />
+          {{adresse}}
+          <br />03200 VICHY
+        </div>
+      </div>
+      <table class="table-fixed mt-10 text-[16px]">
+        <thead>
+          <tr align="left">
+            <th>SALLE</th>
+            <th>DATE ENTRER</th>
+            <th>DATE SORTIR</th>
+            <th>JOURNEES</th>
+            <th>PRIX</th>
+          </tr>
+        </thead>
+        <tbody align="left">
+          <tr class="text-gray-800">
+            <td class="pt-[1rem]">{{title}}</td>
+            <td class="pt-[1rem]">{{startDate}}</td>
+            <td class="pt-[1rem]">{{endDate}}</td>
+            <td class="pt-[1rem]">{{days}}</td>
+            <td class="pt-[1rem]">{{priceHT}} MAD</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <th class="pt-[3rem]">Sous Total HT</th>
+            <td class="pt-[3rem] text-gray-800">{{priceHT}} MAD</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <th class="pt-[1rem]">Total TVA</th>
+            <td class="text-gray-800 pt-[1rem]">{{taxPrice}} MAD</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <th class="pt-[1rem]">Total</th>
+            <td class="text-gray-800 pt-[1rem]">{{price}} MAD</td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="flex flex-row justify-between items-end mt-20 text-gray-800"
+        style="font-family: 'Courier New', Courier, monospace;"
+      >
+        <div class="flex flex-col text-[20px]">
+          <span class="font-extrabold text-[30px] mb-4">L'OBJECTIF</span>
+          <span>0123456789</span>
+          <span>14,AVENUE ZOLA, 75010</span>
+          <span>Paris</span>
+        </div>
+        <div class="pr-10">
+          M.DREDERIC SAMSON
+          <br />
+          24,RUE DESAIX,
+          <br />03200 VICHY
+        </div>
+      </div>
     </div>
+  </body>
 
-    <div class="facture_container">
-        <div class="facture_header">
-            <div class="facture_title">
-                <h1>Facture</h1>
-            </div>
-            <img src="{{profileLogo}}" width="250" height="250" alt="">
-        </div>
-
-        <div class="facture_infos">
-            <h1>Facture N° : {{id}} <br> Date : {{createdAt}}</h1>
-            <h2 style="margin-top: 5px;">M.DREDERIC SAMSON <br> 24,RUE DESAIX, <br>03200 VICHY</h2>
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>La Salle</th>
-                    <th>Date Entrer</th>
-                    <th>Date Sortir</th>
-                    <th>Nombre de jour</th>
-                    <th>Prix</th>
-                </tr>
-            </thead>
-            <tbody class="tab">
-              
-                <tr>
-                    <td>{{title}}</td>
-                    <td>{{startDate}}</td>
-                    <td>{{endDate}}</td>
-                    <td>{{days}}</td>
-                    <td>{{priceHT}} MAD</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="totals">
-            <table>
-                <tbody>
-                    <tr>
-                        <td class="titre">Sous Total HT</td>
-                        <td>{{priceHT}} MAD</td>
-                    </tr>
-                    <tr>
-                        <td class="titre">Total TVA</td>
-                        <td>{{taxPrice}}</td>
-                    </tr>
-                    <tr>
-                        <td class="titre">Total</td>
-                        <td class="titre">{{price}} MAD</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div style="margin-left: 10%;" >
-            <h3>L'OBJECTIF</h3>
-        </div>
-
-        <div class="facture_infos">
-            <h1>0123456789 <br> 14,AVENUE ZOLA, 75010 <br> PARIS</h1>
-            <h2 >TITULAIRE DU COMTE : LAUREN SY <BR></BR> N° DE COMPTE :  544007776997</h2>
-        </div>
-</div>
-</body>
 </html>
