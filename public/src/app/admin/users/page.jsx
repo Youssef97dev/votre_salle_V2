@@ -1,0 +1,225 @@
+"use client";
+
+// Libs
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+import Swal from "sweetalert2";
+import { DataTable } from "mantine-datatable";
+import moment from "moment";
+
+// Components
+import CompactFooter from "airbnb/components/footer/CompactFooter";
+import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
+import Spinner from "airbnb/components/common/Spinner";
+const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
+  ssr: false,
+});
+
+// Hooks
+import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+
+// APIs
+import { getAllUsers } from "airbnb/lib/admin";
+
+// Store
+import { userAppStore } from "airbnb/store/store";
+
+const page = () => {
+  const router = useRouter();
+  const { userInfo } = userAppStore();
+
+  const [search, setSearch] = useState("");
+  const [users, setUsers] = useState([]);
+  const [initialRecords, setInitialRecords] = useState([]);
+  const [records, setRecords] = useState(initialRecords);
+  const [relaunchData, setRelaunchData] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+
+  const PAGE_SIZES = [7, 10, 20, 30, 50, 100];
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
+  // Prevent Hydration
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // protect admin page
+  useEffect(() => {
+    // Check if user is authenticated
+    if (!userInfo) {
+      router.push("/login");
+    }
+    // Check if user is admin
+    if (userInfo.roles[0] !== "admin") {
+      router.push("/");
+    }
+  }, [userInfo, router]);
+
+  // Get users data
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      const data = await getAllUsers();
+      setUsers(data);
+      setInitialRecords(data);
+      setRecords(data);
+      console.log("users data: ", data);
+      setLoading(false);
+    };
+    if (userInfo) {
+      getData();
+    }
+  }, [relaunchData]);
+
+  // Search Function
+  useEffect(() => {
+    setInitialRecords(() => {
+      return users?.filter((user) => {
+        return (
+          user?.id?.toString().includes(search.toLowerCase()) ||
+          user?.firstName?.toLowerCase().includes(search.toLowerCase()) ||
+          user?.lastName?.toLowerCase().includes(search.toLowerCase()) ||
+          user?.phone?.toLowerCase().includes(search.toLowerCase()) ||
+          user?.username?.toLowerCase().includes(search.toLowerCase()) ||
+          user?.adresse?.toLowerCase().includes(search.toLowerCase())
+        );
+      });
+    });
+  }, [search]);
+
+  // Pagination
+  useEffect(() => {
+    setPage(1);
+  }, [pageSize]);
+  useEffect(() => {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize;
+    setRecords([...(initialRecords || []).slice(from, to)]);
+  }, [page, pageSize, initialRecords]);
+
+  return (
+    <>
+      {!isClient ? (
+        <Spinner />
+      ) : (
+        <div>
+          <Navbar />
+          <div className="flex justify-start items-start">
+            <div className="relative overflow-x-auto shadow-lg sm:rounded-lg w-full m-5 lg:m-20">
+              {/*<Image src="/search.svg" width="20" className="absolute left-1 top-2" height="20" alt="search" />*/}
+              <div className="relative rounded-md">
+                {/*<Image src="/search.svg" width="20" className="absolute left-1 top-2" height="20" alt="search" />*/}
+                <input
+                  type="text"
+                  className="form-input w-full lg:w-1/5 rounded py-3 px-4 border shadow-md my-3"
+                  placeholder="Search..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+              <div className="panel border-[#e0e6ed] px-0 pt-0">
+                <div className="users-table">
+                  <div className="datatables pagination-padding">
+                    <DataTable
+                      className="table-hover whitespace-nowrap"
+                      records={records}
+                      columns={[
+                        {
+                          accessor: "Full name",
+                          textAlignment: "center",
+                          width: 80,
+                          render: ({ firstName, lastName }) => (
+                            <div className="px-6 py-4">
+                              {firstName} {lastName}
+                            </div>
+                          ),
+                        },
+                        {
+                          accessor: "Email",
+                          textAlignment: "center",
+                          width: 100,
+                          render: ({ username }) => (
+                            <div className="px-6 py-4">{username}</div>
+                          ),
+                        },
+                        {
+                          accessor: "Phone",
+                          textAlignment: "center",
+                          width: 80,
+                          render: ({ phone }) => (
+                            <div className="px-6 py-4">{phone}</div>
+                          ),
+                        },
+                        {
+                          accessor: "Adresse",
+                          textAlignment: "center",
+                          width: 180,
+                          render: ({ adresse }) => (
+                            <div className="px-6 py-4">{adresse}</div>
+                          ),
+                        },
+                        {
+                          accessor: "Role",
+                          textAlignment: "center",
+                          width: 100,
+                          render: ({ roles, typeUser, username }) => (
+                            <div className="flex items-center justify-center gap-2 w-full">
+                              <div
+                                className={`badge w-full ${
+                                  roles[0] === "admin"
+                                    ? "badge-outline-warning"
+                                    : roles[0] === "owner"
+                                    ? "badge-outline-success"
+                                    : "badge-outline-info"
+                                }  border-2 border-dashed py-2`}
+                              >
+                                {roles[0]}
+                              </div>
+                              {roles[0] !== "admin" && username !== "admin" && (
+                                <div
+                                  className={`badge w-full ${
+                                    typeUser === "B2C"
+                                      ? "badge-outline-success"
+                                      : "badge-outline-info"
+                                  }  border-2 border-dashed py-2`}
+                                >
+                                  {typeUser}
+                                </div>
+                              )}
+                            </div>
+                          ),
+                        },
+                      ]}
+                      highlightOnHover
+                      customLoader={<Spinner />}
+                      fetching={loading}
+                      loaderBackgroundBlur={3}
+                      totalRecords={initialRecords?.length}
+                      recordsPerPage={pageSize}
+                      page={page}
+                      onPageChange={(p) => setPage(p)}
+                      recordsPerPageOptions={PAGE_SIZES}
+                      onRecordsPerPageChange={setPageSize}
+                      paginationText={({ from, to, totalRecords }) =>
+                        `${`${from} - ${to} / ${totalRecords}`} `
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <CompactFooter />
+          {!isDesktop && <NavbarMobile />}
+        </div>
+      )}
+    </>
+  );
+};
+
+export default page;

@@ -169,6 +169,33 @@ const Sidebar = () => {
     },
   ];
 
+  const adminContextMenuOptions = [
+    {
+      icon: <CgProfile />,
+      name: "Dashboard",
+      callBack: () => {
+        router.push("/admin");
+        setSidebarMenuOpen(false);
+      },
+    },
+    {
+      icon: <CgProfile />,
+      name: "Users",
+      callBack: () => {
+        router.push("/admin/users");
+        setSidebarMenuOpen(false);
+      },
+    },
+    {
+      icon: <IoMdNotificationsOutline />,
+      name: "Reservations",
+      callBack: () => {
+        router.push("/admin/reservations");
+        setSidebarMenuOpen(false);
+      },
+    },
+  ];
+
   return (
     <div
       ref={sidebarMenuRef}
@@ -198,7 +225,11 @@ const Sidebar = () => {
       <div className="flex flex-col gap-2">
         <ContextMenu
           options={
-            !userInfo ? contextMenuOptions : authenticatedContextMenuOptions
+            !userInfo
+              ? contextMenuOptions
+              : userInfo.roles[0] === "admin"
+              ? adminContextMenuOptions
+              : authenticatedContextMenuOptions
           }
           userInfo={userInfo}
         />
