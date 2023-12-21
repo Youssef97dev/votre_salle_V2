@@ -18,6 +18,7 @@ import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { InvoiceListRelationFilter } from "../../invoice/base/InvoiceListRelationFilter";
 import { ListingListRelationFilter } from "../../listing/base/ListingListRelationFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { ReviewListRelationFilter } from "../../review/base/ReviewListRelationFilter";
 import { TripListRelationFilter } from "../../trip/base/TripListRelationFilter";
 import { WishlistListRelationFilter } from "../../wishlist/base/WishlistListRelationFilter";
@@ -105,6 +106,17 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  pack?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -150,6 +162,17 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  roleNotification?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => TripListRelationFilter,
   })
   @ValidateNested()
@@ -170,6 +193,17 @@ class UserWhereInput {
     nullable: true,
   })
   typeUser?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  typeUserNotification?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

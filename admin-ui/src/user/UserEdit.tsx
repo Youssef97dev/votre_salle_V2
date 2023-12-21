@@ -7,6 +7,7 @@ import {
   TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  NumberInput,
   PasswordInput,
 } from "react-admin";
 
@@ -41,6 +42,7 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ListingTitle} />
         </ReferenceArrayInput>
+        <NumberInput step={1} label="pack" source="pack" />
         <PasswordInput label="Password" source="password" />
         <TextInput label="phone" source="phone" />
         <TextInput label="Profile Image" source="profileImage" />
@@ -53,6 +55,7 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ReviewTitle} />
         </ReferenceArrayInput>
+        <TextInput label="roleNotification" source="roleNotification" />
         <SelectArrayInput
           source="roles"
           choices={ROLES_OPTIONS}
@@ -68,6 +71,7 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={TripTitle} />
         </ReferenceArrayInput>
         <TextInput label="typeUser" source="typeUser" />
+        <TextInput label="typeUserNotification" source="typeUserNotification" />
         <TextInput label="Username" source="username" />
         <ReferenceArrayInput
           source="wishlists"

@@ -14,13 +14,16 @@ export type User = {
   invoices?: Array<Invoice>;
   lastName: string | null;
   listings?: Array<Listing>;
+  pack: number | null;
   phone: string | null;
   profileImage: string | null;
   profileLogo: string | null;
   reviews?: Array<Review>;
+  roleNotification: string | null;
   roles: JsonValue;
   trips?: Array<Trip>;
   typeUser: string;
+  typeUserNotification: string | null;
   updatedAt: Date;
   username: string;
   wishlists?: Array<Wishlist>;

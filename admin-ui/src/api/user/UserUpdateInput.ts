@@ -12,14 +12,17 @@ export type UserUpdateInput = {
   invoices?: InvoiceUpdateManyWithoutUsersInput;
   lastName?: string | null;
   listings?: ListingUpdateManyWithoutUsersInput;
+  pack?: number | null;
   password?: string;
   phone?: string | null;
   profileImage?: string | null;
   profileLogo?: string | null;
   reviews?: ReviewUpdateManyWithoutUsersInput;
+  roleNotification?: string | null;
   roles?: InputJsonValue;
   trips?: TripUpdateManyWithoutUsersInput;
   typeUser?: string;
+  typeUserNotification?: string | null;
   username?: string;
   wishlists?: WishlistUpdateManyWithoutUsersInput;
 };

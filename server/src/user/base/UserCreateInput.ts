@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
+import { IsString, IsOptional, ValidateNested, IsInt } from "class-validator";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -92,6 +92,17 @@ class UserCreateInput {
   listings?: ListingCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  pack?: number | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -145,6 +156,17 @@ class UserCreateInput {
   reviews?: ReviewCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  roleNotification?: string | null;
+
+  @ApiProperty({
     required: true,
   })
   @IsJSONValue()
@@ -170,6 +192,17 @@ class UserCreateInput {
   @IsString()
   @Field(() => String)
   typeUser!: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  typeUserNotification?: string | null;
 
   @ApiProperty({
     required: true,
