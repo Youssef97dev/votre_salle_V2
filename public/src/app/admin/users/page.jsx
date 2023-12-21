@@ -20,7 +20,7 @@ const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 
 // APIs
-import { getAllUsers } from "airbnb/lib/admin";
+import { getAllUsers, confirmChangeTypeUser } from "airbnb/lib/admin";
 
 // Store
 import { userAppStore } from "airbnb/store/store";
@@ -102,6 +102,53 @@ const page = () => {
     setRecords([...(initialRecords || []).slice(from, to)]);
   }, [page, pageSize, initialRecords]);
 
+  // Update Type User
+  const updateTypeUser = async (id, type) => {
+    const result = await Swal.fire({
+      icon: "warning",
+      title: `Confirm to switch to ${type}`,
+      text: `Do you want to to switch to ${type}?`,
+      showCancelButton: true,
+      confirmButtonText: "Switch",
+      cancelButtonText: "Discard",
+      padding: "2em",
+      customClass: "sweet-alerts",
+    });
+
+    if (result.value) {
+      try {
+        setLoading(true);
+        const data = await confirmChangeTypeUser(id, type);
+
+        if (data.status === 200) {
+          setRelaunchData((prev) => !prev);
+          Swal.fire({
+            title: `${type}!`,
+            text: `User has been updated.`,
+            icon: "success",
+            customClass: "sweet-alerts",
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: `User has not been updated.`,
+            icon: "warning",
+            customClass: "sweet-alerts",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          text: `Error in updating.`,
+          icon: "error",
+          customClass: "sweet-alerts",
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   return (
     <>
       {!isClient ? (
@@ -164,6 +211,14 @@ const page = () => {
                           ),
                         },
                         {
+                          accessor: "Halls Count",
+                          textAlignment: "center",
+                          width: 50,
+                          render: ({ listings }) => (
+                            <div className="px-6 py-4">{listings?.length}</div>
+                          ),
+                        },
+                        {
                           accessor: "Role",
                           textAlignment: "center",
                           width: 100,
@@ -191,6 +246,27 @@ const page = () => {
                                   {typeUser}
                                 </div>
                               )}
+                            </div>
+                          ),
+                        },
+                        {
+                          accessor: "Actions",
+                          textAlignment: "center",
+                          width: 100,
+                          render: ({ id, typeUser, typeUserNotification }) => (
+                            <div className="flex items-center justify-center gap-2 w-full">
+                              {typeUserNotification !== typeUser &&
+                                typeUserNotification !== null && (
+                                  <button
+                                    onClick={() =>
+                                      updateTypeUser(id, typeUserNotification)
+                                    }
+                                    className={`btn btn-danger`}
+                                    disabled={loading}
+                                  >
+                                    Change to {typeUserNotification}
+                                  </button>
+                                )}
                             </div>
                           ),
                         },

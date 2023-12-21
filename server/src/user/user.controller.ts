@@ -103,9 +103,12 @@ export class UserController extends UserControllerBase {
             profileImage: true,
             profileLogo: true,
             roles: true,
+            roleNotification: true,
             typeUser: true,
+            typeUserNotification: true,
             updatedAt: true,
             username: true,
+            pack: true,
           },
         },
         profileImage

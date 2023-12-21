@@ -12,14 +12,17 @@ export type UserCreateInput = {
   invoices?: InvoiceCreateNestedManyWithoutUsersInput;
   lastName?: string | null;
   listings?: ListingCreateNestedManyWithoutUsersInput;
+  pack?: number | null;
   password: string;
   phone?: string | null;
   profileImage?: string | null;
   profileLogo?: string | null;
   reviews?: ReviewCreateNestedManyWithoutUsersInput;
+  roleNotification?: string | null;
   roles: InputJsonValue;
   trips?: TripCreateNestedManyWithoutUsersInput;
   typeUser: string;
+  typeUserNotification?: string | null;
   username: string;
   wishlists?: WishlistCreateNestedManyWithoutUsersInput;
 };

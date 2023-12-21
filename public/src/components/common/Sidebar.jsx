@@ -9,6 +9,8 @@ import { IoClose } from "react-icons/io5";
 import { FaInstagram, FaFacebook, FaYoutube } from "react-icons/fa";
 import ContextMenu from "../common/ContextMenu";
 
+import { getImage } from "airbnb/lib/lisitng";
+
 // Icons
 import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline, IoMdAdd } from "react-icons/io";
@@ -26,6 +28,8 @@ const Sidebar = () => {
   const { userInfo, setUserInfo, sidebarMenuOpen, setSidebarMenuOpen } =
     userAppStore();
   const sidebarMenuRef = useRef(null); // Create a ref for the context menu element
+  const [imageProfile, setImageProfile] = useState("");
+
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (event.target.id !== "context-opener") {
@@ -44,6 +48,16 @@ const Sidebar = () => {
       document.removeEventListener("click", handleOutsideClick); // Clean up the event listener on component unmount
     };
   }, []);
+
+  useEffect(() => {
+    const getProfileImage = async () => {
+      const image = await getImage(userInfo?.profileImage);
+      setImageProfile(image);
+    };
+    if (userInfo) {
+      getProfileImage();
+    }
+  }, [userInfo, setUserInfo]);
 
   const contextMenuOptions = [
     {
@@ -194,23 +208,59 @@ const Sidebar = () => {
         setSidebarMenuOpen(false);
       },
     },
+    {
+      icon: <MdLogout />,
+      name: "Logout",
+      callBack: () => {
+        setSidebarMenuOpen(false);
+        setUserInfo(null);
+        localStorage.clear();
+      },
+    },
   ];
 
   return (
     <div
       ref={sidebarMenuRef}
-      className={`shadow-2xl text-neutral-700 border border-gray-200 flex flex-col space-y-2 lg:space-y-6 top-0 right-0 w-full sm:w-[50vw] lg:w-[20vw] bg-white py-2 px-3 fixed h-full z-50 animate__animated animate__faster ${
+      className={`shadow-2xl text-neutral-700 border border-gray-200 flex flex-col space-y-2 lg:space-y-6 top-0 right-0 w-full sm:w-[50vw] lg:w-[20vw] bg-white py-2 fixed h-full z-50 animate__animated animate__faster ${
         sidebarMenuOpen ? "animate__fadeInRight" : "animate__fadeOutLeft"
       }`}
     >
-      <div className="flex justify-between items-center ">
-        <AirBnbLogo />
+      <div className="flex justify-end items-center ">
         <IoClose
           size={25}
           onClick={() => setSidebarMenuOpen(false)}
           className="cursor-pointer"
         />
       </div>
+      {userInfo && (
+        <div className="flex gap-1 items-center bg-[#e7f7ff] p-1">
+          <div className="">
+            {userInfo?.profileImage && imageProfile ? (
+              <img
+                className="w-20 h-20 rounded-full border-2 border-black overflow-hidden object-cover"
+                src={`data:image/*;base64,${imageProfile}`}
+                alt="img"
+              />
+            ) : (
+              <span className="flex justify-center items-center bg-black text-white h-20 w-20 text-4xl rounded-full">
+                {userInfo?.firstName?.split("").shift()?.toUpperCase()}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col font-bold text-sm">
+            <span>
+              {userInfo?.firstName} {userInfo?.lastName}
+            </span>
+            <span>{userInfo?.username}</span>
+            <span className="mt-2 text-[#3b3f5c]">
+              {userInfo?.typeUser}
+              {" | "}
+              {userInfo?.roles[0]}
+            </span>
+          </div>
+        </div>
+      )}
       <div className="flex space-x-4 items-center p-2">
         <Link href="#" className="font-bold hover:text-pink-500">
           <FaInstagram size={18} />

@@ -11,7 +11,13 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsDate,
+  ValidateNested,
+  IsInt,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -103,6 +109,17 @@ class User {
 
   @ApiProperty({
     required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  pack!: number | null;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -144,6 +161,17 @@ class User {
   reviews?: Array<Review>;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  roleNotification!: string | null;
+
+  @ApiProperty({
     required: true,
   })
   @IsJSONValue()
@@ -166,6 +194,17 @@ class User {
   @IsString()
   @Field(() => String)
   typeUser!: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  typeUserNotification!: string | null;
 
   @ApiProperty({
     required: true,

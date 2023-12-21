@@ -36,9 +36,10 @@ export class UserService extends UserServiceBase {
           )),
 
         companyInfo:
-          typeof args.data.companyInfo === "string"
+          args.data.companyInfo &&
+          (typeof args.data.companyInfo === "string"
             ? JSON.parse(args.data.companyInfo)
-            : null,
+            : null),
         profileImage: profileImage && profileImage.filename,
       },
     });

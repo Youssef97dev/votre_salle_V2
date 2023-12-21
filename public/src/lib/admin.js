@@ -11,3 +11,19 @@ export const getAllUsers = async () => {
     return error;
   }
 };
+
+export const confirmChangeTypeUser = async (userId, typeUser) => {
+  const query = {
+    typeUser,
+  };
+  try {
+    const result = await axios.patch(createUrl(`/api/users/${userId}`), {
+      ...query,
+    });
+    console.log("data: ", result?.data);
+    return result;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

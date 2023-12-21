@@ -1,6 +1,10 @@
 "use client";
 import { userAppStore } from "airbnb/store/store";
-import { updateMyProfile, deleteImage } from "airbnb/lib/lisitng";
+import {
+  updateMyProfile,
+  deleteImage,
+  changeTypeUser,
+} from "airbnb/lib/lisitng";
 import { checkUser } from "airbnb/lib/auth";
 import React, { useState, useEffect } from "react";
 import { BeatLoader } from "react-spinners";
@@ -20,6 +24,7 @@ const EditProfile = () => {
   const [WhichField, setWhichField] = useState();
   const [ToggleMessageAlert, setToggleMessageAlert] = useState(false);
 
+  const [switchType, setSwitchType] = useState(false);
   const [enableEdit, setEnableEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState({
@@ -162,6 +167,25 @@ const EditProfile = () => {
         setEnableEdit(false);
         setIsLoading(false);
       }
+    }
+  };
+
+  // Switch Type User
+  const switchTypeUser = async () => {
+    try {
+      setIsLoading(true);
+      const type = userInfo?.typeUser === "B2C" ? "B2B" : "B2C";
+      const data = await changeTypeUser(userInfo?.id, type);
+      if (data.status === 200) {
+        setSuccessMessage("Request Sent to admin");
+        setToggleMessageAlert(true);
+        setSwitchType(true);
+      }
+    } catch (error) {
+      setMessageAlert(data.response.data.message);
+      setToggleMessageAlert(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -449,6 +473,28 @@ const EditProfile = () => {
           )}
         </button>
       </form>
+      <div className="mt-5 flex flex-col gap-4">
+        <span className="font-bold text-xl">Settings</span>
+        <div className="flex items-center gap-2 ">
+          <span className="font-bold">
+            Switch to {userInfo?.typeUser === "B2C" ? "B2B" : "B2C"}
+          </span>
+          <Switch
+            checked={switchType}
+            onChange={() => switchTypeUser()}
+            disabled={isLoading}
+            className={`${switchType ? "bg-[#4361ee]" : "bg-[#dbdcdf]"}
+          relative inline-flex h-[25px] w-[54px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75`}
+          >
+            <span className="sr-only">Use setting</span>
+            <span
+              aria-hidden="true"
+              className={`${switchType ? "translate-x-7" : "translate-x-0"}
+            pointer-events-none inline-block h-[23px] w-[23px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+            />
+          </Switch>
+        </div>
+      </div>
     </div>
   );
 };

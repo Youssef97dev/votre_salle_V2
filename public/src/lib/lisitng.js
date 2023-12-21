@@ -546,3 +546,19 @@ export const deleteImage = async (imageName) => {
     return error;
   }
 };
+
+export const changeTypeUser = async (myId, typeUserNotification) => {
+  const query = {
+    typeUserNotification,
+  };
+  try {
+    const result = await axios.patch(createUrl(`/api/users/${myId}`), {
+      ...query,
+    });
+    console.log("data: ", result?.data);
+    return result;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

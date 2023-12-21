@@ -60,6 +60,17 @@ input IntFilter {
   notIn: [Int!]
 }
 
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
 type Invoice {
   createdAt: DateTime!
   id: Float!
@@ -505,13 +516,16 @@ type User {
   invoices(orderBy: [InvoiceOrderByInput!], skip: Float, take: Float, where: InvoiceWhereInput): [Invoice!]!
   lastName: String
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
+  pack: Float
   phone: String
   profileImage: String
   profileLogo: String
   reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
+  roleNotification: String
   roles: JSON!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
   typeUser: String!
+  typeUserNotification: String
   updatedAt: DateTime!
   username: String!
   wishlists(orderBy: [WishlistOrderByInput!], skip: Float, take: Float, where: WishlistWhereInput): [Wishlist!]!
@@ -524,14 +538,17 @@ input UserCreateInput {
   invoices: InvoiceCreateNestedManyWithoutUsersInput
   lastName: String
   listings: ListingCreateNestedManyWithoutUsersInput
+  pack: Float
   password: String!
   phone: String
   profileImage: String
   profileLogo: String
   reviews: ReviewCreateNestedManyWithoutUsersInput
+  roleNotification: String
   roles: JSON!
   trips: TripCreateNestedManyWithoutUsersInput
   typeUser: String!
+  typeUserNotification: String
   username: String!
   wishlists: WishlistCreateNestedManyWithoutUsersInput
 }
@@ -550,12 +567,15 @@ input UserOrderByInput {
   firstName: SortOrder
   id: SortOrder
   lastName: SortOrder
+  pack: SortOrder
   password: SortOrder
   phone: SortOrder
   profileImage: SortOrder
   profileLogo: SortOrder
+  roleNotification: SortOrder
   roles: SortOrder
   typeUser: SortOrder
+  typeUserNotification: SortOrder
   updatedAt: SortOrder
   username: SortOrder
 }
@@ -567,14 +587,17 @@ input UserUpdateInput {
   invoices: InvoiceUpdateManyWithoutUsersInput
   lastName: String
   listings: ListingUpdateManyWithoutUsersInput
+  pack: Float
   password: String
   phone: String
   profileImage: String
   profileLogo: String
   reviews: ReviewUpdateManyWithoutUsersInput
+  roleNotification: String
   roles: JSON
   trips: TripUpdateManyWithoutUsersInput
   typeUser: String
+  typeUserNotification: String
   username: String
   wishlists: WishlistUpdateManyWithoutUsersInput
 }
@@ -587,12 +610,15 @@ input UserWhereInput {
   invoices: InvoiceListRelationFilter
   lastName: StringNullableFilter
   listings: ListingListRelationFilter
+  pack: IntNullableFilter
   phone: StringNullableFilter
   profileImage: StringNullableFilter
   profileLogo: StringNullableFilter
   reviews: ReviewListRelationFilter
+  roleNotification: StringNullableFilter
   trips: TripListRelationFilter
   typeUser: StringFilter
+  typeUserNotification: StringNullableFilter
   username: StringFilter
   wishlists: WishlistListRelationFilter
 }
