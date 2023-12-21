@@ -101,14 +101,7 @@ export class WishlistControllerBase {
         createdAt: true,
         id: true,
 
-        listing: {
-          select: {
-            id: true,
-            price:true,
-            title:true,
-            photos:true,
-          },
-        },
+        listing: true,
 
         updatedAt: true,
 
@@ -214,7 +207,7 @@ export class WishlistControllerBase {
           },
         },
       });
-    } catch (error:any) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`
@@ -260,7 +253,7 @@ export class WishlistControllerBase {
           },
         },
       });
-    } catch (error:any) {
+    } catch (error: any) {
       if (isRecordNotFoundError(error)) {
         throw new errors.NotFoundException(
           `No resource was found for ${JSON.stringify(params)}`

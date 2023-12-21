@@ -69,11 +69,11 @@ export default function ListingCard({
 
   useEffect(() => {
     // Calculate the total ratings and the number of reviews
-    const totalRatings = data.reviews.reduce(
+    const totalRatings = data?.reviews?.reduce(
       (sum, review) => sum + parseFloat(review.ratings),
       0
     );
-    const numberOfReviews = data.reviews.length;
+    const numberOfReviews = data?.reviews?.length;
     // Calculate the average rating
     const averageRating = totalRatings / numberOfReviews;
     setRating(averageRating);
