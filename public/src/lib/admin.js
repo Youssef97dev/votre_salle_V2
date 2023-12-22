@@ -27,3 +27,12 @@ export const confirmChangeTypeUser = async (userId, typeUser) => {
     return error;
   }
 };
+
+export const getCount = async (titleLink) => {
+  try {
+    const result = await axios.get(createUrl(`/api/${titleLink}`));
+    return result?.data;
+  } catch (error) {
+    return error;
+  }
+};
