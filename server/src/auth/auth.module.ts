@@ -14,6 +14,8 @@ import { jwtSecretFactory } from "./jwt/jwtSecretFactory";
 import { PasswordService } from "./password.service";
 import { TokenService } from "./token.service";
 import { UserModule } from "../user/user.module";
+import { GoogleAuthService } from "./google_auth.service";
+import { AuthGoogleController } from "./google_auth.controller";
 @Module({
   imports: [
     forwardRef(() => UserModule),
@@ -50,8 +52,9 @@ import { UserModule } from "../user/user.module";
     JwtStrategy,
     jwtSecretFactory,
     TokenService,
+    GoogleAuthService,
   ],
-  controllers: [AuthController],
-  exports: [AuthService, PasswordService],
+  controllers: [AuthController, AuthGoogleController],
+  exports: [AuthService, PasswordService, GoogleAuthService],
 })
 export class AuthModule {}

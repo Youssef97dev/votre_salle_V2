@@ -3,7 +3,7 @@ import Link from "next/link";
 import { userAppStore } from "airbnb/store/store";
 import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
-import { checkUser, signup } from "airbnb/lib/auth";
+import { checkUser, signup, signupWithGoogle } from "airbnb/lib/auth";
 import { useRouter } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import "../../../styles/tailwind.css";
@@ -37,6 +37,13 @@ const page = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [images, setImages] = useState([]);
   const maxNumber = 69;
+
+  const signUpWithGoogle = async () => {
+    window.open(
+      `${process.env.NEXT_PUBLIC_API_FRONT_URI}/api/auth/google/callback`,
+      "_blank"
+    );
+  };
 
   const validateField = (field, value, regex, minLength, maxLength) => {
     setWhichField(field);
@@ -457,6 +464,7 @@ const page = () => {
         <ul className="mb-5 flex justify-center gap-2 sm:gap-5">
           <li>
             <button
+              onClick={() => signUpWithGoogle()}
               type="button"
               className="btn flex gap-1 bg-[#888EA8]/30 text-black shadow-none hover:bg-white sm:gap-2 "
             >

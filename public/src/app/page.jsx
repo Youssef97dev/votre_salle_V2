@@ -5,6 +5,7 @@ import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
+import { useRouter } from "next/navigation";
 
 import ListView from "airbnb/components/views/ListView";
 import MapView from "airbnb/components/views/MapView";
@@ -27,6 +28,7 @@ import { IoFilterOutline } from "react-icons/io5";
 import Filter from "airbnb/components/modals/Filter";
 
 export default function Home() {
+  const router = useRouter();
   const [locationType, setLocationType] = useState("All");
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [showFilter, setShowFilter] = useState(false);
@@ -52,6 +54,15 @@ export default function Home() {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (router?.query) {
+      // Access and handle the query parameters
+      //const { someKey, anotherKey } = router.query;
+      console.log("Received data:", router?.query);
+      // You can use this data as needed in your component state or logic
+    }
+  }, [router.query]);
 
   useEffect(() => {
     const getUser = async () => {

@@ -48,10 +48,19 @@ export const signup = async (
 };
 
 export const checkUser = async (email) => {
-  try{
-    const result = await post(createUrl("/api/check-user"), { email })
+  try {
+    const result = await post(createUrl("/api/check-user"), { email });
     return result.data;
-  }catch(error){
+  } catch (error) {
+    return error;
+  }
+};
+
+export const signupWithGoogle = async () => {
+  try {
+    const result = await get(createUrl("/api/auth/google/callback"));
+    console.log(result);
+  } catch (error) {
     return error;
   }
 };
