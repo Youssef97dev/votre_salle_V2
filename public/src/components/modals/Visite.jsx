@@ -27,7 +27,7 @@ const Visite = ({ showVisite, setShowVisite }) => {
           <div className="flex items-center justify-center min-h-screen px-4">
             <Dialog.Panel className="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-4xl my-8 text-black animate__animated animate__fadeIn">
               <div className="flex bg-[#fbfbfb] items-center justify-between px-5 py-3 border-b border-gray-300">
-                <h5 className="font-bold text-lg">Filter</h5>
+                <h5 className="font-bold text-lg">360 virtual tour</h5>
                 <button
                   onClick={() => setShowVisite(false)}
                   type="button"
