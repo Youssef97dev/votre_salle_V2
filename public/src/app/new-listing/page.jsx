@@ -15,6 +15,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 
+import 'airbnb/styles/tailwind.css';
+
 function Page() {
   const router = useRouter();
   const [step, setStep] = useState(1);

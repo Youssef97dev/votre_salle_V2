@@ -83,6 +83,116 @@ export const AmenetiesType = [
     ],
   },
   {
+    type:"Afterwork",
+    data: [
+      {name: "Recreation Area" },
+      { name: "Lounge Area" },
+      { name: "Refreshments" },
+      { name: "Workstations" },
+      { name: "Fitness Area"},
+      { name: "Quiet Zones" },
+      { name: "Entertainment System" },
+      { name: "Wellness Amenities" },
+      { name: "Outdoor Space" },
+      { name: "Networking Opportunities" },
+    ],
+  },
+  {
+    type:"Birthday",
+    data: [
+      {name: "Decorations" },
+      { name: "Audiovisual Equipment" },
+      { name: "Catering Services" },
+      { name: "Photography Area" },
+      { name: "Cake and Dessert"},
+      { name: "Entertainment" },
+      { name: "Party Games" },
+      { name: "Private Area" },
+      { name: "Party Favors" },
+      { name: "Host" },
+    ],
+  },
+  {
+    type:"Brunch",
+    data: [
+      {name: "Buffet Stations" },
+      { name: "Comfortable Seating" },
+      { name: "Entertainment" },
+      { name: "Theme or Decor" },
+      { name: "Brunch Activities"},
+    ],
+  },
+  {
+    type:"Cocktail",
+    data: [
+      {name: "Ambient Lighting" },
+      { name: "Live Entertainment" },
+      { name: "Interactive Activities" },
+      { name: "Luxurious Decor" },
+      { name: "Professional Service Staff"},
+    ],
+  },
+  {
+    type:"Project lunch",
+    data: [
+      {name: "Audiovisual Equipment" },
+      { name: "Catering Services" },
+      { name: "Breakout Areas" },
+      { name: "Facilitator or Moderator" },
+      { name: "Comfortable Seating"},
+    ],
+  },
+  {
+    type:"Co-working",
+    data: [
+      {name: "Meeting Rooms" },
+      { name: "Community Events" },
+      { name: "Shared Resources" },
+      { name: "Collaboration Tools" },
+      { name: "24/7 Access"},
+    ],
+  },
+  {
+    type:"Press conference",
+    data: [
+      {name: "Media Check-In Area" },
+      { name: "Stage" },
+      { name: "Audiovisual Equipment" },
+      { name: "Media Seating" },
+      { name: "Interview Rooms"},
+    ],
+  },
+  {
+    type:"Fashion show",
+    data: [
+      {name: "Runway Setup" },
+      { name: "Lighting" },
+      { name: "Seating Arrangements" },
+      { name: "Backstage Area" },
+      { name: "Green Room"},
+    ],
+  },
+  {
+    type:"Shooting film",
+    data: [
+      {name: "Set Design Area" },
+      { name: "Soundproofing" },
+      { name: "Lighting Equipment" },
+      { name: "Equipment Storage" },
+      { name: "Green Room"},
+    ],
+  },
+  {
+    type:"Education",
+    data: [
+      {name: "Audiovisual Equipment" },
+      { name: "Technology Integration" },
+      { name: "Learning Materials" },
+      { name: "Breakout Rooms" },
+      { name: "Refreshment Areas"},
+    ],
+  },
+  {
     type: "Conference",
     data: [
       {
@@ -169,5 +279,9 @@ export const AmenetiesType = [
       { name: "Fire extinguisher", svgPath: <FireExt /> },
       { name: "Carbon monoxide alarm", svgPath: <CarbonMonoxideAlarm /> },
     ],
+  },
+  {
+    type: "other",
+    data: [],
   },
 ];
