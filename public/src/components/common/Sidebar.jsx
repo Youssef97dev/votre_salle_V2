@@ -261,18 +261,7 @@ const Sidebar = () => {
           </div>
         </div>
       )}
-      <div className="flex space-x-4 items-center p-2">
-        <Link href="#" className="font-bold hover:text-pink-500">
-          <FaInstagram size={18} />
-        </Link>
-        <Link href="#" className="font-bold hover:text-blue-800">
-          <FaFacebook size={18} />
-        </Link>
-        <Link href="#" className="font-bold hover:text-red-500">
-          <FaYoutube size={18} />
-        </Link>
-      </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 px-2">
         <ContextMenu
           options={
             !userInfo
@@ -283,6 +272,17 @@ const Sidebar = () => {
           }
           userInfo={userInfo}
         />
+      </div>
+      <div className="flex space-x-4 items-center p-2">
+        <Link href="#" className="font-bold hover:text-pink-500">
+          <FaInstagram size={18} />
+        </Link>
+        <Link href="#" className="font-bold hover:text-blue-800">
+          <FaFacebook size={18} />
+        </Link>
+        <Link href="#" className="font-bold hover:text-red-500">
+          <FaYoutube size={18} />
+        </Link>
       </div>
     </div>
   );
