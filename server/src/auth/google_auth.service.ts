@@ -62,14 +62,16 @@ export class GoogleAuthService extends PassportStrategy(Strategy, "google") {
             profileImage: profile.photos[0].value,
           },
         });
-        done(null, user);
-        // Return the access token as well as the some details about the user
-        return {
+
+        const authUser = {
           accessToken,
+          refreshToken,
+          profile,
           username: user.username,
           id: user.id,
           roles: (user.roles as { roles: string[] }).roles,
-        };
+        }
+        done(null, authUser);
       }
     } catch (error: any) {
       throw new InternalServerErrorException(

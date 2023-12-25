@@ -9,6 +9,7 @@ import {
 } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 import { IoMdHeart, IoMdStar } from "react-icons/io";
+import { Tb360View } from "react-icons/tb";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -19,6 +20,8 @@ import Prestation from "./prestation/Prestation";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+
+import Visite from "airbnb/components/modals/Visite";
 
 export default function ListingCard({
   data,
@@ -39,6 +42,7 @@ export default function ListingCard({
   const pathname = usePathname();
 
   const [hover, setHover] = useState(false);
+  const [showVisite, setShowVisite] = useState(false);
   const [showPrestation, setShowPrestation] = useState(false);
   const [rating, setRating] = useState(0);
 
@@ -118,6 +122,7 @@ export default function ListingCard({
                         alt="slide1"
                       />
                       {pathname === "/" && userInfo && (
+                        <>
                         <div className="absolute z-20 right-2 top-2">
                           <IoMdHeart
                             style={{ stroke: "white", strokeWidth: "40" }}
@@ -134,11 +139,23 @@ export default function ListingCard({
                             }}
                           />
                         </div>
+                        
+                        </>
                       )}
                     </SwiperSlide>
                   ))}
                 </Swiper>
               </div>
+              <div onClick={(e) => {
+                              e.stopPropagation();
+                              setShowVisite(true);
+                            }} className="absolute z-20 right-2 bottom-2 rounded-full p-2 bg-[#31247975]">
+                          <Tb360View
+                            style={{ stroke: "white" }}
+                            className={`text-4xl text-[#00000099]`}
+                            size={22}
+                          />
+                        </div>
               <button
                 onClick={(e) => e.stopPropagation()}
                 className={`swiper-button-prev-${data.id} ${
@@ -250,6 +267,11 @@ export default function ListingCard({
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
           <Prestation data={data} setShowPrestation={setShowPrestation} />
         </div>
+      )}
+
+      {/* show viste popup */}
+      {showVisite && (
+          <Visite showVisite={showVisite} setShowVisite={setShowVisite} />
       )}
     </div>
   );
