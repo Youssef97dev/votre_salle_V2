@@ -165,6 +165,7 @@ export default function Title() {
               <input
                 id="gridGuests"
                 type="number"
+                value={placeSpace.guests}
                 className="form-input"
                 min={0}
                 onChange={(e) => handleChangeGuest(e)}
@@ -241,7 +242,7 @@ export default function Title() {
                 name="tax"
                 onChange={() => setTax(10)}
                 className="form-radio peer"
-                defaultChecked
+                defaultChecked={tax === 10}
               />
               <span className="peer-checked:text-[#4361ee] font-bold">10%</span>
             </label>
@@ -251,6 +252,7 @@ export default function Title() {
                 type="radio"
                 name="tax"
                 onChange={() => setTax(20)}
+                defaultChecked={tax === 20}
                 className="form-radio text-[#00ab55] peer"
               />
               <span className="peer-checked:text-[#00ab55] font-bold">20%</span>
@@ -261,6 +263,7 @@ export default function Title() {
                 type="radio"
                 name="tax"
                 onChange={() => setTax(0)}
+                defaultChecked={tax === 0}
                 className="form-radio text-[#805dca] peer"
               />
               <span className="peer-checked:text-[#805dca] font-bold">

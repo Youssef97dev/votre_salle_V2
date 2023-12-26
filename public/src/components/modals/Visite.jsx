@@ -4,7 +4,7 @@ import { useState, useEffect, Fragment } from "react";
 
 import { RiSeparator } from "react-icons/ri";
 
-const Visite = ({ showVisite, setShowVisite }) => {
+const Visite = ({ showVisite, setShowVisite, data }) => {
 
   return (
     <Transition appear show={showVisite} as={Fragment}>
@@ -36,7 +36,7 @@ const Visite = ({ showVisite, setShowVisite }) => {
                   X
                 </button>
               </div>
-              <iframe id="virtual_tour_load" style={{width:"100%", height:"500px"}} data-src="https://360sitevisit.com/naninas/?mute=true" allowfullscreen="" src="https://360sitevisit.com/naninas/?mute=true"></iframe>
+              <iframe id="virtual_tour_load" style={{width:"100%", height:"500px"}} data-src={data?.locationData?.tour ? data?.locationData?.tour : "https://360sitevisit.com/naninas/?mute=true"} allowfullscreen="" src={data?.locationData?.tour ? data?.locationData?.tour : "https://360sitevisit.com/naninas/?mute=true"}></iframe>
             </Dialog.Panel>
           </div>
         </div>

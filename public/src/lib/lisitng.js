@@ -19,11 +19,11 @@ export const createLisitngAPI = async (listingData) => {
   return result;
 };
 
-export const updateLisitngAPI = async (listingId, prestation) => {
+export const updateLisitngAPI = async (listingId, data) => {
   const result = (
     await axios
       .patch(createUrl(`/api/listings/${listingId}`), {
-        prestation,
+        ...data,
       })
       .catch((error) => console.log(error))
   )?.data;

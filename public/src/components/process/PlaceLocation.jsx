@@ -8,7 +8,10 @@ const TOKEN =
   "pk.eyJ1IjoieW91bmVzYWl0IiwiYSI6ImNsbnU3ODZ6czBhdXgyam5zNHZleDl1d2cifQ.Omdr-w7Yx9kNjkltlzunKg";
 
 export default function PlaceLocation() {
-  const { setMapData, setLocationData } = userAppStore();
+  const { setMapData, mapData, setLocationData } = userAppStore();
+  useEffect(()=>{
+    console.log(mapData)
+  },[])
   const getResults = ({ result }) => {
     const [longitude, latitude] = result?.geometry?.coordinates;
     const data = {
@@ -20,6 +23,7 @@ export default function PlaceLocation() {
       district: "",
       region: "",
       country: "",
+      tour:"",
     };
     result?.context?.forEach((item) => {
       Object.keys(data)?.forEach((key) => {
@@ -39,8 +43,8 @@ export default function PlaceLocation() {
       <div className="w-full h-full rounded-lg">
         <Map
           initialViewState={{
-            longitude: -8.008889,
-            latitude: 31.63,
+            longitude: mapData !== undefined ? mapData?.longitude : -8.008889,
+            latitude: mapData !== undefined ? mapData?.latitude : 31.63,
             zoom: 13,
           }}
           mapStyle="mapbox://styles/mapbox/streets-v9"

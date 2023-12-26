@@ -23,6 +23,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import Visite from "airbnb/components/modals/Visite";
 
+import { MdEditSquare } from "react-icons/md";
+
 export default function ListingCard({
   data,
   isMyListing = false,
@@ -146,7 +148,7 @@ export default function ListingCard({
                   ))}
                 </Swiper>
               </div>
-              <div onClick={(e) => {
+              {pathname === "/" && <div onClick={(e) => {
                               e.stopPropagation();
                               setShowVisite(true);
                             }} className="absolute z-20 right-2 bottom-2 rounded-full p-2 bg-[#31247975]">
@@ -155,7 +157,18 @@ export default function ListingCard({
                             className={`text-4xl text-[#00000099]`}
                             size={22}
                           />
-                        </div>
+                        </div>}
+                {pathname === "/my-listings" && <div onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/new-listing?listingId=${data.id}`)
+                    }} className="absolute z-20 right-2 top-2 rounded-full p-2 bg-[#02020280]">
+                  <MdEditSquare
+                    color="#fff"
+                    className={`text-4xl`}
+                    size={15}
+                  />
+                </div>}
+
               <button
                 onClick={(e) => e.stopPropagation()}
                 className={`swiper-button-prev-${data.id} ${
@@ -271,7 +284,7 @@ export default function ListingCard({
 
       {/* show viste popup */}
       {showVisite && (
-          <Visite showVisite={showVisite} setShowVisite={setShowVisite} />
+          <Visite showVisite={showVisite} setShowVisite={setShowVisite} data={data} />
       )}
     </div>
   );

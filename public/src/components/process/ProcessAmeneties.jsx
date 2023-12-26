@@ -82,7 +82,7 @@ export default function ProcessAmeneties() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 my-2">
               {data.map(({ name, svgPath }) => (
                 <label className="inline-flex items-center">
-                  <input type="checkbox" className="form-checkbox peer" onChange={() => {
+                  <input type="checkbox" className="form-checkbox peer" checked={placeAmeneties?.includes(name) ? true : false} onChange={() => {
                     placeAmeneties?.includes(name)
                       ? removeAmenty(name)
                       : addAmenety(name);

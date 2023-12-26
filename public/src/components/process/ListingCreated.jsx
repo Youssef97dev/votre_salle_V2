@@ -1,10 +1,10 @@
-import { createLisitngAPI } from "airbnb/lib/lisitng";
+import { createLisitngAPI, updateLisitngAPI } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import Confetti from "react-confetti";
 
-export default function ListingCreated() {
+export default function ListingCreated({listingId}) {
   const router = useRouter();
   const {
     locationType,
@@ -22,21 +22,39 @@ export default function ListingCreated() {
     tax,
   } = userAppStore();
   useEffect(() => {
-    createLisitngAPI({
-      locationType,
-      placeType,
-      mapData,
-      locationData,
-      placeSpace,
-      placeAmeneties,
-      photos,
-      title,
-      description,
-      price,
-      priceB2b,
-      listingCreatedBy: { id: userInfo?.id },
-      tax,
-    });
+    if(listingId === ''){
+      createLisitngAPI({
+        locationType,
+        placeType,
+        mapData,
+        locationData,
+        placeSpace,
+        placeAmeneties,
+        photos,
+        title,
+        description,
+        price,
+        priceB2b,
+        listingCreatedBy: { id: userInfo?.id },
+        tax,
+      });
+    }else{
+      updateLisitngAPI(listingId, {
+        locationType,
+        placeType,
+        mapData,
+        locationData,
+        placeSpace,
+        placeAmeneties,
+        photos,
+        title,
+        description,
+        price,
+        priceB2b,
+        listingCreatedBy: { id: userInfo?.id },
+        tax,
+      });
+    }
   }, [
     locationType,
     placeType,
@@ -57,7 +75,7 @@ export default function ListingCreated() {
     <div className="flex flex-col gap-5 items-center justify-center h-full">
       <div className="flex flex-col gap-2 items-center justify-center">
         <h2 className="font-semibold text-4xl">Congratulations!</h2>
-        <p>You have successfully created your listing!</p>
+        <p>You have successfully {listingId === '' ? 'created' : 'Updated'} your listing!</p>
         <div className="flex gap-5">
           <button
             className="bg-[#222222] py-3 mt-5  px-10 text-white text-base font-medium rounded-md cursor-pointer"

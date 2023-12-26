@@ -19,7 +19,7 @@ export default function ListingTypeSelector() {
           <button
             key={type.name}
             className={`flex flex-row gap-3 md:gap-0 items-center md:flex-col font-semibold border border-gray-300 rounded-md p-2 hover:border-gray-950 transition-all duration-300 ${
-              type.name === locationType && "border-gray-950 bg-slate-100"
+              type.name === locationType && "border-gray-950 bg-[#2195f37a]"
             }`}
             onClick={() => handleSelection(type.name)}
           >

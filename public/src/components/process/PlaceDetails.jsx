@@ -120,7 +120,20 @@ export default function PlaceDetails() {
               onChange={(e) => handleChange(e.target.name, e.target.value)}
             />
           </div>
-          <div className="w-full"></div>
+          <div className="w-full">
+            <label className="font-bold" htmlFor="postcode">
+              Virtual Tour Link
+            </label>
+            <input
+              type="url"
+              name="tour"
+              id="tour"
+              value={locationData?.tour}
+              placeholder="Vitual Tour 360 Link"
+              className="form-input rounded-2xl focus:shadow-lg"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+            />
+          </div>
         </div>
       </div>
     </div>

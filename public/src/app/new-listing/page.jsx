@@ -11,21 +11,61 @@ import StepTwoStarter from "airbnb/components/process/StepTwoStarter";
 import Title from "airbnb/components/process/Title";
 import { userAppStore } from "airbnb/store/store";
 import AirBnbLogoShort from "airbnb/svg/airbnb-logo-short";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
+import { getListing } from "airbnb/lib/lisitng";
 
 import 'airbnb/styles/tailwind.css';
 
 function Page() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
 
-  const { resetNewListingData } = userAppStore();
+  const { 
+    resetNewListingData, 
+    currentListing, 
+    setCurrentListing, 
+    setLocationType,
+    setMapData, 
+    setLocationData,
+    setPlaceAmenities,
+    setPhotos,
+    setTitle,
+    setDescription,
+    setPrice,
+    setTax,
+    setPriceB2b,
+    setPlaceSpace, 
+  } = userAppStore();
+
+  const [listingId, setListingId] = useState('');
 
   useEffect(() => {
     resetNewListingData();
+    setListingId(searchParams.get("listingId"));
   }, [resetNewListingData]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getListing(listingId);
+      setCurrentListing(data);
+      setLocationType(data?.locationType);
+      setMapData(data?.mapData);
+      setLocationData(data?.locationData);
+      setPlaceAmenities(data?.placeAmeneties);
+      setPhotos(data?.photos);
+      setTitle(data?.title)
+      setDescription(data?.description)
+      setPrice(data?.price)
+      setTax(parseInt(data?.tax))
+      setPriceB2b(data?.priceB2b)
+      setPlaceSpace({guests:data?.placeSpace?.guests})
+      console.log(data);
+    };
+    if (listingId !== '') getData();
+  }, [listingId, setCurrentListing]);
 
   const handleNext = () => {
     setStep(step + 1);
@@ -56,7 +96,7 @@ function Page() {
       case 9:
         return <Title />;
       case 10:
-        return <ListingCreated />;
+        return <ListingCreated listingId={listingId} />;
       default:
         return <></>;
     }
@@ -95,7 +135,7 @@ function Page() {
             onClick={handleNext}
             className="btn btn-primary rounded-3xl font-bold"
           >
-            Add Your Hall
+            {listingId !== '' ? 'Update Your Hall' : 'Add Your Hall'}
           </button>
         ) : (
           step <= 8 && (
