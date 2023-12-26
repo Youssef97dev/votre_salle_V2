@@ -64,7 +64,7 @@ function Page() {
       setPlaceSpace({guests:data?.placeSpace?.guests})
       console.log(data);
     };
-    if (listingId !== '') getData();
+    if (listingId) getData();
   }, [listingId, setCurrentListing]);
 
   const handleNext = () => {
