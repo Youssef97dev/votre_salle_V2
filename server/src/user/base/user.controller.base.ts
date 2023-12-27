@@ -159,6 +159,7 @@ export class UserControllerBase {
         typeUserNotification: true,
         updatedAt: true,
         username: true,
+        notifications:true,
       },
     });
     if (result === null) {

@@ -194,6 +194,14 @@ const Sidebar = () => {
     },
     {
       icon: <CgProfile />,
+      name: "Owners",
+      callBack: () => {
+        router.push("/admin/owners");
+        setSidebarMenuOpen(false);
+      },
+    },
+    {
+      icon: <CgProfile />,
       name: "Users",
       callBack: () => {
         router.push("/admin/users");
@@ -215,6 +223,7 @@ const Sidebar = () => {
         setSidebarMenuOpen(false);
         setUserInfo(null);
         localStorage.clear();
+        router.push("/auth/signin");
       },
     },
   ];

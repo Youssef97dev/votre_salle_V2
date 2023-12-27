@@ -562,3 +562,24 @@ export const changeTypeUser = async (myId, typeUserNotification) => {
     return error;
   }
 };
+
+// Notification
+export const addToNotification = async (title, description,read, id) => {
+  const query = {
+    title,
+    description,
+    read,
+    user: {id}
+  };
+  try{
+    const result = (
+      await post(createUrl("/api/notifications"), {
+        ...query,
+      }).catch(() => null)
+    )?.data;
+    return result;
+  }catch(error){
+    console.log(error);
+    return error;
+  }
+};

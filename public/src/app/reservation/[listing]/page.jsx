@@ -5,7 +5,7 @@ import { userAppStore } from "airbnb/store/store";
 import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
-import { getActiveTrips, addTrip } from "airbnb/lib/lisitng";
+import { getActiveTrips, addTrip, addToNotification } from "airbnb/lib/lisitng";
 import { useRouter, useSearchParams } from "next/navigation";
 import Daimond from "airbnb/svg/daimond";
 import Image from "next/image";
@@ -261,6 +261,7 @@ const page = ({ params: { listing } }) => {
 
     const response = await addTrip(data);
     if (response) {
+      await addToNotification(`${userInfo?.firstName} ${userInfo?.lastName}`, `Make a reservation at ${reservationData?.listing?.title}`, false, reservationData?.listing?.listingCreatedBy?.id);
       router.push("/trips");
     }
   };

@@ -41,6 +41,7 @@ class NotificationCreateInput {
   @IsOptional()
   @Field(() => Boolean, {
     nullable: true,
+    defaultValue:false,
   })
   read?: boolean | null;
 

@@ -8,6 +8,9 @@ import Swal from "sweetalert2";
 import { DataTable } from "mantine-datatable";
 import moment from "moment";
 
+// Icons
+import { IoMdSearch } from "react-icons/io";
+
 // Components
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
@@ -20,7 +23,7 @@ const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 
 // APIs
-import { getAllUsers, confirmChangeTypeUser } from "airbnb/lib/admin";
+import { confirmChangeRoleUser, confirmChangeTypeUser, getUsers } from "airbnb/lib/admin";
 
 // Store
 import { userAppStore } from "airbnb/store/store";
@@ -64,7 +67,7 @@ const page = () => {
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      const data = await getAllUsers();
+      const data = await getUsers("user");
       setUsers(data);
       setInitialRecords(data);
       setRecords(data);
@@ -149,6 +152,53 @@ const page = () => {
     }
   };
 
+  // Change Role User
+  const changeRoleUser = async (id, role) => {
+    const result = await Swal.fire({
+      icon: "warning",
+      title: `Confirm to change to ${role}`,
+      text: `Do you want to to change to ${role}?`,
+      showCancelButton: true,
+      confirmButtonText: "Change",
+      cancelButtonText: "Discard",
+      padding: "2em",
+      customClass: "sweet-alerts",
+    });
+
+    if (result.value) {
+      try {
+        setLoading(true);
+        const data = await confirmChangeRoleUser(id, role);
+
+        if (data.status === 200) {
+          setRelaunchData((prev) => !prev);
+          Swal.fire({
+            title: `${role}!`,
+            text: `User has been updated.`,
+            icon: "success",
+            customClass: "sweet-alerts",
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: `User has not been updated.`,
+            icon: "warning",
+            customClass: "sweet-alerts",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          text: `Error in updating.`,
+          icon: "error",
+          customClass: "sweet-alerts",
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   return (
     <>
       {!isClient ? (
@@ -160,10 +210,10 @@ const page = () => {
             <div className="relative overflow-x-auto shadow-lg sm:rounded-lg w-full m-5 lg:m-20">
               {/*<Image src="/search.svg" width="20" className="absolute left-1 top-2" height="20" alt="search" />*/}
               <div className="relative rounded-md">
-                {/*<Image src="/search.svg" width="20" className="absolute left-1 top-2" height="20" alt="search" />*/}
+                <IoMdSearch color="#888ea8" size={20} className="absolute left-1 top-5" />
                 <input
                   type="text"
-                  className="form-input w-full lg:w-1/5 rounded py-3 px-4 border shadow-md my-3"
+                  className="form-input w-full lg:w-1/5 rounded-lg pl-6 border shadow-md my-3"
                   placeholder="Search..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -208,14 +258,6 @@ const page = () => {
                           width: 180,
                           render: ({ adresse }) => (
                             <div className="px-6 py-4">{adresse}</div>
-                          ),
-                        },
-                        {
-                          accessor: "Halls Count",
-                          textAlignment: "center",
-                          width: 50,
-                          render: ({ listings }) => (
-                            <div className="px-6 py-4">{listings?.length}</div>
                           ),
                         },
                         {
@@ -267,6 +309,9 @@ const page = () => {
                                     Change to {typeUserNotification}
                                   </button>
                                 )}
+                                <button onClick={() => changeRoleUser(id, "owner") } className={`btn btn-primary`} disabled={loading}>
+                                  set As Owner
+                                </button>
                             </div>
                           ),
                         },

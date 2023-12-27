@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import { getImage } from "airbnb/lib/lisitng";
 import { FiGlobe } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { FaCircle } from "react-icons/fa6";
 import ScheduleBar from "../common/ScheduleBar";
 import ContextMenu from "../common/ContextMenu";
 import { userAppStore } from "airbnb/store/store";
@@ -29,6 +31,7 @@ function Navbar() {
     sidebarMenuOpen,
   } = userAppStore();
   const [imageProfile, setImageProfile] = useState("");
+  const [notif, setNotif] = useState(false);
 
   const showContextMenu = (e) => {
     e.preventDefault();
@@ -43,6 +46,13 @@ function Navbar() {
     };
     if (userInfo) {
       getProfileImage();
+    }
+  }, [userInfo, setUserInfo]);
+
+  useEffect(() => {
+    if (userInfo) {
+      const result = userInfo?.notifications?.some(notification => notification.read === false);
+      setNotif(result);
     }
   }, [userInfo, setUserInfo]);
 
@@ -80,6 +90,12 @@ function Navbar() {
             )}
             <li className="cursor-pointer hidden md:block">
               <FiGlobe />
+            </li>
+            <li className="relative cursor-pointer hidden md:block">
+              <IoNotificationsOutline size={25} />
+              {notif && <span className="absolute -top-0.5 -right-0.5 font-bold">
+                <FaCircle color="#4361ee" size={8} />
+              </span>}
             </li>
             <li
               className="flex cursor-pointer items-center gap-2 border border-gray-300 py-2 px-3 rounded-full hover:shadow-xl transition-all duration-500"

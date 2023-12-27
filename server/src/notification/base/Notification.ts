@@ -58,6 +58,7 @@ class Notification {
   @IsOptional()
   @Field(() => Boolean, {
     nullable: true,
+    defaultValue:false,
   })
   read!: boolean | null;
 

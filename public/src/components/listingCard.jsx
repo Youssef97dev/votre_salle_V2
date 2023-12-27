@@ -6,6 +6,7 @@ import {
   addToWishList,
   deleteListingAPI,
   removeFromWishListAPI,
+  addToNotification,
 } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 import { IoMdHeart, IoMdStar } from "react-icons/io";
@@ -57,6 +58,7 @@ export default function ListingCard({
   const addWishList = async () => {
     await addToWishList(data.id, userInfo?.id);
     addToWishListSlice(data.id);
+    await addToNotification(`${userInfo?.firstName} ${userInfo?.lastName}`, `Add your hall ${data.title} to favourite`, false, data?.listingCreatedBy?.id);
   };
 
   const removeWishlist = async () => {

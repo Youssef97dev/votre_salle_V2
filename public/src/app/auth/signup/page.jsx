@@ -118,13 +118,13 @@ const page = () => {
       !validateField("password", password, /\d/) ||
       !validateField("password", password, /[!@#$%&*=]/) ||
       (role === "owner" &&
-        !validateField("rc", companyInfo.rc, /^[0-9]$/, 4, 10)) ||
+        !validateField("rc", companyInfo.rc, /^[0-9]+$/, 4, 10)) ||
       (role === "owner" &&
-        !validateField("idFiscale", companyInfo.idFiscale, /^[0-9]$/, 5, 10)) ||
+        !validateField("idFiscale", companyInfo.idFiscale, /^[0-9]+$/, 5, 10)) ||
       (role === "owner" &&
-        !validateField("cnss", companyInfo.cnss, /^[0-9]$/, 6, 10)) ||
+        !validateField("cnss", companyInfo.cnss, /^[0-9]+$/, 6, 10)) ||
       (role === "owner" &&
-        !validateField("ice", companyInfo.ice, /^[0-9]$/, 9, 10))
+        !validateField("ice", companyInfo.ice, /^[0-9]+$/, 9, 10))
     ) {
       setLoadingSend(false);
       return;

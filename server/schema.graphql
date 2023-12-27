@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input BooleanNullableFilter {
+  equals: Boolean
+  not: Boolean
+}
+
 input CheckUserValues {
   email: String!
 }
@@ -274,12 +279,14 @@ type MetaQueryPayload {
 type Mutation {
   createInvoice(data: InvoiceCreateInput!): Invoice!
   createListing(data: ListingCreateInput!): Listing!
+  createNotification(data: NotificationCreateInput!): Notification!
   createReview(data: ReviewCreateInput!): Review!
   createTrip(data: TripCreateInput!): Trip!
   createUser(data: UserCreateInput!): User!
   createWishlist(data: WishlistCreateInput!): Wishlist!
   deleteInvoice(where: InvoiceWhereUniqueInput!): Invoice!
   deleteListing(where: ListingWhereUniqueInput!): Listing!
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification!
   deleteReview(where: ReviewWhereUniqueInput!): Review!
   deleteTrip(where: TripWhereUniqueInput!): Trip!
   deleteUser(where: UserWhereUniqueInput!): User!
@@ -288,15 +295,79 @@ type Mutation {
   signup(credentials: Credentials!): UserInfo!
   updateInvoice(data: InvoiceUpdateInput!, where: InvoiceWhereUniqueInput!): Invoice!
   updateListing(data: ListingUpdateInput!, where: ListingWhereUniqueInput!): Listing!
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification!
   updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review!
   updateTrip(data: TripUpdateInput!, where: TripWhereUniqueInput!): Trip!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   updateWishlist(data: WishlistUpdateInput!, where: WishlistWhereUniqueInput!): Wishlist!
 }
 
+type Notification {
+  createdAt: DateTime!
+  description: String
+  id: String!
+  read: Boolean
+  title: String
+  updatedAt: DateTime!
+  user: User
+}
+
+input NotificationCreateInput {
+  description: String
+  read: Boolean = false
+  title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationCreateNestedManyWithoutUsersInput {
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationListRelationFilter {
+  every: NotificationWhereInput
+  none: NotificationWhereInput
+  some: NotificationWhereInput
+}
+
+input NotificationOrderByInput {
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+  read: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input NotificationUpdateInput {
+  description: String
+  read: Boolean
+  title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationUpdateManyWithoutUsersInput {
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  set: [NotificationWhereUniqueInput!]
+}
+
+input NotificationWhereInput {
+  description: StringNullableFilter
+  id: StringFilter
+  read: BooleanNullableFilter
+  title: StringNullableFilter
+  user: UserWhereUniqueInput
+}
+
+input NotificationWhereUniqueInput {
+  id: String!
+}
+
 type Query {
   _invoicesMeta(where: InvoiceWhereInput): MetaQueryPayload!
   _listingsMeta(where: ListingWhereInput): MetaQueryPayload!
+  _notificationsMeta(where: NotificationWhereInput): MetaQueryPayload!
   _reviewsMeta(where: ReviewWhereInput): MetaQueryPayload!
   _tripsMeta(where: TripWhereInput): MetaQueryPayload!
   _usersMeta(where: UserWhereInput): MetaQueryPayload!
@@ -307,6 +378,8 @@ type Query {
   listing(where: ListingWhereUniqueInput!): Listing
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
   me: User!
+  notification(where: NotificationWhereUniqueInput!): Notification
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
   review(where: ReviewWhereUniqueInput!): Review
   reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
   trip(where: TripWhereUniqueInput!): Trip
@@ -516,6 +589,7 @@ type User {
   invoices(orderBy: [InvoiceOrderByInput!], skip: Float, take: Float, where: InvoiceWhereInput): [Invoice!]!
   lastName: String
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
   pack: Float
   phone: String
   profileImage: String
@@ -538,6 +612,7 @@ input UserCreateInput {
   invoices: InvoiceCreateNestedManyWithoutUsersInput
   lastName: String
   listings: ListingCreateNestedManyWithoutUsersInput
+  notifications: NotificationCreateNestedManyWithoutUsersInput
   pack: Float
   password: String!
   phone: String
@@ -587,6 +662,7 @@ input UserUpdateInput {
   invoices: InvoiceUpdateManyWithoutUsersInput
   lastName: String
   listings: ListingUpdateManyWithoutUsersInput
+  notifications: NotificationUpdateManyWithoutUsersInput
   pack: Float
   password: String
   phone: String
@@ -610,6 +686,7 @@ input UserWhereInput {
   invoices: InvoiceListRelationFilter
   lastName: StringNullableFilter
   listings: ListingListRelationFilter
+  notifications: NotificationListRelationFilter
   pack: IntNullableFilter
   phone: StringNullableFilter
   profileImage: StringNullableFilter

@@ -56,14 +56,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-      // Access and handle the query parameters
-      //const { someKey, anotherKey } = router.query;
-      const user = JSON.parse(searchParams.get("user"))
-      console.log("Received data:", user);
-      // You can use this data as needed in your component state or logic
-  }, []);
-
-  useEffect(() => {
     const getUser = async () => {
       setSearchLocation(undefined);
       setLoadingUser(true);
