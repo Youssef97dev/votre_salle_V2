@@ -30,6 +30,8 @@ import { InvoiceFindManyArgs } from "../../invoice/base/InvoiceFindManyArgs";
 import { Invoice } from "../../invoice/base/Invoice";
 import { ListingFindManyArgs } from "../../listing/base/ListingFindManyArgs";
 import { Listing } from "../../listing/base/Listing";
+import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
+import { Notification } from "../../notification/base/Notification";
 import { ReviewFindManyArgs } from "../../review/base/ReviewFindManyArgs";
 import { Review } from "../../review/base/Review";
 import { TripFindManyArgs } from "../../trip/base/TripFindManyArgs";
@@ -174,6 +176,26 @@ export class UserResolverBase {
     @graphql.Args() args: ListingFindManyArgs
   ): Promise<Listing[]> {
     const results = await this.service.findListings(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Notification], { name: "notifications" })
+  @nestAccessControl.UseRoles({
+    resource: "Notification",
+    action: "read",
+    possession: "any",
+  })
+  async findNotifications(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: NotificationFindManyArgs
+  ): Promise<Notification[]> {
+    const results = await this.service.findNotifications(parent.id, args);
 
     if (!results) {
       return [];

@@ -9,6 +9,7 @@ import {
   ReferenceManyField,
   Datagrid,
   ReferenceField,
+  BooleanField,
 } from "react-admin";
 
 import { TRIP_TITLE_FIELD } from "../trip/TripTitle";
@@ -83,6 +84,23 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             <TextField label="tax" source="tax" />
             <TextField label="title" source="title" />
             <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="Notification"
+          target="userId"
+          label="Notifications"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="description" source="description" />
+            <TextField label="ID" source="id" />
+            <BooleanField label="read" source="read" />
+            <TextField label="title" source="title" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="user" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField reference="Review" target="userId" label="Reviews">

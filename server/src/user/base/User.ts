@@ -24,6 +24,7 @@ import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Invoice } from "../../invoice/base/Invoice";
 import { Listing } from "../../listing/base/Listing";
+import { Notification } from "../../notification/base/Notification";
 import { Review } from "../../review/base/Review";
 import { Trip } from "../../trip/base/Trip";
 import { Wishlist } from "../../wishlist/base/Wishlist";
@@ -106,6 +107,15 @@ class User {
   @Type(() => Listing)
   @IsOptional()
   listings?: Array<Listing>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Notification],
+  })
+  @ValidateNested()
+  @Type(() => Notification)
+  @IsOptional()
+  notifications?: Array<Notification>;
 
   @ApiProperty({
     required: false,

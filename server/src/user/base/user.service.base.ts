@@ -16,6 +16,7 @@ import {
   User, // @ts-ignore
   Invoice, // @ts-ignore
   Listing, // @ts-ignore
+  Notification, // @ts-ignore
   Review, // @ts-ignore
   Trip, // @ts-ignore
   Wishlist,
@@ -102,6 +103,17 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .listings(args);
+  }
+
+  async findNotifications(
+    parentId: string,
+    args: Prisma.NotificationFindManyArgs
+  ): Promise<Notification[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .notifications(args);
   }
 
   async findReviews(
