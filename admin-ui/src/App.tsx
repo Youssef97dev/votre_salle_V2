@@ -29,6 +29,10 @@ import { InvoiceList } from "./invoice/InvoiceList";
 import { InvoiceCreate } from "./invoice/InvoiceCreate";
 import { InvoiceEdit } from "./invoice/InvoiceEdit";
 import { InvoiceShow } from "./invoice/InvoiceShow";
+import { NotificationList } from "./notification/NotificationList";
+import { NotificationCreate } from "./notification/NotificationCreate";
+import { NotificationEdit } from "./notification/NotificationEdit";
+import { NotificationShow } from "./notification/NotificationShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -96,6 +100,13 @@ const App = (): React.ReactElement => {
           edit={InvoiceEdit}
           create={InvoiceCreate}
           show={InvoiceShow}
+        />
+        <Resource
+          name="Notification"
+          list={NotificationList}
+          edit={NotificationEdit}
+          create={NotificationCreate}
+          show={NotificationShow}
         />
       </Admin>
     </div>

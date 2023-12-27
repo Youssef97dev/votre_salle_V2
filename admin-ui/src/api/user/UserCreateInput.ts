@@ -1,6 +1,7 @@
 import { InputJsonValue } from "../../types";
 import { InvoiceCreateNestedManyWithoutUsersInput } from "./InvoiceCreateNestedManyWithoutUsersInput";
 import { ListingCreateNestedManyWithoutUsersInput } from "./ListingCreateNestedManyWithoutUsersInput";
+import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
 import { ReviewCreateNestedManyWithoutUsersInput } from "./ReviewCreateNestedManyWithoutUsersInput";
 import { TripCreateNestedManyWithoutUsersInput } from "./TripCreateNestedManyWithoutUsersInput";
 import { WishlistCreateNestedManyWithoutUsersInput } from "./WishlistCreateNestedManyWithoutUsersInput";
@@ -12,6 +13,7 @@ export type UserCreateInput = {
   invoices?: InvoiceCreateNestedManyWithoutUsersInput;
   lastName?: string | null;
   listings?: ListingCreateNestedManyWithoutUsersInput;
+  notifications?: NotificationCreateNestedManyWithoutUsersInput;
   pack?: number | null;
   password: string;
   phone?: string | null;

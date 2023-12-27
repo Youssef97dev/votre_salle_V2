@@ -18,6 +18,7 @@ import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { InvoiceListRelationFilter } from "../../invoice/base/InvoiceListRelationFilter";
 import { ListingListRelationFilter } from "../../listing/base/ListingListRelationFilter";
+import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { ReviewListRelationFilter } from "../../review/base/ReviewListRelationFilter";
 import { TripListRelationFilter } from "../../trip/base/TripListRelationFilter";
@@ -103,6 +104,18 @@ class UserWhereInput {
     nullable: true,
   })
   listings?: ListingListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => NotificationListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => NotificationListRelationFilter)
+  @IsOptional()
+  @Field(() => NotificationListRelationFilter, {
+    nullable: true,
+  })
+  notifications?: NotificationListRelationFilter;
 
   @ApiProperty({
     required: false,

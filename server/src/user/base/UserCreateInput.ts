@@ -18,6 +18,7 @@ import { InputJsonValue } from "../../types";
 import { InvoiceCreateNestedManyWithoutUsersInput } from "./InvoiceCreateNestedManyWithoutUsersInput";
 import { Type } from "class-transformer";
 import { ListingCreateNestedManyWithoutUsersInput } from "./ListingCreateNestedManyWithoutUsersInput";
+import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
 import { ReviewCreateNestedManyWithoutUsersInput } from "./ReviewCreateNestedManyWithoutUsersInput";
 import { TripCreateNestedManyWithoutUsersInput } from "./TripCreateNestedManyWithoutUsersInput";
 import { WishlistCreateNestedManyWithoutUsersInput } from "./WishlistCreateNestedManyWithoutUsersInput";
@@ -90,6 +91,18 @@ class UserCreateInput {
     nullable: true,
   })
   listings?: ListingCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => NotificationCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => NotificationCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => NotificationCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  notifications?: NotificationCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

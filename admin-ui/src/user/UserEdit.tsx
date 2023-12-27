@@ -13,6 +13,7 @@ import {
 
 import { InvoiceTitle } from "../invoice/InvoiceTitle";
 import { ListingTitle } from "../listing/ListingTitle";
+import { NotificationTitle } from "../notification/NotificationTitle";
 import { ReviewTitle } from "../review/ReviewTitle";
 import { TripTitle } from "../trip/TripTitle";
 import { WishlistTitle } from "../wishlist/WishlistTitle";
@@ -41,6 +42,14 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={ListingTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="notifications"
+          reference="Notification"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={NotificationTitle} />
         </ReferenceArrayInput>
         <NumberInput step={1} label="pack" source="pack" />
         <PasswordInput label="Password" source="password" />

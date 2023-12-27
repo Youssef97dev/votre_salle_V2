@@ -1,6 +1,7 @@
 import { InputJsonValue } from "../../types";
 import { InvoiceUpdateManyWithoutUsersInput } from "./InvoiceUpdateManyWithoutUsersInput";
 import { ListingUpdateManyWithoutUsersInput } from "./ListingUpdateManyWithoutUsersInput";
+import { NotificationUpdateManyWithoutUsersInput } from "./NotificationUpdateManyWithoutUsersInput";
 import { ReviewUpdateManyWithoutUsersInput } from "./ReviewUpdateManyWithoutUsersInput";
 import { TripUpdateManyWithoutUsersInput } from "./TripUpdateManyWithoutUsersInput";
 import { WishlistUpdateManyWithoutUsersInput } from "./WishlistUpdateManyWithoutUsersInput";
@@ -12,6 +13,7 @@ export type UserUpdateInput = {
   invoices?: InvoiceUpdateManyWithoutUsersInput;
   lastName?: string | null;
   listings?: ListingUpdateManyWithoutUsersInput;
+  notifications?: NotificationUpdateManyWithoutUsersInput;
   pack?: number | null;
   password?: string;
   phone?: string | null;
