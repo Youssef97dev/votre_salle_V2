@@ -6,6 +6,7 @@ import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 export type NotificationWhereInput = {
   description?: StringNullableFilter;
   id?: StringFilter;
+  photo?: StringNullableFilter;
   read?: BooleanNullableFilter;
   title?: StringNullableFilter;
   user?: UserWhereUniqueInput;

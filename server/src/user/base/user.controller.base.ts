@@ -506,6 +506,7 @@ export class UserControllerBase {
         createdAt: true,
         description: true,
         id: true,
+        photo: true,
         read: true,
         title: true,
         updatedAt: true,
