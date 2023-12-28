@@ -107,6 +107,7 @@ model Notification {
   createdAt   DateTime @default(now())
   description String?
   id          String   @id @default(cuid())
+  photo       String?
   read        Boolean?
   title       String?
   updatedAt   DateTime @updatedAt

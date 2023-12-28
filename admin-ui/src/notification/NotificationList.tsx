@@ -26,6 +26,7 @@ export const NotificationList = (props: ListProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="description" source="description" />
         <TextField label="ID" source="id" />
+        <TextField label="photo" source="photo" />
         <BooleanField label="read" source="read" />
         <TextField label="title" source="title" />
         <DateField source="updatedAt" label="Updated At" />

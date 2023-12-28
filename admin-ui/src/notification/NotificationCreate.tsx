@@ -17,6 +17,7 @@ export const NotificationCreate = (props: CreateProps): React.ReactElement => {
     <Create {...props}>
       <SimpleForm>
         <TextInput label="description" multiline source="description" />
+        <TextInput label="photo" source="photo" />
         <BooleanInput label="read" source="read" />
         <TextInput label="title" source="title" />
         <ReferenceInput source="user.id" reference="User" label="user">
