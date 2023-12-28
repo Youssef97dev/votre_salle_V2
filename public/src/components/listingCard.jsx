@@ -58,7 +58,13 @@ export default function ListingCard({
   const addWishList = async () => {
     await addToWishList(data.id, userInfo?.id);
     addToWishListSlice(data.id);
-    await addToNotification(`${userInfo?.firstName} ${userInfo?.lastName}`, `Add your hall ${data.title} to favourite`, false, data?.listingCreatedBy?.id);
+    await addToNotification(
+      `${userInfo?.firstName} ${userInfo?.lastName}`,
+      `Add your hall ${data.title} to favourite`,
+      userInfo?.profileImage,
+      false,
+      data?.listingCreatedBy?.id
+    );
   };
 
   const removeWishlist = async () => {
@@ -127,49 +133,54 @@ export default function ListingCard({
                       />
                       {pathname === "/" && userInfo && (
                         <>
-                        <div className="absolute z-20 right-2 top-2">
-                          <IoMdHeart
-                            style={{ stroke: "white", strokeWidth: "40" }}
-                            className={`text-3xl ${
-                              wishLists?.includes(data.id)
-                                ? "text-[#FF385C]"
-                                : "text-[#00000099]"
-                            }`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              if (wishLists?.includes(data.id)) {
-                                removeWishlist();
-                              } else addWishList();
-                            }}
-                          />
-                        </div>
-                        
+                          <div className="absolute z-20 right-2 top-2">
+                            <IoMdHeart
+                              style={{ stroke: "white", strokeWidth: "40" }}
+                              className={`text-3xl ${
+                                wishLists?.includes(data.id)
+                                  ? "text-[#FF385C]"
+                                  : "text-[#00000099]"
+                              }`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (wishLists?.includes(data.id)) {
+                                  removeWishlist();
+                                } else addWishList();
+                              }}
+                            />
+                          </div>
                         </>
                       )}
                     </SwiperSlide>
                   ))}
                 </Swiper>
               </div>
-              {pathname === "/" && <div onClick={(e) => {
-                              e.stopPropagation();
-                              setShowVisite(true);
-                            }} className="absolute z-20 right-2 bottom-2 rounded-full p-2 bg-[#31247975]">
-                          <Tb360View
-                            style={{ stroke: "white" }}
-                            className={`text-4xl text-[#00000099]`}
-                            size={22}
-                          />
-                        </div>}
-                {pathname === "/my-listings" && <div onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/new-listing?listingId=${data.id}`)
-                    }} className="absolute z-20 right-2 top-2 rounded-full p-2 bg-[#02020280]">
-                  <MdEditSquare
-                    color="#fff"
-                    className={`text-4xl`}
-                    size={15}
+              {pathname === "/" && (
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowVisite(true);
+                  }}
+                  className="absolute z-20 right-2 bottom-2 rounded-full p-2 bg-[#31247975]"
+                >
+                  <Tb360View
+                    style={{ stroke: "white" }}
+                    className={`text-4xl text-[#00000099]`}
+                    size={22}
                   />
-                </div>}
+                </div>
+              )}
+              {pathname === "/my-listings" && (
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/new-listing?listingId=${data.id}`);
+                  }}
+                  className="absolute z-20 right-2 top-2 rounded-full p-2 bg-[#02020280]"
+                >
+                  <MdEditSquare color="#fff" className={`text-4xl`} size={15} />
+                </div>
+              )}
 
               <button
                 onClick={(e) => e.stopPropagation()}
@@ -286,7 +297,11 @@ export default function ListingCard({
 
       {/* show viste popup */}
       {showVisite && (
-          <Visite showVisite={showVisite} setShowVisite={setShowVisite} data={data} />
+        <Visite
+          showVisite={showVisite}
+          setShowVisite={setShowVisite}
+          data={data}
+        />
       )}
     </div>
   );

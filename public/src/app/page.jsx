@@ -109,7 +109,7 @@ export default function Home() {
       <div className="max-h-[100vh] h-[100vh]">
         <Navbar />
 
-        <div className="w-full flex justify-between gap-5 items-center mt-3 px-6 md:px-20 ">
+        <div className="w-full flex justify-between gap-5 items-center mt-3 px-3 md:px-20 ">
           <div className="swiper w-[90%]" id="slider5">
             <div className="swiper-wrapper  px-10">
               <Swiper
@@ -208,7 +208,7 @@ export default function Home() {
           </div>
           <button
             onClick={() => setShowFilter(true)}
-            className="relative font-bold w-[8%] py-3 flex justify-evenly items-center border-2 border-black rounded-lg"
+            className="relative font-bold w-[8%] py-3 md:flex justify-evenly items-center border-2 border-black rounded-lg hidden"
           >
             <IoFilterOutline size={20} />
             <span>Filters</span>

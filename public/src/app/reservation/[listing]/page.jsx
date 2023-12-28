@@ -62,9 +62,9 @@ const page = ({ params: { listing } }) => {
   // already reserved dates
   const [dateArray, setDateArray] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("date state:", dateState);
-  }, [])
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -72,9 +72,9 @@ const page = ({ params: { listing } }) => {
       setActiveTripData(...activeTripData, data);
     };
     if (userInfo) {
-      getData(); 
-      console.log("start date :", reservationData.tripData.startDate)
-      console.log("end date :", reservationData.tripData.endDate)
+      getData();
+      console.log("start date :", reservationData.tripData.startDate);
+      console.log("end date :", reservationData.tripData.endDate);
     }
   }, []);
 
@@ -261,7 +261,13 @@ const page = ({ params: { listing } }) => {
 
     const response = await addTrip(data);
     if (response) {
-      await addToNotification(`${userInfo?.firstName} ${userInfo?.lastName}`, `Make a reservation at ${reservationData?.listing?.title}`, false, reservationData?.listing?.listingCreatedBy?.id);
+      await addToNotification(
+        `${userInfo?.firstName} ${userInfo?.lastName}`,
+        `Make a reservation at ${reservationData?.listing?.title}`,
+        userInfo?.profileImage,
+        false,
+        reservationData?.listing?.listingCreatedBy?.id
+      );
       router.push("/trips");
     }
   };
@@ -298,14 +304,16 @@ const page = ({ params: { listing } }) => {
               <div className="flex flex-col">
                 <span className="font-medium">Dates</span>
                 <span className="text-sm text-gray-500">
-                  {
-                    new Date(reservationData.tripData.startDate).toLocaleDateString(undefined, {
-                      month: "short",
-                      day: "2-digit",
-                    })}
+                  {new Date(
+                    reservationData.tripData.startDate
+                  ).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "2-digit",
+                  })}
                   {" - "}
-                  {
-                    new Date(reservationData.tripData.endDate).toLocaleDateString(undefined, {
+                  {new Date(
+                    reservationData.tripData.endDate
+                  ).toLocaleDateString(undefined, {
                     month: "short",
                     day: "2-digit",
                   })}

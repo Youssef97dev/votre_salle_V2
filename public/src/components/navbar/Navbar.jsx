@@ -15,6 +15,8 @@ import Schedule from "../common/Schedule";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import ScheduleMobile from "../common/ScheduleMobile";
 import Sidebar from "../common/Sidebar";
+import Dropdown from "airbnb/hooks/Dropdown";
+import Notifications from "../modals/Notifications";
 
 function Navbar() {
   const router = useRouter();
@@ -51,7 +53,9 @@ function Navbar() {
 
   useEffect(() => {
     if (userInfo) {
-      const result = userInfo?.notifications?.some(notification => notification.read === false);
+      const result = userInfo?.notifications?.some(
+        (notification) => notification.read === false
+      );
       setNotif(result);
     }
   }, [userInfo, setUserInfo]);
@@ -67,7 +71,7 @@ function Navbar() {
     `}
     >
       <div className="flex  items-center  justify-between px-2 lg:px-20 ">
-        <div className="flex-grow basis-0 ">
+        <div className="md:flex-grow md:basis-0 hidden md:block">
           <div
             className="w-max cursor-pointer"
             onClick={() => {
@@ -78,25 +82,49 @@ function Navbar() {
             <AirBnbLogo />
           </div>
         </div>
-        <div>{(!showScheduleBar || !isDesktop) && <ScheduleBar />}</div>
-        <div className="flex-grow basis-0 ">
+        <div className={!isDesktop && "w-full"}>
+          {(!showScheduleBar || !isDesktop) && <ScheduleBar />}
+        </div>
+        <div className="md:flex-grow md:basis-0 hidden md:block">
           <ul className="flex items-center justify-end gap-6 font-medium">
             {userInfo && (
-              <li className="cursor-pointer hidden md:block font-semibold">
+              <li className="cursor-pointer font-semibold">
                 <span>
                   {userInfo.firstName} {userInfo.lastName}
                 </span>
               </li>
             )}
-            <li className="cursor-pointer hidden md:block">
+            <li className="cursor-pointer">
               <FiGlobe />
             </li>
-            <li className="relative cursor-pointer hidden md:block">
-              <IoNotificationsOutline size={25} />
-              {notif && <span className="absolute -top-0.5 -right-0.5 font-bold">
-                <FaCircle color="#4361ee" size={8} />
-              </span>}
-            </li>
+            {userInfo && (
+              <li className="relative cursor-pointer">
+                <div className="dropdown">
+                  <Dropdown
+                    placement={"bottom-end"}
+                    button={
+                      <>
+                        <IoNotificationsOutline size={25} />
+                        {notif && (
+                          <span className="absolute -top-0.5 -right-0.5 font-bold">
+                            <FaCircle color="#4361ee" size={8} />
+                          </span>
+                        )}
+                      </>
+                    }
+                  >
+                    <ul className="!min-w-[400px] space-y-3">
+                      <li className="font-bold text-xl p-1">Notifications</li>
+                      {userInfo?.notifications?.map((notification, index) => (
+                        <li key={index}>
+                          <Notifications notification={notification} />
+                        </li>
+                      ))}
+                    </ul>
+                  </Dropdown>
+                </div>
+              </li>
+            )}
             <li
               className="flex cursor-pointer items-center gap-2 border border-gray-300 py-2 px-3 rounded-full hover:shadow-xl transition-all duration-500"
               onClick={(e) => showContextMenu(e)}

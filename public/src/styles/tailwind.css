@@ -208,3 +208,21 @@
     @apply border-[#3b3f5c] bg-transparent bg-none;
   }
 }
+
+/* dropdown */
+.dropdown {
+  @apply relative;
+}
+.dropdown > button {
+  @apply flex;
+}
+.dropdown ul {
+  @apply my-1 min-w-[120px] rounded-xl bg-white py-4 px-2 text-black shadow-lg;
+}
+.dropdown ul li > a,
+.dropdown ul li > button {
+  @apply flex items-center px-4 py-2 hover:bg-[#4361ee]/10 hover:text-[#4361ee];
+}
+.dropdown ul li > button {
+  @apply w-full;
+}

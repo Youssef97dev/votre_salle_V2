@@ -125,7 +125,7 @@ export class AuthService {
         companyInfo: true,
         profileImage: true,
         profileLogo: true,
-        notifications:true,
+        notifications: true,
         pack: true,
         createdAt: true,
         updatedAt: true,

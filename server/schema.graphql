@@ -306,6 +306,7 @@ type Notification {
   createdAt: DateTime!
   description: String
   id: String!
+  photo: String
   read: Boolean
   title: String
   updatedAt: DateTime!
@@ -314,6 +315,7 @@ type Notification {
 
 input NotificationCreateInput {
   description: String
+  photo: String
   read: Boolean = false
   title: String
   user: UserWhereUniqueInput
@@ -333,6 +335,7 @@ input NotificationOrderByInput {
   createdAt: SortOrder
   description: SortOrder
   id: SortOrder
+  photo: SortOrder
   read: SortOrder
   title: SortOrder
   updatedAt: SortOrder
@@ -341,6 +344,7 @@ input NotificationOrderByInput {
 
 input NotificationUpdateInput {
   description: String
+  photo: String
   read: Boolean
   title: String
   user: UserWhereUniqueInput
@@ -355,6 +359,7 @@ input NotificationUpdateManyWithoutUsersInput {
 input NotificationWhereInput {
   description: StringNullableFilter
   id: StringFilter
+  photo: StringNullableFilter
   read: BooleanNullableFilter
   title: StringNullableFilter
   user: UserWhereUniqueInput
