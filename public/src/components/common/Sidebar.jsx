@@ -27,6 +27,7 @@ const Sidebar = () => {
   const router = useRouter();
   const { userInfo, setUserInfo, sidebarMenuOpen, setSidebarMenuOpen } =
     userAppStore();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const sidebarMenuRef = useRef(null); // Create a ref for the context menu element
   const [imageProfile, setImageProfile] = useState("");
 
@@ -231,7 +232,7 @@ const Sidebar = () => {
   return (
     <div
       ref={sidebarMenuRef}
-      className={`shadow-2xl text-neutral-700 border border-gray-200 flex flex-col space-y-2 lg:space-y-6 top-0 right-0 w-full sm:w-[50vw] lg:w-[20vw] bg-white py-2 fixed h-full z-50 animate__animated animate__faster ${
+      className={`shadow-2xl text-neutral-700 border border-gray-200 flex flex-col space-y-2 lg:space-y-6 top-0 right-0 w-full sm:w-[50vw] lg:w-[20vw] bg-white py-2 fixed h-full z-[60] animate__animated animate__faster ${
         sidebarMenuOpen ? "animate__fadeInRight" : "animate__fadeOutLeft"
       }`}
     >
@@ -247,21 +248,21 @@ const Sidebar = () => {
           <div className="">
             {userInfo?.profileImage && imageProfile ? (
               <img
-                className="w-20 h-20 rounded-full border-2 border-black overflow-hidden object-cover"
+                className="w-14 h-14 md:w-20 md:h-20 rounded-full border border-black overflow-hidden object-cover"
                 src={`data:image/*;base64,${imageProfile}`}
                 alt="img"
               />
             ) : (
-              <span className="flex justify-center items-center bg-black text-white h-20 w-20 text-4xl rounded-full">
+              <span className="flex justify-center items-center bg-black text-white w-14 h-14 md:w-20 md:h-20 text-xl md:text-4xl rounded-full">
                 {userInfo?.firstName?.split("").shift()?.toUpperCase()}
               </span>
             )}
           </div>
-          <div className="flex flex-col font-bold text-sm">
+          <div className="flex flex-col font-bold text-xs md:text-sm">
             <span>
               {userInfo?.firstName} {userInfo?.lastName}
             </span>
-            <span>{userInfo?.username}</span>
+            <span className="text-gray-500">{userInfo?.username}</span>
             <span className="mt-2 text-[#3b3f5c]">
               {userInfo?.typeUser}
               {" | "}
@@ -284,13 +285,13 @@ const Sidebar = () => {
       </div>
       <div className="flex space-x-4 items-center p-2">
         <Link href="#" className="font-bold hover:text-pink-500">
-          <FaInstagram size={18} />
+          <FaInstagram size={isDesktop ? 18 : 14} />
         </Link>
         <Link href="#" className="font-bold hover:text-blue-800">
-          <FaFacebook size={18} />
+          <FaFacebook size={isDesktop ? 18 : 14} />
         </Link>
         <Link href="#" className="font-bold hover:text-red-500">
-          <FaYoutube size={18} />
+          <FaYoutube size={isDesktop ? 18 : 14} />
         </Link>
       </div>
     </div>

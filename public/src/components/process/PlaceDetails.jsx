@@ -10,12 +10,12 @@ export default function PlaceDetails() {
   };
 
   return (
-    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+    <div className="flex flex-col gap-6 md:p-6 p-2 w-full h-full rounded-lg">
       <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
         Confirm your address
       </h2>
       <div className="flex flex-col items-center gap-5 w-full h-full">
-        <div className="flex gap-3 w-full">
+        <div className="flex flex-col md:flex-row gap-3 w-full">
           <div className="w-full">
             <label className="font-bold" htmlFor="country">
               Country
@@ -45,7 +45,7 @@ export default function PlaceDetails() {
             />
           </div>
         </div>
-        <div className="flex gap-3 w-full">
+        <div className="flex flex-col md:flex-row gap-3 w-full">
           <div className="w-full">
             <label className="font-bold" htmlFor="place">
               Area/village
@@ -75,7 +75,7 @@ export default function PlaceDetails() {
             />
           </div>
         </div>
-        <div className="flex gap-3 w-full">
+        <div className="flex flex-col md:flex-row gap-3 w-full">
           <div className="w-full">
             <label className="font-bold" htmlFor="landmark">
               Landmark
@@ -105,7 +105,7 @@ export default function PlaceDetails() {
             />
           </div>
         </div>
-        <div className="flex gap-3 w-full">
+        <div className="flex flex-col md:flex-row gap-3 w-full">
           <div className="w-full">
             <label className="font-bold" htmlFor="postcode">
               PIN

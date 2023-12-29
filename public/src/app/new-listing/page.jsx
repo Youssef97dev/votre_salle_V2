@@ -16,19 +16,19 @@ import React, { useEffect, useState } from "react";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 import { getListing } from "airbnb/lib/lisitng";
 
-import 'airbnb/styles/tailwind.css';
+import "airbnb/styles/tailwind.css";
 
 function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
 
-  const { 
-    resetNewListingData, 
-    currentListing, 
-    setCurrentListing, 
+  const {
+    resetNewListingData,
+    currentListing,
+    setCurrentListing,
     setLocationType,
-    setMapData, 
+    setMapData,
     setLocationData,
     setPlaceAmenities,
     setPhotos,
@@ -37,10 +37,10 @@ function Page() {
     setPrice,
     setTax,
     setPriceB2b,
-    setPlaceSpace, 
+    setPlaceSpace,
   } = userAppStore();
 
-  const [listingId, setListingId] = useState('');
+  const [listingId, setListingId] = useState("");
 
   useEffect(() => {
     resetNewListingData();
@@ -56,12 +56,12 @@ function Page() {
       setLocationData(data?.locationData);
       setPlaceAmenities(data?.placeAmeneties);
       setPhotos(data?.photos);
-      setTitle(data?.title)
-      setDescription(data?.description)
-      setPrice(data?.price)
-      setTax(parseInt(data?.tax))
-      setPriceB2b(data?.priceB2b)
-      setPlaceSpace({guests:data?.placeSpace?.guests})
+      setTitle(data?.title);
+      setDescription(data?.description);
+      setPrice(data?.price);
+      setTax(parseInt(data?.tax));
+      setPriceB2b(data?.priceB2b);
+      setPlaceSpace({ guests: data?.placeSpace?.guests });
       console.log(data);
     };
     if (listingId) getData();
@@ -103,7 +103,7 @@ function Page() {
   };
 
   return (
-    <div className=" grid grid-rows-new-listing h-[120vh]">
+    <div className="max-h-[100vh] h-[100vh] space-y-3">
       <header className="flex items-center px-10 lg:px-20 justify-between">
         <div className="cursor-pointer" onClick={() => router.push("/")}>
           <AirBnbLogoShort />
@@ -114,14 +114,14 @@ function Page() {
           </button>
         )}
       </header>
-      <div className="flex gap-2 items-end font-bold mx-[400px]">
+      <div className="flex gap-2 items-end font-bold mx-4 md:mx-[150px] lg:mx-[200px] 2lg:mx-[350px] xl:mx-[400px]">
         <span className="font-extrabold text-4xl text-[#3b3f5c]">{step}</span>
         <span>/ 10</span>
       </div>
-      <div className="flex justify-center items-center mx-[400px] border border-[#e0e6ed] shadow-lg rounded-lg ">
+      <div className="flex justify-center items-center mx-4 md:mx-[150px] lg:mx-[200px] 2lg:mx-[350px] xl:mx-[400px] border border-[#e0e6ed] shadow-lg rounded-lg ">
         {getComponent()}
       </div>
-      <div className="flex justify-end items-center gap-5 mx-[400px] ">
+      <div className="flex justify-end items-center gap-5 mx-4 md:mx-[150px] lg:mx-[200px] 2lg:mx-[350px] xl:mx-[400px]  ">
         {step >= 2 && step <= 9 ? (
           <button
             onClick={handlePrevious}
@@ -135,7 +135,7 @@ function Page() {
             onClick={handleNext}
             className="btn btn-primary rounded-3xl font-bold"
           >
-            {listingId !== '' ? 'Update Your Hall' : 'Add Your Hall'}
+            {listingId !== "" ? "Update Your Hall" : "Add Your Hall"}
           </button>
         ) : (
           step <= 8 && (

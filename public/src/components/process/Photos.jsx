@@ -11,7 +11,7 @@ export default function Photos() {
     setPhotos([...photos, data.info.secure_url]);
   };
   return (
-    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+    <div className="flex flex-col gap-6 p-2 md:p-6 w-full h-full rounded-lg">
       <div className="pb-5 border-b border-[#dbdcdf] w-fit">
         <h2 className="font-extrabold text-2xl">
           Add some photos of your house

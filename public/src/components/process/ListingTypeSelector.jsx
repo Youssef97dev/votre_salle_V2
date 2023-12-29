@@ -10,7 +10,7 @@ export default function ListingTypeSelector() {
   };
 
   return (
-    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+    <div className="flex flex-col gap-6 p-2 md:p-6 w-full h-full rounded-lg">
       <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
         Which of these best describes your place?
       </h2>

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import Map from "react-map-gl";
 import GeocoderControl from "./geocoder-control";
 import { userAppStore } from "airbnb/store/store";
@@ -20,7 +19,7 @@ export default function PlaceLocation() {
       district: "",
       region: "",
       country: "",
-      tour:"",
+      tour: "",
     };
     result?.context?.forEach((item) => {
       Object.keys(data)?.forEach((key) => {
@@ -32,22 +31,12 @@ export default function PlaceLocation() {
     setMapData({ latitude, longitude });
     setLocationData({ ...data });
   };
-
-  /*const mapStyles = {
-    height: '400px',
-    width: '100%'
-  };
-
-  const defaultCenter = {
-    lat: mapData !== undefined ? mapData?.longitude : -8.008889,
-    lng: mapData !== undefined ? mapData?.latitude : 31.63,
-  };*/ // Default center coordinates
   return (
-    <div className="flex flex-col gap-6 p-6 w-full h-full rounded-lg">
+    <div className="flex flex-col gap-6 p-2 md:p-6 w-full h-full rounded-lg">
       <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
         Choose your location
       </h2>
-      <div className="w-full h-full rounded-lg">
+      <div className="w-full h-full bg-slate-600 rounded-lg">
         <Map
           initialViewState={{
             longitude: mapData !== undefined ? mapData?.longitude : -8.008889,
@@ -67,15 +56,6 @@ export default function PlaceLocation() {
             onError={() => {}}
           />
         </Map>
-        {/*<LoadScript googleMapsApiKey="AIzaSyBFcCNJN6OyB-NIy-fNTO5lQ1KVx2TCGQ4">
-          <GoogleMap
-            mapContainerStyle={mapStyles}
-            zoom={13}
-            center={defaultCenter}
-          >
-            <Marker position={defaultCenter} />
-          </GoogleMap>
-      </LoadScript>*/}
       </div>
     </div>
   );
