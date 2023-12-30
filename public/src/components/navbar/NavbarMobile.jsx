@@ -11,9 +11,9 @@ import {
 } from "react-icons/ai";
 import { PiSignIn } from "react-icons/pi";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { FaRegBuilding } from "react-icons/fa";
-import { RiReservedLine } from "react-icons/ri";
+import { CiMap } from "react-icons/ci";
 import { CgMenuGridO } from "react-icons/cg";
+import { AiOutlineUnorderedList } from "react-icons/ai";
 
 // Components
 import ScheduleMobile from "../common/ScheduleMobile";
@@ -23,7 +23,8 @@ const NavbarMobile = () => {
   const router = useRouter();
   const pathname = usePathname();
   const {
-    setAuthModal,
+    isMapView,
+    setMapView,
     userInfo,
     showScheduleBar,
     setShowScheduleBar,
@@ -35,33 +36,27 @@ const NavbarMobile = () => {
     <div className="fixed bottom-2 left-4 rounded-full w-[90%] bg-white opacity-80 backdrop-filter backdrop-blur-md z-50 shadow-xl border border-[#9095a086]">
       {!userInfo ? (
         <ul className="flex justify-evenly gap-3">
-          <li className="px-2 py-1 flex flex-col gap-1 justify-center items-center">
+          <li className="px-2 py-1 flex flex-col gap-1 justify-center items-center font-bold">
             <button onClick={setShowScheduleBar}>
-              <AiOutlineSearch size={20} color="#9095a0" />
+              <AiOutlineSearch size={20} color="#58418b" />
             </button>
-            <span className="text-[10px] text-[#9095a0] font-medium">
-              Explore
-            </span>
+            <span className="text-[10px] text-[#58418b]">Explore</span>
           </li>
-          <li className="px-2 py-1 flex flex-col gap-1 justify-center items-center">
-            <button onClick={setAuthModal}>
-              <AiOutlineUserAdd size={20} color="#9095a0" />
+          <li className="px-2 py-1 flex flex-col gap-1 justify-center items-center font-bold">
+            <button onClick={() => router.push("auth/signup")}>
+              <AiOutlineUserAdd size={20} color="#58418b" />
             </button>
-            <span className="text-[10px] text-[#9095a0] font-medium">
-              Sign-Up
-            </span>
+            <span className="text-[10px] text-[#58418b]">Sign-Up</span>
           </li>
-          <li className="px-2 py-1 flex flex-col gap-1 justify-center items-center">
-            <button onClick={setAuthModal}>
-              <PiSignIn size={20} color="#9095a0" />
+          <li className="px-2 py-1 flex flex-col gap-1 justify-center items-center font-bold">
+            <button onClick={() => router.push("auth/signin")}>
+              <PiSignIn size={20} color="#58418b" />
             </button>
-            <span className="text-[10px] text-[#9095a0] font-medium">
-              Sign-In
-            </span>
+            <span className="text-[10px] text-[#58418b]">Sign-In</span>
           </li>
         </ul>
       ) : (
-        <ul className="flex justify-evenly items-center gap-2">
+        <ul className="flex justify-evenly items-center gap-1">
           <li
             className={`px-1 py-1 flex flex-col gap-1 justify-center items-center font-bold`}
           >
@@ -102,14 +97,24 @@ const NavbarMobile = () => {
               <span className="text-[10px] text-[#58418b]">Add Hall</span>
             </li>
           )}
-          {userInfo.roles[0] === "owner" && (
-            <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
-              <button onClick={() => setSidebarMenuOpen(true)}>
-                <CgMenuGridO size={20} color={"#58418b"} />
-              </button>
-              <span className={`text-[10px]  text-[#58418b]`}>Menu</span>
-            </li>
-          )}
+          <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
+            <button onClick={() => setMapView()}>
+              {!isMapView ? (
+                <CiMap size={20} color={"#58418b"} />
+              ) : (
+                <AiOutlineUnorderedList size={20} color={"#58418b"} />
+              )}
+            </button>
+            <span className={`text-[10px]  text-[#58418b]`}>
+              {!isMapView ? "Show Map" : "Show List"}
+            </span>
+          </li>
+          <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
+            <button onClick={() => setSidebarMenuOpen(true)}>
+              <CgMenuGridO size={20} color={"#58418b"} />
+            </button>
+            <span className={`text-[10px]  text-[#58418b]`}>Menu</span>
+          </li>
         </ul>
       )}
       {/* Search popup */}

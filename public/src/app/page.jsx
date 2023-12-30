@@ -30,7 +30,7 @@ import Filter from "airbnb/components/modals/Filter";
 export default function Home() {
   const searchParams = useSearchParams();
   const [locationType, setLocationType] = useState("All");
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const [showFilter, setShowFilter] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const {
@@ -136,7 +136,7 @@ export default function Home() {
                 <SwiperSlide className="!w-fit">
                   <div
                     onClick={() => setLocationType("All")}
-                    className="w-max flex flex-col items-center justify-between h-16 cursor-pointer hover:text-[#3232FF] text-[#000033]"
+                    className="w-max flex flex-col items-center justify-between h-fit cursor-pointer hover:text-[#3232FF] text-[#000033]"
                   >
                     <span className="h-10 w-10  flex items-center justify-center">
                       <Dammuso />
@@ -153,7 +153,7 @@ export default function Home() {
                   <SwiperSlide className="!w-fit" key={index}>
                     <div
                       onClick={() => setLocationType(data.name)}
-                      className="w-max flex flex-col items-center justify-between h-16 cursor-pointer hover:text-[#3232FF] text-[#000033]"
+                      className="w-max flex flex-col items-center justify-between h-fit cursor-pointer hover:text-[#3232FF] text-[#000033]"
                     >
                       <span className="h-10 w-10  flex items-center justify-center">
                         {data.svgPath}

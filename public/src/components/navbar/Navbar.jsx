@@ -87,13 +87,6 @@ function Navbar() {
         </div>
         <div className="md:flex-grow md:basis-0 hidden md:block">
           <ul className="flex items-center justify-end gap-6 font-medium">
-            {userInfo && (
-              <li className="cursor-pointer font-semibold">
-                <span>
-                  {userInfo.firstName} {userInfo.lastName}
-                </span>
-              </li>
-            )}
             <li className="cursor-pointer">
               <FiGlobe />
             </li>
