@@ -106,13 +106,18 @@ function Navbar() {
                       </>
                     }
                   >
-                    <ul className="!min-w-[400px] space-y-3">
+                    <ul className="!min-w-[400px] space-y-3 overflow-y-scroll h-[500px]">
                       <li className="font-bold text-xl p-1">Notifications</li>
-                      {userInfo?.notifications?.map((notification, index) => (
-                        <li key={index}>
-                          <Notifications notification={notification} />
-                        </li>
-                      ))}
+                      {userInfo?.notifications
+                        ?.sort(
+                          (a, b) =>
+                            new Date(b.createdAt) - new Date(a.createdAt)
+                        )
+                        .map((notification, index) => (
+                          <li key={index}>
+                            <Notifications notification={notification} />
+                          </li>
+                        ))}
                     </ul>
                   </Dropdown>
                 </div>

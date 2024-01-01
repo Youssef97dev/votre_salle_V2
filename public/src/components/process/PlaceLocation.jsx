@@ -8,6 +8,9 @@ const TOKEN =
 
 export default function PlaceLocation() {
   const { setMapData, mapData, setLocationData } = userAppStore();
+  useEffect(() => {
+    console.log(mapData);
+  }, []);
   const getResults = ({ result }) => {
     const [longitude, latitude] = result?.geometry?.coordinates;
     const data = {
@@ -36,7 +39,7 @@ export default function PlaceLocation() {
       <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
         Choose your location
       </h2>
-      <div className="w-full h-full bg-slate-600 rounded-lg">
+      <div className="w-full h-96 bg-slate-600 rounded-lg">
         <Map
           initialViewState={{
             longitude: mapData !== undefined ? mapData?.longitude : -8.008889,
