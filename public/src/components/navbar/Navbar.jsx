@@ -168,7 +168,7 @@ function Navbar() {
         </div>
       )}
       {showScheduleBar && !isDesktop && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80 z-[60]">
           <ScheduleMobile />
         </div>
       )}
