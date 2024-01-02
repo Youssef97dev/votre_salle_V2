@@ -21,6 +21,7 @@ const page = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -116,15 +117,7 @@ const page = () => {
       !validateField("password", password, /[A-Z]/, 8) ||
       !validateField("password", password, /[a-z]/) ||
       !validateField("password", password, /\d/) ||
-      !validateField("password", password, /[!@#$%&*=]/) ||
-      (role === "owner" &&
-        !validateField("rc", companyInfo.rc, /^[0-9]+$/, 4, 10)) ||
-      (role === "owner" &&
-        !validateField("idFiscale", companyInfo.idFiscale, /^[0-9]+$/, 5, 10)) ||
-      (role === "owner" &&
-        !validateField("cnss", companyInfo.cnss, /^[0-9]+$/, 6, 10)) ||
-      (role === "owner" &&
-        !validateField("ice", companyInfo.ice, /^[0-9]+$/, 9, 10))
+      !validateField("password", password, /[!@#$%&*=]/)
     ) {
       setLoadingSend(false);
       return;
@@ -244,6 +237,19 @@ const page = () => {
             />
           </div>
           <div>
+            <label htmlFor="phone">Phone</label>
+            <input
+              id="phone"
+              type="phone"
+              className={`form-input ${
+                WhichField === "phone" ? "border-2 border-[#e2a03f]" : ""
+              }  `}
+              placeholder="Enter phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+          <div>
             <label htmlFor="password">Password</label>
             <input
               id="password"
@@ -257,186 +263,18 @@ const page = () => {
             />
           </div>
           <div>
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <input
-              id="phone"
-              type="phone"
+              id="confirmPassword"
+              type="password"
               className={`form-input ${
-                WhichField === "phone" ? "border-2 border-[#e2a03f]" : ""
+                WhichField === "confirmPassword" ? "border-2 border-[#e2a03f]" : ""
               }  `}
-              placeholder="Enter phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              placeholder="confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <div
-              onClick={() => setRole("user")}
-              className={`py-2 rounded border w-full cursor-pointer text-center ${
-                role === "user"
-                  ? "bg-[#1b4db98e] border-[#1b4db98e] text-[#fff]"
-                  : "border-[#9095a086] hover:bg-[#1b4db98e] hover:border-[#1b4db98e] hover:text-[#fff]"
-              }`}
-            >
-              User
-            </div>
-            <div
-              onClick={() => setRole("owner")}
-              className={`py-2 rounded border w-full cursor-pointer text-center ${
-                role === "owner"
-                  ? "bg-[#1b4db98e] border-[#1b4db98e] text-[#fff]"
-                  : "border-[#9095a086] hover:bg-[#1b4db98e] hover:border-[#1b4db98e] hover:text-[#fff]"
-              }`}
-            >
-              Owner
-            </div>
-          </div>
-          {role === "owner" && (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <div>
-                  <label htmlFor="rc">R.C</label>
-                  <input
-                    id="rc"
-                    name="rc"
-                    type="text"
-                    className={`form-input ${
-                      WhichField === "rc" ? "border-2 border-[#e2a03f]" : ""
-                    }  `}
-                    placeholder="Enter RC"
-                    onChange={(e) =>
-                      setCompanyInfo({
-                        ...companyInfo,
-                        [e.target.name]: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div>
-                  <label htmlFor="cnss">C.N.S.S</label>
-                  <input
-                    id="cnss"
-                    name="cnss"
-                    type="text"
-                    className={`form-input ${
-                      WhichField === "cnss" ? "border-2 border-[#e2a03f]" : ""
-                    }  `}
-                    placeholder="Enter cnss"
-                    onChange={(e) =>
-                      setCompanyInfo({
-                        ...companyInfo,
-                        [e.target.name]: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <div>
-                  <label htmlFor="if">I.F</label>
-                  <input
-                    id="if"
-                    name="idFiscale"
-                    type="text"
-                    className={`form-input ${
-                      WhichField === "idFiscale"
-                        ? "border-2 border-[#e2a03f]"
-                        : ""
-                    }  `}
-                    placeholder="Enter IF"
-                    onChange={(e) =>
-                      setCompanyInfo({
-                        ...companyInfo,
-                        [e.target.name]: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div>
-                  <label htmlFor="ice">I.C.E</label>
-                  <input
-                    id="ice"
-                    name="ice"
-                    type="text"
-                    className={`form-input ${
-                      WhichField === "ice" ? "border-2 border-[#e2a03f]" : ""
-                    }  `}
-                    placeholder="Enter ICE"
-                    onChange={(e) =>
-                      setCompanyInfo({
-                        ...companyInfo,
-                        [e.target.name]: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-              <div
-                className="custom-file-container"
-                data-upload-id="myFirstImage"
-              >
-                <div className="label-container">
-                  <label>Logo </label>
-                  <button
-                    type="button"
-                    className="custom-file-container__image-clear"
-                    title="Clear Image"
-                    onClick={() => {
-                      setImages([]);
-                    }}
-                  >
-                    ×
-                  </button>
-                </div>
-                <label className="custom-file-container__custom-file"></label>
-                <input
-                  type="file"
-                  className="custom-file-container__custom-file__custom-file-input"
-                  accept="image/*"
-                />
-                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                <ImageUploading
-                  value={images}
-                  onChange={handleImageUpload}
-                  maxNumber={maxNumber}
-                >
-                  {({ imageList, onImageUpload }) => (
-                    <div className="upload__image-wrapper">
-                      <button
-                        type="button"
-                        className="custom-file-container__custom-file__custom-file-control"
-                        onClick={onImageUpload}
-                      >
-                        Choose File...
-                      </button>
-                      &nbsp;
-                      {imageList.map((image, index) => (
-                        <div
-                          key={index}
-                          className="custom-file-container__image-preview relative"
-                        >
-                          <img
-                            src={image.dataURL}
-                            alt="img"
-                            className="m-auto"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </ImageUploading>
-                {/*images.length === 0 ? (
-                  <img
-                    src="/assets/images/file-preview.svg"
-                    className="max-w-md w-full m-auto"
-                    alt=""
-                  />
-                ) : (
-                  ""
-                )*/}
-              </div>
-            </>
-          )}
           <div>
             <label className="cursor-pointer inline-flex items-center">
               <input type="checkbox" className="form-checkbox" />

@@ -38,7 +38,7 @@ export const signup = async (
     formData.append("typeUser", "B2C");
     formData.append("roles", roles);
     formData.append("companyInfo", JSON.stringify(companyInfo));
-    formData.append("profileLogo", selectedFile);
+    formData.append("pack", null);
     const result = await post(createUrl("/api/signup"), formData);
     setStoredJwt(result.data.accessToken);
     return me();

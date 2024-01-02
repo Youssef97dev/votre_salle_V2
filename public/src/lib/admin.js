@@ -70,6 +70,37 @@ export const confirmChangeRoleUser = async (userId, role) => {
   }
 };
 
+export const addOwner = async (
+  username,
+  password,
+  firstName,
+  lastName,
+  phone,
+  adresse,
+  pack,
+  companyInfo,
+  selectedFile
+) => {
+  try {
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("phone", phone);
+    formData.append("adresse", adresse);
+    formData.append("pack", pack);
+    formData.append("typeUser", "B2C");
+    formData.append("roles", ["owner"]);
+    formData.append("companyInfo", JSON.stringify(companyInfo));
+    formData.append("profileLogo", selectedFile);
+    const result = await post(createUrl("/api/signup"), formData);
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 // Charts
 export const getCount = async (titleLink) => {
   try {

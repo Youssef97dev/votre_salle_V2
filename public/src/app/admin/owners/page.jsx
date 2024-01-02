@@ -19,6 +19,7 @@ import Spinner from "airbnb/components/common/Spinner";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
+import AddOwner from "../components/AddOwner";
 
 // Hooks
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
@@ -40,6 +41,8 @@ const page = () => {
   const [relaunchData, setRelaunchData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
+
+  const [showAddOwner, setShowAddOwner] = useState(false);
 
   const PAGE_SIZES = [7, 10, 20, 30, 50, 100];
   const [page, setPage] = useState(1);
@@ -221,7 +224,7 @@ const page = () => {
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 </div>
-                <button className="btn btn-primary flex items-center gap-3 whitespace-nowrap">
+                <button onClick={() => setShowAddOwner(true)} className="btn btn-primary flex items-center gap-3 whitespace-nowrap">
                     <MdAddRoad size={18} /> Add Owner
                 </button>
               </div>
@@ -350,6 +353,7 @@ const page = () => {
             </div>
           </div>
           <CompactFooter />
+          {showAddOwner && <AddOwner showAddOwner={showAddOwner} setShowAddOwner={setShowAddOwner} setRelaunchData={setRelaunchData} />}
           {!isDesktop && <NavbarMobile />}
         </div>
       )}

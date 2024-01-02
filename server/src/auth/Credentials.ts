@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { InputType, Field } from "@nestjs/graphql";
-import { IsString } from "class-validator";
-import { JsonValue } from "type-fest";
+import { IsNumber, IsString } from "class-validator";
+import { Integer, JsonValue } from "type-fest";
 import { IsJSONValue } from "../validators";
 import GraphQLJSON from "graphql-type-json";
 
@@ -88,6 +88,14 @@ export class SignupCredentials {
   @IsString()
   @Field(() => String, { nullable: false })
   adresse!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String, { nullable: false })
+  pack!: string
 
   @ApiProperty({
     required: false,

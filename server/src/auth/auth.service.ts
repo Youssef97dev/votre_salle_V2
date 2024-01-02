@@ -61,15 +61,16 @@ export class AuthService {
   ): Promise<UserInfo> {
     // Extract the username and password from the body of the request
     const {
-      username,
-      password,
       firstName,
       lastName,
-      roles,
+      username,
+      password,
       phone,
-      typeUser,
       adresse,
+      pack,
       companyInfo,
+      roles,
+      typeUser,
     } = credentials;
     // Here we attempt to create a new user
     const user = await this.userService.createUser({
@@ -78,11 +79,12 @@ export class AuthService {
         password,
         firstName,
         lastName,
-        companyInfo:
+        companyInfo: companyInfo && 
           typeof companyInfo === "string" ? JSON.parse(companyInfo) : null,
         phone,
         typeUser,
         adresse,
+        pack: Number(pack),
         roles: [roles],
         profileLogo: profileLogo ? profileLogo.filename : null,
       },
