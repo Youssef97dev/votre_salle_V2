@@ -45,12 +45,17 @@ export class InvoiceService extends InvoiceServiceBase {
         ),
         endDate: moment(invoice.trips.tripinfo.endDate).format("DD/MM/YYYY"),
         days: invoice.trips.tripinfo.days,
+        listingPriceHT: invoice.trips.tripinfo. listingPrice,
         priceHT: invoice.trips.tripinfo.priceHT,
         taxPrice: invoice.trips.tripinfo.taxPrice,
         price: invoice.trips.tripinfo.price,
         profileLogo: dataURL,
         adresse: invoice.user.adresse,
         fullName: invoice.user.firstName + " " + invoice.user.lastName,
+        ice: invoice.user.companyInfo.ice,
+        idFiscale: invoice.user.companyInfo.idFiscale,
+        cnss: invoice.user.companyInfo.cnss,
+        rc: invoice.user.companyInfo.rc,
       };
       const browser = await puppeteer.launch();
       const page = await browser.newPage();

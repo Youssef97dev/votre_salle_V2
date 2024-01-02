@@ -15,50 +15,47 @@
     </style>
   </head>
 
-  <body>
+  <body class="relative">
     <div class="flex flex-col gap-2 px-5">
       <div class="flex flex-row justify-between items-center text-gray-800">
         <div
           class="text-[55px]"
           style="font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'sans-serif';"
         >FACRTURE</div>
-        <img src="{{profileLogo}}" width="250" height="250" alt="" />
+        <img src="{{profileLogo}}" width="200" height="200" alt="" />
       </div>
       <div
         class="flex flex-row justify-between items-center text-gray-800"
         style="font-family: 'Courier New', Courier, monospace;"
       >
-        <div class="flex flex-col text-[20px]">
+        <div class="flex flex-col">
+          <span>Client : test</span>
           <span>Facture N° : {{id}}</span>
           <span>Date : {{createdAt}}</span>
+          <span>Du {{startDate}} au {{endDate}}</span>
         </div>
-        <div class="pr-10">
-          {{fullName}}
-          <br />
-          {{adresse}}
-          <br />03200 VICHY
+        <div class="flex flex-col pr-10">
+          <span>{{fullName}}</span>
+          <span class="whitespace-break-spaces">{{adresse}}</span>
         </div>
       </div>
       <table class="table-fixed mt-10 text-[16px]">
         <thead>
           <tr align="left">
             <th>SALLE</th>
-            <th>DATE ENTRER</th>
-            <th>DATE SORTIR</th>
-            <th>JOURNEES</th>
-            <th>PRIX</th>
+            <th>UNITE</th>
+            <th>PU HT</th>
+            <th>PRIX HT</th>
           </tr>
         </thead>
         <tbody align="left">
           <tr class="text-gray-800">
             <td class="pt-[1rem]">{{title}}</td>
-            <td class="pt-[1rem]">{{startDate}}</td>
-            <td class="pt-[1rem]">{{endDate}}</td>
             <td class="pt-[1rem]">{{days}}</td>
+            <td class="pt-[1rem]">{{listingPriceHT}}</td>
             <td class="pt-[1rem]">{{priceHT}} MAD</td>
           </tr>
           <tr>
-            <td></td>
             <td></td>
             <td></td>
             <th class="pt-[3rem]">Sous Total HT</th>
@@ -67,12 +64,10 @@
           <tr>
             <td></td>
             <td></td>
-            <td></td>
             <th class="pt-[1rem]">Total TVA</th>
             <td class="text-gray-800 pt-[1rem]">{{taxPrice}} MAD</td>
           </tr>
           <tr>
-            <td></td>
             <td></td>
             <td></td>
             <th class="pt-[1rem]">Total</th>
@@ -81,21 +76,16 @@
         </tbody>
       </table>
       <div
-        class="flex flex-row justify-between items-end mt-20 text-gray-800"
+        class=" absolute bottom-4 w-[95%] flex flex-col items-center text-gray-800 border-t border-slate-600"
         style="font-family: 'Courier New', Courier, monospace;"
       >
-        <div class="flex flex-col text-[20px]">
-          <span class="font-extrabold text-[30px] mb-4">L'OBJECTIF</span>
-          <span>0123456789</span>
-          <span>14,AVENUE ZOLA, 75010</span>
-          <span>Paris</span>
-        </div>
-        <div class="pr-10">
-          M.DREDERIC SAMSON
-          <br />
-          24,RUE DESAIX,
-          <br />03200 VICHY
-        </div>
+          <div class="flex flex-row justify-evenly items-center w-full">
+            <span>ICE: {{ice}}</span>
+          <span>RC: {{rc}}</span>
+          <span>IF: {{idFiscale}}</span>
+          <span>CNSS: {{cnss}}</span>
+          </div>
+          <span>Adresse: {{adresse}}</span>
       </div>
     </div>
   </body>
