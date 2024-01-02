@@ -1,5 +1,5 @@
 import AnimateHeight from "react-animate-height";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SearchAddress from "../SearchScheduler/SearchAddress";
 import SearchBeds from "../SearchScheduler/SearchBeds";
@@ -48,6 +48,10 @@ const ScheduleMobile = () => {
       setShowScheduleBar();
     }
   };
+
+  useEffect(() => {
+    setSelectionType("where");
+  },[])
 
   return (
     <div className="relative h-full w-full  bg-[#F7F7F7] px-2 pt-5 overflow-hidden">

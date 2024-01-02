@@ -5,6 +5,8 @@ const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
 
+import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
+
 import { userAppStore } from "airbnb/store/store";
 import React, { useEffect } from "react";
 import SearchMap from "./components/SearchMap";
@@ -53,7 +55,7 @@ export default function Page() {
         {/*<div className="">{isDesktop && <SearchMap />}</div>*/}
       </div>
       <CompactFooter />
-      {isAuthModalOpen && <AuthModal />}
+      {!isDesktop && <NavbarMobile />}
     </div>
   );
 }

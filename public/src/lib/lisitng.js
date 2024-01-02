@@ -154,10 +154,10 @@ export const getSearchListing = async (searchTerm) => {
       ? result.data.filter(
           (listing) =>
             !listing.trips.some((trip) => {
-              const tripStartDate = new Date(trip.tripinfo.startDate);
-              const tripEndDate = new Date(trip.tripinfo.endDate);
-              const searchStartDate = new Date(searchTerm.tripDate.startDate);
-              const searchEndDate = new Date(searchTerm.tripDate.endDate);
+              const tripStartDate = new Date(trip?.tripinfo?.startDate);
+              const tripEndDate = new Date(trip?.tripinfo?.endDate);
+              const searchStartDate = new Date(searchTerm?.tripDate?.startDate);
+              const searchEndDate = new Date(searchTerm?.tripDate?.endDate);
               console.log("tripStartDate", tripStartDate);
               console.log("tripEndDate", tripEndDate);
               console.log("searchStartDate", searchStartDate);
