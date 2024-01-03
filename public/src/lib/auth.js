@@ -22,7 +22,6 @@ export const signup = async (
   firstName,
   lastName,
   phone,
-  adresse,
   roles,
   companyInfo,
   selectedFile
@@ -34,7 +33,7 @@ export const signup = async (
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
     formData.append("phone", phone);
-    formData.append("adresse", adresse);
+    formData.append("adresse", "");
     formData.append("typeUser", "B2C");
     formData.append("roles", roles);
     formData.append("companyInfo", JSON.stringify(companyInfo));

@@ -129,7 +129,6 @@ const page = () => {
       firstName,
       lastName,
       phone,
-      adresse,
       role,
       companyInfo,
       selectedFile
@@ -213,67 +212,61 @@ const page = () => {
               />
             </div>
           </div>
-          <div>
-            <label htmlFor="adresse">Adresse</label>
-            <textarea
-              id="adresse"
-              className="form-input"
-              placeholder="Enter Adresse"
-              value={adresse}
-              onChange={(e) => setAdresse(e.target.value)}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                className={`form-input ${
+                  WhichField === "email" ? "border-2 border-[#e2a03f]" : ""
+                }  `}
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="phone">Phone</label>
+              <input
+                id="phone"
+                type="phone"
+                className={`form-input ${
+                  WhichField === "phone" ? "border-2 border-[#e2a03f]" : ""
+                }  `}
+                placeholder="Enter phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
           </div>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              className={`form-input ${
-                WhichField === "email" ? "border-2 border-[#e2a03f]" : ""
-              }  `}
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="phone">Phone</label>
-            <input
-              id="phone"
-              type="phone"
-              className={`form-input ${
-                WhichField === "phone" ? "border-2 border-[#e2a03f]" : ""
-              }  `}
-              placeholder="Enter phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              className={`form-input ${
-                WhichField === "password" ? "border-2 border-[#e2a03f]" : ""
-              }  `}
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              id="confirmPassword"
-              type="password"
-              className={`form-input ${
-                WhichField === "confirmPassword" ? "border-2 border-[#e2a03f]" : ""
-              }  `}
-              placeholder="confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                className={`form-input ${
+                  WhichField === "password" ? "border-2 border-[#e2a03f]" : ""
+                }  `}
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                id="confirmPassword"
+                type="password"
+                className={`form-input ${
+                  WhichField === "confirmPassword" ? "border-2 border-[#e2a03f]" : ""
+                }  `}
+                placeholder="confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
           </div>
           <div>
             <label className="cursor-pointer inline-flex items-center">
