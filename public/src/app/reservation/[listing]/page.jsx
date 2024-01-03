@@ -1,9 +1,7 @@
 "use client";
-import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 import { userAppStore } from "airbnb/store/store";
 import React, { useEffect, useState, useRef } from "react";
-import dynamic from "next/dynamic";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import { getActiveTrips, addTrip, addToNotification } from "airbnb/lib/lisitng";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,8 +9,8 @@ import Daimond from "airbnb/svg/daimond";
 import Image from "next/image";
 import AnimateHeight from "react-animate-height";
 import { addDays } from "date-fns";
-import { DotLoader } from "react-spinners";
-import Spinner from "airbnb/components/common/Spinner";
+import Swal from "sweetalert2";
+import { BeatLoader } from "react-spinners";
 
 import AirBnbLogoShort from "airbnb/svg/airbnb-logo-short";
 import { AiOutlineLeftCircle } from "react-icons/ai";
@@ -34,7 +32,7 @@ const page = ({ params: { listing } }) => {
   );
 
   // loading
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // Popups and Accordion state
   const [guestsPopup, setGuestsPopup] = useState(false);
@@ -259,7 +257,20 @@ const page = ({ params: { listing } }) => {
       },
     };
 
-    const response = await addTrip(data);
+    const result = await Swal.fire({
+      icon: "info",
+      title: "Reservation confirmation",
+      text: "You will make a reservation to this hall ?",
+      showCancelButton: true,
+      confirmButtonText: "Reserve",
+      cancelButtonText: "Discard",
+      padding: "2em",
+      customClass: "sweet-alerts",
+    });
+
+    if (result.value) {
+      setLoading(true);
+      const response = await addTrip(data);
     if (response) {
       await addToNotification(
         `${userInfo?.firstName} ${userInfo?.lastName}`,
@@ -268,8 +279,12 @@ const page = ({ params: { listing } }) => {
         false,
         reservationData?.listing?.listingCreatedBy?.id
       );
+      setLoading(false);
       router.push("/trips");
     }
+    }
+
+    
   };
 
   return (
@@ -569,9 +584,14 @@ const page = ({ params: { listing } }) => {
           </div>
           <button
             onClick={() => handleReservationSubmit()}
-            className="flex flex-row gap-2 w-full text-center items-center justify-center py-3 bg-slate-600 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer"
+            className="flex flex-row gap-2 w-full text-center items-center justify-center py-3 bg-slate-600 disabled:bg-slate-400 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer"
+            disabled={loading}
           >
-            reserver
+            {!loading ? (
+              "Reserve"
+            ) : (
+              <BeatLoader loading={loading} color="#fff" size={10} />
+            )}
           </button>
         </div>
       </div>
