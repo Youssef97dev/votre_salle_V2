@@ -12,24 +12,31 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import Calender from "airbnb/components/common/Calender";
 
+import { IoIosCalendar } from "react-icons/io";
+import { IoPersonAddOutline } from "react-icons/io5";
+
+import { BeatLoader } from "react-spinners";
+
 export default function TripScheduler() {
   const router = useRouter();
   const { currentListing, userInfo } = userAppStore();
-  const [state, setState] = useState([{
-    startDate: new Date(),
-    endDate: addDays(new Date(), 7),
-    key: "selection",
-  },]);
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 7),
+      key: "selection",
+    },
+  ]);
 
-  const [showCalendar, setShowCalendar] = useState(false)
+  const [showCalendar, setShowCalendar] = useState(false);
   const [guests, setGuests] = useState(0);
   const [loading, setLoading] = useState(false);
   const [activeTripData, setActiveTripData] = useState([]);
   const [desabledDateArray, setDesabledDateArray] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setShowCalendar(false);
-  },[state])
+  }, [state]);
 
   const calculateDaysDifference = () => {
     const startDate = new Date(state[0].startDate);
@@ -41,15 +48,17 @@ export default function TripScheduler() {
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       const data = await getActiveTrips(currentListing.id);
       setActiveTripData(...activeTripData, data);
+      setLoading(false);
     };
     if (userInfo) {
       getData();
     }
   }, []);
 
-const getDates = (startDate, endDate) => {
+  const getDates = (startDate, endDate) => {
     if (startDate && endDate) {
       const start = new Date(startDate.split("T")[0].replace(/-/g, "/"));
       const end = new Date(endDate.split("T")[0].replace(/-/g, "/")) - 1;
@@ -69,15 +78,16 @@ const getDates = (startDate, endDate) => {
   };
 
   const showDate = () => {
-    activeTripData.forEach((trip) => {
-      getDates(trip.tripinfo.startDate, trip.tripinfo.endDate);
-    });
-    setShowCalendar(true);
+    if (!showCalendar) {
+      activeTripData.forEach((trip) => {
+        getDates(trip.tripinfo.startDate, trip.tripinfo.endDate);
+      });
+    }
+    setShowCalendar((prev) => !prev);
   };
 
   const handleReservation = async () => {
     if (userInfo) {
-      setLoading(true);
       const data = {
         listingId: currentListing.id,
         listing: currentListing,
@@ -125,120 +135,142 @@ const getDates = (startDate, endDate) => {
       router.push(
         `/reservation/${currentListing.id}?data=${JSON.stringify(data)}`
       );
-      setLoading(false);
       //}
     }
   };
 
   return (
     <div className="sticky top-0 w-full flex flex-col gap-6 items-center justify-center">
-      <div className=" lg:border lg:border-gray-400 rounded-lg shadow-lg flex p-2 lg:p-4 gap-2 items-start px-4 lg:px-8 flex-col w-full">
-        <div className="flex gap-1 text-lg">
-          <span className="font-bold ">
-            {userInfo?.typeUser === "B2B"
-              ? currentListing.priceB2b.toFixed(2)
-              : currentListing.price.toFixed(2)}{" "}
-            MAD
-          </span>
-          <span>day</span>
-        </div>
-        <div className="flex flex-col w-full">
-          <div className="grid grid-cols-2 w-full">
-            <div onClick={()=> showDate()} className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
-              <label className="font-semibold text-xs">CHECK-IN</label>
-              <span>{state[0].startDate.toLocaleDateString()}</span>
-              {showCalendar && <div className="absolute right-2 top-12">
-              <Calender
-                  state={state}
-                  setState={setState}
-                  disabledDates={desabledDateArray}
-                />
-              </div>}
+      <div className=" lg:border lg:border-[#d1d5db] rounded-xl shadow-lg flex p-2 lg:p-4 gap-2 items-center px-4 lg:px-8 flex-col w-full">
+        {loading ? (
+          <>
+            <BeatLoader loading={loading} color="#3b3f5c" size={15} />
+          </>
+        ) : (
+          <>
+            <div className="flex gap-1 font-bold">
+              <span className=" text-lg">
+                {userInfo?.typeUser === "B2B"
+                  ? currentListing.priceB2b.toFixed(2)
+                  : currentListing.price.toFixed(2)}{" "}
+                MAD
+              </span>
+              <span className="text-base self-end text-[#6e7582]">/ day</span>
             </div>
-            <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tr-md cursor-pointer">
-              <label onClick={()=> showDate()} className="font-semibold text-xs">CHECK-OUT</label>
-              <span>{state[0].endDate.toLocaleDateString()}</span>
-              {showCalendar && <div className="absolute right-2 top-12">
-              <Calender
-                  state={state}
-                  setState={setState}
-                  disabledDates={desabledDateArray}
-                />
-              </div>}
-            </div>
-          </div>
-          <div>
-            <div>
-              <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-b-md cursor-pointer">
-                <label className="font-semibold text-xs">GUESTS</label>
-                <input
-                  type="number"
-                  className="text-sm px-1 py-1 border-none outline-none"
-                  value={guests}
-                  onChange={(e) => setGuests(e.target.value)}
-                />
+            <div className="flex flex-col w-full">
+              <div
+                onClick={() => showDate()}
+                className="relative flex items-center gap-3 w-full border-t border-r border-l border-gray-300 p-2 rounded-t-xl cursor-pointer font-bold hover:shadow-lg"
+              >
+                <IoIosCalendar color="#d1d5db" size={28} />
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-3 w-full">
+                    <span>
+                      {state[0].startDate.toLocaleDateString(undefined, {
+                        month: "short",
+                        day: "2-digit",
+                      })}
+                    </span>
+                    {" - "}
+                    <span>
+                      {state[0].endDate.toLocaleDateString(undefined, {
+                        month: "short",
+                        day: "2-digit",
+                      })}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 w-full">
+                    <label className="text-xs text-[#6e7582]">CHECK-IN</label>
+                    <label className="text-xs text-[#6e7582]">-</label>
+                    <label className="text-xs text-[#6e7582]">CHECK-OUT</label>
+                  </div>
+                </div>
+                {showCalendar && (
+                  <div className="absolute right-0 top-16 shadow-lg rounded-lg">
+                    <Calender
+                      state={state}
+                      setState={setState}
+                      disabledDates={desabledDateArray}
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center gap-3 w-full border border-gray-300 p-2 rounded-b-xl cursor-pointer font-bold hover:shadow-lg">
+                <IoPersonAddOutline color="#d1d5db" size={28} />
+                <div className="flex flex-col gap-1 w-full">
+                  <span>{guests} Guests</span>
+                  <input
+                    type="number"
+                    className="w-full text-xs px-1 py-1 border-none outline-none"
+                    value={guests}
+                    onChange={(e) => setGuests(e.target.value)}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <button
-          className="bg-airbnb-gradient py-3 mt-5  px-5 flex flex-row justify-center items-center gap-3 text-white text-base font-medium rounded-md cursor-pointer w-full"
-          onClick={handleReservation}
-          //onClick={() => router.push(`/reservation/${currentListing.id}`)}
-          disabled={
-            loading ||
-            (guests > currentListing.placeSpace.guests ? true : false)
-          }
-        >
-          <ClockLoader color="#fbfffe" loading={loading} size={25} /> Reserve
-        </button>
-        <span className="text-center w-full">You won't be charged yet</span>
-        <div className="flex  justify-between w-full">
-          <span>
-            {userInfo?.typeUser === "B2B"
-              ? currentListing.priceB2b.toFixed(2)
-              : currentListing.price.toFixed(2)}{" "}
-            MAD x {calculateDaysDifference()} days
-          </span>
-          <span>
-            {(
-              (userInfo?.typeUser === "B2B"
-                ? currentListing.priceB2b
-                : currentListing.price) * calculateDaysDifference()
-            ).toFixed(2)}{" "}
-            MAD
-          </span>
-        </div>
-        <div className="flex  justify-between w-full">
-          <span>TVA</span>
-          <span>
-            {(
-              (userInfo?.typeUser === "B2B"
-                ? currentListing.priceB2b
-                : currentListing.price) *
-              calculateDaysDifference() *
-              (currentListing.tax / 100)
-            ).toFixed(2)}{" "}
-            MAD
-          </span>
-        </div>
-        <div className="flex  justify-between w-full">
-          <span>Total After Taxe</span>
-          <span>
-            {(
-              (userInfo?.typeUser === "B2B"
-                ? currentListing.priceB2b
-                : currentListing.price) *
-                calculateDaysDifference() *
-                (currentListing.tax / 100) +
-              (userInfo?.typeUser === "B2B"
-                ? currentListing.priceB2b
-                : currentListing.price) *
-                calculateDaysDifference()
-            ).toFixed(2)}{" "}
-            MAD
-          </span>
-        </div>
+            <span className="text-center w-full font-bold text-[#6e7582]">
+              You won't be charged yet
+            </span>
+            <div className="flex justify-between w-full text-sm text-[#6e7582]">
+              <span>
+                {userInfo?.typeUser === "B2B"
+                  ? currentListing.priceB2b.toFixed(2)
+                  : currentListing.price.toFixed(2)}{" "}
+                MAD x {calculateDaysDifference()} days
+              </span>
+              <span>
+                {(
+                  (userInfo?.typeUser === "B2B"
+                    ? currentListing.priceB2b
+                    : currentListing.price) * calculateDaysDifference()
+                ).toFixed(2)}{" "}
+                MAD
+              </span>
+            </div>
+            <div className="flex  justify-between w-full text-sm pb-4 border-b border-[#d1d5db] text-[#6e7582]">
+              <span>TVA</span>
+              <span>
+                {(
+                  (userInfo?.typeUser === "B2B"
+                    ? currentListing.priceB2b
+                    : currentListing.price) *
+                  calculateDaysDifference() *
+                  (currentListing.tax / 100)
+                ).toFixed(2)}{" "}
+                MAD
+              </span>
+            </div>
+            <div className="flex  justify-between w-full font-bold">
+              <span>Total</span>
+              <span>
+                {(
+                  (userInfo?.typeUser === "B2B"
+                    ? currentListing.priceB2b
+                    : currentListing.price) *
+                    calculateDaysDifference() *
+                    (currentListing.tax / 100) +
+                  (userInfo?.typeUser === "B2B"
+                    ? currentListing.priceB2b
+                    : currentListing.price) *
+                    calculateDaysDifference()
+                ).toFixed(2)}{" "}
+                MAD
+              </span>
+            </div>
+            <button
+              className="bg-airbnb-gradient py-3 mt-5  px-5 flex flex-row justify-center items-center gap-3 text-white text-base font-bold rounded-full cursor-pointer w-full"
+              onClick={handleReservation}
+              //onClick={() => router.push(`/reservation/${currentListing.id}`)}
+              disabled={
+                loading ||
+                (guests > currentListing.placeSpace.guests ? true : false)
+              }
+            >
+              <ClockLoader color="#fbfffe" loading={loading} size={25} />{" "}
+              Reserve
+            </button>
+          </>
+        )}
       </div>
       <div className="flex border border-gray-400 rounded-lg p-4 gap-2 items-start px-8">
         <span>

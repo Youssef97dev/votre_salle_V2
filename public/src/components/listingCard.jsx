@@ -25,6 +25,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Visite from "airbnb/components/modals/Visite";
 
 import { MdEditSquare } from "react-icons/md";
+import { MdOutlineReadMore } from "react-icons/md";
 
 export default function ListingCard({
   data,
@@ -95,10 +96,7 @@ export default function ListingCard({
 
   return (
     <div className="col-span-1 group panel-home">
-      <div
-        className="flex flex-col gap-2 w-full"
-        onClick={() => router.push(`/listing/${data.id}`)}
-      >
+      <div className="flex flex-col gap-2 w-full">
         <div
           className="swiper aspect-square w-full relative overflow-hidden rounded-xl mb-3"
           onMouseOver={() => setHover(true)}
@@ -156,19 +154,31 @@ export default function ListingCard({
                 </Swiper>
               </div>
               {pathname === "/" && (
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowVisite(true);
-                  }}
-                  className="absolute z-20 right-2 bottom-2 rounded-full p-2 bg-[#31247975]"
-                >
-                  <Tb360View
-                    style={{ stroke: "white" }}
-                    className={`text-4xl text-[#00000099]`}
-                    size={22}
-                  />
-                </div>
+                <>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowVisite(true);
+                    }}
+                    className="absolute z-20 right-2 bottom-2 rounded-full p-2 bg-[#31247975]"
+                  >
+                    <Tb360View
+                      style={{ stroke: "white" }}
+                      className={`text-4xl text-[#00000099]`}
+                      size={22}
+                    />
+                  </div>
+                  <div
+                    onClick={() => router.push(`/listing/${data.id}`)}
+                    className="absolute z-20 right-2 top-10 rounded-full p-1 hover:bg-[#31247975] cursor-pointer bg-[#ddd2d29a]"
+                  >
+                    <MdOutlineReadMore
+                      style={{ stroke: "white" }}
+                      className={`text-3xl`}
+                      size={22}
+                    />
+                  </div>
+                </>
               )}
               {pathname === "/my-listings" && (
                 <div

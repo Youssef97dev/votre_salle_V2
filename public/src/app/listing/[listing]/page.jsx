@@ -12,13 +12,15 @@ import TripScheduler from "./components/TripScheduler";
 import ListingAmenties from "./components/ListingAmenties";
 import ListingMap from "./components/ListingMap";
 import Reviews from "./components/Reviews";
+import ListingDetails from "./components/ListingDetails";
 import { getListing } from "airbnb/lib/lisitng";
 import dynamic from "next/dynamic";
 
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+import ListingDescription from "./components/ListingDescription";
 
 export default function Page({ params: { listing } }) {
-  const { isAuthModalOpen, currentListing, setCurrentListing } = userAppStore();
+  const { currentListing, setCurrentListing } = userAppStore();
   const [showReservePopup, setShowReservePopup] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -53,67 +55,25 @@ export default function Page({ params: { listing } }) {
       {currentListing && (
         <div className="">
           <Navbar />
-          <div className=" px-5 md:px-20 pt-10 text-airbnb-light-black grid gap-10">
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-1">
-                <h2 className="text-xl md:text-5xl">{currentListing?.title}</h2>
-                <span className="text-sm md:text-lg cursor-pointer underline">
-                  {currentListing?.locationData?.landmark}
-                </span>
-              </div>
-              <ListingPhotos />
+          <div className=" px-5 md:px-20 pt-10 text-airbnb-light-black flex flex-col gap-5">
+            <ListingPhotos />
 
-              <div
-                className="grid gap-5"
-                style={{ gridTemplateColumns: isDesktop && "70fr 30fr" }}
-              >
-                <div className="flex flex-col gap-5">
-                  <div className="flex flex-col gap-3">
-                    <h3 className="text-sm md:text-2xl font-semibold">
-                      {currentListing?.locationType} hosted by{" "}
-                      {currentListing?.listingCreatedBy?.firstName}{" "}
-                      {currentListing?.listingCreatedBy?.lastName}
-                    </h3>
-                    <ul className="flex gap-5 flex-col md:flex-row">
-                      {Object.keys(currentListing.placeSpace).map((type) => (
-                        <li
-                          className="border border-gray-300 p-3 rounded-lg flex flex-row md:flex-col justify-start items-center gap-3 md:gap-0 md:items-start w-full md:w-32"
-                          key={type}
-                        >
-                          <span className="text-xs md:text-2xl font-semibold">
-                            {currentListing.placeSpace[type]}
-                          </span>
-                          <span className="capitalize text-sm md:text-base">
-                            {type}
-                          </span>
-                        </li>
-                      ))}
-                      {currentListing?.reviews && <li
-                          className="border border-gray-300 p-3 rounded-lg flex flex-row md:flex-col justify-start items-center gap-3 md:gap-0 md:items-start w-full md:w-32"
-                          
-                        >
-                          <span className="text-xs md:text-2xl font-semibold">
-                            {currentListing?.reviews?.length}
-                          </span>
-                          <span className="capitalize text-sm md:text-base">
-                            Review
-                          </span>
-                        </li>}
-                    </ul>
-                  </div>
-                  <p className="font-medium md:font-semibold text-sm md:text-base">
-                    {currentListing?.description}
-                  </p>
-                  <ListingAmenties />
-                  <Reviews />
-                  <ListingMap />
-                </div>
-                {isDesktop && (
-                  <div>
-                    <TripScheduler />
-                  </div>
-                )}
+            <div
+              className="grid gap-5"
+              style={{ gridTemplateColumns: isDesktop && "70fr 30fr" }}
+            >
+              <div className="flex flex-col gap-5">
+                <ListingDetails />
+                <ListingDescription />
+                <ListingAmenties />
+                <Reviews />
+                <ListingMap />
               </div>
+              {isDesktop && (
+                <div>
+                  <TripScheduler />
+                </div>
+              )}
             </div>
             {!isDesktop && (
               <div
@@ -156,7 +116,6 @@ export default function Page({ params: { listing } }) {
             </div>
           )}
           <CompactFooter />
-          {isAuthModalOpen && <AuthModal />}
         </div>
       )}
     </div>
