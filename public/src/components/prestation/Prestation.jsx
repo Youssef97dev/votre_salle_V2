@@ -81,7 +81,7 @@ const Prestation = ({ data, setShowPrestation }) => {
       prestation.poseDinner.length > 0
     ) {
       try {
-        updateLisitngAPI(data?.id, prestation).then((res) => {
+        updateLisitngAPI(data?.id, { prestation }).then((res) => {
           setRelaunchData();
           setShowPrestation(false);
         });
