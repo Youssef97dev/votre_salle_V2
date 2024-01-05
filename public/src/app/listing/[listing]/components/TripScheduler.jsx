@@ -13,7 +13,7 @@ import "react-date-range/dist/theme/default.css";
 import Calender from "airbnb/components/common/Calender";
 
 import { IoIosCalendar } from "react-icons/io";
-import { IoPersonAddOutline } from "react-icons/io5";
+import { IoPersonAddOutline, IoCloseCircle } from "react-icons/io5";
 
 import { BeatLoader } from "react-spinners";
 
@@ -33,10 +33,6 @@ export default function TripScheduler() {
   const [loading, setLoading] = useState(false);
   const [activeTripData, setActiveTripData] = useState([]);
   const [desabledDateArray, setDesabledDateArray] = useState([]);
-
-  useEffect(() => {
-    setShowCalendar(false);
-  }, [state]);
 
   const calculateDaysDifference = () => {
     const startDate = new Date(state[0].startDate);
@@ -83,7 +79,7 @@ export default function TripScheduler() {
         getDates(trip.tripinfo.startDate, trip.tripinfo.endDate);
       });
     }
-    setShowCalendar((prev) => !prev);
+    setShowCalendar(true);
   };
 
   const handleReservation = async () => {
@@ -158,12 +154,12 @@ export default function TripScheduler() {
               <span className="text-base self-end text-[#6e7582]">/ day</span>
             </div>
             <div className="flex flex-col w-full">
-              <div
-                onClick={() => showDate()}
-                className="relative flex items-center gap-3 w-full border-t border-r border-l border-gray-300 p-2 rounded-t-xl cursor-pointer font-bold hover:shadow-lg"
-              >
+              <div className="relative flex items-center gap-3 w-full border-t border-r border-l border-gray-300 p-2 rounded-t-xl cursor-pointer font-bold hover:shadow-lg">
                 <IoIosCalendar color="#d1d5db" size={28} />
-                <div className="flex flex-col gap-1">
+                <div
+                  onClick={() => showDate()}
+                  className="flex flex-col gap-1 w-full"
+                >
                   <div className="flex items-center gap-3 w-full">
                     <span>
                       {state[0].startDate.toLocaleDateString(undefined, {
@@ -185,6 +181,14 @@ export default function TripScheduler() {
                     <label className="text-xs text-[#6e7582]">CHECK-OUT</label>
                   </div>
                 </div>
+                {showCalendar && (
+                  <div
+                    className="flex-1"
+                    onClick={() => setShowCalendar(false)}
+                  >
+                    <IoCloseCircle color="#d1d5db" size={22} />
+                  </div>
+                )}
                 {showCalendar && (
                   <div className="absolute right-0 top-16 shadow-lg rounded-lg">
                     <Calender
