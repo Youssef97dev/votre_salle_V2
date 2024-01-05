@@ -100,7 +100,7 @@ const Prestation = ({ data, setShowPrestation }) => {
   }, []);
 
   return (
-    <div className="relative h-[80%] w-[40%] rounded-lg  bg-[#F7F7F7] px-2 pt-5 overflow-hidden">
+    <div className="relative h-[98%] w-full sm:w-[60%] sm:h-[80%] lg:w-[40%] rounded-lg  bg-[#F7F7F7] px-2 pt-5 overflow-hidden">
       <div className="w-full h-full overflow-auto  mt-4 pb-8">
         <div className="mb-5">
           <div className="space-y-4 font-semibold">

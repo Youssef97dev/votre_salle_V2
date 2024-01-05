@@ -300,7 +300,7 @@ export default function ListingCard({
       )}
       {/* Search popup */}
       {showPrestation && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80 z-50">
+        <div className="fixed inset-0 flex items-end sm:items-center justify-center bg-gray-900 bg-opacity-80 z-[60]">
           <Prestation data={data} setShowPrestation={setShowPrestation} />
         </div>
       )}
