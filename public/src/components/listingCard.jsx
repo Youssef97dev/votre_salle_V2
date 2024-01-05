@@ -9,7 +9,8 @@ import {
   addToNotification,
 } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
-import { IoMdHeart, IoMdStar } from "react-icons/io";
+import { IoMdHeart } from "react-icons/io";
+import { FaStar } from "react-icons/fa6";
 import { Tb360View } from "react-icons/tb";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,8 +25,9 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import Visite from "airbnb/components/modals/Visite";
 
-import { MdEditSquare } from "react-icons/md";
-import { MdOutlineReadMore } from "react-icons/md";
+import { MdEditSquare, MdOutlineReadMore } from "react-icons/md";
+import { IoSettings } from "react-icons/io5";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 export default function ListingCard({
   data,
@@ -131,7 +133,7 @@ export default function ListingCard({
                       />
                       {pathname === "/" && userInfo && (
                         <>
-                          <div className="absolute z-20 right-2 top-2">
+                          <div className="absolute z-20 right-2 top-2 cursor-pointer">
                             <IoMdHeart
                               style={{ stroke: "white", strokeWidth: "40" }}
                               className={`text-3xl ${
@@ -153,14 +155,14 @@ export default function ListingCard({
                   ))}
                 </Swiper>
               </div>
-              {pathname === "/" && (
+              {pathname === "/" && userInfo && (
                 <>
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
                       setShowVisite(true);
                     }}
-                    className="absolute z-20 right-2 bottom-2 rounded-full p-2 bg-[#31247975]"
+                    className="absolute z-20 right-2 bottom-2 rounded-full p-2 bg-[#31247975] cursor-pointer"
                   >
                     <Tb360View
                       style={{ stroke: "white" }}
@@ -180,18 +182,59 @@ export default function ListingCard({
                   </div>
                 </>
               )}
-              {pathname === "/my-listings" && (
+              {isMyListing && (
+                <>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/new-listing?listingId=${data.id}`);
+                    }}
+                    className={`absolute z-20 right-2 top-2 rounded-full p-2 bg-[#02020280] cursor-pointer hover:bg-slate-900 ${
+                      hover ? "block" : "hidden"
+                    }`}
+                  >
+                    <MdEditSquare
+                      color="#fff"
+                      className={`text-4xl`}
+                      size={15}
+                    />
+                  </div>
+                  <div
+                    onClick={() => setShowPrestation(true)}
+                    className={`absolute z-20 right-2 top-11 rounded-full p-2 bg-[#02020280] cursor-pointer hover:bg-slate-900 ${
+                      hover ? "block" : "hidden"
+                    }`}
+                  >
+                    <IoSettings color="#fff" className={`text-4xl`} size={15} />
+                  </div>
+                  <div
+                    onClick={deleteListing}
+                    className={`absolute z-20 right-2 top-20 rounded-full p-2 bg-[#02020280] cursor-pointer hover:bg-slate-900 ${
+                      hover ? "block" : "hidden"
+                    }`}
+                  >
+                    <RiDeleteBin5Fill
+                      color="#fff"
+                      className={`text-4xl`}
+                      size={15}
+                    />
+                  </div>
+                </>
+              )}
+              {isWishList && (
                 <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/new-listing?listingId=${data.id}`);
-                  }}
-                  className="absolute z-20 right-2 top-2 rounded-full p-2 bg-[#02020280]"
+                  onClick={deleteWishList}
+                  className={`absolute z-20 right-2 top-2 rounded-full p-2 bg-[#02020280] cursor-pointer hover:bg-slate-900 ${
+                    hover ? "block" : "hidden"
+                  }`}
                 >
-                  <MdEditSquare color="#fff" className={`text-4xl`} size={15} />
+                  <RiDeleteBin5Fill
+                    color="#fff"
+                    className={`text-4xl`}
+                    size={15}
+                  />
                 </div>
               )}
-
               <button
                 onClick={(e) => e.stopPropagation()}
                 className={`swiper-button-prev-${data.id} ${
@@ -249,8 +292,10 @@ export default function ListingCard({
               <>
                 <h3 className="font-bold">{data.title}</h3>
                 {rating > 0 && (
-                  <span className="font-bold flex items-center gap-2">
-                    <IoMdStar size={15} /> {rating.toFixed(1)}
+                  <span className="font-bold flex items-center gap-1">
+                    <FaStar color="f97316" size={15} />{" "}
+                    <span className="text-sm">{rating.toFixed(1)}</span>
+                    <span className="text-sm text-[#99a3b3]">{`(${data?.reviews?.length})`}</span>
                   </span>
                 )}
               </>
@@ -273,31 +318,7 @@ export default function ListingCard({
           )}
         </div>
       </div>
-      {isMyListing && (
-        <div className="flex gap-2">
-          <button
-            className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
-            onClick={deleteListing}
-          >
-            Delete
-          </button>
-          <button
-            className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
-            //onClick={() => router.push(`/prestation/${data.id}`)}
-            onClick={() => setShowPrestation(true)}
-          >
-            Prestation
-          </button>
-        </div>
-      )}
-      {isWishList && (
-        <button
-          className="bg-airbnb-gradient py-3 mt-1 mb-3  px-5 text-white text-base font-medium rounded-md cursor-pointer w-full"
-          onClick={deleteWishList}
-        >
-          Delete
-        </button>
-      )}
+
       {/* Search popup */}
       {showPrestation && (
         <div className="fixed inset-0 flex items-end sm:items-center justify-center bg-gray-900 bg-opacity-80 z-[60]">

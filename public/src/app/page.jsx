@@ -224,7 +224,6 @@ export default function Home() {
         <ViewSwitchBadge />
         <CompactFooter />
         {!isDesktop && <NavbarMobile />}
-        {isAuthModalOpen && <AuthModal />}
         {showFilter && (
           <Filter showFilter={showFilter} setShowFilter={setShowFilter} />
         )}
