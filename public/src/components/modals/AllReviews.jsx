@@ -46,22 +46,23 @@ const AllReviews = ({showAllReviews, setShowAllReviews}) => {
                     {review?.user?.firstName?.split("").shift()?.toUpperCase()}
                   </span>
                   <div className="flex flex-col">
-                  <span className="font-semibold text-sm">
+                  <span className="font-extrabold text-sm">
                     {review?.user?.firstName}{" "}{review?.user?.lastName}
                   </span>
                   <ReactStars count={5} value={review.ratings} size={18} color2={'#ffd700'} />
                   </div>
                   </div>
 
-                  <div className="font-semibold text-sm">
+                  <div className="font-bold text-sm text-[#6e7582]">
                     {
                       new Intl.DateTimeFormat('en-US', {
                         year: 'numeric',
                         month: 'long',
+                        day: 'numeric',
                       }).format(new Date(review.createdAt))
                     }
                   </div>
-                  <div className="text-sm">
+                  <div className="text-base font-medium text-[#494c52]">
                     {review?.comments}
                   </div>
                 </div>

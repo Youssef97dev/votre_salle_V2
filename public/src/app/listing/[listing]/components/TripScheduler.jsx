@@ -14,6 +14,7 @@ import Calender from "airbnb/components/common/Calender";
 
 import { IoIosCalendar } from "react-icons/io";
 import { IoPersonAddOutline, IoCloseCircle } from "react-icons/io5";
+import { FaStar } from "react-icons/fa6";
 
 import { BeatLoader } from "react-spinners";
 
@@ -33,6 +34,7 @@ export default function TripScheduler() {
   const [loading, setLoading] = useState(false);
   const [activeTripData, setActiveTripData] = useState([]);
   const [desabledDateArray, setDesabledDateArray] = useState([]);
+  const [rating, setRating] = useState(0);
 
   const calculateDaysDifference = () => {
     const startDate = new Date(state[0].startDate);
@@ -52,6 +54,18 @@ export default function TripScheduler() {
     if (userInfo) {
       getData();
     }
+  }, []);
+
+  useEffect(() => {
+    // Calculate the total ratings and the number of reviews
+    const totalRatings = currentListing?.reviews?.reduce(
+      (sum, review) => sum + parseFloat(review.ratings),
+      0
+    );
+    const numberOfReviews = currentListing?.reviews?.length;
+    // Calculate the average rating
+    const averageRating = totalRatings / numberOfReviews;
+    setRating(averageRating);
   }, []);
 
   const getDates = (startDate, endDate) => {
@@ -137,21 +151,30 @@ export default function TripScheduler() {
 
   return (
     <div className="sticky top-0 w-full flex flex-col gap-6 items-center justify-center">
-      <div className=" lg:border lg:border-[#d1d5db] rounded-xl shadow-lg flex p-2 lg:p-4 gap-2 items-center px-4 lg:px-8 flex-col w-full">
+      <div className="flex flex-col items-center gap-2 p-2 px-4 lg:p-4 lg:border lg:border-[#d1d5db] rounded-xl shadow-lg w-full">
         {loading ? (
           <>
             <BeatLoader loading={loading} color="#3b3f5c" size={15} />
           </>
         ) : (
           <>
-            <div className="flex gap-1 font-bold">
-              <span className=" text-lg">
-                {userInfo?.typeUser === "B2B"
-                  ? currentListing.priceB2b.toFixed(2)
-                  : currentListing.price.toFixed(2)}{" "}
-                MAD
-              </span>
-              <span className="text-base self-end text-[#6e7582]">/ day</span>
+            <div className="flex justify-between items-center w-full">
+              <div className="flex gap-1 font-bold">
+                <span className=" text-lg">
+                  {userInfo?.typeUser === "B2B"
+                    ? currentListing.priceB2b.toFixed(2)
+                    : currentListing.price.toFixed(2)}{" "}
+                  MAD
+                </span>
+                <span className="text-base self-end text-[#6e7582]">/ day</span>
+              </div>
+              {rating > 0 && (
+                  <span className="font-bold flex items-center gap-1">
+                    <FaStar color="f97316" size={15} />{" "}
+                    <span className="text-sm">{rating.toFixed(1)}</span>
+                    <span className="text-sm text-[#99a3b3]">{`(${currentListing?.reviews?.length})`}</span>
+                  </span>
+                )}
             </div>
             <div className="flex flex-col w-full">
               <div className="relative flex items-center gap-3 w-full border-t border-r border-l border-gray-300 p-2 rounded-t-xl cursor-pointer font-bold hover:shadow-lg">

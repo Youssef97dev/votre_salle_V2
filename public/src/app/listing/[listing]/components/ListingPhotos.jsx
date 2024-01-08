@@ -30,7 +30,7 @@ export default function ListingPhotos() {
           className="grid gap-2"
           style={{ gridTemplateColumns: "55fr 45fr" }}
         >
-          <div className="relative w-full h-[60vh]">
+          <div className="relative w-full h-[70vh]">
             <Image
               alt="listing"
               fill
