@@ -10,7 +10,10 @@ import "react-range-slider-input/dist/style.css";
 
 import { RiSeparator } from "react-icons/ri";
 
+import { useTranslation } from 'react-i18next';
+
 const Filter = ({ showFilter, setShowFilter }) => {
+  const { t } = useTranslation();
   const {
     listings,
     setListings,
@@ -117,9 +120,9 @@ const Filter = ({ showFilter, setShowFilter }) => {
                 <div className="flex flex-col gap-8 w-full">
                   {/* Start Price Range */}
                   <div className="flex flex-col">
-                    <span className="font-semibold text-lg">Price range</span>
+                    <span className="font-semibold text-lg">{t('filter.price_range')}</span>
                     <span className="text-sm">
-                      Price per day, taxes included
+                    {t('filter.price_range_subtitle')}
                     </span>
                   </div>
                   <RangeSlider
@@ -173,10 +176,10 @@ const Filter = ({ showFilter, setShowFilter }) => {
                   {/* Start Hors Tax */}
                   <div className="flex flex-col">
                     <span className="font-semibold text-lg">
-                      Excluding taxes
+                    {t('filter.tax')}
                     </span>
                     <span className="text-sm">
-                      {"Show total (excluding taxes)"}
+                    {t('filter.tax_subtitle')}
                     </span>
                   </div>
                   <Switch
@@ -200,9 +203,9 @@ const Filter = ({ showFilter, setShowFilter }) => {
 
                   {/* Start Prestation */}
                   <div className="flex flex-col">
-                    <span className="font-semibold text-lg">Eating Breaks</span>
+                    <span className="font-semibold text-lg">{t('filter.eating')}</span>
                     <span className="text-sm mb-3">
-                      coffee break / lunch break / dinner break
+                      {t('filter.eating_subtitle')}
                     </span>
                     <div className="inline-flex items-center">
                       <label
@@ -240,7 +243,7 @@ const Filter = ({ showFilter, setShowFilter }) => {
                         className="mt-px text-gray-950 font-medium cursor-pointer select-none"
                         htmlFor="cafe"
                       >
-                        Coffee break
+                        {t('filter.coffee')}
                       </label>
                     </div>
                     <div className="inline-flex items-center">
@@ -279,7 +282,7 @@ const Filter = ({ showFilter, setShowFilter }) => {
                         className="mt-px text-gray-950 font-medium cursor-pointer select-none"
                         htmlFor="lunch"
                       >
-                        Lunch break
+                        {t('filter.lunch')}
                       </label>
                     </div>
                     <div className="inline-flex items-center">
@@ -318,7 +321,7 @@ const Filter = ({ showFilter, setShowFilter }) => {
                         className="mt-px text-gray-950 font-medium cursor-pointer select-none"
                         htmlFor="dinner"
                       >
-                        Dinner break
+                        {t('filter.dinner')}
                       </label>
                     </div>
                   </div>
@@ -330,14 +333,14 @@ const Filter = ({ showFilter, setShowFilter }) => {
                     type="button"
                     className="btn btn-outline-danger"
                   >
-                    Reset
+                    {t('button.reset')}
                   </button>
                   <button
                     onClick={() => handleSave()}
                     type="button"
                     className="btn btn-primary ml-4"
                   >
-                    Show
+                    {t('button.show')}
                   </button>
                 </div>
               </div>

@@ -6,8 +6,10 @@ import { addReview } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 
 import ReactStars from 'react-stars'
+import { useTranslation } from 'react-i18next';
 
 const ReviewModal = () => {
+  const { t } = useTranslation();
     const { userInfo,
         tripToReview,
         setTripToReview,
@@ -64,7 +66,7 @@ const ReviewModal = () => {
           <div className="flex items-center justify-center min-h-screen px-4">
             <Dialog.Panel className="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg my-8 text-black animate__animated animate__fadeInUp">
               <div className="flex bg-[#fbfbfb] items-center justify-between px-5 py-3 border-b border-gray-300">
-                <h5 className="font-bold text-lg">Reviews</h5>
+                <h5 className="font-bold text-lg">{t('page.listing.reviews')}</h5>
                 <button
                   onClick={() => {
                     setTripToReview({});
@@ -79,11 +81,11 @@ const ReviewModal = () => {
               <div className="p-4">
                 <div className="flex flex-col gap-6 w-full">
                     <div className="flex flex-col">
-                        <span className="font-semibold">Ratings</span>
+                        <span className="font-semibold">{t('page.profile.ratings')}</span>
                     <ReactStars count={5} value={rate} onChange={ratingChanged} size={24} color2={'#ffd700'} />
                     </div>
                     <div className="flex flex-col">
-                        <span className="font-semibold">Comment</span>
+                        <span className="font-semibold">{t('page.profile.comment')}</span>
                         <textarea
                             className="border border-gray-400 h-32 w-full rounded-lg active:border-gray-950 p-1 lg:p-3 no-scrollbar"
                             value={comment}
@@ -105,14 +107,14 @@ const ReviewModal = () => {
                     type="button"
                     className="btn btn-outline-danger"
                   >
-                    Close
+                    {t('button.close')}
                   </button>
                   <button
                     onClick={() => handleAddReview()}
                     type="button"
                     className="btn btn-primary ml-4"
                   >
-                    Add Review
+                    {t('button.add_review')}
                   </button>
                 </div>
               </div>

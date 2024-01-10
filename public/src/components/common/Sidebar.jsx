@@ -23,8 +23,11 @@ import { SiGnuprivacyguard } from "react-icons/si";
 
 import Link from "next/link";
 
+import { useTranslation } from 'react-i18next';
+
 const Sidebar = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { userInfo, setUserInfo, sidebarMenuOpen, setSidebarMenuOpen } =
     userAppStore();
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -63,7 +66,7 @@ const Sidebar = () => {
   const contextMenuOptions = [
     {
       icon: <PiSignInBold />,
-      name: "Login",
+      name: `${t('navigation.signin')}`,
       callBack: () => {
         router.push("/auth/signin");
         setSidebarMenuOpen(false);
@@ -71,7 +74,7 @@ const Sidebar = () => {
     },
     {
       icon: <SiGnuprivacyguard />,
-      name: "Signup",
+      name: `${t('navigation.signup')}`,
       callBack: () => {
         router.push("/auth/signup");
         setSidebarMenuOpen(false);
@@ -86,7 +89,7 @@ const Sidebar = () => {
     },
     {
       icon: <MdHelpOutline />,
-      name: "Help",
+      name: `${t('navigation.help')}`,
       callBack: () => {
         setSidebarMenuOpen(false);
       },
@@ -111,7 +114,7 @@ const Sidebar = () => {
     },
     {
       icon: <FaListCheck />,
-      name: "My Reservations",
+      name: `${t('navigation.my_bookings')}`,
       callBack: () => {
         router.push("/trips");
         setSidebarMenuOpen(false);
@@ -119,7 +122,7 @@ const Sidebar = () => {
     },
     {
       icon: <FaRegHeart />,
-      name: "My Wishlists",
+      name: `${t('navigation.my_wishlists')}`,
       callBack: () => {
         router.push("/wishlist");
         setSidebarMenuOpen(false);
@@ -127,7 +130,7 @@ const Sidebar = () => {
     },
     {
       icon: <MdOutlineSettings />,
-      name: "Manage My Listings",
+      name: `${t('navigation.my_listings')}`,
       callBack: () => {
         router.push("/my-listings");
         setSidebarMenuOpen(false);
@@ -135,7 +138,7 @@ const Sidebar = () => {
     },
     {
       icon: <MdOutlineSettings />,
-      name: "Manage My Reservations",
+      name: `${t('navigation.bookings_received')}`,
       callBack: () => {
         router.push("/my-reservations");
         setSidebarMenuOpen(false);
@@ -143,7 +146,7 @@ const Sidebar = () => {
     },
     {
       icon: <IoMdAdd />,
-      name: "Add Your Hall",
+      name: `${t('navigation.add_hall')}`,
       callBack: () => {
         router.push("new-listing");
         setSidebarMenuOpen(false);
@@ -151,7 +154,7 @@ const Sidebar = () => {
     },
     {
       icon: <FaRegCalendarAlt />,
-      name: "Calendar",
+      name: `${t('navigation.calendar')}`,
       callBack: () => {
         router.push("/calendar");
         setSidebarMenuOpen(false);
@@ -159,7 +162,7 @@ const Sidebar = () => {
     },
     {
       icon: <FaChartBar />,
-      name: "Statistics",
+      name: `${t('navigation.statistics')}`,
       callBack: () => {
         router.push("/statistics");
         setSidebarMenuOpen(false);
@@ -167,7 +170,7 @@ const Sidebar = () => {
     },
     {
       icon: <LiaFileInvoiceDollarSolid />,
-      name: "Invoices",
+      name: `${t('navigation.invoices')}`,
       callBack: () => {
         router.push("/invoices");
         setSidebarMenuOpen(false);
@@ -175,7 +178,7 @@ const Sidebar = () => {
     },
     {
       icon: <MdLogout />,
-      name: "Logout",
+      name: `${t('navigation.logout')}`,
       callBack: () => {
         setSidebarMenuOpen(false);
         setUserInfo(null);

@@ -15,10 +15,10 @@ import { Switch } from "@headlessui/react";
 
 import { IoMdImages } from "react-icons/io";
 import { RiAlarmWarningLine } from "react-icons/ri";
-
+import { useTranslation } from 'react-i18next';
 const EditProfile = () => {
   const { userInfo, setUserInfo } = userAppStore();
-
+  const { t } = useTranslation();
   const [MessageAlert, setMessageAlert] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [WhichField, setWhichField] = useState();
@@ -221,7 +221,7 @@ const EditProfile = () => {
         </button>
       </div>
       <div className="flex justify-end items-center gap-2 ">
-        <span className="font-medium">Enable Editing</span>
+        <span className="font-medium">{t('page.profile.enable_editing')}</span>
         <Switch
           checked={enableEdit}
           onChange={setEnableEdit}
@@ -242,7 +242,7 @@ const EditProfile = () => {
           data-upload-id="myFirstImage"
         >
           <div className="label-container">
-            <label>Upload image </label>
+            <label>{t('page.profile.upload_image')} </label>
             <button
               type="button"
               className="custom-file-container__image-clear"
@@ -292,7 +292,7 @@ const EditProfile = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <div>
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName">{t('label.firstname')}</label>
             <input
               id="firstName"
               type="text"
@@ -308,7 +308,7 @@ const EditProfile = () => {
             />
           </div>
           <div>
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="lastName">{t('label.lastname')}</label>
             <input
               id="lastName"
               type="text"
@@ -326,7 +326,7 @@ const EditProfile = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <div>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t('label.email')}</label>
             <input
               id="email"
               type="email"
@@ -342,7 +342,7 @@ const EditProfile = () => {
             />
           </div>
           <div>
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="phone">{t('label.phone')}</label>
             <input
               id="phone"
               type="phone"
@@ -360,7 +360,7 @@ const EditProfile = () => {
         </div>
         <div className="grid grid-cols-1">
           <div>
-            <label htmlFor="adresse">Adresse</label>
+            <label htmlFor="adresse">{t('label.adresse')}</label>
             <textarea
               id="adresse"
               value={userData.adresse || ""}
@@ -474,10 +474,10 @@ const EditProfile = () => {
         </button>
       </form>
       <div className="mt-5 flex flex-col gap-4">
-        <span className="font-bold text-xl">Settings</span>
+        <span className="font-bold text-xl">{t('page.profile.settings')}</span>
         <div className="flex items-center gap-2 ">
           <span className="font-bold">
-            Switch to {userInfo?.typeUser === "B2C" ? "B2B" : "B2C"}
+          {t('page.profile.switch_to')} {userInfo?.typeUser === "B2C" ? "B2B" : "B2C"}
           </span>
           <Switch
             checked={switchType}

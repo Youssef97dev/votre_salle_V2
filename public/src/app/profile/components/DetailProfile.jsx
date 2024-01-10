@@ -11,10 +11,10 @@ import { Fragment } from 'react';
 
 import { CgProfile } from "react-icons/cg";
 import { BsStars } from "react-icons/bs";
-
+import { useTranslation } from 'react-i18next';
 const DetailProfile = () => {
     const { userInfo } = userAppStore();
-
+ const { t } = useTranslation();
     
 
   return (
@@ -35,7 +35,7 @@ const DetailProfile = () => {
                 <button
                     className={`${selected ? '!border-gray-200 !border-b-white text-[#3B3F5C] !outline-none' : ''} -mb-[1px] flex items-center border border-transparent p-3.5 py-2 hover:text-[#3B3F5C]`}>
                     <BsStars size={18} className="mr-2" />
-                    Add Reviews
+                    {t('page.profile.add_reviews')}
                 </button>
             )}
         </Tab>
@@ -44,7 +44,7 @@ const DetailProfile = () => {
                 <button
                     className={`${selected ? '!border-gray-200 !border-b-white text-[#3B3F5C] !outline-none' : ''} -mb-[1px] flex items-center border border-transparent p-3.5 py-2 hover:text-[#3B3F5C]`}>
                     <BsStars size={18} className="mr-2" />
-                    My Reviews
+                    {t('page.profile.my_reviews')}
                 </button>
             )}
         </Tab>
@@ -61,7 +61,7 @@ const DetailProfile = () => {
     </Tab.Panel>
     <Tab.Panel>
         <div className="active pt-5">
-            My Reviews
+        {t('page.profile.my_reviews')}
         </div>
     </Tab.Panel>
 </Tab.Panels>

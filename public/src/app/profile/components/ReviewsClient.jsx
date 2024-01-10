@@ -11,8 +11,10 @@ import ReviewModal from "./ReviewModal";
 import "../../../styles/tailwind.css";
 
 import { HiSearch } from "react-icons/hi";
+import { useTranslation } from 'react-i18next';
 
 const ReviewsClient = () => {
+  const { t } = useTranslation();
   const {
     userInfo,
     invoicedTrips,
@@ -137,7 +139,7 @@ const ReviewsClient = () => {
                       className="btn btn-dark"
                       onClick={() => addReview(trip)}
                     >
-                      Add Review
+                      {t('button.add_review')}
                     </button>
                   </div>
                 </div>

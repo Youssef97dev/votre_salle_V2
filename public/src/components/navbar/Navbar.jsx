@@ -17,12 +17,12 @@ import ScheduleMobile from "../common/ScheduleMobile";
 import Sidebar from "../common/Sidebar";
 import Dropdown from "airbnb/hooks/Dropdown";
 import Notifications from "../modals/Notifications";
+import i18n from '../../../i18n';
 
 function Navbar() {
   const router = useRouter();
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const {
-    setAuthModal,
     userInfo,
     setUserInfo,
     setMapView,
@@ -34,10 +34,25 @@ function Navbar() {
   } = userAppStore();
   const [imageProfile, setImageProfile] = useState("");
   const [notif, setNotif] = useState(false);
+  const [lang, setLang] = useState(i18n.language);
 
   const showContextMenu = (e) => {
     e.preventDefault();
     setSidebarMenuOpen(true);
+  };
+
+  const changeLanguage = () => {
+    localStorage.removeItem('lang')
+    if(i18n.language === "fr"){
+      i18n.changeLanguage("en");
+      localStorage.setItem('lang', 'en');
+      setLang('en')
+    }else{
+      i18n.changeLanguage("fr");
+      localStorage.setItem('lang', 'fr');
+      setLang('fr')
+    }
+    console.log(i18n.language)
   };
 
   useEffect(() => {
@@ -87,8 +102,8 @@ function Navbar() {
         </div>
         <div className="md:flex-grow md:basis-0 hidden md:block">
           <ul className="flex items-center justify-end gap-6 font-medium">
-            <li className="cursor-pointer">
-              <FiGlobe />
+            <li className="flex items-center gap-2 cursor-pointer" onClick={() => changeLanguage()}>
+              <FiGlobe /><span className="font-bold">{lang==='fr'?'En':'Fr'}</span>
             </li>
             {userInfo && (
               <li className="relative cursor-pointer">
