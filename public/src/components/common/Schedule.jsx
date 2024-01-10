@@ -13,8 +13,10 @@ import { userAppStore } from "airbnb/store/store";
 import SearchBeds from "../SearchScheduler/SearchBeds";
 import { useRouter } from "next/navigation";
 import useClickOutside from "airbnb/hooks/useClickOutside";
+import { useTranslation } from 'react-i18next';
 export default function Schedule() {
   const router = useRouter();
+  const { t } = useTranslation();
   const {
     selectionType,
     setSelectionType,
@@ -63,7 +65,7 @@ export default function Schedule() {
         className="flex flex-col hover:bg-gray-100 px-10 py-4 rounded-full cursor-pointer items-center justify-center"
       >
         <label htmlFor="" className="text-xs font-semibold flex flex-col    ">
-          Check in
+        {t('search.checkin')}
         </label>
         <span>{formatDate(state[0]?.startDate)}</span>
         {selectionType === "check-in" && (
@@ -77,7 +79,7 @@ export default function Schedule() {
         onClick={() => setSelectionType("check-out")}
       >
         <label htmlFor="" className="text-xs font-semibold">
-          Check out
+        {t('search.checkout')}
         </label>
         <span>{formatDate(state[0]?.endDate)}</span>
         {selectionType === "check-out" && (

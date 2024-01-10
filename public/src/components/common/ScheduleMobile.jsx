@@ -11,8 +11,10 @@ import { useRouter } from "next/navigation";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import Calender from "./Calender";
+import { useTranslation } from 'react-i18next';
 
 const ScheduleMobile = () => {
+  const { t } = useTranslation();
   const [active2, setActive2] = useState("1");
   const togglePara2 = (value) => {
     setActive2((oldValue) => {
@@ -69,7 +71,7 @@ const ScheduleMobile = () => {
                   setSelectionType("where");
                 }}
               >
-                Destination
+                {t('search.destination')}
                 <div
                   className={`ml-auto ${active2 === "1" ? "rotate-180" : ""} `}
                 >
@@ -103,7 +105,7 @@ const ScheduleMobile = () => {
                 }`}
                 onClick={() => togglePara2("2")}
               >
-                Reservation Date
+                {t('search.reservation_date')}
                 <div
                   className={`ml-auto ${active2 === "2" ? "rotate-180" : ""} `}
                 >
@@ -130,7 +132,7 @@ const ScheduleMobile = () => {
                     >
                       <div className="flex flex-col xxs:flex-row xxs:gap-2 xxs:items-center">
                         <label className="text-xs font-semibold flex flex-col">
-                          Check in |
+                        {t('search.checkin')} |
                         </label>
                         <span className="text-stone-500">
                           {formatDate(state[0]?.startDate)}
@@ -138,7 +140,7 @@ const ScheduleMobile = () => {
                       </div>
                       <div className="flex flex-col xxs:flex-row xxs:gap-2 xxs:items-center">
                         <label className="text-xs font-semibold flex flex-col">
-                          Check out |
+                        {t('search.checkout')} |
                         </label>
                         <span className="text-stone-500">
                           {formatDate(state[0]?.endDate)}
@@ -165,7 +167,7 @@ const ScheduleMobile = () => {
                   setSelectionType("who");
                 }}
               >
-                Guests Search
+                {t('search.guests_search')}
                 <div
                   className={`ml-auto ${active2 === "3" ? "rotate-180" : ""} `}
                 >
@@ -199,10 +201,10 @@ const ScheduleMobile = () => {
           onClick={setShowScheduleBar}
           className="w-full rounded-xl bg-orange-600"
         >
-          Cancel
+          {t('button.cancel')}
         </button>
         <button onClick={handleSearch} className="w-full rounded-xl bg-sky-900">
-          Search
+        {t('button.search')}
         </button>
       </div>
     </div>

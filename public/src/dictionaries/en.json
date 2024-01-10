@@ -20,7 +20,12 @@
         "update_profile":"Update Profile",
         "reserve":"Reserve",
         "close":"Close",
-        "add_review":"Add Review"
+        "add_review":"Add Review",
+        "cancel":"Cancel",
+        "update_stop_sales":"Update stop sales",
+        "stop_sales":"Stop sales",
+        "delete":"Delete",
+        "search":"Search"
     },
     "label":{
         "firstname":"First Name",
@@ -38,7 +43,12 @@
         "checkout": "Check out",
         "who": "Who",
         "search_destination": "Search Destination",
-        "guests": "guests"
+        "guests": "guests",
+        "mobile_text":"Anywhere . Any week . Add guests",
+        "destination":"Destination",
+        "reservation_date":"Reservation Date",
+        "guests_search":"Guests Search"
+
     },
     "filter":{
         "price_range":"Price range",
@@ -170,6 +180,13 @@
             "label":"You won't be charged yet",
             "rare":"This is a rare find",
             "fully_booked":"this place on Votre Salle is usually fully booked."
+        },
+        "calendar":{
+            "add_event":"Add Event",
+            "edit_event":"Edit Event",
+            "from":"From",
+            "to":"To",
+            "event_description":"Event Description"
         }
     },
     "footer":{

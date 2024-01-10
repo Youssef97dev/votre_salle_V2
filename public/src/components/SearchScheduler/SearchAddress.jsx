@@ -5,8 +5,9 @@ import React, { useState } from "react";
 import { MdLocationPin } from "react-icons/md";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import { AiOutlineSearch } from "react-icons/ai";
-
+import { useTranslation } from 'react-i18next';
 export default function SearchAddress() {
+  const { t } = useTranslation();
   const {
     selectionType,
     setSelectionType,
@@ -50,14 +51,14 @@ export default function SearchAddress() {
   return (
     <div className="relative">
       <label htmlFor="" className="text-xs font-semibold hidden md:block">
-        Where
+        {t('search.where')}
       </label>
       <span className="absolute left-1 top-3 block md:hidden">
         <AiOutlineSearch size={20} color="#b0b0b0" />
       </span>
       <input
         type="text"
-        placeholder="Search Destinations"
+        placeholder={t('search.search_destination')}
         className={`bg-transparent focus:outline-none ${
           !isDesktop && "border border-[#b0b0b0] p-3 pl-6 rounded-xl w-full"
         }`}

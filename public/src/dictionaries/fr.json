@@ -20,7 +20,12 @@
         "update_profile":"Mettre à jour le profil",
         "reserve":"Réserve",
         "close":"Fermer",
-        "add_review":"Ajouter un commentaire"
+        "add_review":"Ajouter un commentaire",
+        "cancel":"Annuler",
+        "update_stop_sales":"Mettre à jour stop sales",
+        "stop_sales":"Arrêter les ventes",
+        "delete":"Supprimer",
+        "search":"Recherche"
     },
     "label":{
         "firstname":"Prénom",
@@ -38,7 +43,11 @@
         "checkout": "Aller",
         "who": "Qui",
         "search_destination": "Rechercher une destination",
-        "guests": "invités"
+        "guests": "invités",
+        "mobile_text":"N'importe où . Toute semaine. Ajouter des invités",
+        "destination":"Destination",
+        "reservation_date":"Date de réservation",
+        "guests_search":"Recherche des invités"
     },
     "filter":{
         "price_range":"Échelle des prix",
@@ -170,6 +179,13 @@
             "label":"Vous ne serez pas encore facturé",
             "rare":"C'est une trouvaille rare",
             "fully_booked":"cet endroit sur Votre Salle est généralement complet."
+        },
+        "calendar":{
+            "add_event":"Ajouter événement",
+            "edit_event":"Modifier événement",
+            "from":"De",
+            "to":"à",
+            "event_description":"Description de l'événement"
         }
     },
     "footer":{

@@ -3,8 +3,9 @@ import { userAppStore } from "airbnb/store/store";
 import React, { useEffect, useRef } from "react";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import "../../styles/tailwind.css";
-
+import { useTranslation } from 'react-i18next';
 export default function SearchBeds() {
+  const { t } = useTranslation();
   const {
     selectionType,
     searchPlaceSpace,
@@ -29,11 +30,11 @@ export default function SearchBeds() {
     <>
       <div className="flex flex-col">
         <label htmlFor="" className="text-xs font-semibold">
-          Who
+          {t('search.who')}
         </label>
         <span>
           {searchPlaceSpace.guests + " "}
-          guests
+          {t('search.guests')}
         </span>
       </div>
       {selectionType === "who" && (
@@ -73,7 +74,7 @@ export default function SearchBeds() {
             ))}
             </ul>*/}
           <div className="flex flex-row justify-center items-center gap-3">
-            <span className="font-medium whitespace-nowrap">Guests :</span>
+            <span className="font-medium whitespace-nowrap">{t('search.guests')} :</span>
             <input
               type="number"
               min={0}

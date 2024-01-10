@@ -1,5 +1,4 @@
 "use client";
-import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
@@ -13,8 +12,6 @@ import React, { useEffect, useState, Fragment } from "react";
 import { getUserReservedTrips, getUserListings } from "airbnb/lib/lisitng";
 import dynamic from "next/dynamic";
 
-import { Tab } from "@headlessui/react";
-import BigCalendar from "./components/BigCalendar";
 import StopSales from "./components/StopSales";
 
 import "@bitnoi.se/react-scheduler/dist/style.css";

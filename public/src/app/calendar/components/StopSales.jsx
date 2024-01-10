@@ -14,10 +14,11 @@ import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import Calender from "airbnb/components/common/Calender";
-
+import { useTranslation } from 'react-i18next';
 const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
   const { isAuthModalOpen, userInfo, reservations, setRelaunchTrips } =
     userAppStore();
+    const { t } = useTranslation();
   const defaultParams = {
     id: listing?.title === "Stop sales" ? listing?.id : null,
     description: listing?.description || "",
@@ -239,19 +240,19 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
                   </svg>
                 </button>
                 <div className="bg-[#fbfbfb] py-3 text-lg font-medium pl-5 pr-[50px]">
-                  {params.id ? "Edit Event" : "Add Event"}
+                  {params.id ? `${t('page.calendar.edit_event')}` : `${t('page.calendar.add_event')}`}
                 </div>
                 <div className="p-5">
                   <form className="space-y-5">
                     <div className="space-y-5" onClick={() => showDate()}>
                       <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
-                        <label className="font-semibold text-xs">From :</label>
+                        <label className="font-semibold text-xs">{t('page.calendar.from')} :</label>
                         <span>
                           {dateState[0]?.startDate?.toLocaleDateString()}
                         </span>
                       </div>
                       <div className="flex flex-col gap-1 border border-gray-300 p-2 rounded-tl-md  cursor-pointer">
-                        <label className="font-semibold text-xs">To :</label>
+                        <label className="font-semibold text-xs">{t('page.calendar.to')} :</label>
                         <span>
                           {dateState[0]?.endDate?.toLocaleDateString()}
                         </span>
@@ -267,7 +268,7 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
                       )}
                     </div>
                     <div>
-                      <label htmlFor="description">Event Description :</label>
+                      <label htmlFor="description">{t('page.calendar.event_description')} :</label>
                       <textarea
                         id="description"
                         name="description"
@@ -283,7 +284,7 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
                         className="btn btn-outline-danger"
                         onClick={() => setIsAddEventModal(false)}
                       >
-                        Cancel
+                        {t('button.cancel')}
                       </button>
                       <button
                         type="button"
@@ -293,9 +294,9 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
                       >
                         {!isUpdateLoading ? (
                           params.id ? (
-                            "Update stop sales"
+                            `${t('button.update_stop_sales')}`
                           ) : (
-                            "Stop sales"
+                            `${t('button.stop_sales')}`
                           )
                         ) : (
                           <BeatLoader color="#fff" size={5} />
@@ -309,7 +310,7 @@ const StopSales = ({ isAddEventModal, setIsAddEventModal, listing }) => {
                           disabled={isDeleteLoading || isUpdateLoading}
                         >
                           {!isDeleteLoading ? (
-                            "Delete"
+                            `${t('button.delete')}`
                           ) : (
                             <BeatLoader color="#fff" size={5} />
                           )}
