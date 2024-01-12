@@ -1,198 +1,208 @@
 {
-    "navigation":{
-        "signin": "Se connecter",
-        "signup": "S'inscrire",
-        "help": "Aide",
-        "my_bookings": "Mes réservations",
-        "my_wishlists": "Mes préférés",
-        "my_listings": "Mes Salles",
-        "bookings_received": "Réservations reçues",
-        "add_hall": "Ajoutez votre salle",
-        "calendar":"Calendrier",
-        "statistics":"Statistiques",
-        "invoices":"Factures",
-        "logout":"Se déconnecter"
+  "navigation": {
+    "signin": "Se connecter",
+    "signup": "S'inscrire",
+    "help": "Aide",
+    "my_bookings": "Mes réservations",
+    "my_wishlists": "Mes préférés",
+    "my_listings": "Mes Salles",
+    "bookings_received": "Réservations reçues",
+    "add_hall": "Ajoutez votre salle",
+    "calendar": "Calendrier",
+    "statistics": "Statistiques",
+    "invoices": "Factures",
+    "logout": "Se déconnecter",
+    "home": "Accueil"
+  },
+  "button": {
+    "reset": "Réinitialiser",
+    "show": "Afficher",
+    "show_map": "Afficher la carte",
+    "show_list": "Afficher List",
+    "update_profile": "Mettre à jour le profil",
+    "reserve": "Réserve",
+    "close": "Fermer",
+    "add_review": "Ajouter un commentaire",
+    "cancel": "Annuler",
+    "update_stop_sales": "Mettre à jour stop sales",
+    "stop_sales": "Arrêter les ventes",
+    "delete": "Supprimer",
+    "search": "Recherche"
+  },
+  "label": {
+    "firstname": "Prénom",
+    "lastname": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "adresse": "Adresse"
+  },
+  "search": {
+    "city": "Ville",
+    "date": "Date",
+    "guests_number": "Nombre d'invités",
+    "where": "Où",
+    "checkin": "Arriver",
+    "checkout": "Aller",
+    "who": "Qui",
+    "search_destination": "Rechercher une destination",
+    "guests": "invités",
+    "mobile_text": "N'importe où . Toute semaine. Ajouter des invités",
+    "destination": "Destination",
+    "reservation_date": "Date de réservation",
+    "guests_search": "Recherche des invités"
+  },
+  "filter": {
+    "price_range": "Échelle des prix",
+    "price_range_subtitle": "Prix par jour, taxes incluses",
+    "tax": "Hors taxes",
+    "tax_subtitle": "Afficher le total (hors taxes)",
+    "eating": "Pauses repas",
+    "eating_subtitle": "pause café / pause déjeuner / pause dîner",
+    "coffee": "Pause café",
+    "lunch": "Pause déjeuner",
+    "dinner": "Pause dîner"
+  },
+  "page": {
+    "profile": {
+      "add_reviews": "Ajouter des avis",
+      "my_reviews": "Mes avis",
+      "enable_editing": "Activer la modification",
+      "upload_image": "Télécharger une image",
+      "settings": "Paramètres",
+      "switch_to": "Passer au",
+      "at": "à",
+      "ratings": "Notes",
+      "comment": "Commentaire"
     },
-    "button":{
-        "reset":"Réinitialiser",
-        "show": "Afficher",
-        "show_map":"Afficher la carte",
-        "update_profile":"Mettre à jour le profil",
-        "reserve":"Réserve",
-        "close":"Fermer",
-        "add_review":"Ajouter un commentaire",
-        "cancel":"Annuler",
-        "update_stop_sales":"Mettre à jour stop sales",
-        "stop_sales":"Arrêter les ventes",
-        "delete":"Supprimer",
-        "search":"Recherche"
+    "my_listing": {
+      "message": "Aucune Salle pour l'utilisateur actuel. Créez de nouvelles salles."
     },
-    "label":{
-        "firstname":"Prénom",
-        "lastname":"Nom",
-        "email":"E-mail",
-        "phone":"Téléphone",
-        "adresse":"Adresse"
+    "trips": {
+      "listing_name": "NOM DE LA SALLE",
+      "checkin": "DATE D'ARRIVÉE",
+      "checkout": "DATE DE DÉPART",
+      "price": "PRIX",
+      "status": "STATUT",
+      "upcoming": "A venir"
     },
-    "search": {
-        "city": "Ville",
-        "date": "Date",
-        "guests_number": "Nombre d'invités",
-        "where": "Où",
-        "checkin": "Arriver",
-        "checkout": "Aller",
-        "who": "Qui",
-        "search_destination": "Rechercher une destination",
-        "guests": "invités",
-        "mobile_text":"N'importe où . Toute semaine. Ajouter des invités",
-        "destination":"Destination",
-        "reservation_date":"Date de réservation",
-        "guests_search":"Recherche des invités"
+    "my_reservations": {
+      "search": "Recherche",
+      "listing_name": "Nom de la salle",
+      "client_name": "Nom du client",
+      "checkin": "Date d'arrivée",
+      "checkout": "Date De Départ",
+      "price": "Prix",
+      "status": "Statut",
+      "upcoming": "A venir",
+      "checkedin": "Arrivée",
+      "checkedout": "Départ",
+      "record": "Enregistrements par page"
     },
-    "filter":{
-        "price_range":"Échelle des prix",
-        "price_range_subtitle":"Prix par jour, taxes incluses",
-        "tax":"Hors taxes",
-        "tax_subtitle":"Afficher le total (hors taxes)",
-        "eating":"Pauses repas",
-        "eating_subtitle":"pause café / pause déjeuner / pause dîner",
-        "coffee": "Pause café",
-        "lunch":"Pause déjeuner",
-        "dinner":"Pause dîner"
+    "new_listing": {
+      "one": {
+        "big_title": "C’est facile de se lancer sur Votre Salles",
+        "title_one": "Parlez-nous de votre salle",
+        "subtitle_one": "Partagez quelques informations de base, telles que l'endroit où il se trouve et le nombre d'invités.",
+        "title_two": "Faites-le ressortir",
+        "subtitle_two": "Ajoutez 5 photos ou plus ainsi qu’un titre et une description – nous vous aiderons.",
+        "title_three": "Terminer et publier",
+        "subtitle_three": "Définissez un prix de départ pour le B2C et le B2B et publiez votre annonce."
+      },
+      "two": {
+        "step_one": "Étape 1",
+        "title": "Parlez-nous de votre salle",
+        "subtitle": "Dans cette étape, nous vous demanderons de quel type de salle vous disposez. Ensuite, indiquez-nous l'emplacement et le nombre d'invités."
+      },
+      "three": {
+        "title": "Lequel de ces éléments décrit le mieux votre salle ?"
+      },
+      "four": {
+        "title": "Choisissez votre emplacement"
+      },
+      "five": {
+        "title": "Confirmez votre adresse",
+        "country": "Pays",
+        "type": "Maison, appartement, immeuble, etc.",
+        "area": "Quartier/village",
+        "street": "Adresse",
+        "landmark": "Landmark",
+        "city": "Ville / village",
+        "virtual": "Lien de visite virtuelle"
+      },
+      "six": {
+        "step_two": "Étape 2",
+        "title": "Faites ressortir votre salle",
+        "subtitle": "Dans cette étape, vous ajouterez certaines des commodités offertes par votre salle, ainsi que 5 photos ou plus. Ensuite, vous créerez un titre, une description, un nombre d’invités et un prix."
+      },
+      "seven": {
+        "title": "Dites aux invités ce que votre salle a à offrir",
+        "subtitle": "Vous pouvez ajouter plus de commodités après avoir publié votre annonce.",
+        "safety_items": "Avez-vous l'un de ces éléments de sécurité?",
+        "add_amenety": "Ajouter un équipement",
+        "ameneties": "équipements"
+      },
+      "eight": {
+        "title": "Ajoutez quelques photos de votre salle",
+        "subtitle": "Vous aurez besoin de 5 photos pour commencer. Vous pouvez en ajouter davantage ou apporter des modifications ultérieurement.",
+        "upload": "Télécharger"
+      },
+      "nine": {
+        "title": "Plus d'informations",
+        "label_title": "Titre",
+        "guests": "Invités",
+        "b2c": "Prix B2C",
+        "b2b": "Prix B2B",
+        "exempt": "Exonéré"
+      },
+      "ten": {
+        "title": "Félicitations!",
+        "subtitle": "Vous avez mis à jour votre annonce avec succès!",
+        "visite": "Visiter la page d'accueil",
+        "view": "Consultez vos annonces"
+      }
     },
-    "page":{
-        "profile":{
-            "add_reviews":"Ajouter des avis",
-            "my_reviews":"Mes avis",
-            "enable_editing":"Activer la modification",
-            "upload_image":"Télécharger une image",
-            "settings":"Paramètres",
-            "switch_to": "Passer au",
-            "at":"à",
-            "ratings":"Notes",
-            "comment":"Commentaire"
-        },
-        "trips":{
-            "listing_name":"NOM DE LA SALLE",
-            "checkin":"DATE D'ARRIVÉE",
-            "checkout":"DATE DE DÉPART",
-            "price":"PRIX",
-            "status":"STATUT",
-            "upcoming":"A venir"
-        },
-        "my_reservations":{
-            "search":"Recherche",
-            "listing_name":"Nom de la salle",
-            "client_name":"Nom du client",
-            "checkin":"Date d'arrivée",
-            "checkout":"Date De Départ",
-            "price":"Prix",
-            "status":"Statut",
-            "upcoming":"A venir",
-            "checkedin":"Arrivée",
-            "checkedout":"Départ",
-            "record":"Enregistrements par page"
-        },
-        "new_listing":{
-            "one":{
-                "big_title":"C’est facile de se lancer sur Votre Salles",
-                "title_one":"Parlez-nous de votre salle",
-                "subtitle_one":"Partagez quelques informations de base, telles que l'endroit où il se trouve et le nombre d'invités.",
-                "title_two":"Faites-le ressortir",
-                "subtitle_two":"Ajoutez 5 photos ou plus ainsi qu’un titre et une description – nous vous aiderons.",
-                "title_three":"Terminer et publier",
-                "subtitle_three":"Définissez un prix de départ pour le B2C et le B2B et publiez votre annonce."
-            },
-            "two":{
-                "step_one":"Étape 1",
-                "title":"Parlez-nous de votre salle",
-                "subtitle":"Dans cette étape, nous vous demanderons de quel type de salle vous disposez. Ensuite, indiquez-nous l'emplacement et le nombre d'invités."
-            },
-            "three":{
-                "title":"Lequel de ces éléments décrit le mieux votre salle ?"
-            },
-            "four":{
-                "title":"Choisissez votre emplacement"
-            },
-            "five":{
-                "title":"Confirmez votre adresse",
-                "country":"Pays",
-                "type":"Maison, appartement, immeuble, etc.",
-                "area":"Quartier/village",
-                "street":"Adresse",
-                "landmark":"Landmark",
-                "city":"Ville / village",
-                "virtual": "Lien de visite virtuelle"
-            },
-            "six":{
-                "step_two":"Étape 2",
-                "title":"Faites ressortir votre salle",
-                "subtitle":"Dans cette étape, vous ajouterez certaines des commodités offertes par votre salle, ainsi que 5 photos ou plus. Ensuite, vous créerez un titre, une description, un nombre d’invités et un prix."
-            },
-            "seven":{
-                "title":"Dites aux invités ce que votre salle a à offrir",
-                "subtitle":"Vous pouvez ajouter plus de commodités après avoir publié votre annonce.",
-                "safety_items":"Avez-vous l'un de ces éléments de sécurité?",
-                "add_amenety":"Ajouter un équipement",
-                "ameneties":"équipements"
-            },
-            "eight":{
-                "title":"Ajoutez quelques photos de votre salle",
-                "subtitle":"Vous aurez besoin de 5 photos pour commencer. Vous pouvez en ajouter davantage ou apporter des modifications ultérieurement.",
-                "upload":"Télécharger"
-            },
-            "nine":{
-                "title":"Plus d'informations",
-                "label_title":"Titre",
-                "guests":"Invités",
-                "b2c":"Prix B2C",
-                "b2b":"Prix B2B",
-                "exempt":"Exonéré"
-            },
-            "ten":{
-                "title":"Félicitations!",
-                "subtitle":"Vous avez mis à jour votre annonce avec succès!",
-                "visite":"Visiter la page d'accueil",
-                "view":"Consultez vos annonces"
-            }
-        },
-        "statistics":{
-            "number_reservation":"Nombre de réservations par mois",
-            "total_price":"Prix total par mois"
-        },
-        "invoices":{
-            "search":"Recherche",
-            "number":"Numéro",
-            "full_name":"Nom et prénom",
-            "phone":"Téléphone",
-            "status":"Statut",
-            "record":"Enregistrements par page"
-        },
-        "listing":{
-            "hosted_by":"Publier par",
-            "guests":"Invités",
-            "reviews":"Avis",
-            "ameneties":"Equipements",
-            "day":"jour",
-            "days":"jours",
-            "vat":"TVA",
-            "label":"Vous ne serez pas encore facturé",
-            "rare":"C'est une trouvaille rare",
-            "fully_booked":"cet endroit sur Votre Salle est généralement complet."
-        },
-        "calendar":{
-            "add_event":"Ajouter événement",
-            "edit_event":"Modifier événement",
-            "from":"De",
-            "to":"à",
-            "event_description":"Description de l'événement"
-        }
+    "statistics": {
+      "number_reservation": "Nombre de réservations par mois",
+      "total_price": "Prix total par mois"
     },
-    "footer":{
-        "privacy":"Confidentialité",
-        "terms":"Termes",
-        "sitemap":"Plan du site",
-        "company_details":"Détails de l'entreprise",
-        "destinations":"Destinations"
+    "invoices": {
+      "search": "Recherche",
+      "number": "Numéro",
+      "full_name": "Nom et prénom",
+      "phone": "Téléphone",
+      "status": "Statut",
+      "record": "Enregistrements par page"
+    },
+    "listing": {
+      "hosted_by": "Publier par",
+      "guests": "Invités",
+      "reviews": "Avis",
+      "ameneties": "Equipements",
+      "day": "jour",
+      "days": "jours",
+      "vat": "TVA",
+      "label": "Vous ne serez pas encore facturé",
+      "rare": "C'est une trouvaille rare",
+      "fully_booked": "cet endroit sur Votre Salle est généralement complet.",
+      "in": "à",
+      "hall_offer": "Ce que propose cette salle",
+      "checkin": "ARRIVÉ",
+      "checkout": "DÉPART",
+      "add_dates": "Ajouter des dates pour voir les prix"
+    },
+    "calendar": {
+      "add_event": "Ajouter événement",
+      "edit_event": "Modifier événement",
+      "from": "De",
+      "to": "à",
+      "event_description": "Description de l'événement"
     }
+  },
+  "footer": {
+    "privacy": "Confidentialité",
+    "terms": "Termes",
+    "sitemap": "Plan du site",
+    "company_details": "Détails de l'entreprise",
+    "destinations": "Destinations"
+  }
 }

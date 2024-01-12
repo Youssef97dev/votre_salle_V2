@@ -1,9 +1,11 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { PiCaretUpBold } from "react-icons/pi";
 import { FiGlobe } from "react-icons/fi";
+import i18n from "../../../i18n";
 
 export default function CompactFooter() {
+  const [lang, setLang] = useState(i18n.language);
   const links = [
     "privacy",
     "terms",
@@ -11,6 +13,21 @@ export default function CompactFooter() {
     "company details",
     "destinations",
   ];
+
+  const changeLanguage = () => {
+    localStorage.removeItem("lang");
+    if (i18n.language === "fr") {
+      i18n.changeLanguage("en");
+      localStorage.setItem("lang", "en");
+      setLang("en");
+    } else {
+      i18n.changeLanguage("fr");
+      localStorage.setItem("lang", "fr");
+      setLang("fr");
+    }
+    console.log(i18n.language);
+  };
+
   return (
     <div className=" px-5 md:px-10 lg:px-20 border-t border-t-gray-200 py-4 flex justify-between w-full text-sm z-50 bg-white items-center">
       <ul className="flex lg:flex-row flex-col gap-3 font-normal ">
@@ -24,8 +41,12 @@ export default function CompactFooter() {
         ))}
       </ul>
       <ul className="flex lg:flex-row flex-col gap-4 font-medium">
-        <li className="flex items-center gap-2 cursor-pointer">
-          <FiGlobe /> English (IN)
+        <li
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => changeLanguage()}
+        >
+          <FiGlobe />
+          {lang === "fr" ? "English (En)" : "French (Fr)"}
         </li>
         <li className="cursor-pointer">MAD</li>
         <li className="flex items-center gap-2 cursor-pointer">

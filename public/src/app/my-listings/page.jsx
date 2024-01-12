@@ -12,8 +12,10 @@ import React, { useEffect, useState } from "react";
 import { getSearchListing, getUserListings } from "airbnb/lib/lisitng";
 import ListingCard from "airbnb/components/listingCard";
 import dynamic from "next/dynamic";
+import { useTranslation } from "react-i18next";
 
 export default function Page() {
+  const { t } = useTranslation();
   const {
     isAuthModalOpen,
     userInfo,
@@ -51,7 +53,7 @@ export default function Page() {
             </div>
           ) : (
             <div className="flex items-center justify-center w-full h-full">
-              <h1>No Listings for current user. Create new Listings.</h1>
+              <h1>{t("page.listing.my_listing")}</h1>
             </div>
           )}
         </div>

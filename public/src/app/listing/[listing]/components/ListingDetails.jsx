@@ -7,12 +7,12 @@ import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
 
-const ListingDetails = () => {
+const ListingDetails = ({ t }) => {
   const { currentListing, userInfo } = userAppStore();
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
-    console.log(currentListing)
+    console.log(currentListing);
     // Calculate the total ratings and the number of reviews
     const totalRatings = currentListing?.reviews?.reduce(
       (sum, review) => sum + parseFloat(review.ratings),
@@ -30,7 +30,8 @@ const ListingDetails = () => {
         {currentListing?.locationType}
       </span>
       <span className="font-extrabold text-xl md:text-2xl lg:text-3xl">
-        {currentListing?.title} in {currentListing?.locationData?.region}
+        {currentListing?.title} {t("page.listing.in")}{" "}
+        {currentListing?.locationData?.region}
       </span>
       <div className="flex items-center gap-5">
         {rating > 0 && (
@@ -42,23 +43,25 @@ const ListingDetails = () => {
         )}
         <div className="flex items-center gap-1 text-[#6e7582]">
           <IoLocationOutline />
-          <span className="font-bold text-sm md:text-base">{currentListing?.locationData?.place}, {currentListing?.locationData?.country}</span>
+          <span className="font-bold text-sm md:text-base">
+            {currentListing?.locationData?.place},{" "}
+            {currentListing?.locationData?.country}
+          </span>
         </div>
-        
       </div>
       <span className="font-bold pb-3 border-b border-[#d1d5db] text-sm md:text-base">
-        <span className="!text-[#6e7582]">Hosted by</span>{" "}
+        <span className="!text-[#6e7582]">{t("page.listing.hosted_by")}</span>{" "}
         {currentListing?.listingCreatedBy?.firstName}{" "}
         {currentListing?.listingCreatedBy?.lastName}
       </span>
       <div className="flex items-center gap-4 pt-3 text-xs md:text-sm text-[#6e7582] font-bold">
         <div className="inline-flex items-center gap-2">
           <IoPersonOutline size={15} color="#6e7582" />{" "}
-          {currentListing?.placeSpace?.guests} Guests
+          {currentListing?.placeSpace?.guests} {t("page.listing.guests")}
         </div>
         <div className="inline-flex items-center gap-2">
           <FaRegStar size={15} color="#6e7582" />{" "}
-          {currentListing?.reviews?.length} Reviews
+          {currentListing?.reviews?.length} {t("page.listing.reviews")}
         </div>
       </div>
     </div>

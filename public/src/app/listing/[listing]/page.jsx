@@ -19,8 +19,11 @@ import dynamic from "next/dynamic";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import ListingDescription from "./components/ListingDescription";
 
+import { useTranslation } from "react-i18next";
+
 export default function Page({ params: { listing } }) {
   const { currentListing, setCurrentListing } = userAppStore();
+  const { t } = useTranslation();
   const [showReservePopup, setShowReservePopup] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -63,15 +66,15 @@ export default function Page({ params: { listing } }) {
               style={{ gridTemplateColumns: isDesktop && "70fr 30fr" }}
             >
               <div className="flex flex-col gap-5">
-                <ListingDetails />
+                <ListingDetails t={t} />
                 <ListingDescription />
-                <ListingAmenties />
-                <Reviews />
+                <ListingAmenties t={t} />
+                <Reviews t={t} />
                 <ListingMap />
               </div>
               {isDesktop && (
                 <div>
-                  <TripScheduler />
+                  <TripScheduler t={t} />
                 </div>
               )}
             </div>
@@ -83,13 +86,13 @@ export default function Page({ params: { listing } }) {
                 }`}
               >
                 <span className="w-full font-medium text-sm text-[#000]">
-                  Ajouter des dates pour voir les prix
+                  {t("page.listing.add_dates")}
                 </span>
                 <button
                   onClick={() => setShowReservePopup(true)}
                   className="w-full rounded-xl py-2 bg-sky-900"
                 >
-                  Reserve
+                  {t("button.reserve")}
                 </button>
               </div>
             )}
@@ -104,7 +107,7 @@ export default function Page({ params: { listing } }) {
                 }`}
               >
                 <div className="w-full h-full overflow-auto  mt-8 pb-8">
-                  <TripScheduler />
+                  <TripScheduler t={t} />
                 </div>
                 <button
                   className="absolute top-4 left-6 text-black font-semibold cursor-pointer"

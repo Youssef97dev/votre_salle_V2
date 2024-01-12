@@ -15,6 +15,8 @@ import { CiMap } from "react-icons/ci";
 import { CgMenuGridO } from "react-icons/cg";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 
+import { useTranslation } from "react-i18next";
+
 // Components
 import ScheduleMobile from "../common/ScheduleMobile";
 import Sidebar from "../common/Sidebar";
@@ -22,6 +24,7 @@ import Sidebar from "../common/Sidebar";
 const NavbarMobile = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const { t } = useTranslation();
   const {
     isMapView,
     setMapView,
@@ -46,13 +49,17 @@ const NavbarMobile = () => {
             <button onClick={() => router.push("auth/signup")}>
               <AiOutlineUserAdd size={20} color="#58418b" />
             </button>
-            <span className="text-[10px] text-[#58418b]">Sign-Up</span>
+            <span className="text-[10px] text-[#58418b]">
+              {t("navigation.signup")}
+            </span>
           </li>
           <li className="px-2 py-1 flex flex-col gap-1 justify-center items-center font-bold">
             <button onClick={() => router.push("auth/signin")}>
               <PiSignIn size={20} color="#58418b" />
             </button>
-            <span className="text-[10px] text-[#58418b]">Sign-In</span>
+            <span className="text-[10px] text-[#58418b]">
+              {t("navigation.signin")}
+            </span>
           </li>
         </ul>
       ) : (
@@ -71,7 +78,7 @@ const NavbarMobile = () => {
                 pathname !== "/" ? "text-[#58418b]" : "#000033"
               }`}
             >
-              Home
+              {t("navigation.home")}
             </span>
           </li>
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-bold">
@@ -86,7 +93,7 @@ const NavbarMobile = () => {
                 pathname !== "/wishlist" ? "text-[#58418b]" : "#000033"
               }`}
             >
-              Wishlist
+              {t("navigation.my_wishlists")}
             </span>
           </li>
           {userInfo.roles[0] === "owner" && (
@@ -94,7 +101,9 @@ const NavbarMobile = () => {
               <button onClick={() => router.push("new-listing")}>
                 <IoAddCircleOutline size={20} color={"#58418b"} />
               </button>
-              <span className="text-[10px] text-[#58418b]">Add Hall</span>
+              <span className="text-[10px] text-[#58418b]">
+                {t("navigation.add_hall")}
+              </span>
             </li>
           )}
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
@@ -106,7 +115,9 @@ const NavbarMobile = () => {
               )}
             </button>
             <span className={`text-[10px]  text-[#58418b]`}>
-              {!isMapView ? "Show Map" : "Show List"}
+              {!isMapView
+                ? `${t("navigation.show_map")}`
+                : `${t("navigation.show_list")}`}
             </span>
           </li>
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">

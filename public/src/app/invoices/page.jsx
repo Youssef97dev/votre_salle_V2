@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import Swal from "sweetalert2";
 import { DataTable } from "mantine-datatable";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 // Components
 import AuthModal from "airbnb/components/auth/AuthModal";
@@ -36,6 +37,7 @@ import { FaFileDownload } from "react-icons/fa";
 
 const page = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { userInfo } = userAppStore();
 
   const [search, setSearch] = useState("");
@@ -163,7 +165,7 @@ const page = () => {
                 <input
                   type="text"
                   className="form-input w-full lg:w-1/5 rounded py-3 px-4 border shadow-md my-3"
-                  placeholder="Search..."
+                  placeholder={`${t("page.invoices.search")}...`}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -176,7 +178,7 @@ const page = () => {
                       records={records}
                       columns={[
                         {
-                          accessor: "Number",
+                          accessor: `${t("page.invoices.number")}`,
                           render: ({ id }) => (
                             <div className="px-6 py-4">{`#${id
                               .toString()
@@ -184,7 +186,7 @@ const page = () => {
                           ),
                         },
                         {
-                          accessor: "Full name",
+                          accessor: `${t("page.invoices.full_name")}`,
                           textAlignment: "center",
                           render: ({ trips }) => (
                             <div className="px-6 py-4">
@@ -193,7 +195,7 @@ const page = () => {
                           ),
                         },
                         {
-                          accessor: "Phone",
+                          accessor: `${t("page.invoices.phone")}`,
                           textAlignment: "center",
                           render: ({ trips }) => (
                             <div className="px-6 py-4">{trips.user.phone}</div>
@@ -209,7 +211,7 @@ const page = () => {
                           ),
                         },
                         {
-                          accessor: "Status",
+                          accessor: `${t("page.invoices.status")}`,
                           textAlignment: "center",
                           render: ({ status }) => (
                             <div

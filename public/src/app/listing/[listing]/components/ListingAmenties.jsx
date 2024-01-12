@@ -1,8 +1,8 @@
 import { AmenetiesType } from "airbnb/data/Amenities";
 import { userAppStore } from "airbnb/store/store";
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-export default function ListingAmenties() {
+export default function ListingAmenties({ t }) {
   const { currentListing } = userAppStore();
   const [showPopup, setShowPopup] = useState(false);
 
@@ -19,10 +19,15 @@ export default function ListingAmenties() {
 
   return (
     <div className="flex flex-col gap-2 w-full p-4 border border-[#d1d5db] rounded-xl shadow-lg">
-      <span className="font-extrabold text-lg md:text-xl pb-3 border-b border-[#dbeafe]">Ameneties</span>
+      <span className="font-extrabold text-lg md:text-xl pb-3 border-b border-[#dbeafe]">
+        {t("page.listing.ameneties")}
+      </span>
       <ul className="grid md:grid-cols-3 gap-3 grid-cols-1 pb-3 border-b border-[#dbeafe]">
-        {currentListing.placeAmeneties?.slice(0,11).map((amenity) => (
-          <li key={amenity} className="text-sm md:text-base font-bold text-[#6e7582]" >
+        {currentListing.placeAmeneties?.slice(0, 11).map((amenity) => (
+          <li
+            key={amenity}
+            className="text-sm md:text-base font-bold text-[#6e7582]"
+          >
             {amenity}
           </li>
         ))}
@@ -31,32 +36,46 @@ export default function ListingAmenties() {
           <span className="text-sm font-medium">Show More</span>
         </li>*/}
       </ul>
-      {
-          currentListing?.placeAmeneties?.length > 11 &&
-          <button className="btn btn-outline-dark w-full md:w-[50%] lg:w-[25%] rounded-full font-bold" onClick={() => setShowPopup(true)}>Show {currentListing?.placeAmeneties?.length} Ameneties</button>
-        }
+      {currentListing?.placeAmeneties?.length > 11 && (
+        <button
+          className="btn btn-outline-dark w-full md:w-[50%] lg:w-[25%] rounded-full font-bold"
+          onClick={() => setShowPopup(true)}
+        >
+          {t("button.show")} {currentListing?.placeAmeneties?.length}{" "}
+          {t("page.listing.ameneties")}
+        </button>
+      )}
 
       {showPopup && (
         <div className="fixed inset-0 flex items-end md:items-center justify-center bg-gray-900 bg-opacity-80 z-50">
-          
-            <div className={`relative w-full h-[98%] md:h-[75vh] md:w-[35vw] md:rounded-xl rounded-t-xl bg-white p-5 overflow-hidden  ${showPopup ? 'transform translate-y-0 transition-transform duration-3000' : ''}`}>
-            
-                <div className="w-full h-full overflow-auto  mt-8 pb-8">
-                  <ul className="flex flex-col gap-2">
-                    <span className="font-semibold">What this hall offers</span>
-                    {currentListing.placeAmeneties?.map((amenity) => (
-                      <li key={amenity} className="border border-gray-300 p-2 rounded-lg flex flex-row justify-start items-center" >
-                        {getSvgPathByName(amenity)}
-                        <span className="text-sm font-medium">{amenity}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              <button className="absolute top-4 left-6 text-black font-semibold cursor-pointer" onClick={() => setShowPopup(false)}>
-                  X
-              </button>
+          <div
+            className={`relative w-full h-[98%] md:h-[75vh] md:w-[35vw] md:rounded-xl rounded-t-xl bg-white p-5 overflow-hidden  ${
+              showPopup
+                ? "transform translate-y-0 transition-transform duration-3000"
+                : ""
+            }`}
+          >
+            <div className="w-full h-full overflow-auto  mt-8 pb-8">
+              <ul className="flex flex-col gap-2">
+                <span className="font-semibold">{t("listing.hall_offer")}</span>
+                {currentListing.placeAmeneties?.map((amenity) => (
+                  <li
+                    key={amenity}
+                    className="border border-gray-300 p-2 rounded-lg flex flex-row justify-start items-center"
+                  >
+                    {getSvgPathByName(amenity)}
+                    <span className="text-sm font-medium">{amenity}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          
+            <button
+              className="absolute top-4 left-6 text-black font-semibold cursor-pointer"
+              onClick={() => setShowPopup(false)}
+            >
+              X
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -1,199 +1,208 @@
 {
-    "navigation":{
-        "signin": "Login",
-        "signup": "Sign up",
-        "help": "Help",
-        "my_bookings": "My Bookings",
-        "my_wishlists": "My Wishlists",
-        "my_listings": "My Listings",
-        "bookings_received": "Bookings Received",
-        "add_hall": "Add Your Hall",
-        "calendar":"Calendar",
-        "statistics":"Statistics",
-        "invoices":"Invoices",
-        "logout":"Logout"
+  "navigation": {
+    "signin": "Login",
+    "signup": "Sign up",
+    "help": "Help",
+    "my_bookings": "My Bookings",
+    "my_wishlists": "My Wishlists",
+    "my_listings": "My Listings",
+    "bookings_received": "Bookings Received",
+    "add_hall": "Add Your Hall",
+    "calendar": "Calendar",
+    "statistics": "Statistics",
+    "invoices": "Invoices",
+    "logout": "Logout",
+    "home": "Home"
+  },
+  "button": {
+    "reset": "Reset",
+    "show": "Show",
+    "show_map": "Show Map",
+    "show_list": "Show List",
+    "update_profile": "Update Profile",
+    "reserve": "Reserve",
+    "close": "Close",
+    "add_review": "Add Review",
+    "cancel": "Cancel",
+    "update_stop_sales": "Update stop sales",
+    "stop_sales": "Stop sales",
+    "delete": "Delete",
+    "search": "Search"
+  },
+  "label": {
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "adresse": "Adresse"
+  },
+  "search": {
+    "city": "City",
+    "date": "Date",
+    "guests_number": "Guests number",
+    "where": "Where",
+    "checkin": "Check in",
+    "checkout": "Check out",
+    "who": "Who",
+    "search_destination": "Search Destination",
+    "guests": "guests",
+    "mobile_text": "Anywhere . Any week . Add guests",
+    "destination": "Destination",
+    "reservation_date": "Reservation Date",
+    "guests_search": "Guests Search"
+  },
+  "filter": {
+    "price_range": "Price range",
+    "price_range_subtitle": "Price per day, taxes included",
+    "tax": "Excluding taxes",
+    "tax_subtitle": "Show total (excluding taxes)",
+    "eating": "Eating Breaks",
+    "eating_subtitle": "coffee break / lunch break / dinner break",
+    "coffee": "Coffee break",
+    "lunch": "Lunch break",
+    "dinner": "Dinner break"
+  },
+  "page": {
+    "profile": {
+      "add_reviews": "Add Reviews",
+      "my_reviews": "My Reviews",
+      "enable_editing": "Enable Editing",
+      "upload_image": "Upload image",
+      "settings": "Settings",
+      "switch_to": "Switch to",
+      "at": "at",
+      "ratings": "Ratings",
+      "comment": "Comment"
     },
-    "button":{
-        "reset":"Reset",
-        "show": "Show",
-        "show_map":"Show Map",
-        "update_profile":"Update Profile",
-        "reserve":"Reserve",
-        "close":"Close",
-        "add_review":"Add Review",
-        "cancel":"Cancel",
-        "update_stop_sales":"Update stop sales",
-        "stop_sales":"Stop sales",
-        "delete":"Delete",
-        "search":"Search"
+    "my_listing": {
+      "message": "No Listings for current user. Create new Listings."
     },
-    "label":{
-        "firstname":"First Name",
-        "lastname":"Last Name",
-        "email":"Email",
-        "phone":"Phone",
-        "adresse":"Adresse"
+    "trips": {
+      "listing_name": "LISTING NAME",
+      "checkin": "CHECK IN DATE",
+      "checkout": "CHECK OUT DATE",
+      "price": "PRICE",
+      "status": "TRIP STATUS",
+      "upcoming": "Upcoming"
     },
-    "search": {
-        "city": "City",
-        "date": "Date",
-        "guests_number": "Guests number",
-        "where": "Where",
-        "checkin": "Check in",
-        "checkout": "Check out",
-        "who": "Who",
-        "search_destination": "Search Destination",
-        "guests": "guests",
-        "mobile_text":"Anywhere . Any week . Add guests",
-        "destination":"Destination",
-        "reservation_date":"Reservation Date",
-        "guests_search":"Guests Search"
-
+    "my_reservations": {
+      "search": "Search",
+      "listing_name": "Listing name",
+      "client_name": "Client name",
+      "checkin": "Check in date",
+      "checkout": "Check out date",
+      "price": "Price",
+      "status": "Status",
+      "upcoming": "Upcoming",
+      "checkedin": "Checked In",
+      "checkedout": "Checked Out",
+      "record": "Records per page"
     },
-    "filter":{
-        "price_range":"Price range",
-        "price_range_subtitle":"Price per day, taxes included",
-        "tax":"Excluding taxes",
-        "tax_subtitle":"Show total (excluding taxes)",
-        "eating":"Eating Breaks",
-        "eating_subtitle":"coffee break / lunch break / dinner break",
-        "coffee": "Coffee break",
-        "lunch":"Lunch break",
-        "dinner":"Dinner break"
+    "new_listing": {
+      "one": {
+        "big_title": "It’s easy to get started on Votre Salles",
+        "title_one": "Tell us about your place",
+        "subtitle_one": "Share some basic info, such as where it is and how many guests.",
+        "title_two": "Make it stand out",
+        "subtitle_two": "Add 5 or more photos plus a title and description – we’ll help you out.",
+        "title_three": "Finish up and publish",
+        "subtitle_three": "Set a starting price for B2C and B2B and publish your listing."
+      },
+      "two": {
+        "step_one": "Step 1",
+        "title": "Tel us about your Hall",
+        "subtitle": "In this step, we'll ask you which type of hall you have. Then let us know the location and how many guests."
+      },
+      "three": {
+        "title": "Which of these best describes your place?"
+      },
+      "four": {
+        "title": "Choose your location"
+      },
+      "five": {
+        "title": "Confirm your address",
+        "country": "Country",
+        "type": "House, flat, bldg, etc.",
+        "area": "Area/village",
+        "street": "Street Address",
+        "landmark": "Landmark",
+        "city": "City / town",
+        "virtual": "Virtual Tour Link"
+      },
+      "six": {
+        "step_two": "Step 2",
+        "title": "Make your hall stand out",
+        "subtitle": "In this step, you’ll add some of the amenities your place offers, plus 5 or more photos. Then you’ll create a title, description, guests number and price."
+      },
+      "seven": {
+        "title": "Tell guests what your place has to offer",
+        "subtitle": "You can add more amenities after you publish your listing.",
+        "safety_items": "Do you have any of these safety items?",
+        "add_amenety": "Add Amenety",
+        "ameneties": "ameneties"
+      },
+      "eight": {
+        "title": "Add some photos of your house",
+        "subtitle": "You'll need 5 photos to get started. You can add more or make changes later.",
+        "upload": "Upload"
+      },
+      "nine": {
+        "title": "More informations",
+        "label_title": "Title",
+        "guests": "Guests",
+        "b2c": "B2C Price",
+        "b2b": "B2B Price",
+        "exempt": "Exempt"
+      },
+      "ten": {
+        "title": "Congratulations!",
+        "subtitle": "You have successfully Updated your listing!",
+        "visite": "Visite home page",
+        "view": "View your listings"
+      }
     },
-    "page":{
-        "profile":{
-            "add_reviews":"Add Reviews",
-            "my_reviews":"My Reviews",
-            "enable_editing":"Enable Editing",
-            "upload_image":"Upload image",
-            "settings":"Settings",
-            "switch_to": "Switch to",
-            "at":"at",
-            "ratings":"Ratings",
-            "comment":"Comment"
-        },
-        "trips":{
-            "listing_name":"LISTING NAME",
-            "checkin":"CHECK IN DATE",
-            "checkout":"CHECK OUT DATE",
-            "price":"PRICE",
-            "status":"TRIP STATUS",
-            "upcoming":"Upcoming"
-        },
-        "my_reservations":{
-            "search":"Search",
-            "listing_name":"Listing name",
-            "client_name":"Client name",
-            "checkin":"Check in date",
-            "checkout":"Check out date",
-            "price":"Price",
-            "status":"Status",
-            "upcoming":"Upcoming",
-            "checkedin":"Checked In",
-            "checkedout":"Checked Out",
-            "record":"Records per page"
-        },
-        "new_listing":{
-            "one":{
-                "big_title":"It’s easy to get started on Votre Salles",
-                "title_one":"Tell us about your place",
-                "subtitle_one":"Share some basic info, such as where it is and how many guests.",
-                "title_two":"Make it stand out",
-                "subtitle_two":"Add 5 or more photos plus a title and description – we’ll help you out.",
-                "title_three":"Finish up and publish",
-                "subtitle_three":"Set a starting price for B2C and B2B and publish your listing."
-            },
-            "two":{
-                "step_one":"Step 1",
-                "title":"Tel us about your Hall",
-                "subtitle":"In this step, we'll ask you which type of hall you have. Then let us know the location and how many guests."
-            },
-            "three":{
-                "title":"Which of these best describes your place?"
-            },
-            "four":{
-                "title":"Choose your location"
-            },
-            "five":{
-                "title":"Confirm your address",
-                "country":"Country",
-                "type":"House, flat, bldg, etc.",
-                "area":"Area/village",
-                "street":"Street Address",
-                "landmark":"Landmark",
-                "city":"City / town",
-                "virtual": "Virtual Tour Link"
-            },
-            "six":{
-                "step_two":"Step 2",
-                "title":"Make your hall stand out",
-                "subtitle":"In this step, you’ll add some of the amenities your place offers, plus 5 or more photos. Then you’ll create a title, description, guests number and price."
-            },
-            "seven":{
-                "title":"Tell guests what your place has to offer",
-                "subtitle":"You can add more amenities after you publish your listing.",
-                "safety_items":"Do you have any of these safety items?",
-                "add_amenety":"Add Amenety",
-                "ameneties":"ameneties"
-            },
-            "eight":{
-                "title":"Add some photos of your house",
-                "subtitle":"You'll need 5 photos to get started. You can add more or make changes later.",
-                "upload":"Upload"
-            },
-            "nine":{
-                "title":"More informations",
-                "label_title":"Title",
-                "guests":"Guests",
-                "b2c":"B2C Price",
-                "b2b":"B2B Price",
-                "exempt":"Exempt"
-            },
-            "ten":{
-                "title":"Congratulations!",
-                "subtitle":"You have successfully Updated your listing!",
-                "visite":"Visite home page",
-                "view":"View your listings"
-            }
-        },
-        "statistics":{
-            "number_reservation":"Number of Reservations Per month",
-            "total_price":"Total Price Per month"
-        },
-        "invoices":{
-            "search":"Search",
-            "number":"Number",
-            "full_name":"Full name",
-            "phone":"Phone",
-            "status":"Status",
-            "record":"Records per page"
-        },
-        "listing":{
-            "hosted_by":"Publier par",
-            "guests":"Guests",
-            "reviews":"Reviews",
-            "ameneties":"Ameneties",
-            "day":"day",
-            "days":"days",
-            "vat":"VAT",
-            "label":"You won't be charged yet",
-            "rare":"This is a rare find",
-            "fully_booked":"this place on Votre Salle is usually fully booked."
-        },
-        "calendar":{
-            "add_event":"Add Event",
-            "edit_event":"Edit Event",
-            "from":"From",
-            "to":"To",
-            "event_description":"Event Description"
-        }
+    "statistics": {
+      "number_reservation": "Number of Reservations Per month",
+      "total_price": "Total Price Per month"
     },
-    "footer":{
-        "privacy":"Privacy",
-        "terms":"Terms",
-        "sitemap":"Sitemap",
-        "company_details":"Company details",
-        "destinations":"Destinations"
+    "invoices": {
+      "search": "Search",
+      "number": "Number",
+      "full_name": "Full name",
+      "phone": "Phone",
+      "status": "Status",
+      "record": "Records per page"
+    },
+    "listing": {
+      "hosted_by": "Publier par",
+      "guests": "Guests",
+      "reviews": "Reviews",
+      "ameneties": "Ameneties",
+      "day": "day",
+      "days": "days",
+      "vat": "VAT",
+      "label": "You won't be charged yet",
+      "rare": "This is a rare find",
+      "fully_booked": "this place on Votre Salle is usually fully booked.",
+      "in": "in",
+      "hall_offer": "What this hall offers",
+      "checkin": "CHECK-IN",
+      "checkout": "CHECK-OUT",
+      "add_dates": "Add dates to see prices"
+    },
+    "calendar": {
+      "add_event": "Add Event",
+      "edit_event": "Edit Event",
+      "from": "From",
+      "to": "To",
+      "event_description": "Event Description"
     }
+  },
+  "footer": {
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "sitemap": "Sitemap",
+    "company_details": "Company details",
+    "destinations": "Destinations"
+  }
 }

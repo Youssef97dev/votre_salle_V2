@@ -18,7 +18,7 @@ import { FaStar } from "react-icons/fa6";
 
 import { BeatLoader } from "react-spinners";
 
-export default function TripScheduler() {
+export default function TripScheduler({ t }) {
   const router = useRouter();
   const { currentListing, userInfo } = userAppStore();
   const [state, setState] = useState([
@@ -166,15 +166,17 @@ export default function TripScheduler() {
                     : currentListing.price.toFixed(2)}{" "}
                   MAD
                 </span>
-                <span className="text-base self-end text-[#6e7582]">/ day</span>
+                <span className="text-base self-end text-[#6e7582]">
+                  / {t("page.listing.day")}
+                </span>
               </div>
               {rating > 0 && (
-                  <span className="font-bold flex items-center gap-1">
-                    <FaStar color="f97316" size={15} />{" "}
-                    <span className="text-sm">{rating.toFixed(1)}</span>
-                    <span className="text-sm text-[#99a3b3]">{`(${currentListing?.reviews?.length})`}</span>
-                  </span>
-                )}
+                <span className="font-bold flex items-center gap-1">
+                  <FaStar color="f97316" size={15} />{" "}
+                  <span className="text-sm">{rating.toFixed(1)}</span>
+                  <span className="text-sm text-[#99a3b3]">{`(${currentListing?.reviews?.length})`}</span>
+                </span>
+              )}
             </div>
             <div className="flex flex-col w-full">
               <div className="relative flex items-center gap-3 w-full border-t border-r border-l border-gray-300 p-2 rounded-t-xl cursor-pointer font-bold hover:shadow-lg">
@@ -199,9 +201,13 @@ export default function TripScheduler() {
                     </span>
                   </div>
                   <div className="flex items-center gap-3 w-full">
-                    <label className="text-xs text-[#6e7582]">CHECK-IN</label>
+                    <label className="text-xs text-[#6e7582]">
+                      {t("page.listing.checkin")}
+                    </label>
                     <label className="text-xs text-[#6e7582]">-</label>
-                    <label className="text-xs text-[#6e7582]">CHECK-OUT</label>
+                    <label className="text-xs text-[#6e7582]">
+                      {t("page.listing.checkout")}
+                    </label>
                   </div>
                 </div>
                 {showCalendar && (
@@ -225,7 +231,9 @@ export default function TripScheduler() {
               <div className="flex items-center gap-3 w-full border border-gray-300 p-2 rounded-b-xl cursor-pointer font-bold hover:shadow-lg">
                 <IoPersonAddOutline color="#d1d5db" size={28} />
                 <div className="flex flex-col gap-1 w-full">
-                  <span>{guests} Guests</span>
+                  <span>
+                    {guests} {t("page.listing.guests")}
+                  </span>
                   <input
                     type="number"
                     className="w-full text-xs px-1 py-1 border-none outline-none"
@@ -236,14 +244,14 @@ export default function TripScheduler() {
               </div>
             </div>
             <span className="text-center w-full font-bold text-[#6e7582]">
-              You won't be charged yet
+              {t("page.listing.label")}
             </span>
             <div className="flex justify-between w-full text-sm text-[#6e7582]">
               <span>
                 {userInfo?.typeUser === "B2B"
                   ? currentListing.priceB2b.toFixed(2)
                   : currentListing.price.toFixed(2)}{" "}
-                MAD x {calculateDaysDifference()} days
+                MAD x {calculateDaysDifference()} {t("page.listing.days")}
               </span>
               <span>
                 {(
@@ -255,7 +263,7 @@ export default function TripScheduler() {
               </span>
             </div>
             <div className="flex  justify-between w-full text-sm pb-4 border-b border-[#d1d5db] text-[#6e7582]">
-              <span>TVA</span>
+              <span>{t("page.listing.vat")}</span>
               <span>
                 {(
                   (userInfo?.typeUser === "B2B"
@@ -294,16 +302,15 @@ export default function TripScheduler() {
               }
             >
               <ClockLoader color="#fbfffe" loading={loading} size={25} />{" "}
-              Reserve
+              {t("button.reserve")}
             </button>
           </>
         )}
       </div>
       <div className="flex border border-gray-400 rounded-lg p-4 gap-2 items-start px-8">
         <span>
-          <strong>This is a rare find. </strong>
-          {currentListing?.listingCreatedBy?.firstName}'s place on Votre Salle
-          is usually fully booked.
+          <strong>{t("page.listing.rare")} </strong>
+          {t("page.listing.fully_booked")}
         </span>
         <Daimond />
       </div>
