@@ -15,6 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <meta charset="UTF-8"></meta>
       <link
         href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
         rel="stylesheet"
