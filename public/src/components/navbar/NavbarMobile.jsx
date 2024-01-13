@@ -63,13 +63,13 @@ const NavbarMobile = () => {
           </li>
         </ul>
       ) : (
-        <ul className="flex justify-evenly items-center gap-1">
+        <ul className="flex justify-evenly items-center gap-1 p-2">
           <li
             className={`px-1 py-1 flex flex-col gap-1 justify-center items-center font-bold`}
           >
             <button onClick={() => router.push("/")}>
               <AiOutlineHome
-                size={20}
+                size={23}
                 color={pathname !== "/" ? "#58418b" : "#000033"}
               />
             </button>
@@ -84,7 +84,7 @@ const NavbarMobile = () => {
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-bold">
             <button onClick={() => router.push("/wishlist")}>
               <AiOutlineHeart
-                size={20}
+                size={23}
                 color={pathname !== "/wishlist" ? "#58418b" : "#000033"}
               />
             </button>
@@ -99,7 +99,7 @@ const NavbarMobile = () => {
           {userInfo.roles[0] === "owner" && (
             <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-bold">
               <button onClick={() => router.push("new-listing")}>
-                <IoAddCircleOutline size={20} color={"#58418b"} />
+                <IoAddCircleOutline size={23} color={"#58418b"} />
               </button>
               {/*<span className="text-[10px] text-[#58418b]">
                 {t("navigation.add_hall")}
@@ -109,9 +109,9 @@ const NavbarMobile = () => {
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
             <button onClick={() => setMapView()}>
               {!isMapView ? (
-                <CiMap size={20} color={"#58418b"} />
+                <CiMap size={23} color={"#58418b"} />
               ) : (
-                <AiOutlineUnorderedList size={20} color={"#58418b"} />
+                <AiOutlineUnorderedList size={23} color={"#58418b"} />
               )}
             </button>
             {/*<span className={`text-[10px]  text-[#58418b]`}>
@@ -122,7 +122,7 @@ const NavbarMobile = () => {
           </li>
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
             <button onClick={() => setSidebarMenuOpen(true)}>
-              <CgMenuGridO size={20} color={"#58418b"} />
+              <CgMenuGridO size={23} color={"#58418b"} />
             </button>
             {/*<span className={`text-[10px]  text-[#58418b]`}>Menu</span>*/}
           </li>
