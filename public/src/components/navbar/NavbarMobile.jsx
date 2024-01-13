@@ -116,8 +116,8 @@ const NavbarMobile = () => {
             </button>
             <span className={`text-[10px]  text-[#58418b]`}>
               {!isMapView
-                ? `${t("navigation.show_map")}`
-                : `${t("navigation.show_list")}`}
+                ? `${t("button.show_map")}`
+                : `${t("button.show_list")}`}
             </span>
           </li>
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
