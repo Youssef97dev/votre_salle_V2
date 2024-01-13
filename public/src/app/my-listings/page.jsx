@@ -53,7 +53,7 @@ export default function Page() {
             </div>
           ) : (
             <div className="flex items-center justify-center w-full h-full">
-              <h1>{t("page.listing.my_listing")}</h1>
+              <h1>{t("page.my_listing.message")}</h1>
             </div>
           )}
         </div>

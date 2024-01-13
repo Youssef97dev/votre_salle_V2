@@ -77,6 +77,9 @@
     "my_listing": {
       "message": "No Listings for current user. Create new Listings."
     },
+    "my_wishlist": {
+      "message": "No Wishlists for current user. Add new Wishlists."
+    },
     "trips": {
       "listing_name": "LISTING NAME",
       "checkin": "CHECK IN DATE",
@@ -97,7 +100,25 @@
       "upcoming": "Upcoming",
       "checkedin": "Checked In",
       "checkedout": "Checked Out",
-      "record": "Records per page"
+      "record": "Records per page",
+      "message": {
+        "title_cancel": "Cancelation confirmation",
+        "text_cancel": "Do you want to cancel this reservation?",
+        "cancel": "Cancel",
+        "discard": "Discard",
+        "title_res": "Cancel!",
+        "text_res": "Your reservation has been canceled.",
+        "title_err": "Error!",
+        "text_err_1": "Your reservation has not been canceled.",
+        "text_err_2": "Error Cancelation.",
+        "title_invoice": "Billing confirmation",
+        "text_invoice": "Do you want to invoice this reservation?",
+        "invoice": "Invoice",
+        "invoice!": "Invoice!",
+        "res_invoice": "Your reservation has been billed.",
+        "err_invoice": "Your reservation has not been billed.",
+        "err_invoice_2": "Error Billing."
+      }
     },
     "new_listing": {
       "one": {

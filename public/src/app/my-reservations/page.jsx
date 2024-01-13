@@ -21,12 +21,14 @@ import Spinner from "airbnb/components/common/Spinner";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
+import { useTranslation } from "react-i18next";
 
 import { GrStatusDisabled } from "react-icons/gr";
 import { LiaFileInvoiceSolid } from "react-icons/lia";
 
 export default function Page() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { userInfo } = userAppStore();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -96,22 +98,22 @@ export default function Page() {
     const providedEndtDate = new Date(endDate);
 
     if (currentDate < providedEndtDate && currentDate > providedStartDate) {
-      return "Checked In";
+      return `${t("page.my_reservations.checkedin")}`;
     } else if (currentDate > providedEndtDate) {
-      return "Checked Out";
+      return `${t("page.my_reservations.checkedout")}`;
     } else {
-      return "Upcoming";
+      return `${t("page.my_reservations.upcoming")}`;
     }
   }
 
   const cancelTrip = async (id, status) => {
     const result = await Swal.fire({
       icon: "warning",
-      title: "Cancelation confirmation",
-      text: "Do you want to cancel this reservation?",
+      title: `${t("page.my_reservations.message.title_cancel")}`,
+      text: `${t("page.my_reservations.message.text_cancel")}`,
       showCancelButton: true,
-      confirmButtonText: "Cancel",
-      cancelButtonText: "Discard",
+      confirmButtonText: `${t("page.my_reservations.message.cancel")}`,
+      cancelButtonText: `${t("page.my_reservations.message.discard")}`,
       padding: "2em",
       customClass: "sweet-alerts",
     });
@@ -123,23 +125,23 @@ export default function Page() {
         if (data.status === 200) {
           setRelaunchData((prev) => !prev);
           Swal.fire({
-            title: "Cancel!",
-            text: "Your reservation has been canceled.",
+            title: `${t("page.my_reservations.message.title_res")}`,
+            text: `${t("page.my_reservations.message.text_res")}`,
             icon: "success",
             customClass: "sweet-alerts",
           });
         } else {
           Swal.fire({
-            title: "Error!",
-            text: "Your reservation has not been canceled.",
+            title: `${t("page.my_reservations.message.title_err")}`,
+            text: `${t("page.my_reservations.message.text_err_1")}`,
             icon: "warning",
             customClass: "sweet-alerts",
           });
         }
       } catch (error) {
         Swal.fire({
-          title: "Error!",
-          text: "Error Cancelation.",
+          title: `${t("page.my_reservations.message.title_err")}`,
+          text: `${t("page.my_reservations.message.text_err_2")}`,
           icon: "error",
           customClass: "sweet-alerts",
         });
@@ -155,11 +157,11 @@ export default function Page() {
 
     const result = await Swal.fire({
       icon: "info",
-      title: "Billing confirmation",
-      text: "Do you want to invoice this reservation?",
+      title: `${t("page.my_reservations.message.title_invoice")}`,
+      text: `${t("page.my_reservations.message.text_invoice")}`,
       showCancelButton: true,
-      confirmButtonText: "Invoice",
-      cancelButtonText: "Discard",
+      confirmButtonText: `${t("page.my_reservations.message.invoice")}`,
+      cancelButtonText: `${t("page.my_reservations.message.discard")}`,
       padding: "2em",
       customClass: "sweet-alerts",
     });
@@ -173,24 +175,24 @@ export default function Page() {
           if (data.status === 200) {
             setRelaunchData((prev) => !prev);
             Swal.fire({
-              title: "Invoice!",
-              text: "Your reservation has been billed.",
+              title: `${t("page.my_reservations.message.invoice!")}`,
+              text: `${t("page.my_reservations.message.res_invoice")}`,
               icon: "success",
               customClass: "sweet-alerts",
             });
           }
         } else {
           Swal.fire({
-            title: "Error!",
-            text: "Your reservation has not been billed.",
+            title: `${t("page.my_reservations.message.title_err")}`,
+            text: `${t("page.my_reservations.message.err_invoice")}`,
             icon: "warning",
             customClass: "sweet-alerts",
           });
         }
       } catch (error) {
         Swal.fire({
-          title: "Error!",
-          text: "Error Billing.",
+          title: `${t("page.my_reservations.message.title_err")}`,
+          text: `${t("page.my_reservations.message.err_invoice_2")}`,
           icon: "error",
           customClass: "sweet-alerts",
         });
@@ -213,7 +215,7 @@ export default function Page() {
                 <input
                   type="text"
                   className="form-input w-full lg:w-1/5 rounded py-3 px-4 border shadow-md my-3"
-                  placeholder="Search..."
+                  placeholder={`${t("page.my_reservations.search")}...`}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -226,13 +228,13 @@ export default function Page() {
                       records={records}
                       columns={[
                         {
-                          accessor: "Listing Name",
+                          accessor: `${t("page.my_reservations.listing_name")}`,
                           render: ({ listing }) => (
                             <div className="px-6 py-4">{listing.title}</div>
                           ),
                         },
                         {
-                          accessor: "Client Name",
+                          accessor: `${t("page.my_reservations.client_name")}`,
                           textAlignment: "center",
                           render: ({ user }) => (
                             <div className="px-6 py-4">
@@ -241,14 +243,14 @@ export default function Page() {
                           ),
                         },
                         {
-                          accessor: "Email",
+                          accessor: `${t("label.email")}`,
                           textAlignment: "center",
                           render: ({ user }) => (
                             <div className="px-6 py-4">{`${user.username}`}</div>
                           ),
                         },
                         {
-                          accessor: "Check In Date",
+                          accessor: `${t("page.my_reservations.checkin")}`,
                           textAlignment: "center",
                           render: ({ tripinfo }) => (
                             <div className="px-6 py-4">
@@ -257,21 +259,21 @@ export default function Page() {
                           ),
                         },
                         {
-                          accessor: "Check Out Date",
+                          accessor: `${t("page.my_reservations.checkout")}`,
                           textAlignment: "center",
                           render: ({ tripinfo }) => (
                             <div className="px-6 py-4">{tripinfo.endDate}</div>
                           ),
                         },
                         {
-                          accessor: "Price",
+                          accessor: `${t("page.my_reservations.price")}`,
                           textAlignment: "center",
                           render: ({ tripinfo }) => (
                             <div className="px-6 py-4">{tripinfo.price}</div>
                           ),
                         },
                         {
-                          accessor: "Status",
+                          accessor: `${t("page.my_reservations.status")}`,
                           textAlignment: "center",
                           render: ({ tripinfo, status }) => (
                             <div className="flex gap-1">
@@ -280,12 +282,13 @@ export default function Page() {
                                   checkDateStatus(
                                     tripinfo?.startDate,
                                     tripinfo?.endDate
-                                  ) === "Upcoming"
+                                  ) === `${t("page.my_reservations.upcoming")}`
                                     ? "bg-yellow-500"
                                     : checkDateStatus(
                                         tripinfo?.startDate,
                                         tripinfo?.endDate
-                                      ) === "Checked In"
+                                      ) ===
+                                      `${t("page.my_reservations.checkedin")}`
                                     ? "bg-blue-500"
                                     : "bg-pink-500"
                                 }  text-white text-xs font-medium mr-2 px-2.5 py-1 rounded`}
@@ -326,11 +329,12 @@ export default function Page() {
                               {(checkDateStatus(
                                 tripinfo?.startDate,
                                 tripinfo?.endDate
-                              ) === "Checked In" ||
+                              ) === `${t("page.my_reservations.checkedin")}` ||
                                 checkDateStatus(
                                   tripinfo?.startDate,
                                   tripinfo?.endDate
-                                ) === "Checked Out") &&
+                                ) ===
+                                  `${t("page.my_reservations.checkedout")}`) &&
                                 status === "Active" && (
                                   <button
                                     type="button"

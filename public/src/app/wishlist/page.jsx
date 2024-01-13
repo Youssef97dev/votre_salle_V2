@@ -11,11 +11,13 @@ import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
+import { useTranslation } from "react-i18next";
 
 export default function Page() {
+  const { t } = useTranslation();
   const { isAuthModalOpen, userInfo, wishListsPage, setWishListsPage } =
     userAppStore();
-    const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
     console.log(wishListsPage);
@@ -44,7 +46,7 @@ export default function Page() {
           </div>
         ) : (
           <div className="flex items-center justify-center w-full h-full">
-            <h1>No Wishlists for current user. Add new Wishlists.</h1>
+            <h1>{t("page.my_wishlist.message")}</h1>
           </div>
         )}
       </div>

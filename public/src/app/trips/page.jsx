@@ -49,19 +49,19 @@ export default function Page() {
             <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
               <tr>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  {t("page.trip.listing_name")}
+                  {t("page.trips.listing_name")}
                 </th>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  {t("page.trip.checkin")}
+                  {t("page.trips.checkin")}
                 </th>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  {t("page.trip.checkout")}
+                  {t("page.trips.checkout")}
                 </th>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  {t("page.trip.price")}
+                  {t("page.trips.price")}
                 </th>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  {t("page.trip.status")}
+                  {t("page.trips.status")}
                 </th>
               </tr>
             </thead>

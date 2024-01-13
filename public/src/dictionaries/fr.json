@@ -77,6 +77,9 @@
     "my_listing": {
       "message": "Aucune Salle pour l'utilisateur actuel. Créez de nouvelles salles."
     },
+    "my_wishlist": {
+      "message": "Aucune favourite pour l'utilisateur actuel. Ajoutez de nouvellesfavourites."
+    },
     "trips": {
       "listing_name": "NOM DE LA SALLE",
       "checkin": "DATE D'ARRIVÉE",
@@ -97,7 +100,25 @@
       "upcoming": "A venir",
       "checkedin": "Arrivée",
       "checkedout": "Départ",
-      "record": "Enregistrements par page"
+      "record": "Enregistrements par page",
+      "message": {
+        "title_cancel": "Confirmation d'annulation",
+        "text_cancel": "Voulez-vous annuler cette réservation?",
+        "cancel": "Annuler",
+        "discard": "Retour",
+        "title_res": "Annuler!",
+        "text_res": "Votre réservation a été annulée.",
+        "title_err": "Erreur!",
+        "text_err_1": "Votre réservation n'a pas été annulée.",
+        "text_err_2": "Erreur de l'annulation.",
+        "title_invoice": "Confirmation de facturation",
+        "text_invoice": "Souhaitez-vous facturer cette réservation ?",
+        "invoice": "Facturé",
+        "invoice!": "Facture!",
+        "res_invoice": "Votre réservation a été facturée.",
+        "err_invoice": "Votre réservation n'a pas été facturée.",
+        "err_invoice_2": "Erreur de facturation."
+      }
     },
     "new_listing": {
       "one": {
