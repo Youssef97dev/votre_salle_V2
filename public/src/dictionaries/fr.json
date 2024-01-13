@@ -83,7 +83,8 @@
       "checkout": "DATE DE DÉPART",
       "price": "PRIX",
       "status": "STATUT",
-      "upcoming": "A venir"
+      "upcoming": "A venir",
+      "completed": "Complété"
     },
     "my_reservations": {
       "search": "Recherche",

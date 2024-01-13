@@ -1,5 +1,4 @@
 "use client";
-import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
@@ -11,9 +10,11 @@ import React, { useEffect, useState } from "react";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
+import { useTranslation } from "react-i18next";
 
 export default function Page() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { userInfo } = userAppStore();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [tripData, setTripData] = useState([]);
@@ -33,9 +34,9 @@ export default function Page() {
     const providedDate = new Date(inputDate);
 
     if (providedDate < currentDate) {
-      return "Completed";
+      return `${t("page.trips.completed")}`;
     } else if (providedDate > currentDate) {
-      return "Upcoming";
+      return `${t("page.trips.upcoming")}`;
     }
   }
 
@@ -48,19 +49,19 @@ export default function Page() {
             <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
               <tr>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  Listing Name
+                  {t("page.trip.listing_name")}
                 </th>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  Check In Date
+                  {t("page.trip.checkin")}
                 </th>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  Check out Date
+                  {t("page.trip.checkout")}
                 </th>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  Price
+                  {t("page.trip.price")}
                 </th>
                 <th scope="col" className="px-2 md:px-6 py-3 whitespace-nowrap">
-                  Trip Status
+                  {t("page.trip.status")}
                 </th>
               </tr>
             </thead>
@@ -83,7 +84,8 @@ export default function Page() {
                   <td className="px-6 py-4">
                     <span
                       className={`${
-                        checkDateStatus(trip.tripinfo?.startDate) === "Completed"
+                        checkDateStatus(trip.tripinfo?.startDate) ===
+                        `${t("page.trips.completed")}`
                           ? "bg-green-500"
                           : "bg-airbnb-theme-color"
                       }  text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}

@@ -83,7 +83,8 @@
       "checkout": "CHECK OUT DATE",
       "price": "PRICE",
       "status": "TRIP STATUS",
-      "upcoming": "Upcoming"
+      "upcoming": "Upcoming",
+      "completed": "Completed"
     },
     "my_reservations": {
       "search": "Search",
