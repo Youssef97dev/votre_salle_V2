@@ -73,13 +73,13 @@ const NavbarMobile = () => {
                 color={pathname !== "/" ? "#58418b" : "#000033"}
               />
             </button>
-            <span
+            {/*<span
               className={`text-[10px]  ${
                 pathname !== "/" ? "text-[#58418b]" : "#000033"
               }`}
             >
               {t("navigation.home")}
-            </span>
+            </span>*/}
           </li>
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-bold">
             <button onClick={() => router.push("/wishlist")}>
@@ -88,22 +88,22 @@ const NavbarMobile = () => {
                 color={pathname !== "/wishlist" ? "#58418b" : "#000033"}
               />
             </button>
-            <span
+            {/*<span
               className={`text-[10px] ${
                 pathname !== "/wishlist" ? "text-[#58418b]" : "#000033"
               }`}
             >
               {t("navigation.my_wishlists")}
-            </span>
+            </span>*/}
           </li>
           {userInfo.roles[0] === "owner" && (
             <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-bold">
               <button onClick={() => router.push("new-listing")}>
                 <IoAddCircleOutline size={20} color={"#58418b"} />
               </button>
-              <span className="text-[10px] text-[#58418b]">
+              {/*<span className="text-[10px] text-[#58418b]">
                 {t("navigation.add_hall")}
-              </span>
+          </span>*/}
             </li>
           )}
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
@@ -114,17 +114,17 @@ const NavbarMobile = () => {
                 <AiOutlineUnorderedList size={20} color={"#58418b"} />
               )}
             </button>
-            <span className={`text-[10px]  text-[#58418b]`}>
+            {/*<span className={`text-[10px]  text-[#58418b]`}>
               {!isMapView
                 ? `${t("button.show_map")}`
                 : `${t("button.show_list")}`}
-            </span>
+              </span>*/}
           </li>
           <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-extrabold">
             <button onClick={() => setSidebarMenuOpen(true)}>
               <CgMenuGridO size={20} color={"#58418b"} />
             </button>
-            <span className={`text-[10px]  text-[#58418b]`}>Menu</span>
+            {/*<span className={`text-[10px]  text-[#58418b]`}>Menu</span>*/}
           </li>
         </ul>
       )}
