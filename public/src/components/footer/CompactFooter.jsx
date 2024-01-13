@@ -2,16 +2,18 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { PiCaretUpBold } from "react-icons/pi";
 import { FiGlobe } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 import i18n from "../../../i18n";
 
 export default function CompactFooter() {
   const [lang, setLang] = useState(i18n.language);
+  const { t } = useTranslation();
   const links = [
-    "privacy",
-    "terms",
-    "sitemap",
-    "company details",
-    "destinations",
+    `${t("footer.privacy")}`,
+    `${t("footer.terms")}`,
+    `${t("footer.sitemap")}`,
+    `${t("footer.company_details")}`,
+    `${t("footer.destinations")}`,
   ];
 
   const changeLanguage = () => {
