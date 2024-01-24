@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://54.36.209.243:3000";
+const apiUrl = "https://api.votresalles.ma/";
 //const apiUrl = "http://localhost:3000";
 const jwtKey = "accessToken";
 
