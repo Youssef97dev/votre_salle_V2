@@ -6,7 +6,7 @@ import { userAppStore } from "airbnb/store/store";
 const TOKEN =
   "pk.eyJ1IjoieW91bmVzYWl0IiwiYSI6ImNsbnU3ODZ6czBhdXgyam5zNHZleDl1d2cifQ.Omdr-w7Yx9kNjkltlzunKg";
 
-export default function PlaceLocation() {
+export default function PlaceLocation({ t }) {
   const { setMapData, mapData, setLocationData } = userAppStore();
   useEffect(() => {
     console.log(mapData);
@@ -37,7 +37,7 @@ export default function PlaceLocation() {
   return (
     <div className="flex flex-col gap-6 p-2 md:p-6 w-full h-full rounded-lg">
       <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
-        Choose your location
+        {t("page.new_listing.four.title")}
       </h2>
       <div className="w-full h-96 bg-slate-600 rounded-lg">
         <Map

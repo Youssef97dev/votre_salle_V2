@@ -7,10 +7,12 @@ import { IoMdClose } from "react-icons/io";
 import { checkUser, login, signup } from "airbnb/lib/auth";
 import "../../../styles/tailwind.css";
 import { BeatLoader } from "react-spinners";
+import { useTranslation } from "react-i18next";
 
 const page = () => {
   const router = useRouter();
-  const { setAuthModal, setIsLoggedIn, setUserInfo } = userAppStore();
+  const { t } = useTranslation();
+  const { setIsLoggedIn, setUserInfo } = userAppStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,36 +53,40 @@ const page = () => {
             </button>
           </div>
         )}
-        <h2 className="mb-3 text-2xl font-bold">Sign In</h2>
-        <p className="mb-7">Enter your email and password to login</p>
+        <h2 className="mb-3 text-2xl font-bold">{t("auth.signin")}</h2>
+        <p className="mb-7">{t("auth.label_in")}</p>
         <form className="space-y-5" onSubmit={(e) => handleLogin(e)}>
           <div>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t("auth.email")}</label>
             <input
               id="email"
               type="email"
               className="form-input"
-              placeholder="Enter Email"
+              placeholder={`${t("auth.enter")} ${t("auth.email")}`}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t("auth.password")}</label>
             <input
               id="password"
               type="password"
               className="form-input"
-              placeholder="Enter Password"
+              placeholder={`${t("auth.enter")} ${t("auth.password")}`}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <button type="submit" className="btn btn-primary w-full">
-            {!loading ? "SIGN IN" : <BeatLoader color="#fff" size={10} />}
+            {!loading ? (
+              `${t("auth.signin").toUpperCase()}`
+            ) : (
+              <BeatLoader color="#fff" size={10} />
+            )}
           </button>
         </form>
         <div className="relative my-7 h-5 text-center before:absolute before:inset-0 before:m-auto before:h-[1px] before:w-full before:bg-[#ebedf2]">
           <div className="relative z-[1] inline-block bg-white px-2 font-bold text-[#888EA8]">
-            <span>OR</span>
+            <span>{t("auth.or")}</span>
           </div>
         </div>
         <ul className="mb-5 flex justify-center gap-2 sm:gap-5">
@@ -124,12 +130,12 @@ const page = () => {
           </li>
         </ul>
         <p className="text-center">
-          Dont&apos;t have an account ?
+          {t("auth.no_account")}
           <Link
             href="/auth/signup"
             className="font-bold text-[#4361ee] hover:underline ml-1"
           >
-            Sign Up
+            {t("auth.signup")}
           </Link>
         </p>
       </div>

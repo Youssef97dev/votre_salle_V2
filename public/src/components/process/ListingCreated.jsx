@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import Confetti from "react-confetti";
 
-export default function ListingCreated({listingId}) {
+export default function ListingCreated({ listingId = "", t }) {
   const router = useRouter();
   const {
     locationType,
@@ -22,7 +22,7 @@ export default function ListingCreated({listingId}) {
     tax,
   } = userAppStore();
   useEffect(() => {
-    if(listingId === ''){
+    if (listingId === "") {
       createLisitngAPI({
         locationType,
         placeType,
@@ -38,7 +38,7 @@ export default function ListingCreated({listingId}) {
         listingCreatedBy: { id: userInfo?.id },
         tax,
       });
-    }else{
+    } else {
       updateLisitngAPI(listingId, {
         locationType,
         placeType,
@@ -74,20 +74,26 @@ export default function ListingCreated({listingId}) {
   return (
     <div className="flex flex-col gap-5 items-center justify-center h-full">
       <div className="flex flex-col gap-2 items-center justify-center">
-        <h2 className="font-semibold text-4xl">Congratulations!</h2>
-        <p>You have successfully {listingId === '' ? 'created' : 'Updated'} your listing!</p>
+        <h2 className="font-semibold text-4xl">
+          {t("page.new_listing.ten.title")}
+        </h2>
+        <p>
+          {listingId === ""
+            ? `${t("page.new_listing.ten.subtitle_create")}`
+            : `${t("page.new_listing.ten.subtitle_update")}`}
+        </p>
         <div className="flex gap-5">
           <button
             className="bg-[#222222] py-3 mt-5  px-10 text-white text-base font-medium rounded-md cursor-pointer"
             onClick={() => router.push("/")}
           >
-            Visit Home Page
+            {t("page.new_listing.ten.visite")}
           </button>
           <button
             className="bg-airbnb-gradient py-3 mt-5  px-5 text-white text-base font-medium rounded-md cursor-pointer"
             onClick={() => router.push("/my-listings")}
           >
-            View your listings
+            {t("page.new_listing.ten.view")}
           </button>
         </div>
         <Confetti width={window.innerWidth} height={window.innerHeight} />

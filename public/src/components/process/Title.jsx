@@ -1,7 +1,7 @@
 import { userAppStore } from "airbnb/store/store";
 import React from "react";
 
-export default function Title() {
+export default function Title({ t }) {
   const {
     title,
     setTitle,
@@ -137,13 +137,13 @@ export default function Title() {
 
       <div className="flex flex-col gap-6 p-2 md:p-6 w-full h-full rounded-lg">
         <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
-          More informations
+          {t("page.new_listing.nine.title")}
         </h2>
         <div className="flex flex-col px-5 items-center gap-5 w-full h-full overflow-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
             <div className="w-full">
               <label className="font-bold" htmlFor="gridTitle">
-                Title
+                {t("page.new_listing.nine.label_title")}
               </label>
               <input
                 id="gridTitle"
@@ -160,7 +160,7 @@ export default function Title() {
             </div>
             <div className="w-full">
               <label className="font-bold" htmlFor="gridGuests">
-                Guests
+                {t("page.new_listing.nine.guests")}
               </label>
               <input
                 id="gridGuests"
@@ -175,7 +175,7 @@ export default function Title() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
             <div className="w-full">
               <label className="font-bold" htmlFor="gridB2C">
-                B2C Price
+                {t("page.new_listing.nine.b2c")}
               </label>
               <div className="flex flex-1">
                 <input
@@ -196,7 +196,7 @@ export default function Title() {
             </div>
             <div className="w-full">
               <label className="font-bold" htmlFor="gridB2B">
-                B2B Price
+                {t("page.new_listing.nine.b2b")}
               </label>
               <div className="flex flex-1">
                 <input
@@ -267,7 +267,7 @@ export default function Title() {
                 className="form-radio text-[#805dca] peer"
               />
               <span className="peer-checked:text-[#805dca] font-bold">
-                Exonerer
+                {t("page.new_listing.nine.exempt")}
               </span>
             </label>
           </div>

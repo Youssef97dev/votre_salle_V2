@@ -5,7 +5,7 @@ import { userAppStore } from "airbnb/store/store";
 import { CldUploadButton } from "next-cloudinary";
 import Image from "next/image";
 
-export default function Photos() {
+export default function Photos({ t }) {
   const { photos, setPhotos } = userAppStore();
   const handleUpload = (data) => {
     setPhotos([...photos, data.info.secure_url]);
@@ -14,12 +14,9 @@ export default function Photos() {
     <div className="flex flex-col gap-6 p-2 md:p-6 w-full h-full rounded-lg">
       <div className="pb-5 border-b border-[#dbdcdf] w-fit">
         <h2 className="font-extrabold text-2xl">
-          Add some photos of your house
+          {t("page.new_listing.eight.title")}
         </h2>
-        <span className="text-sm">
-          You'll need 5 photos to get started. You can add more or make changes
-          later.
-        </span>
+        <span className="text-sm">{t("page.new_listing.eight.subtitle")}</span>
       </div>
       <CldUploadButton
         options={{ multiple: true }}
@@ -27,7 +24,7 @@ export default function Photos() {
         uploadPreset="a1wvb4ge"
       >
         <span className="bg-airbnb-gradient py-2 md:py-3 mt-5 px-4 md:px-5 text-white text-xs md:text-base font-bold rounded-lg cursor-pointer">
-          Upload
+          {t("page.new_listing.eight.upload")}
         </span>
       </CldUploadButton>
 

@@ -10,10 +10,12 @@ import "../../../styles/tailwind.css";
 import "../../../styles/file-upload-with-preview.css";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { RiAlarmWarningLine } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 const page = () => {
   const router = useRouter();
-  const { setAuthModal, setIsLoggedIn, setUserInfo } = userAppStore();
+  const { t } = useTranslation();
+  const { setIsLoggedIn, setUserInfo } = userAppStore();
 
   const [MessageAlert, setMessageAlert] = useState("");
   const [WhichField, setWhichField] = useState();
@@ -181,32 +183,32 @@ const page = () => {
             X
           </button>
         </div>
-        <h2 className="mb-3 text-2xl font-bold">Sign Up</h2>
-        <p className="mb-7">Enter your email and password to register</p>
+        <h2 className="mb-3 text-2xl font-bold">{t("auth.signup")}</h2>
+        <p className="mb-7">{t("auth.label_up")}</p>
         <form className="space-y-3" onSubmit={(e) => handleSignup(e)}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="firstName">{t("auth.firstname")}</label>
               <input
                 id="firstName"
                 type="text"
                 className={`form-input ${
                   WhichField === "firstName" ? "border-2 border-[#e2a03f]" : ""
                 }  `}
-                placeholder="Enter First Name"
+                placeholder={`${t("auth.enter")} ${t("auth.firstname")}`}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="lastName">Last Name</label>
+              <label htmlFor="lastName">{t("auth.lastname")}</label>
               <input
                 id="lastName"
                 type="text"
                 className={`form-input ${
                   WhichField === "lastName" ? "border-2 border-[#e2a03f]" : ""
                 }  `}
-                placeholder="Enter Last Name"
+                placeholder={`${t("auth.enter")} ${t("auth.lastname")}`}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -214,27 +216,27 @@ const page = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">{t("auth.email")}</label>
               <input
                 id="email"
                 type="email"
                 className={`form-input ${
                   WhichField === "email" ? "border-2 border-[#e2a03f]" : ""
                 }  `}
-                placeholder="Enter Email"
+                placeholder={`${t("auth.enter")} ${t("auth.email")}`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="phone">Phone</label>
+              <label htmlFor="phone">{t("auth.phone")}</label>
               <input
                 id="phone"
                 type="phone"
                 className={`form-input ${
                   WhichField === "phone" ? "border-2 border-[#e2a03f]" : ""
                 }  `}
-                placeholder="Enter phone"
+                placeholder={`${t("auth.enter")} ${t("auth.phone")}`}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
@@ -242,27 +244,31 @@ const page = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">{t("auth.password")}</label>
               <input
                 id="password"
                 type="password"
                 className={`form-input ${
                   WhichField === "password" ? "border-2 border-[#e2a03f]" : ""
                 }  `}
-                placeholder="Enter Password"
+                placeholder={`${t("auth.enter")} ${t("auth.password")}`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="confirmPassword">Confirm Password</label>
+              <label htmlFor="confirmPassword">
+                {t("auth.confirm")} {t("auth.password")}
+              </label>
               <input
                 id="confirmPassword"
                 type="password"
                 className={`form-input ${
-                  WhichField === "confirmPassword" ? "border-2 border-[#e2a03f]" : ""
+                  WhichField === "confirmPassword"
+                    ? "border-2 border-[#e2a03f]"
+                    : ""
                 }  `}
-                placeholder="confirm Password"
+                placeholder={`${t("auth.confirm")} ${t("auth.password")}`}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
@@ -272,16 +278,16 @@ const page = () => {
             <label className="cursor-pointer inline-flex items-center">
               <input type="checkbox" className="form-checkbox" />
               <span className="text-[#888EA8]">
-                I agree the{" "}
+                {t("auth.agree")}{" "}
                 <button type="button" className="text-primary hover:underline">
-                  Terms and Conditions
+                  {t("auth.terms")}
                 </button>
               </span>
             </label>
           </div>
           <button type="submit" className="btn btn-primary w-full">
             {!loadingSend ? (
-              "SIGN UP"
+              `${t("auth.signup").toUpperCase()}`
             ) : (
               <BeatLoader loading={loadingSend} color="#fff" size={10} />
             )}
@@ -289,7 +295,7 @@ const page = () => {
         </form>
         <div className="relative my-7 h-5 text-center before:absolute before:inset-0 before:m-auto before:h-[1px] before:w-full before:bg-[#ebedf2]">
           <div className="relative z-[1] inline-block bg-white px-2 font-bold text-[#888EA8]">
-            <span>OR</span>
+            <span>{t("auth.or")}</span>
           </div>
         </div>
         <ul className="mb-5 flex justify-center gap-2 sm:gap-5">
@@ -334,12 +340,12 @@ const page = () => {
           </li>
         </ul>
         <p className="text-center">
-          Already have an account ?
+          {t("auth.have_account")}
           <Link
             href="/auth/signin"
             className="font-bold text-primary hover:underline ml-1"
           >
-            Sign In
+            {t("auth.signin")}
           </Link>
         </p>
       </div>

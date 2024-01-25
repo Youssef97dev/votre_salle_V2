@@ -1,25 +1,22 @@
 import Image from "next/image";
 import React from "react";
 
-function Overview() {
-  const mainTitle = "It’s easy to get started on Votre Salles";
+function Overview({ t }) {
+  const mainTitle = `${t("page.new_listing.one.big_title")}`;
   const data = [
     {
-      title: "Tell us about your place",
-      description:
-        "Share some basic info, such as where it is and how many guests.",
+      title: `${t("page.new_listing.one.title_one")}`,
+      description: `${t("page.new_listing.one.subtitle_one")}`,
       image: "/overview1.jpeg",
     },
     {
-      title: "Make it stand out",
-      description:
-        "Add 5 or more photos plus a title and description – we’ll help you out.",
+      title: `${t("page.new_listing.one.title_two")}`,
+      description: `${t("page.new_listing.one.subtitle_two")}`,
       image: "/overview22.jpeg",
     },
     {
-      title: "Finish up and publish",
-      description:
-        "Set a starting price for B2C and B2B and publish your listing.",
+      title: `${t("page.new_listing.one.title_three")}`,
+      description: `${t("page.new_listing.one.subtitle_three")}`,
       image: "/overview3.png",
     },
   ];

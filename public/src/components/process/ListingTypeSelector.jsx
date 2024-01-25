@@ -3,7 +3,7 @@ import { userAppStore } from "airbnb/store/store";
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function ListingTypeSelector() {
+export default function ListingTypeSelector({ t }) {
   const { locationType, setLocationType } = userAppStore();
   const handleSelection = (type) => {
     setLocationType(type);
@@ -12,7 +12,7 @@ export default function ListingTypeSelector() {
   return (
     <div className="flex flex-col gap-6 p-2 md:p-6 w-full h-full rounded-lg">
       <h2 className="font-extrabold text-2xl pb-5 border-b border-[#dbdcdf] w-fit">
-        Which of these best describes your place?
+        {t("page.new_listing.three.title")}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-5 px-3 overflow-auto scroll no-scrollbar">
         {listingTypes.map((type) => (

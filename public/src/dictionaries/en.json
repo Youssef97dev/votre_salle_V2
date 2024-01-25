@@ -1,4 +1,22 @@
 {
+  "auth": {
+    "signin": "Sign In",
+    "label_in": "Enter your email and password to login",
+    "email": "Email",
+    "password": "Password",
+    "enter": "Enter",
+    "or": "OR",
+    "no_account": "Dont't have an account ?",
+    "have_account": "Already have an account ?",
+    "signup": "Sign Up",
+    "label_up": "Enter your email and password to register",
+    "firstname": "First name",
+    "lastname": "Last name",
+    "phone": "Phone",
+    "confirm": "Confirm",
+    "agree": "I agree the",
+    "terms": "Terms and Conditions"
+  },
   "navigation": {
     "signin": "Login",
     "signup": "Sign up",
@@ -149,6 +167,7 @@
         "street": "Street Address",
         "landmark": "Landmark",
         "city": "City / town",
+        "zip": "ZIP Code",
         "virtual": "Virtual Tour Link"
       },
       "six": {
@@ -161,6 +180,8 @@
         "subtitle": "You can add more amenities after you publish your listing.",
         "safety_items": "Do you have any of these safety items?",
         "add_amenety": "Add Amenety",
+        "other": "Other",
+        "you_have": "Do you have any",
         "ameneties": "ameneties"
       },
       "eight": {
@@ -178,10 +199,15 @@
       },
       "ten": {
         "title": "Congratulations!",
-        "subtitle": "You have successfully Updated your listing!",
+        "subtitle_update": "You have successfully Updated your listing!",
+        "subtitle_create": "You have successfully Created your listing!",
         "visite": "Visite home page",
         "view": "View your listings"
-      }
+      },
+      "back": "Go Back",
+      "update_hall": "Update Your Hall",
+      "add_hall": "Add Your Hall",
+      "continue": "Continue"
     },
     "statistics": {
       "number_reservation": "Number of Reservations Per month",

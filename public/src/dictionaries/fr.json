@@ -1,4 +1,22 @@
 {
+  "auth": {
+    "signin": "Se connecter",
+    "label_in": "Entrez votre email et mot de passe pour vous connecter",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "enter": "Entrez",
+    "or": "OU",
+    "no_account": "Vous n'avez pas de compte ?",
+    "have_account": "Vous avez déjà un compte ?",
+    "signup": "S'inscrire",
+    "label_up": "Entrez votre email et votre mot de passe pour vous inscrire",
+    "firstname": "Prénom",
+    "lastname": "Nom",
+    "phone": "Téléphone",
+    "confirm": "Confirmer",
+    "agree": "J'accepte",
+    "terms": "les termes et conditions"
+  },
   "navigation": {
     "signin": "Se connecter",
     "signup": "S'inscrire",
@@ -149,6 +167,7 @@
         "street": "Adresse",
         "landmark": "Landmark",
         "city": "Ville / village",
+        "zip": "Code Postale",
         "virtual": "Lien de visite virtuelle"
       },
       "six": {
@@ -161,6 +180,8 @@
         "subtitle": "Vous pouvez ajouter plus de commodités après avoir publié votre annonce.",
         "safety_items": "Avez-vous l'un de ces éléments de sécurité?",
         "add_amenety": "Ajouter un équipement",
+        "other": "Autre",
+        "you_have": "as-tu quelque",
         "ameneties": "équipements"
       },
       "eight": {
@@ -178,10 +199,15 @@
       },
       "ten": {
         "title": "Félicitations!",
-        "subtitle": "Vous avez mis à jour votre annonce avec succès!",
+        "subtitle_update": "Vous avez mis à jour votre annonce avec succès!",
+        "subtitle_create": "Vous avez créé votre annonce avec succès!",
         "visite": "Visiter la page d'accueil",
         "view": "Consultez vos annonces"
-      }
+      },
+      "back": "Retourner",
+      "update_hall": "Mettez à jour votre salle",
+      "add_hall": "Ajoutez votre salle",
+      "continue": "Continuer"
     },
     "statistics": {
       "number_reservation": "Nombre de réservations par mois",

@@ -2,14 +2,10 @@ import { AmenetiesType } from "airbnb/data/Amenities";
 import { userAppStore } from "airbnb/store/store";
 import React, { useState, useEffect } from "react";
 
-export default function ProcessAmeneties() {
+export default function ProcessAmeneties({ t }) {
   const { placeAmeneties, setPlaceAmenities, locationType } = userAppStore();
   const [amenety, setAmenety] = useState({ name: "" });
   const [listAmeneties, setListAmeneties] = useState(AmenetiesType);
-
-  useEffect(() => {
-    console.log(listAmeneties);
-  }, []);
 
   const newAmeneneties = () => {
     setListAmeneties((prevState) => {
@@ -50,11 +46,9 @@ export default function ProcessAmeneties() {
     <div className="flex flex-col gap-6 p-2 md:p-6 w-full h-full rounded-lg">
       <div className="pb-5 border-b border-[#dbdcdf] w-fit">
         <h2 className="font-extrabold text-2xl ">
-          Tell guests what your place has to offer
+          {t("page.new_listing.seven.title")}
         </h2>
-        <span className="text-sm">
-          You can add more amenities after you publish your listing.
-        </span>
+        <span className="text-sm">{t("page.new_listing.seven.subtitle")}</span>
       </div>
       <div className="flex flex-col gap-5 w-full max-h-[63vh] md:max-h-[65vh] px-3 overflow-auto scroll ">
         {listAmeneties
@@ -69,19 +63,21 @@ export default function ProcessAmeneties() {
             <div key={type} className="flex flex-col gap-5">
               {type === locationType && (
                 <span className="text-base md:text-md font-extrabold">
-                  Do you have any {`${locationType}`} amenities?
+                  {t("page.new_listing.seven.you_have")} {`${locationType}`}{" "}
+                  {t("page.new_listing.seven.ameneties")}?
                 </span>
               )}
 
               {type === "safety" && (
                 <span className="text-base md:text-md font-extrabold">
-                  Do you have any of these safety items?
+                  {t("page.new_listing.seven.safety_items")}
                 </span>
               )}
 
               {type === "other" && data.length > 0 && (
                 <span className="text-base md:text-md font-extrabold">
-                  Other ameneties
+                  {t("page.new_listing.seven.other")}{" "}
+                  {t("page.new_listing.seven.ameneties")}
                 </span>
               )}
 
@@ -113,7 +109,7 @@ export default function ProcessAmeneties() {
             type="text"
             name="amenities"
             id="amenities"
-            placeholder="amenities"
+            placeholder={`${t("page.new_listing.seven.ameneties")}`}
             className="form-input rounded-2xl focus:shadow-lg"
             onChange={(e) => setAmenety({ ...amenety, name: e.target.value })}
           />
@@ -121,7 +117,7 @@ export default function ProcessAmeneties() {
             onClick={() => newAmeneneties()}
             className="btn btn-secondary rounded-3xl font-bold whitespace-nowrap"
           >
-            Add Amenety
+            {t("page.new_listing.seven.add_amenety")}
           </button>
         </div>
       </div>

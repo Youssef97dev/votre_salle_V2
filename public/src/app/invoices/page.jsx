@@ -10,7 +10,6 @@ import moment from "moment";
 import { useTranslation } from "react-i18next";
 
 // Components
-import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
 import Spinner from "airbnb/components/common/Spinner";
