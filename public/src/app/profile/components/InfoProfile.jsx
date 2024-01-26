@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { userAppStore } from "airbnb/store/store";
 import Image from "next/image";
 
-import { getImage } from "airbnb/lib/lisitng";
-
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -14,19 +12,8 @@ const InfoProfile = () => {
   // current user
   const { userInfo, setUserInfo } = userAppStore();
   const [loading, setLoading] = useState(true);
-  const [imageProfile, setImageProfile] = useState("");
 
   const [timeSinceCreated, setTimeSinceCreated] = useState("");
-
-  useEffect(() => {
-    const getProfileImage = async () => {
-      const image = await getImage(userInfo?.profileImage);
-      setImageProfile(image);
-    };
-    if (userInfo) {
-      getProfileImage();
-    }
-  }, [userInfo, setUserInfo]);
 
   useEffect(() => {
     const calculateTimeSinceCreated = () => {
@@ -72,10 +59,10 @@ const InfoProfile = () => {
               <span>
                 {userInfo ? (
                   <>
-                    {userInfo?.profileImage && imageProfile ? (
+                    {userInfo?.profileImage ? (
                       <img
                         className="w-24 h-24 rounded-full overflow-hidden object-cover"
-                        src={`data:image/*;base64,${imageProfile}`}
+                        src={`${process.env.NEXT_PUBLIC_API_FRONT_URI}/uploads/${userInfo?.profileImage}`}
                         alt="img"
                       />
                     ) : (

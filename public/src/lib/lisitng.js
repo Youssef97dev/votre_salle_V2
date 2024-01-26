@@ -527,15 +527,6 @@ export const updateMyProfile = async (
   }
 };
 
-export const getImage = async (imageName) => {
-  const result = (
-    await axios
-      .get(createUrl(`/api/users/images/${imageName}`))
-      .catch(() => null)
-  )?.data?.imageSrc;
-  return result;
-};
-
 export const deleteImage = async (imageName) => {
   try {
     const result = await axios.delete(

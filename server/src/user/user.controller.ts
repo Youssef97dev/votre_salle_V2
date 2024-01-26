@@ -25,17 +25,6 @@ export class UserController extends UserControllerBase {
     super(service, rolesBuilder);
   }
 
-  @common.Get("/images/:imageName")
-  async getImage(
-    @common.Param("imageName") imageName: string,
-    @common.Res() res: Response
-  ) {
-    const imagePath = path.resolve("./src/uploads", imageName);
-    const imageBuffer = fs.readFileSync(imagePath);
-    const base64Image = Buffer.from(imageBuffer).toString("base64");
-    return res.send({ imageSrc: base64Image });
-  }
-
   @common.Delete("/images/:imageName")
   async deleteImage(
     @common.Param("imageName") imageName: string,

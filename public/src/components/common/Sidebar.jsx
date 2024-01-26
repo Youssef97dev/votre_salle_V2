@@ -1,15 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import AirBnbLogo from "airbnb/svg/airbnb-logo";
-import Image from "next/image";
 import { userAppStore } from "airbnb/store/store";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import { IoClose } from "react-icons/io5";
 import { FaInstagram, FaFacebook, FaYoutube } from "react-icons/fa";
 import ContextMenu from "../common/ContextMenu";
-
-import { getImage } from "airbnb/lib/lisitng";
 
 // Icons
 import { CgProfile } from "react-icons/cg";
@@ -23,7 +19,7 @@ import { SiGnuprivacyguard } from "react-icons/si";
 
 import Link from "next/link";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -32,7 +28,6 @@ const Sidebar = () => {
     userAppStore();
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const sidebarMenuRef = useRef(null); // Create a ref for the context menu element
-  const [imageProfile, setImageProfile] = useState("");
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -53,20 +48,10 @@ const Sidebar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const getProfileImage = async () => {
-      const image = await getImage(userInfo?.profileImage);
-      setImageProfile(image);
-    };
-    if (userInfo) {
-      getProfileImage();
-    }
-  }, [userInfo, setUserInfo]);
-
   const contextMenuOptions = [
     {
       icon: <PiSignInBold />,
-      name: `${t('navigation.signin')}`,
+      name: `${t("navigation.signin")}`,
       callBack: () => {
         router.push("/auth/signin");
         setSidebarMenuOpen(false);
@@ -74,7 +59,7 @@ const Sidebar = () => {
     },
     {
       icon: <SiGnuprivacyguard />,
-      name: `${t('navigation.signup')}`,
+      name: `${t("navigation.signup")}`,
       callBack: () => {
         router.push("/auth/signup");
         setSidebarMenuOpen(false);
@@ -89,7 +74,7 @@ const Sidebar = () => {
     },
     {
       icon: <MdHelpOutline />,
-      name: `${t('navigation.help')}`,
+      name: `${t("navigation.help")}`,
       callBack: () => {
         setSidebarMenuOpen(false);
       },
@@ -114,7 +99,7 @@ const Sidebar = () => {
     },
     {
       icon: <FaListCheck />,
-      name: `${t('navigation.my_bookings')}`,
+      name: `${t("navigation.my_bookings")}`,
       callBack: () => {
         router.push("/trips");
         setSidebarMenuOpen(false);
@@ -122,7 +107,7 @@ const Sidebar = () => {
     },
     {
       icon: <FaRegHeart />,
-      name: `${t('navigation.my_wishlists')}`,
+      name: `${t("navigation.my_wishlists")}`,
       callBack: () => {
         router.push("/wishlist");
         setSidebarMenuOpen(false);
@@ -130,7 +115,7 @@ const Sidebar = () => {
     },
     {
       icon: <MdOutlineSettings />,
-      name: `${t('navigation.my_listings')}`,
+      name: `${t("navigation.my_listings")}`,
       callBack: () => {
         router.push("/my-listings");
         setSidebarMenuOpen(false);
@@ -138,7 +123,7 @@ const Sidebar = () => {
     },
     {
       icon: <MdOutlineSettings />,
-      name: `${t('navigation.bookings_received')}`,
+      name: `${t("navigation.bookings_received")}`,
       callBack: () => {
         router.push("/my-reservations");
         setSidebarMenuOpen(false);
@@ -146,7 +131,7 @@ const Sidebar = () => {
     },
     {
       icon: <IoMdAdd />,
-      name: `${t('navigation.add_hall')}`,
+      name: `${t("navigation.add_hall")}`,
       callBack: () => {
         router.push("new-listing");
         setSidebarMenuOpen(false);
@@ -154,7 +139,7 @@ const Sidebar = () => {
     },
     {
       icon: <FaRegCalendarAlt />,
-      name: `${t('navigation.calendar')}`,
+      name: `${t("navigation.calendar")}`,
       callBack: () => {
         router.push("/calendar");
         setSidebarMenuOpen(false);
@@ -162,7 +147,7 @@ const Sidebar = () => {
     },
     {
       icon: <FaChartBar />,
-      name: `${t('navigation.statistics')}`,
+      name: `${t("navigation.statistics")}`,
       callBack: () => {
         router.push("/statistics");
         setSidebarMenuOpen(false);
@@ -170,7 +155,7 @@ const Sidebar = () => {
     },
     {
       icon: <LiaFileInvoiceDollarSolid />,
-      name: `${t('navigation.invoices')}`,
+      name: `${t("navigation.invoices")}`,
       callBack: () => {
         router.push("/invoices");
         setSidebarMenuOpen(false);
@@ -178,7 +163,7 @@ const Sidebar = () => {
     },
     {
       icon: <MdLogout />,
-      name: `${t('navigation.logout')}`,
+      name: `${t("navigation.logout")}`,
       callBack: () => {
         setSidebarMenuOpen(false);
         setUserInfo(null);
@@ -249,10 +234,10 @@ const Sidebar = () => {
       {userInfo && (
         <div className="flex gap-1 items-center bg-[#e7f7ff] p-1">
           <div className="">
-            {userInfo?.profileImage && imageProfile ? (
+            {userInfo?.profileImage ? (
               <img
                 className="w-14 h-14 md:w-20 md:h-20 rounded-full border border-black overflow-hidden object-cover"
-                src={`data:image/*;base64,${imageProfile}`}
+                src={`${process.env.NEXT_PUBLIC_API_FRONT_URI}/uploads/${userInfo?.profileImage}`}
                 alt="img"
               />
             ) : (

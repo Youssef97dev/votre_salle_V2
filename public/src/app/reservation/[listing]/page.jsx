@@ -271,20 +271,18 @@ const page = ({ params: { listing } }) => {
     if (result.value) {
       setLoading(true);
       const response = await addTrip(data);
-    if (response) {
-      await addToNotification(
-        `${userInfo?.firstName} ${userInfo?.lastName}`,
-        `Make a reservation at ${reservationData?.listing?.title}`,
-        userInfo?.profileImage,
-        false,
-        reservationData?.listing?.listingCreatedBy?.id
-      );
-      setLoading(false);
-      router.push("/trips");
+      if (response) {
+        await addToNotification(
+          `${userInfo?.firstName} ${userInfo?.lastName}`,
+          `Make a reservation at ${reservationData?.listing?.title}`,
+          userInfo?.profileImage,
+          false,
+          reservationData?.listing?.listingCreatedBy?.id
+        );
+        setLoading(false);
+        router.push("/trips");
+      }
     }
-    }
-
-    
   };
 
   return (

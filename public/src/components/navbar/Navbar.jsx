@@ -2,13 +2,11 @@
 import AirBnbLogo from "airbnb/svg/airbnb-logo";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { getImage } from "airbnb/lib/lisitng";
 import { FiGlobe } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa6";
 import ScheduleBar from "../common/ScheduleBar";
-import ContextMenu from "../common/ContextMenu";
 import { userAppStore } from "airbnb/store/store";
 import { useRouter } from "next/navigation";
 import Schedule from "../common/Schedule";
@@ -17,7 +15,7 @@ import ScheduleMobile from "../common/ScheduleMobile";
 import Sidebar from "../common/Sidebar";
 import Dropdown from "airbnb/hooks/Dropdown";
 import Notifications from "../modals/Notifications";
-import i18n from '../../../i18n';
+import i18n from "../../../i18n";
 
 function Navbar() {
   const router = useRouter();
@@ -32,7 +30,6 @@ function Navbar() {
     setSidebarMenuOpen,
     sidebarMenuOpen,
   } = userAppStore();
-  const [imageProfile, setImageProfile] = useState("");
   const [notif, setNotif] = useState(false);
   const [lang, setLang] = useState(i18n.language);
 
@@ -42,29 +39,18 @@ function Navbar() {
   };
 
   const changeLanguage = () => {
-    localStorage.removeItem('lang')
-    if(i18n.language === "fr"){
+    localStorage.removeItem("lang");
+    if (i18n.language === "fr") {
       i18n.changeLanguage("en");
-      localStorage.setItem('lang', 'en');
-      setLang('en')
-    }else{
+      localStorage.setItem("lang", "en");
+      setLang("en");
+    } else {
       i18n.changeLanguage("fr");
-      localStorage.setItem('lang', 'fr');
-      setLang('fr')
+      localStorage.setItem("lang", "fr");
+      setLang("fr");
     }
-    console.log(i18n.language)
+    console.log(i18n.language);
   };
-
-  useEffect(() => {
-    console.log("user :", userInfo);
-    const getProfileImage = async () => {
-      const image = await getImage(userInfo?.profileImage);
-      setImageProfile(image);
-    };
-    if (userInfo) {
-      getProfileImage();
-    }
-  }, [userInfo, setUserInfo]);
 
   useEffect(() => {
     if (userInfo) {
@@ -102,8 +88,12 @@ function Navbar() {
         </div>
         <div className="md:flex-grow md:basis-0 hidden md:block">
           <ul className="flex items-center justify-end gap-6 font-medium">
-            <li className="flex items-center gap-2 cursor-pointer" onClick={() => changeLanguage()}>
-              <FiGlobe /><span className="font-bold">{lang==='fr'?'En':'Fr'}</span>
+            <li
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => changeLanguage()}
+            >
+              <FiGlobe />
+              <span className="font-bold">{lang === "fr" ? "En" : "Fr"}</span>
             </li>
             {userInfo && (
               <li className="relative cursor-pointer">
@@ -146,10 +136,10 @@ function Navbar() {
               <span>
                 {userInfo ? (
                   <>
-                    {userInfo?.profileImage && imageProfile ? (
+                    {userInfo?.profileImage ? (
                       <img
                         className="w-7 h-7 rounded-full overflow-hidden object-cover"
-                        src={`data:image/*;base64,${imageProfile}`}
+                        src={`${process.env.NEXT_PUBLIC_API_FRONT_URI}/uploads/${userInfo?.profileImage}`}
                         alt="img"
                       />
                     ) : (
