@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import Confetti from "react-confetti";
 
-export default function ListingCreated({ listingId = "", t }) {
+export default function ListingCreated({ listingId, t }) {
   const router = useRouter();
   const {
     locationType,
@@ -22,7 +22,7 @@ export default function ListingCreated({ listingId = "", t }) {
     tax,
   } = userAppStore();
   useEffect(() => {
-    if (listingId === "") {
+    if (listingId === "" || listingId === null) {
       createLisitngAPI({
         locationType,
         placeType,

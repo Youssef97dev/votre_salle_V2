@@ -137,7 +137,7 @@ function Page() {
             onClick={handleNext}
             className="btn btn-primary rounded-3xl font-bold"
           >
-            {listingId !== ""
+            {listingId !== "" && listingId !== null
               ? `${t("page.new_listing.update_hall")}`
               : `${t("page.new_listing.add_hall")}`}
           </button>
