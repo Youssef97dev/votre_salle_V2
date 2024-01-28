@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "https://votre-salle-api.onrender.com";
+const apiUrl = process.env.NEXT_PUBLIC_API_FRONT_URI;
 //const apiUrl = "http://localhost:3000";
 const jwtKey = "accessToken";
 

@@ -98,7 +98,10 @@ export default function ListingCard({
 
   return (
     <div className="col-span-1 group panel-home">
-      <div className="flex flex-col gap-2 w-full">
+      <div
+        onClick={() => router.push(`/listing/${data.id}`)}
+        className="flex flex-col gap-2 w-full cursor-pointer"
+      >
         <div
           className="swiper aspect-square w-full relative overflow-hidden rounded-xl mb-3"
           onMouseOver={() => setHover(true)}
@@ -170,16 +173,6 @@ export default function ListingCard({
                       size={22}
                     />
                   </div>
-                  <div
-                    onClick={() => router.push(`/listing/${data.id}`)}
-                    className="absolute z-20 right-2 top-10 rounded-full p-1 hover:bg-[#31247975] cursor-pointer bg-[#ddd2d29a]"
-                  >
-                    <MdOutlineReadMore
-                      style={{ stroke: "white" }}
-                      className={`text-3xl`}
-                      size={22}
-                    />
-                  </div>
                 </>
               )}
               {isMyListing && (
@@ -200,7 +193,10 @@ export default function ListingCard({
                     />
                   </div>
                   <div
-                    onClick={() => setShowPrestation(true)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPrestation(true);
+                    }}
                     className={`absolute z-20 right-2 top-11 rounded-full p-2 bg-[#02020280] cursor-pointer hover:bg-slate-900 ${
                       hover ? "block" : "hidden"
                     }`}
@@ -208,7 +204,10 @@ export default function ListingCard({
                     <IoSettings color="#fff" className={`text-4xl`} size={15} />
                   </div>
                   <div
-                    onClick={deleteListing}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteListing();
+                    }}
                     className={`absolute z-20 right-2 top-20 rounded-full p-2 bg-[#02020280] cursor-pointer hover:bg-slate-900 ${
                       hover ? "block" : "hidden"
                     }`}
