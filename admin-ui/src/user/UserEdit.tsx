@@ -14,6 +14,7 @@ import {
 import { InvoiceTitle } from "../invoice/InvoiceTitle";
 import { ListingTitle } from "../listing/ListingTitle";
 import { NotificationTitle } from "../notification/NotificationTitle";
+import { PasswordResetTokenTitle } from "../passwordResetToken/PasswordResetTokenTitle";
 import { ReviewTitle } from "../review/ReviewTitle";
 import { TripTitle } from "../trip/TripTitle";
 import { WishlistTitle } from "../wishlist/WishlistTitle";
@@ -53,6 +54,14 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         </ReferenceArrayInput>
         <NumberInput step={1} label="pack" source="pack" />
         <PasswordInput label="Password" source="password" />
+        <ReferenceArrayInput
+          source="passwordResetTokens"
+          reference="PasswordResetToken"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={PasswordResetTokenTitle} />
+        </ReferenceArrayInput>
         <TextInput label="phone" source="phone" />
         <TextInput label="Profile Image" source="profileImage" />
         <TextInput label="Profile Logo" source="profileLogo" />

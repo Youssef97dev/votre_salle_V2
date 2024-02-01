@@ -25,6 +25,7 @@ import { Type } from "class-transformer";
 import { Invoice } from "../../invoice/base/Invoice";
 import { Listing } from "../../listing/base/Listing";
 import { Notification } from "../../notification/base/Notification";
+import { PasswordResetToken } from "../../passwordResetToken/base/PasswordResetToken";
 import { Review } from "../../review/base/Review";
 import { Trip } from "../../trip/base/Trip";
 import { Wishlist } from "../../wishlist/base/Wishlist";
@@ -127,6 +128,15 @@ class User {
     nullable: true,
   })
   pack!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PasswordResetToken],
+  })
+  @ValidateNested()
+  @Type(() => PasswordResetToken)
+  @IsOptional()
+  passwordResetTokens?: Array<PasswordResetToken>;
 
   @ApiProperty({
     required: false,

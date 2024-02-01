@@ -2,6 +2,7 @@ import { JsonValue } from "type-fest";
 import { Invoice } from "../invoice/Invoice";
 import { Listing } from "../listing/Listing";
 import { Notification } from "../notification/Notification";
+import { PasswordResetToken } from "../passwordResetToken/PasswordResetToken";
 import { Review } from "../review/Review";
 import { Trip } from "../trip/Trip";
 import { Wishlist } from "../wishlist/Wishlist";
@@ -17,6 +18,7 @@ export type User = {
   listings?: Array<Listing>;
   notifications?: Array<Notification>;
   pack: number | null;
+  passwordResetTokens?: Array<PasswordResetToken>;
   phone: string | null;
   profileImage: string | null;
   profileLogo: string | null;

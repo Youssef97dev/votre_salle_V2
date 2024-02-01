@@ -5,6 +5,7 @@ import { InvoiceListRelationFilter } from "../invoice/InvoiceListRelationFilter"
 import { ListingListRelationFilter } from "../listing/ListingListRelationFilter";
 import { NotificationListRelationFilter } from "../notification/NotificationListRelationFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { PasswordResetTokenListRelationFilter } from "../passwordResetToken/PasswordResetTokenListRelationFilter";
 import { ReviewListRelationFilter } from "../review/ReviewListRelationFilter";
 import { TripListRelationFilter } from "../trip/TripListRelationFilter";
 import { WishlistListRelationFilter } from "../wishlist/WishlistListRelationFilter";
@@ -19,6 +20,7 @@ export type UserWhereInput = {
   listings?: ListingListRelationFilter;
   notifications?: NotificationListRelationFilter;
   pack?: IntNullableFilter;
+  passwordResetTokens?: PasswordResetTokenListRelationFilter;
   phone?: StringNullableFilter;
   profileImage?: StringNullableFilter;
   profileLogo?: StringNullableFilter;

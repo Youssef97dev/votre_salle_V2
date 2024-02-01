@@ -10,15 +10,16 @@ generator client {
 model User {
   adresse              String?
   companyInfo          Json?
-  createdAt            DateTime       @default(now())
+  createdAt            DateTime             @default(now())
   firstName            String?
-  id                   String         @id @default(cuid())
+  id                   String               @id @default(cuid())
   invoices             Invoice[]
   lastName             String?
   listings             Listing[]
   notifications        Notification[]
   pack                 Int?
   password             String
+  passwordResetTokens  PasswordResetToken[]
   phone                String?
   profileImage         String?
   profileLogo          String?
@@ -28,8 +29,8 @@ model User {
   trips                Trip[]
   typeUser             String
   typeUserNotification String?
-  updatedAt            DateTime       @updatedAt
-  username             String         @unique
+  updatedAt            DateTime             @updatedAt
+  username             String               @unique
   wishlists            Wishlist[]
 }
 
@@ -113,4 +114,14 @@ model Notification {
   updatedAt   DateTime @updatedAt
   user        User?    @relation(fields: [userId], references: [id])
   userId      String?
+}
+
+model PasswordResetToken {
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+  id        String    @id @default(cuid())
+  token     String    @unique
+  updatedAt DateTime  @updatedAt
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
 }

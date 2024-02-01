@@ -2,6 +2,7 @@ import { InputJsonValue } from "../../types";
 import { InvoiceCreateNestedManyWithoutUsersInput } from "./InvoiceCreateNestedManyWithoutUsersInput";
 import { ListingCreateNestedManyWithoutUsersInput } from "./ListingCreateNestedManyWithoutUsersInput";
 import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
+import { PasswordResetTokenCreateNestedManyWithoutUsersInput } from "./PasswordResetTokenCreateNestedManyWithoutUsersInput";
 import { ReviewCreateNestedManyWithoutUsersInput } from "./ReviewCreateNestedManyWithoutUsersInput";
 import { TripCreateNestedManyWithoutUsersInput } from "./TripCreateNestedManyWithoutUsersInput";
 import { WishlistCreateNestedManyWithoutUsersInput } from "./WishlistCreateNestedManyWithoutUsersInput";
@@ -16,6 +17,7 @@ export type UserCreateInput = {
   notifications?: NotificationCreateNestedManyWithoutUsersInput;
   pack?: number | null;
   password: string;
+  passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUsersInput;
   phone?: string | null;
   profileImage?: string | null;
   profileLogo?: string | null;
