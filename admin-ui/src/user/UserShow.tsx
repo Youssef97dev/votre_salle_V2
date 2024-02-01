@@ -104,6 +104,22 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
           </Datagrid>
         </ReferenceManyField>
+        <ReferenceManyField
+          reference="PasswordResetToken"
+          target="userId"
+          label="PasswordResetTokens"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="expiresAt" source="expiresAt" />
+            <TextField label="ID" source="id" />
+            <TextField label="token" source="token" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="user" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField reference="Review" target="userId" label="Reviews">
           <Datagrid rowClick="show">
             <TextField label="comments" source="comments" />

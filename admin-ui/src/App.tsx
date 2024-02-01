@@ -33,6 +33,10 @@ import { NotificationList } from "./notification/NotificationList";
 import { NotificationCreate } from "./notification/NotificationCreate";
 import { NotificationEdit } from "./notification/NotificationEdit";
 import { NotificationShow } from "./notification/NotificationShow";
+import { PasswordResetTokenList } from "./passwordResetToken/PasswordResetTokenList";
+import { PasswordResetTokenCreate } from "./passwordResetToken/PasswordResetTokenCreate";
+import { PasswordResetTokenEdit } from "./passwordResetToken/PasswordResetTokenEdit";
+import { PasswordResetTokenShow } from "./passwordResetToken/PasswordResetTokenShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -107,6 +111,13 @@ const App = (): React.ReactElement => {
           edit={NotificationEdit}
           create={NotificationCreate}
           show={NotificationShow}
+        />
+        <Resource
+          name="PasswordResetToken"
+          list={PasswordResetTokenList}
+          edit={PasswordResetTokenEdit}
+          create={PasswordResetTokenCreate}
+          show={PasswordResetTokenShow}
         />
       </Admin>
     </div>

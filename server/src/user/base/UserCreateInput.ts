@@ -19,6 +19,7 @@ import { InvoiceCreateNestedManyWithoutUsersInput } from "./InvoiceCreateNestedM
 import { Type } from "class-transformer";
 import { ListingCreateNestedManyWithoutUsersInput } from "./ListingCreateNestedManyWithoutUsersInput";
 import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
+import { PasswordResetTokenCreateNestedManyWithoutUsersInput } from "./PasswordResetTokenCreateNestedManyWithoutUsersInput";
 import { ReviewCreateNestedManyWithoutUsersInput } from "./ReviewCreateNestedManyWithoutUsersInput";
 import { TripCreateNestedManyWithoutUsersInput } from "./TripCreateNestedManyWithoutUsersInput";
 import { WishlistCreateNestedManyWithoutUsersInput } from "./WishlistCreateNestedManyWithoutUsersInput";
@@ -122,6 +123,18 @@ class UserCreateInput {
   @IsString()
   @Field(() => String)
   password!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => PasswordResetTokenCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => PasswordResetTokenCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => PasswordResetTokenCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

@@ -32,6 +32,8 @@ import { ListingFindManyArgs } from "../../listing/base/ListingFindManyArgs";
 import { Listing } from "../../listing/base/Listing";
 import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
 import { Notification } from "../../notification/base/Notification";
+import { PasswordResetTokenFindManyArgs } from "../../passwordResetToken/base/PasswordResetTokenFindManyArgs";
+import { PasswordResetToken } from "../../passwordResetToken/base/PasswordResetToken";
 import { ReviewFindManyArgs } from "../../review/base/ReviewFindManyArgs";
 import { Review } from "../../review/base/Review";
 import { TripFindManyArgs } from "../../trip/base/TripFindManyArgs";
@@ -196,6 +198,28 @@ export class UserResolverBase {
     @graphql.Args() args: NotificationFindManyArgs
   ): Promise<Notification[]> {
     const results = await this.service.findNotifications(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [PasswordResetToken], {
+    name: "passwordResetTokens",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "PasswordResetToken",
+    action: "read",
+    possession: "any",
+  })
+  async findPasswordResetTokens(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: PasswordResetTokenFindManyArgs
+  ): Promise<PasswordResetToken[]> {
+    const results = await this.service.findPasswordResetTokens(parent.id, args);
 
     if (!results) {
       return [];

@@ -17,6 +17,7 @@ import {
   Invoice, // @ts-ignore
   Listing, // @ts-ignore
   Notification, // @ts-ignore
+  PasswordResetToken, // @ts-ignore
   Review, // @ts-ignore
   Trip, // @ts-ignore
   Wishlist,
@@ -114,6 +115,17 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .notifications(args);
+  }
+
+  async findPasswordResetTokens(
+    parentId: string,
+    args: Prisma.PasswordResetTokenFindManyArgs
+  ): Promise<PasswordResetToken[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .passwordResetTokens(args);
   }
 
   async findReviews(

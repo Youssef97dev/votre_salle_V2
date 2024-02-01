@@ -35,6 +35,9 @@ import { ListingWhereUniqueInput } from "../../listing/base/ListingWhereUniqueIn
 import { NotificationFindManyArgs } from "../../notification/base/NotificationFindManyArgs";
 import { Notification } from "../../notification/base/Notification";
 import { NotificationWhereUniqueInput } from "../../notification/base/NotificationWhereUniqueInput";
+import { PasswordResetTokenFindManyArgs } from "../../passwordResetToken/base/PasswordResetTokenFindManyArgs";
+import { PasswordResetToken } from "../../passwordResetToken/base/PasswordResetToken";
+import { PasswordResetTokenWhereUniqueInput } from "../../passwordResetToken/base/PasswordResetTokenWhereUniqueInput";
 import { ReviewFindManyArgs } from "../../review/base/ReviewFindManyArgs";
 import { Review } from "../../review/base/Review";
 import { ReviewWhereUniqueInput } from "../../review/base/ReviewWhereUniqueInput";
@@ -584,6 +587,109 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       notifications: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/passwordResetTokens")
+  @ApiNestedQuery(PasswordResetTokenFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "PasswordResetToken",
+    action: "read",
+    possession: "any",
+  })
+  async findPasswordResetTokens(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<PasswordResetToken[]> {
+    const query = plainToClass(PasswordResetTokenFindManyArgs, request.query);
+    const results = await this.service.findPasswordResetTokens(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        expiresAt: true,
+        id: true,
+        token: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/passwordResetTokens")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async connectPasswordResetTokens(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: PasswordResetTokenWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      passwordResetTokens: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/passwordResetTokens")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async updatePasswordResetTokens(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: PasswordResetTokenWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      passwordResetTokens: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/passwordResetTokens")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectPasswordResetTokens(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: PasswordResetTokenWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      passwordResetTokens: {
         disconnect: body,
       },
     };

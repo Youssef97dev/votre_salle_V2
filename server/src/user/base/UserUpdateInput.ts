@@ -19,6 +19,7 @@ import { InvoiceUpdateManyWithoutUsersInput } from "./InvoiceUpdateManyWithoutUs
 import { Type } from "class-transformer";
 import { ListingUpdateManyWithoutUsersInput } from "./ListingUpdateManyWithoutUsersInput";
 import { NotificationUpdateManyWithoutUsersInput } from "./NotificationUpdateManyWithoutUsersInput";
+import { PasswordResetTokenUpdateManyWithoutUsersInput } from "./PasswordResetTokenUpdateManyWithoutUsersInput";
 import { ReviewUpdateManyWithoutUsersInput } from "./ReviewUpdateManyWithoutUsersInput";
 import { TripUpdateManyWithoutUsersInput } from "./TripUpdateManyWithoutUsersInput";
 import { WishlistUpdateManyWithoutUsersInput } from "./WishlistUpdateManyWithoutUsersInput";
@@ -125,6 +126,18 @@ class UserUpdateInput {
     nullable: true,
   })
   password?: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => PasswordResetTokenUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => PasswordResetTokenUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => PasswordResetTokenUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

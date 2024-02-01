@@ -610,5 +610,95 @@
     "resource": "Notification",
     "action": "read:any",
     "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResetToken",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "owner",
+    "resource": "PasswordResetToken",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PasswordResetToken",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResetToken",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "owner",
+    "resource": "PasswordResetToken",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PasswordResetToken",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResetToken",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "owner",
+    "resource": "PasswordResetToken",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PasswordResetToken",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResetToken",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "owner",
+    "resource": "PasswordResetToken",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PasswordResetToken",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "PasswordResetToken",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "owner",
+    "resource": "PasswordResetToken",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PasswordResetToken",
+    "action": "read:any",
+    "attributes": "*"
   }
 ]

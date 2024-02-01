@@ -6,6 +6,7 @@ import { TripModule } from "./trip/trip.module";
 import { ReviewModule } from "./review/review.module";
 import { InvoiceModule } from "./invoice/invoice.module";
 import { NotificationModule } from "./notification/notification.module";
+import { PasswordResetTokenModule } from "./passwordResetToken/passwordResetToken.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -30,6 +31,7 @@ import { AuthModule } from "./auth/auth.module";
     ReviewModule,
     InvoiceModule,
     NotificationModule,
+    PasswordResetTokenModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

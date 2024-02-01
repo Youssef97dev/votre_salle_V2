@@ -20,6 +20,7 @@ import { InvoiceListRelationFilter } from "../../invoice/base/InvoiceListRelatio
 import { ListingListRelationFilter } from "../../listing/base/ListingListRelationFilter";
 import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { PasswordResetTokenListRelationFilter } from "../../passwordResetToken/base/PasswordResetTokenListRelationFilter";
 import { ReviewListRelationFilter } from "../../review/base/ReviewListRelationFilter";
 import { TripListRelationFilter } from "../../trip/base/TripListRelationFilter";
 import { WishlistListRelationFilter } from "../../wishlist/base/WishlistListRelationFilter";
@@ -127,6 +128,18 @@ class UserWhereInput {
     nullable: true,
   })
   pack?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PasswordResetTokenListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => PasswordResetTokenListRelationFilter)
+  @IsOptional()
+  @Field(() => PasswordResetTokenListRelationFilter, {
+    nullable: true,
+  })
+  passwordResetTokens?: PasswordResetTokenListRelationFilter;
 
   @ApiProperty({
     required: false,
