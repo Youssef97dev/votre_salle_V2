@@ -12,6 +12,12 @@ const page = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const handleRecoverPassword = async (e) => {
     e.preventDefault();
     if (email) {
@@ -35,63 +41,70 @@ const page = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[url('/map.svg')] bg-cover bg-center">
-      <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
-        {errorMessage !== "" && (
-          <div className="flex items-center p-3.5 my-2 rounded text-[#e2a03f] bg-[#fff9ed]">
-            <span className="pr-2">
-              <strong className="mr-1">Warning!</strong>
-              <span>{errorMessage}.</span>
-            </span>
-            <button
-              onClick={() => setErrorMessage("")}
-              type="button"
-              className="ml-auto hover:opacity-80"
-            >
-              X
-            </button>
-          </div>
-        )}
+    isClient && (
+      <div className="flex min-h-screen items-center justify-center bg-[url('/map.svg')] bg-cover bg-center">
+        <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
+          {errorMessage !== "" && (
+            <div className="flex items-center p-3.5 my-2 rounded text-[#e2a03f] bg-[#fff9ed]">
+              <span className="pr-2">
+                <strong className="mr-1">Warning!</strong>
+                <span>{errorMessage}.</span>
+              </span>
+              <button
+                onClick={() => setErrorMessage("")}
+                type="button"
+                className="ml-auto hover:opacity-80"
+              >
+                X
+              </button>
+            </div>
+          )}
 
-        {successMessage !== "" && (
-          <div className="flex items-center p-3.5 my-2 rounded text-[#00ab55] bg-[#ddf5f0]">
-            <span className="pr-2">
-              <strong className="mr-1">Success!</strong>
-              <span>{successMessage}.</span>
-            </span>
-            <button
-              onClick={() => setSuccessMessage("")}
-              type="button"
-              className="ml-auto hover:opacity-80"
-            >
-              X
+          {successMessage !== "" && (
+            <div className="flex items-center p-3.5 my-2 rounded text-[#00ab55] bg-[#ddf5f0]">
+              <span className="pr-2">
+                <strong className="mr-1">Success!</strong>
+                <span>{successMessage}.</span>
+              </span>
+              <button
+                onClick={() => setSuccessMessage("")}
+                type="button"
+                className="ml-auto hover:opacity-80"
+              >
+                X
+              </button>
+            </div>
+          )}
+          <h2 className="mb-3 text-2xl font-bold">
+            {t("auth.change_password")}
+          </h2>
+          <p className="mb-7">{t("auth.label_email")}</p>
+          <form
+            className="space-y-5"
+            onSubmit={(e) => handleRecoverPassword(e)}
+          >
+            <div>
+              <label htmlFor="email">{t("auth.email")}</label>
+              <input
+                id="email"
+                type="email"
+                defaultValue={email}
+                className="form-input"
+                placeholder={`${t("auth.enter")} ${t("auth.email")}`}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary w-full">
+              {!loading ? (
+                `${t("auth.send_code").toUpperCase()}`
+              ) : (
+                <BeatLoader color="#fff" size={10} />
+              )}
             </button>
-          </div>
-        )}
-        <h2 className="mb-3 text-2xl font-bold">{t("auth.change_password")}</h2>
-        <p className="mb-7">{t("auth.label_email")}</p>
-        <form className="space-y-5" onSubmit={(e) => handleRecoverPassword(e)}>
-          <div>
-            <label htmlFor="email">{t("auth.email")}</label>
-            <input
-              id="email"
-              type="email"
-              defaultValue={email}
-              className="form-input"
-              placeholder={`${t("auth.enter")} ${t("auth.email")}`}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary w-full">
-            {!loading ? (
-              `${t("auth.send_code").toUpperCase()}`
-            ) : (
-              <BeatLoader color="#fff" size={10} />
-            )}
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    )
   );
 };
 
