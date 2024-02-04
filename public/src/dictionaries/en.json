@@ -15,7 +15,14 @@
     "phone": "Phone",
     "confirm": "Confirm",
     "agree": "I agree the",
-    "terms": "Terms and Conditions"
+    "terms": "Terms and Conditions",
+    "label_change": "Enter new Password and confirm",
+    "change_password": "Reset Password",
+    "warning": "Avertissement",
+    "reset": "Reset",
+    "send_code": "Send recover code",
+    "label_email": "Enter recover email",
+    "reset_password": "Reset your password"
   },
   "navigation": {
     "signin": "Login",

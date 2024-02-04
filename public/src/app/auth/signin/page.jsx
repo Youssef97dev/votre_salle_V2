@@ -76,6 +76,14 @@ const page = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div>
+            <Link
+              href={`/auth/request-reset-password`}
+              className="w-fit text-gray-500 underline"
+            >
+              {t("auth.reset_password")}
+            </Link>
+          </div>
           <button type="submit" className="btn btn-primary w-full">
             {!loading ? (
               `${t("auth.signin").toUpperCase()}`

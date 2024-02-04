@@ -10,6 +10,7 @@ import { UserService } from "../user/user.service";
 import { Credentials, SignupCredentials } from "./Credentials";
 import { PasswordService } from "./password.service";
 import { TokenService } from "./token.service";
+import { PasswordResetTokenService } from "src/passwordResetToken/passwordResetToken.service";
 import { UserInfo } from "./UserInfo";
 import { User } from "src/user/base/User";
 import { JsonValue } from "type-fest";
@@ -19,7 +20,8 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly passwordService: PasswordService,
-    private readonly tokenService: TokenService
+    private readonly tokenService: TokenService,
+    private readonly passwordResetService: PasswordResetTokenService
   ) {}
 
   async validateUser(
@@ -36,6 +38,7 @@ export class AuthService {
     }
     return null;
   }
+
   async login(credentials: Credentials): Promise<UserInfo> {
     const { username, password } = credentials;
     const user = await this.validateUser(
@@ -55,6 +58,7 @@ export class AuthService {
       ...user,
     };
   }
+
   async signup(
     credentials: SignupCredentials,
     profileLogo?: Express.Multer.File
@@ -79,8 +83,10 @@ export class AuthService {
         password,
         firstName,
         lastName,
-        companyInfo: companyInfo && 
-          typeof companyInfo === "string" ? JSON.parse(companyInfo) : null,
+        companyInfo:
+          companyInfo && typeof companyInfo === "string"
+            ? JSON.parse(companyInfo)
+            : null,
         phone,
         typeUser,
         adresse,
@@ -98,6 +104,40 @@ export class AuthService {
       id: user.id,
       username,
       password,
+    });
+    // Return the access token as well as the some details about the user
+    return {
+      accessToken,
+      username: user.username,
+      id: user.id,
+      roles: (user.roles as { roles: string[] }).roles,
+    };
+  }
+
+  async updatePassword(
+    userId: string,
+    newPassword: string,
+    email: string
+  ): Promise<UserInfo> {
+    // Find the user by ID
+    const findUser = await this.userService.user({
+      where: { id: userId },
+    });
+    // If the user is not found, throw an error
+    if (!findUser) {
+      throw new NotFoundException("User not found");
+    }
+
+    const user = await this.userService.updateUser({
+      where: { id: userId },
+      data: { password: newPassword },
+    });
+
+    // Create an access token for the newly created user
+    const accessToken = await this.tokenService.createToken({
+      id: user.id,
+      username: email,
+      password: newPassword,
     });
     // Return the access token as well as the some details about the user
     return {
@@ -150,5 +190,75 @@ export class AuthService {
     }
 
     return userStatus;
+  }
+
+  async requestPasswordReset(email: string): Promise<void> {
+    const user = await this.userService.user({
+      where: { username: email },
+    });
+
+    if (user) {
+      const resetToken = await this.generateResetToken(user.id);
+      const resetLink = `${process.env.FRONT_URL_RESET}?token=${resetToken}&email=${email}`;
+
+      await this.passwordResetService.sendPasswordResetEmail(
+        email,
+        "Reset Password",
+        resetLink
+      );
+    } else {
+      throw (new Error(), `The email does not exist.`);
+    }
+  }
+
+  async validateResetToken(token: string): Promise<any> {
+    const resetToken = await this.passwordResetService.passwordResetToken({
+      where: { token },
+    });
+
+    if (
+      !resetToken ||
+      (resetToken.expiresAt !== null && resetToken.expiresAt < new Date())
+    ) {
+      return { isValid: false };
+    }
+
+    return { isValid: true, userId: resetToken.userId };
+  }
+
+  async deleteResetToken(token: string): Promise<void> {
+    await this.passwordResetService.deletePasswordResetToken({
+      where: { token },
+    });
+  }
+
+  private async generateResetToken(userId: string): Promise<string> {
+    const token = this.generateUniqueToken();
+    const expiresAt = this.calculateExpiration();
+
+    await this.passwordResetService.createPasswordResetToken({
+      data: {
+        token,
+        userId,
+        expiresAt,
+      },
+    });
+
+    return token;
+  }
+
+  private generateUniqueToken(): string {
+    const token = (Math.floor(Math.random() * 9000000) + 1000000).toString();
+    return token;
+  }
+
+  private calculateExpiration(): Date {
+    const expirationHours = 12; // Set the expiration time in hours
+    const currentDate = new Date();
+    const expirationDate = new Date(
+      currentDate.getTime() + expirationHours * 60 * 60 * 1000
+    );
+
+    return expirationDate;
   }
 }

@@ -15,7 +15,14 @@
     "phone": "Téléphone",
     "confirm": "Confirmer",
     "agree": "J'accepte",
-    "terms": "les termes et conditions"
+    "terms": "les termes et conditions",
+    "label_change": "Entrez le nouveau mot de passe et confirmez",
+    "change_password": "Réinitialiser le mot de passe",
+    "warning": "Avertissement",
+    "reset": "Réinitialise",
+    "send_code": "Envoyer le code de récupération",
+    "label_email": "Entrez l'e-mail de récupération",
+    "reset_password": "Reset your password"
   },
   "navigation": {
     "signin": "Se connecter",

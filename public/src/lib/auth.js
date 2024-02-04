@@ -63,3 +63,27 @@ export const signupWithGoogle = async () => {
     return error;
   }
 };
+
+export const sendRecoverPasswordCode = async (username) => {
+  try {
+    const result = await post(createUrl("/api/request-recover-password"), {
+      username,
+    });
+    console.log(result);
+  } catch (error) {
+    return error;
+  }
+};
+
+export const changePassword = async (newPassword, resetToken, email) => {
+  try {
+    const result = await post(createUrl("/api/reset-password"), {
+      newPassword,
+      resetToken,
+      email,
+    });
+    console.log(result);
+  } catch (error) {
+    return error;
+  }
+};

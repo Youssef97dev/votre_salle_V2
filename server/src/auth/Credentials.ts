@@ -24,6 +24,17 @@ export class Credentials {
 }
 
 @InputType()
+export class ResetCredentials {
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String, { nullable: false })
+  username!: string;
+}
+
+@InputType()
 export class SignupCredentials {
   @ApiProperty({
     required: true,
@@ -95,7 +106,7 @@ export class SignupCredentials {
   })
   @IsString()
   @Field(() => String, { nullable: false })
-  pack!: string
+  pack!: string;
 
   @ApiProperty({
     required: false,

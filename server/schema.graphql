@@ -21,6 +21,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
+}
+
 input DecimalFilter {
   equals: Float
   gt: Float
@@ -280,6 +291,7 @@ type Mutation {
   createInvoice(data: InvoiceCreateInput!): Invoice!
   createListing(data: ListingCreateInput!): Listing!
   createNotification(data: NotificationCreateInput!): Notification!
+  createPasswordResetToken(data: PasswordResetTokenCreateInput!): PasswordResetToken!
   createReview(data: ReviewCreateInput!): Review!
   createTrip(data: TripCreateInput!): Trip!
   createUser(data: UserCreateInput!): User!
@@ -287,6 +299,7 @@ type Mutation {
   deleteInvoice(where: InvoiceWhereUniqueInput!): Invoice!
   deleteListing(where: ListingWhereUniqueInput!): Listing!
   deleteNotification(where: NotificationWhereUniqueInput!): Notification!
+  deletePasswordResetToken(where: PasswordResetTokenWhereUniqueInput!): PasswordResetToken!
   deleteReview(where: ReviewWhereUniqueInput!): Review!
   deleteTrip(where: TripWhereUniqueInput!): Trip!
   deleteUser(where: UserWhereUniqueInput!): User!
@@ -296,6 +309,7 @@ type Mutation {
   updateInvoice(data: InvoiceUpdateInput!, where: InvoiceWhereUniqueInput!): Invoice!
   updateListing(data: ListingUpdateInput!, where: ListingWhereUniqueInput!): Listing!
   updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification!
+  updatePasswordResetToken(data: PasswordResetTokenUpdateInput!, where: PasswordResetTokenWhereUniqueInput!): PasswordResetToken!
   updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review!
   updateTrip(data: TripUpdateInput!, where: TripWhereUniqueInput!): Trip!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
@@ -369,10 +383,68 @@ input NotificationWhereUniqueInput {
   id: String!
 }
 
+type PasswordResetToken {
+  createdAt: DateTime!
+  expiresAt: DateTime
+  id: String!
+  token: String!
+  updatedAt: DateTime!
+  user: User
+}
+
+input PasswordResetTokenCreateInput {
+  expiresAt: DateTime
+  token: String!
+  user: UserWhereUniqueInput
+}
+
+input PasswordResetTokenCreateNestedManyWithoutUsersInput {
+  connect: [PasswordResetTokenWhereUniqueInput!]
+}
+
+input PasswordResetTokenListRelationFilter {
+  every: PasswordResetTokenWhereInput
+  none: PasswordResetTokenWhereInput
+  some: PasswordResetTokenWhereInput
+}
+
+input PasswordResetTokenOrderByInput {
+  createdAt: SortOrder
+  expiresAt: SortOrder
+  id: SortOrder
+  token: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input PasswordResetTokenUpdateInput {
+  expiresAt: DateTime
+  token: String
+  user: UserWhereUniqueInput
+}
+
+input PasswordResetTokenUpdateManyWithoutUsersInput {
+  connect: [PasswordResetTokenWhereUniqueInput!]
+  disconnect: [PasswordResetTokenWhereUniqueInput!]
+  set: [PasswordResetTokenWhereUniqueInput!]
+}
+
+input PasswordResetTokenWhereInput {
+  expiresAt: DateTimeNullableFilter
+  id: StringFilter
+  token: StringFilter
+  user: UserWhereUniqueInput
+}
+
+input PasswordResetTokenWhereUniqueInput {
+  id: String!
+}
+
 type Query {
   _invoicesMeta(where: InvoiceWhereInput): MetaQueryPayload!
   _listingsMeta(where: ListingWhereInput): MetaQueryPayload!
   _notificationsMeta(where: NotificationWhereInput): MetaQueryPayload!
+  _passwordResetTokensMeta(where: PasswordResetTokenWhereInput): MetaQueryPayload!
   _reviewsMeta(where: ReviewWhereInput): MetaQueryPayload!
   _tripsMeta(where: TripWhereInput): MetaQueryPayload!
   _usersMeta(where: UserWhereInput): MetaQueryPayload!
@@ -385,6 +457,8 @@ type Query {
   me: User!
   notification(where: NotificationWhereUniqueInput!): Notification
   notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
+  passwordResetToken(where: PasswordResetTokenWhereUniqueInput!): PasswordResetToken
+  passwordResetTokens(orderBy: [PasswordResetTokenOrderByInput!], skip: Float, take: Float, where: PasswordResetTokenWhereInput): [PasswordResetToken!]!
   review(where: ReviewWhereUniqueInput!): Review
   reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
   trip(where: TripWhereUniqueInput!): Trip
@@ -596,6 +670,7 @@ type User {
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
   notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
   pack: Float
+  passwordResetTokens(orderBy: [PasswordResetTokenOrderByInput!], skip: Float, take: Float, where: PasswordResetTokenWhereInput): [PasswordResetToken!]!
   phone: String
   profileImage: String
   profileLogo: String
@@ -620,6 +695,7 @@ input UserCreateInput {
   notifications: NotificationCreateNestedManyWithoutUsersInput
   pack: Float
   password: String!
+  passwordResetTokens: PasswordResetTokenCreateNestedManyWithoutUsersInput
   phone: String
   profileImage: String
   profileLogo: String
@@ -670,6 +746,7 @@ input UserUpdateInput {
   notifications: NotificationUpdateManyWithoutUsersInput
   pack: Float
   password: String
+  passwordResetTokens: PasswordResetTokenUpdateManyWithoutUsersInput
   phone: String
   profileImage: String
   profileLogo: String
@@ -693,6 +770,7 @@ input UserWhereInput {
   listings: ListingListRelationFilter
   notifications: NotificationListRelationFilter
   pack: IntNullableFilter
+  passwordResetTokens: PasswordResetTokenListRelationFilter
   phone: StringNullableFilter
   profileImage: StringNullableFilter
   profileLogo: StringNullableFilter
