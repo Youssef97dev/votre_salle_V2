@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import { initReactI18next, serverSideTranslations } from "react-i18next";
 
 // Import your translation JSON files
 import translationEN from "./src/dictionaries/en.json";

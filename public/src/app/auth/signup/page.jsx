@@ -11,6 +11,7 @@ import "../../../styles/file-upload-with-preview.css";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { RiAlarmWarningLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
+import i18n from "../../../../i18n";
 
 const page = () => {
   const router = useRouter();
@@ -45,6 +46,7 @@ const page = () => {
 
   useEffect(() => {
     setIsClient(true);
+    i18n.changeLanguage(i18n.language);
   }, []);
 
   const signUpWithGoogle = async () => {
