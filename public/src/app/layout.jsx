@@ -1,9 +1,12 @@
+"use client";
+
 import NavigationEvents from "airbnb/components/common/NavigationEvents";
 import "./globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import { Nunito } from "next/font/google";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Suspense } from "react";
 const nunito = Nunito({ subsets: ["latin", "latin-ext"] });
 
@@ -13,9 +16,25 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+  useEffect(() => {
+    // Declare the dataLayer variable
+    window.dataLayer = window.dataLayer || [];
+
+    // Google Analytics script
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-QSB6JB6FSG');
+  }, []);
+
+
   return (
     <html lang="en">
-      <meta charset="UTF-8"></meta>
+      <head>
+        <meta charset="UTF-8"></meta>
       <link
         href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
         rel="stylesheet"
@@ -27,6 +46,12 @@ export default function RootLayout({ children }) {
         type="text/css"
         precedence="default"
       />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QSB6JB6FSG"></script>
+      
+      </head>
+      
+      
       <body className={nunito.className}>
         {children}
         <Suspense fallback={null}>
