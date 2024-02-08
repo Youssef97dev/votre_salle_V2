@@ -100,7 +100,16 @@ export default function TripScheduler({ t }) {
     if (userInfo) {
       const data = {
         listingId: currentListing.id,
-        listing: currentListing,
+        listing: {
+          placeSpace: currentListing.placeSpace,
+          prestation: currentListing.prestation,
+          photos: currentListing.photos,
+          tax: currentListing.tax,
+          placeType : currentListing.placeType,
+          locationType : currentListing.locationType,
+          title: currentListing.title,
+          region: currentListing.locationData.region
+        },
         userId: userInfo?.id,
         tripData: {
           days: calculateDaysDifference(),

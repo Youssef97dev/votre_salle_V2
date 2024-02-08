@@ -8,6 +8,7 @@ import { checkUser, login, signup } from "airbnb/lib/auth";
 import "../../../styles/tailwind.css";
 import { BeatLoader } from "react-spinners";
 import { useTranslation } from "react-i18next";
+import i18n from "../../../../i18n";
 
 const page = () => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const page = () => {
 
   useEffect(() => {
     setIsClient(true);
+    i18n.changeLanguage(i18n.language);
   }, []);
 
   const handleLogin = async (e) => {

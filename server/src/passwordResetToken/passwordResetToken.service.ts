@@ -20,6 +20,7 @@ export class PasswordResetTokenService extends PasswordResetTokenServiceBase {
   ): Promise<void> {
     try {
       await this.mailerService.sendMail({
+        from: process.env.NODEMAILER_USER,
         to,
         subject,
         html: `Click the following link to reset your password: ${resetLink}`,

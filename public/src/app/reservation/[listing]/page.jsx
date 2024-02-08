@@ -61,7 +61,7 @@ const page = ({ params: { listing } }) => {
   const [dateArray, setDateArray] = useState([]);
 
   useEffect(() => {
-    console.log("date state:", dateState);
+    console.log("cuurent data:", reservationData);
   }, []);
 
   useEffect(() => {
@@ -237,53 +237,76 @@ const page = ({ params: { listing } }) => {
   };
 
   const handleReservationSubmit = async () => {
-    const data = {
-      listingId: reservationData.listingId,
-      userId: userInfo?.id,
-      tripData: {
-        days: reservationData.tripData.days,
-        startDate: addDays(new Date(dateState[0].startDate), 1),
-        endDate: addDays(new Date(dateState[0].endDate), 1),
-        guests: reservationData.tripData.guests,
-        extraServices: "",
-        extraServicesPrice: reservationData.tripData.extraService,
-        listingPrice: reservationData.tripData.listingPrice,
-        tax: reservationData.listing.tax,
-        taxPrice: reservationData.tripData.tax,
-        priceHT: reservationData.tripData.priceHT,
-        price: reservationData.tripData.price,
-        description: "",
-        type: "reservation",
-      },
-    };
-
-    const result = await Swal.fire({
-      icon: "info",
-      title: "Reservation confirmation",
-      text: "You will make a reservation to this hall ?",
-      showCancelButton: true,
-      confirmButtonText: "Reserve",
-      cancelButtonText: "Discard",
-      padding: "2em",
-      customClass: "sweet-alerts",
-    });
-
-    if (result.value) {
-      setLoading(true);
-      const response = await addTrip(data);
-      if (response) {
-        await addToNotification(
-          `${userInfo?.firstName} ${userInfo?.lastName}`,
-          `Make a reservation at ${reservationData?.listing?.title}`,
-          userInfo?.profileImage,
-          false,
-          reservationData?.listing?.listingCreatedBy?.id
-        );
-        setLoading(false);
-        router.push("/trips");
+    if(parseInt(guestsNumber) > parseInt(reservationData.listing.placeSpace.guests)){
+      showAlert(15);
+    }else{
+      const data = {
+        listingId: reservationData.listingId,
+        userId: userInfo?.id,
+        tripData: {
+          days: reservationData.tripData.days,
+          startDate: addDays(new Date(dateState[0].startDate), 1),
+          endDate: addDays(new Date(dateState[0].endDate), 1),
+          guests: reservationData.tripData.guests,
+          extraServices: "",
+          extraServicesPrice: reservationData.tripData.extraService,
+          listingPrice: reservationData.tripData.listingPrice,
+          tax: reservationData.listing.tax,
+          taxPrice: reservationData.tripData.tax,
+          priceHT: reservationData.tripData.priceHT,
+          price: reservationData.tripData.price,
+          description: "",
+          type: "reservation",
+        },
+      };
+  
+      const result = await Swal.fire({
+        icon: "info",
+        title: "Reservation confirmation",
+        text: "You will make a reservation to this hall ?",
+        showCancelButton: true,
+        confirmButtonText: "Reserve",
+        cancelButtonText: "Discard",
+        padding: "2em",
+        customClass: "sweet-alerts",
+      });
+  
+      if (result.value) {
+        setLoading(true);
+        const response = await addTrip(data);
+        if (response) {
+          await addToNotification(
+            `${userInfo?.firstName} ${userInfo?.lastName}`,
+            `Make a reservation at ${reservationData?.listing?.title}`,
+            userInfo?.profileImage,
+            false,
+            reservationData?.listing?.listingCreatedBy?.id
+          );
+          setLoading(false);
+          router.push("/trips");
+        }
       }
     }
   };
+
+  // Show alert warning
+  const showAlert = async (type) => {
+    if (type === 15) {
+        const toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+        });
+        toast.fire({
+            icon: 'warning',
+            title: 'Maximum guests is 50',
+            padding: '10px 20px',
+            background: '#3b3f5c',
+            color:'#fff',
+        });
+    }
+}
 
   return (
     <div className="grid sm:grid-rows-new-reservation grid-rows-new-reservation-mobile md:h-[150vh] h-[170vh]">
@@ -549,7 +572,7 @@ const page = ({ params: { listing } }) => {
                 </span>
                 <span className="font-medium text-sm flex-grow">
                   {reservationData.listing.title} :{" "}
-                  {reservationData.listing.locationData.region}
+                  {reservationData.listing.region}
                 </span>
                 <span className="font-medium text-xs">
                   &#9733; 4,81{" "}
@@ -607,6 +630,7 @@ const page = ({ params: { listing } }) => {
                   <label className="font-semibold text-xs">GUESTS</label>
                   <input
                     type="number"
+                    max={reservationData.listing.placeSpace.guests}
                     className="text-sm px-1 py-1 border-none outline-none"
                     value={guestsNumber}
                     onChange={(e) => setGuestsNumber(e.target.value)}
