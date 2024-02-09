@@ -52,6 +52,19 @@ export default function Home() {
   } = userAppStore();
 
   useEffect(() => {
+    // Declare the dataLayer variable
+    window.dataLayer = window.dataLayer || [];
+
+    // Google Analytics script
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-QSB6JB6FSG");
+  }, []);
+
+  useEffect(() => {
     setIsClient(true);
   }, []);
 
