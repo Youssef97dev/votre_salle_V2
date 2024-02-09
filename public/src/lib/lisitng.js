@@ -503,37 +503,27 @@ export const downloadInvoice = async (invoiceId) => {
 // Users
 export const updateMyProfile = async (
   myId,
-  data,
+  inputData,
   companyInfo,
-  selectedFile
+  profileImage
 ) => {
   try {
-    const formData = new FormData();
-    formData.append("username", data.email);
-    formData.append("phone", data.phone);
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
-    formData.append("adresse", data.adresse);
-    formData.append("companyInfo", JSON.stringify(companyInfo));
-    if (selectedFile !== null) {
-      formData.append("profileImage", selectedFile);
-    }
-    const result = await axios.patch(createUrl(`/api/users/${myId}`), formData);
+    const data = {
+      username: inputData.email,
+      firstName: inputData.firstName,
+      lastName: inputData.lastName,
+      phone: inputData.phone,
+      adresse: inputData.adresse,
+      companyInfo,
+      profileImage,
+    };
+    const result = await axios.patch(createUrl(`/api/users/${myId}`), {
+      ...data,
+    });
     console.log("data: ", result?.data);
     return result?.data;
   } catch (error) {
     console.log(error);
-    return error;
-  }
-};
-
-export const deleteImage = async (imageName) => {
-  try {
-    const result = await axios.delete(
-      createUrl(`/api/users/images/${imageName}`)
-    );
-    return result;
-  } catch (error) {
     return error;
   }
 };

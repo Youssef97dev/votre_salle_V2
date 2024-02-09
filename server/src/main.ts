@@ -4,8 +4,6 @@ import { OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
 import { HttpExceptionFilter } from "./filters/HttpExceptions.filter";
 import { AppModule } from "./app.module";
 import { connectMicroservices } from "./connectMicroservices";
-import * as express from "express";
-import * as path from "path";
 import {
   swaggerPath,
   swaggerDocumentOptions,
@@ -41,12 +39,6 @@ async function main() {
 
   await connectMicroservices(app);
   await app.startAllMicroservices();
-
-  // Serve the 'uploads' folder as '/uploads'
-  app.use(
-    "/uploads",
-    express.static(path.join(__dirname, "..", "src/uploads"))
-  );
 
   SwaggerModule.setup(swaggerPath, app, document, swaggerSetupOptions);
 

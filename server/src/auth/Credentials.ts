@@ -116,6 +116,14 @@ export class SignupCredentials {
     nullable: true,
   })
   companyInfo!: JsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String, { nullable: true })
+  profileLogo!: string;
 }
 
 @InputType()

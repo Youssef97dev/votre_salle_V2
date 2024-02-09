@@ -62,7 +62,7 @@ const InfoProfile = () => {
                     {userInfo?.profileImage ? (
                       <img
                         className="w-24 h-24 rounded-full overflow-hidden object-cover"
-                        src={`${process.env.NEXT_PUBLIC_API_FRONT_URI}/uploads/${userInfo?.profileImage}`}
+                        src={`${userInfo?.profileImage}`}
                         alt="img"
                       />
                     ) : (

@@ -59,10 +59,7 @@ export class AuthService {
     };
   }
 
-  async signup(
-    credentials: SignupCredentials,
-    profileLogo?: Express.Multer.File
-  ): Promise<UserInfo> {
+  async signup(credentials: SignupCredentials): Promise<UserInfo> {
     // Extract the username and password from the body of the request
     const {
       firstName,
@@ -75,6 +72,7 @@ export class AuthService {
       companyInfo,
       roles,
       typeUser,
+      profileLogo,
     } = credentials;
     // Here we attempt to create a new user
     const user = await this.userService.createUser({
@@ -83,16 +81,13 @@ export class AuthService {
         password,
         firstName,
         lastName,
-        companyInfo:
-          companyInfo && typeof companyInfo === "string"
-            ? JSON.parse(companyInfo)
-            : null,
+        companyInfo: companyInfo ? companyInfo : undefined,
         phone,
         typeUser,
         adresse,
         pack: Number(pack),
         roles: [roles],
-        profileLogo: profileLogo ? profileLogo.filename : null,
+        profileLogo,
       },
     });
     // If creating a new user fails throw an error

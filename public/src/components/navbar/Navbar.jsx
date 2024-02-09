@@ -139,7 +139,7 @@ function Navbar() {
                     {userInfo?.profileImage ? (
                       <img
                         className="w-7 h-7 rounded-full overflow-hidden object-cover"
-                        src={`${process.env.NEXT_PUBLIC_API_FRONT_URI}/uploads/${userInfo?.profileImage}`}
+                        src={`${userInfo?.profileImage}`}
                         alt="img"
                       />
                     ) : (

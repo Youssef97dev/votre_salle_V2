@@ -21,27 +21,30 @@ export const signup = async (
   password,
   firstName,
   lastName,
+  adresse,
   phone,
   roles,
-  companyInfo,
-  selectedFile
+  companyInfo
 ) => {
   try {
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("password", password);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("phone", phone);
-    formData.append("adresse", "");
-    formData.append("typeUser", "B2C");
-    formData.append("roles", roles);
-    formData.append("companyInfo", JSON.stringify(companyInfo));
-    formData.append("pack", null);
-    const result = await post(createUrl("/api/signup"), formData);
+    const data = {
+      username,
+      password,
+      firstName,
+      lastName,
+      phone,
+      adresse,
+      pack: "0",
+      typeUser: "B2C",
+      roles,
+      companyInfo,
+      profileLogo: "",
+    };
+    const result = await post(createUrl("/api/signup"), { ...data });
     setStoredJwt(result.data.accessToken);
     return me();
   } catch (error) {
+    console.log(error);
     return error;
   }
 };

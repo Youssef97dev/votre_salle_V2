@@ -13,23 +13,23 @@ export const getAllUsers = async () => {
 };
 
 export const getUsers = async (type) => {
-  const query = qs.stringify(
-    {where: { 
+  const query = qs.stringify({
+    where: {
       AND: [
         {
-          roles :{
+          roles: {
             path: [0],
             string_contains: type,
-          }
+          },
         },
         {
-          firstName :{
+          firstName: {
             not: null,
-          }
-        }
+          },
+        },
       ],
-    }}
-  );
+    },
+  });
   try {
     const result = await axios.get(createUrl(`/api/users?${query}`));
     return result?.data;
@@ -79,22 +79,23 @@ export const addOwner = async (
   adresse,
   pack,
   companyInfo,
-  selectedFile
+  profileLogo
 ) => {
   try {
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("password", password);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("phone", phone);
-    formData.append("adresse", adresse);
-    formData.append("pack", pack);
-    formData.append("typeUser", "B2C");
-    formData.append("roles", ["owner"]);
-    formData.append("companyInfo", JSON.stringify(companyInfo));
-    formData.append("profileLogo", selectedFile);
-    const result = await post(createUrl("/api/signup"), formData);
+    const data = {
+      username,
+      password,
+      firstName,
+      lastName,
+      phone,
+      adresse,
+      pack,
+      typeUser: "B2C",
+      roles: "owner",
+      companyInfo,
+      profileLogo,
+    };
+    const result = await post(createUrl("/api/signup"), { ...data });
     return result;
   } catch (error) {
     return error;

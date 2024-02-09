@@ -237,7 +237,7 @@ const Sidebar = () => {
             {userInfo?.profileImage ? (
               <img
                 className="w-14 h-14 md:w-20 md:h-20 rounded-full border border-black overflow-hidden object-cover"
-                src={`${process.env.NEXT_PUBLIC_API_FRONT_URI}/uploads/${userInfo?.profileImage}`}
+                src={`${userInfo?.profileImage}`}
                 alt="img"
               />
             ) : (

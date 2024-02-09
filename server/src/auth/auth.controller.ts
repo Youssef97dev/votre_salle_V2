@@ -4,9 +4,6 @@ import {
   Get,
   Post,
   Req,
-  UploadedFile,
-  UseInterceptors,
-  Query,
   BadRequestException,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
@@ -43,28 +40,8 @@ export class AuthController {
     return this.authService.login(body);
   }
   @Post("signup")
-  @UseInterceptors(
-    FileInterceptor("profileLogo", {
-      fileFilter: (req, file, cb) => {
-        if (file.originalname.match(/^.*\.(jpg|png|jpeg)$/)) {
-          cb(null, true);
-        } else {
-          cb(new MulterError("LIMIT_UNEXPECTED_FILE", "profileLogo"), false);
-        }
-      },
-      storage: diskStorage({
-        destination: "./src/uploads",
-        filename: (req, file, cb) => {
-          cb(null, file.originalname);
-        },
-      }),
-    })
-  )
-  async signup(
-    @Body() body: SignupCredentials,
-    @UploadedFile() profileLogo?: Express.Multer.File
-  ): Promise<UserInfo> {
-    return this.authService.signup(body, profileLogo);
+  async signup(@Body() body: SignupCredentials): Promise<UserInfo> {
+    return this.authService.signup(body);
   }
 
   @Post("request-recover-password")

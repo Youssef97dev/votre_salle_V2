@@ -19,8 +19,7 @@ export class UserService extends UserServiceBase {
   }
 
   async updateUser<T extends Prisma.UserUpdateArgs>(
-    args: Prisma.SelectSubset<T, Prisma.UserUpdateArgs>,
-    profileImage?: Express.Multer.File
+    args: Prisma.SelectSubset<T, Prisma.UserUpdateArgs>
   ): Promise<User> {
     return this.prisma.user.update<T>({
       ...args,
@@ -34,13 +33,6 @@ export class UserService extends UserServiceBase {
             args.data.password,
             (password) => this.passwordService.hash(password)
           )),
-
-        companyInfo:
-          args.data.companyInfo &&
-          (typeof args.data.companyInfo === "string"
-            ? JSON.parse(args.data.companyInfo)
-            : null),
-        profileImage: profileImage && profileImage.filename,
       },
     });
   }

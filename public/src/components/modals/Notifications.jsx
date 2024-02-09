@@ -1,21 +1,18 @@
 "use client";
 import { useState, useEffect, Fragment } from "react";
 import { userAppStore } from "airbnb/store/store";
-import { readNotification, getImage } from "airbnb/lib/lisitng";
+import { readNotification } from "airbnb/lib/lisitng";
 import { formatDistanceToNow } from "date-fns";
 import { FaCircle } from "react-icons/fa6";
 
 const Notifications = ({ notification }) => {
   const { userInfo } = userAppStore();
-  const [imageProfile, setImageProfile] = useState("");
 
   useEffect(() => {
     const readNot = async () => {
       if (!notification.read) {
         await readNotification(notification.id, true);
       }
-      const image = await getImage(notification?.photo);
-      setImageProfile(image);
     };
     if (userInfo) {
       readNot();
@@ -33,10 +30,10 @@ const Notifications = ({ notification }) => {
   return (
     <div className="flex gap-3 justify-between items-center w-full rounded-lg p-1 hover:bg-[#e3e4eb]">
       <div className="flex items-start gap-3">
-        {notification?.photo && imageProfile ? (
+        {notification?.photo ? (
           <img
             className="w-11 h-11 rounded-full overflow-hidden object-cover"
-            src={`data:image/*;base64,${imageProfile}`}
+            src={`${notification?.photo}`}
             alt="img"
           />
         ) : (

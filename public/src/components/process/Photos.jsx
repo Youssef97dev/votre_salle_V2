@@ -21,7 +21,7 @@ export default function Photos({ t }) {
       <CldUploadButton
         options={{ multiple: true }}
         onUpload={handleUpload}
-        uploadPreset="a1wvb4ge"
+        uploadPreset="w8cxaaws"
       >
         <span className="bg-airbnb-gradient py-2 md:py-3 mt-5 px-4 md:px-5 text-white text-xs md:text-base font-bold rounded-lg cursor-pointer">
           {t("page.new_listing.eight.upload")}

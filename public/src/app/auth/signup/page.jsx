@@ -2,13 +2,11 @@
 import Link from "next/link";
 import { userAppStore } from "airbnb/store/store";
 import React, { useState, useEffect } from "react";
-import { IoMdClose } from "react-icons/io";
 import { checkUser, signup, signupWithGoogle } from "airbnb/lib/auth";
 import { useRouter } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import "../../../styles/tailwind.css";
 import "../../../styles/file-upload-with-preview.css";
-import ImageUploading, { ImageListType } from "react-images-uploading";
 import { RiAlarmWarningLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import i18n from "../../../../i18n";
@@ -38,9 +36,6 @@ const page = () => {
   });
   const [loadingSend, setLoadingSend] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [images, setImages] = useState([]);
-  const maxNumber = 69;
 
   const [isClient, setIsClient] = useState(false);
 
@@ -82,28 +77,6 @@ const page = () => {
     return true;
   };
 
-  // Callback to handle file selection
-  const handleImageUpload = (imageList, addUpdateIndex) => {
-    setImages(imageList);
-    const uploadedFile = imageList ? imageList[0]?.file : null;
-    if (uploadedFile) {
-      // Get the current timestamp
-      const timestamp = Date.now();
-
-      // Create a new File object with the updated name
-      const renamedFile = new File(
-        [uploadedFile],
-        timestamp + "-" + uploadedFile.name,
-        {
-          type: uploadedFile.type,
-          lastModified: uploadedFile.lastModified,
-        }
-      );
-
-      setSelectedFile(renamedFile);
-    }
-  };
-
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoadingSend(true);
@@ -138,10 +111,10 @@ const page = () => {
       password,
       firstName,
       lastName,
+      adresse,
       phone,
       role,
-      companyInfo,
-      selectedFile
+      companyInfo
     );
     if (data?.response?.data?.error) {
       setErrorMessage(data.response.data.message);

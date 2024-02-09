@@ -1,21 +1,18 @@
 "use client";
 import { userAppStore } from "airbnb/store/store";
-import {
-  updateMyProfile,
-  deleteImage,
-  changeTypeUser,
-} from "airbnb/lib/lisitng";
+import { updateMyProfile, changeTypeUser } from "airbnb/lib/lisitng";
 import { checkUser } from "airbnb/lib/auth";
 import React, { useState, useEffect } from "react";
 import { BeatLoader } from "react-spinners";
 import "../../../styles/tailwind.css";
 import "../../../styles/file-upload-with-preview.css";
-import ImageUploading, { ImageListType } from "react-images-uploading";
+import Image from "next/image";
 import { Switch } from "@headlessui/react";
+// Cloudinary
+import { CldUploadButton } from "next-cloudinary";
 
-import { IoMdImages } from "react-icons/io";
 import { RiAlarmWarningLine } from "react-icons/ri";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 const EditProfile = () => {
   const { userInfo, setUserInfo } = userAppStore();
   const { t } = useTranslation();
@@ -42,9 +39,7 @@ const EditProfile = () => {
   });
 
   /* State for image */
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [images, setImages] = useState([]);
-  const maxNumber = 69;
+  const [selectedFile, setSelectedFile] = useState("");
   /* State for image */
 
   const validateField = (field, value, regex, minLength, maxLength) => {
@@ -72,28 +67,6 @@ const EditProfile = () => {
 
     setWhichField("");
     return true;
-  };
-
-  // Callback to handle file selection
-  const handleImageUpload = (imageList, addUpdateIndex) => {
-    setImages(imageList);
-    const uploadedFile = imageList ? imageList[0]?.file : null;
-    if (uploadedFile) {
-      // Get the current timestamp
-      const timestamp = Date.now();
-
-      // Create a new File object with the updated name
-      const renamedFile = new File(
-        [uploadedFile],
-        timestamp + "-" + uploadedFile.name,
-        {
-          type: uploadedFile.type,
-          lastModified: uploadedFile.lastModified,
-        }
-      );
-
-      setSelectedFile(renamedFile);
-    }
   };
 
   // Update User
@@ -155,12 +128,7 @@ const EditProfile = () => {
         setToggleMessageAlert(true);
         setIsLoading(false);
       } else {
-        if (userInfo?.profileImage !== null && selectedFile !== null) {
-          const deletedImage = await deleteImage(userInfo?.profileImage);
-          console.log("deletedImage: ", deletedImage);
-        }
         setUserInfo(data);
-        setImages([]);
         setSelectedFile(null);
         setSuccessMessage("Your profile updated successfully!");
         setToggleMessageAlert(true);
@@ -187,6 +155,10 @@ const EditProfile = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleUpload = (data) => {
+    setSelectedFile(data.info.secure_url);
   };
 
   return (
@@ -221,7 +193,7 @@ const EditProfile = () => {
         </button>
       </div>
       <div className="flex justify-end items-center gap-2 ">
-        <span className="font-medium">{t('page.profile.enable_editing')}</span>
+        <span className="font-medium">{t("page.profile.enable_editing")}</span>
         <Switch
           checked={enableEdit}
           onChange={setEnableEdit}
@@ -237,62 +209,27 @@ const EditProfile = () => {
         </Switch>
       </div>
       <form className="space-y-3" onSubmit={(e) => handleUpdate(e)}>
-        <div
-          className="panel custom-file-container"
-          data-upload-id="myFirstImage"
-        >
-          <div className="label-container">
-            <label>{t('page.profile.upload_image')} </label>
-            <button
-              type="button"
-              className="custom-file-container__image-clear"
-              title="Clear Image"
-              onClick={() => {
-                setImages([]);
-              }}
+        <div className="flex flex-col">
+          <div className="w-1/2">
+            <CldUploadButton
+              options={{ multiple: false }}
+              onUpload={handleUpload}
+              uploadPreset="djws3apw"
             >
-              ×
-            </button>
+              <span className="btn btn-info">Upload Profile Picture</span>
+            </CldUploadButton>
           </div>
-          <div className="panel border border-slate-400">
-            <label className="custom-file-container__custom-file"></label>
-            <input
-              type="file"
-              className="custom-file-container__custom-file__custom-file-input"
-              accept="image/*"
-            />
-            <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-            <ImageUploading
-              value={images}
-              onChange={handleImageUpload}
-              maxNumber={maxNumber}
-            >
-              {({ imageList, onImageUpload }) => (
-                <div className="upload__image-wrapper">
-                  <button
-                    type="button"
-                    className="custom-file-container__custom-file__custom-file-control h-full flex justify-center"
-                    onClick={onImageUpload}
-                  >
-                    <IoMdImages size={45} />
-                  </button>
-                  &nbsp;
-                  {imageList.map((image, index) => (
-                    <div
-                      key={index}
-                      className="custom-file-container__image-preview relative"
-                    >
-                      <img src={image.dataURL} alt="img" className="m-auto" />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </ImageUploading>
+          <div className="w-full flex flex-row items-center justify-center">
+            {selectedFile && (
+              <div className="relative h-36 w-36">
+                <Image src={selectedFile} fill alt="upload" />
+              </div>
+            )}
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <div>
-            <label htmlFor="firstName">{t('label.firstname')}</label>
+            <label htmlFor="firstName">{t("label.firstname")}</label>
             <input
               id="firstName"
               type="text"
@@ -308,7 +245,7 @@ const EditProfile = () => {
             />
           </div>
           <div>
-            <label htmlFor="lastName">{t('label.lastname')}</label>
+            <label htmlFor="lastName">{t("label.lastname")}</label>
             <input
               id="lastName"
               type="text"
@@ -326,7 +263,7 @@ const EditProfile = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <div>
-            <label htmlFor="email">{t('label.email')}</label>
+            <label htmlFor="email">{t("label.email")}</label>
             <input
               id="email"
               type="email"
@@ -342,7 +279,7 @@ const EditProfile = () => {
             />
           </div>
           <div>
-            <label htmlFor="phone">{t('label.phone')}</label>
+            <label htmlFor="phone">{t("label.phone")}</label>
             <input
               id="phone"
               type="phone"
@@ -360,7 +297,7 @@ const EditProfile = () => {
         </div>
         <div className="grid grid-cols-1">
           <div>
-            <label htmlFor="adresse">{t('label.adresse')}</label>
+            <label htmlFor="adresse">{t("label.adresse")}</label>
             <textarea
               id="adresse"
               value={userData.adresse || ""}
@@ -474,10 +411,11 @@ const EditProfile = () => {
         </button>
       </form>
       <div className="mt-5 flex flex-col gap-4">
-        <span className="font-bold text-xl">{t('page.profile.settings')}</span>
+        <span className="font-bold text-xl">{t("page.profile.settings")}</span>
         <div className="flex items-center gap-2 ">
           <span className="font-bold">
-          {t('page.profile.switch_to')} {userInfo?.typeUser === "B2C" ? "B2B" : "B2C"}
+            {t("page.profile.switch_to")}{" "}
+            {userInfo?.typeUser === "B2C" ? "B2B" : "B2C"}
           </span>
           <Switch
             checked={switchType}
