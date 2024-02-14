@@ -7,6 +7,7 @@ import {
   TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  BooleanInput,
   NumberInput,
   PasswordInput,
 } from "react-admin";
@@ -35,6 +36,7 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={InvoiceTitle} />
         </ReferenceArrayInput>
+        <BooleanInput label="isVerified" source="isVerified" />
         <TextInput label="Last Name" source="lastName" />
         <ReferenceArrayInput
           source="listings"
@@ -91,6 +93,7 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="typeUser" source="typeUser" />
         <TextInput label="typeUserNotification" source="typeUserNotification" />
         <TextInput label="Username" source="username" />
+        <TextInput label="verificationToken" source="verificationToken" />
         <ReferenceArrayInput
           source="wishlists"
           reference="Wishlist"

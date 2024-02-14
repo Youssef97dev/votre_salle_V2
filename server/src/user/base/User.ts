@@ -16,6 +16,7 @@ import {
   IsOptional,
   IsDate,
   ValidateNested,
+  IsBoolean,
   IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -88,6 +89,17 @@ class User {
   @Type(() => Invoice)
   @IsOptional()
   invoices?: Array<Invoice>;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isVerified!: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -241,6 +253,17 @@ class User {
   @IsString()
   @Field(() => String)
   username!: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  verificationToken!: string | null;
 
   @ApiProperty({
     required: false,

@@ -75,6 +75,7 @@ export class UserControllerBase {
         createdAt: true,
         firstName: true,
         id: true,
+        isVerified: true,
         lastName: true,
         pack: true,
         phone: true,
@@ -86,6 +87,7 @@ export class UserControllerBase {
         typeUserNotification: true,
         updatedAt: true,
         username: true,
+        verificationToken: true,
       },
     });
   }
@@ -112,6 +114,7 @@ export class UserControllerBase {
         createdAt: true,
         firstName: true,
         id: true,
+        isVerified: true,
         lastName: true,
         pack: true,
         phone: true,
@@ -123,7 +126,8 @@ export class UserControllerBase {
         typeUserNotification: true,
         updatedAt: true,
         username: true,
-        listings: true,
+        verificationToken: true,
+        listings:true,
       },
     });
   }
@@ -151,6 +155,7 @@ export class UserControllerBase {
         createdAt: true,
         firstName: true,
         id: true,
+        isVerified: true,
         lastName: true,
         pack: true,
         phone: true,
@@ -162,6 +167,7 @@ export class UserControllerBase {
         typeUserNotification: true,
         updatedAt: true,
         username: true,
+        verificationToken: true,
         notifications:true,
       },
     });
@@ -199,6 +205,7 @@ export class UserControllerBase {
           createdAt: true,
           firstName: true,
           id: true,
+          isVerified: true,
           lastName: true,
           pack: true,
           phone: true,
@@ -210,6 +217,7 @@ export class UserControllerBase {
           typeUserNotification: true,
           updatedAt: true,
           username: true,
+          verificationToken: true,
         },
       });
     } catch (error: any) {
@@ -245,6 +253,7 @@ export class UserControllerBase {
           createdAt: true,
           firstName: true,
           id: true,
+          isVerified: true,
           lastName: true,
           pack: true,
           phone: true,
@@ -256,6 +265,7 @@ export class UserControllerBase {
           typeUserNotification: true,
           updatedAt: true,
           username: true,
+          verificationToken: true,
         },
       });
     } catch (error: any) {

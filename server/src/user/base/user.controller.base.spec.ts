@@ -22,6 +22,7 @@ const CREATE_INPUT = {
   createdAt: new Date(),
   firstName: "exampleFirstName",
   id: "exampleId",
+  isVerified: "true",
   lastName: "exampleLastName",
   pack: 42,
   password: "examplePassword",
@@ -33,12 +34,14 @@ const CREATE_INPUT = {
   typeUserNotification: "exampleTypeUserNotification",
   updatedAt: new Date(),
   username: "exampleUsername",
+  verificationToken: "exampleVerificationToken",
 };
 const CREATE_RESULT = {
   adresse: "exampleAdresse",
   createdAt: new Date(),
   firstName: "exampleFirstName",
   id: "exampleId",
+  isVerified: "true",
   lastName: "exampleLastName",
   pack: 42,
   password: "examplePassword",
@@ -50,6 +53,7 @@ const CREATE_RESULT = {
   typeUserNotification: "exampleTypeUserNotification",
   updatedAt: new Date(),
   username: "exampleUsername",
+  verificationToken: "exampleVerificationToken",
 };
 const FIND_MANY_RESULT = [
   {
@@ -57,6 +61,7 @@ const FIND_MANY_RESULT = [
     createdAt: new Date(),
     firstName: "exampleFirstName",
     id: "exampleId",
+    isVerified: "true",
     lastName: "exampleLastName",
     pack: 42,
     password: "examplePassword",
@@ -68,6 +73,7 @@ const FIND_MANY_RESULT = [
     typeUserNotification: "exampleTypeUserNotification",
     updatedAt: new Date(),
     username: "exampleUsername",
+    verificationToken: "exampleVerificationToken",
   },
 ];
 const FIND_ONE_RESULT = {
@@ -75,6 +81,7 @@ const FIND_ONE_RESULT = {
   createdAt: new Date(),
   firstName: "exampleFirstName",
   id: "exampleId",
+  isVerified: "true",
   lastName: "exampleLastName",
   pack: 42,
   password: "examplePassword",
@@ -86,6 +93,7 @@ const FIND_ONE_RESULT = {
   typeUserNotification: "exampleTypeUserNotification",
   updatedAt: new Date(),
   username: "exampleUsername",
+  verificationToken: "exampleVerificationToken",
 };
 
 const service = {
