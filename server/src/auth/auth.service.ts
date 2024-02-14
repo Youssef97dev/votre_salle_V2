@@ -74,6 +74,7 @@ export class AuthService {
       typeUser,
       profileLogo,
     } = credentials;
+    const verificationToken = this.generateUniqueToken();
     // Here we attempt to create a new user
     const user = await this.userService.createUser({
       data: {
@@ -88,6 +89,7 @@ export class AuthService {
         pack: Number(pack),
         roles: [roles],
         profileLogo,
+        verificationToken,
       },
     });
     // If creating a new user fails throw an error

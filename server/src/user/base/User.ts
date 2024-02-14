@@ -98,6 +98,7 @@ class User {
   @IsOptional()
   @Field(() => Boolean, {
     nullable: true,
+    defaultValue:false,
   })
   isVerified!: boolean | null;
 
