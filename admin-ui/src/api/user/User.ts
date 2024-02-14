@@ -14,6 +14,7 @@ export type User = {
   firstName: string | null;
   id: string;
   invoices?: Array<Invoice>;
+  isVerified: boolean | null;
   lastName: string | null;
   listings?: Array<Listing>;
   notifications?: Array<Notification>;
@@ -30,5 +31,6 @@ export type User = {
   typeUserNotification: string | null;
   updatedAt: Date;
   username: string;
+  verificationToken: string | null;
   wishlists?: Array<Wishlist>;
 };

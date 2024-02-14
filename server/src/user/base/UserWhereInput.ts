@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { InvoiceListRelationFilter } from "../../invoice/base/InvoiceListRelationFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ListingListRelationFilter } from "../../listing/base/ListingListRelationFilter";
 import { NotificationListRelationFilter } from "../../notification/base/NotificationListRelationFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
@@ -82,6 +83,17 @@ class UserWhereInput {
     nullable: true,
   })
   invoices?: InvoiceListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  isVerified?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -241,6 +253,17 @@ class UserWhereInput {
     nullable: true,
   })
   username?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  verificationToken?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

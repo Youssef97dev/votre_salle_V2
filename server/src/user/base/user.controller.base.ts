@@ -75,6 +75,7 @@ export class UserControllerBase {
         createdAt: true,
         firstName: true,
         id: true,
+        isVerified: true,
         lastName: true,
         pack: true,
         phone: true,
@@ -86,6 +87,7 @@ export class UserControllerBase {
         typeUserNotification: true,
         updatedAt: true,
         username: true,
+        verificationToken: true,
       },
     });
   }
@@ -112,6 +114,7 @@ export class UserControllerBase {
         createdAt: true,
         firstName: true,
         id: true,
+        isVerified: true,
         lastName: true,
         pack: true,
         phone: true,
@@ -123,6 +126,7 @@ export class UserControllerBase {
         typeUserNotification: true,
         updatedAt: true,
         username: true,
+        verificationToken: true,
       },
     });
   }
@@ -150,6 +154,7 @@ export class UserControllerBase {
         createdAt: true,
         firstName: true,
         id: true,
+        isVerified: true,
         lastName: true,
         pack: true,
         phone: true,
@@ -161,6 +166,7 @@ export class UserControllerBase {
         typeUserNotification: true,
         updatedAt: true,
         username: true,
+        verificationToken: true,
       },
     });
     if (result === null) {
@@ -197,6 +203,7 @@ export class UserControllerBase {
           createdAt: true,
           firstName: true,
           id: true,
+          isVerified: true,
           lastName: true,
           pack: true,
           phone: true,
@@ -208,6 +215,7 @@ export class UserControllerBase {
           typeUserNotification: true,
           updatedAt: true,
           username: true,
+          verificationToken: true,
         },
       });
     } catch (error) {
@@ -243,6 +251,7 @@ export class UserControllerBase {
           createdAt: true,
           firstName: true,
           id: true,
+          isVerified: true,
           lastName: true,
           pack: true,
           phone: true,
@@ -254,6 +263,7 @@ export class UserControllerBase {
           typeUserNotification: true,
           updatedAt: true,
           username: true,
+          verificationToken: true,
         },
       });
     } catch (error) {

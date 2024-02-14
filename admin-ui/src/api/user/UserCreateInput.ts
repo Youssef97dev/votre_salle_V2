@@ -12,6 +12,7 @@ export type UserCreateInput = {
   companyInfo?: InputJsonValue;
   firstName?: string | null;
   invoices?: InvoiceCreateNestedManyWithoutUsersInput;
+  isVerified?: boolean | null;
   lastName?: string | null;
   listings?: ListingCreateNestedManyWithoutUsersInput;
   notifications?: NotificationCreateNestedManyWithoutUsersInput;
@@ -28,5 +29,6 @@ export type UserCreateInput = {
   typeUser: string;
   typeUserNotification?: string | null;
   username: string;
+  verificationToken?: string | null;
   wishlists?: WishlistCreateNestedManyWithoutUsersInput;
 };

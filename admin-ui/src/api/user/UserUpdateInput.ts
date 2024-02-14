@@ -12,6 +12,7 @@ export type UserUpdateInput = {
   companyInfo?: InputJsonValue;
   firstName?: string | null;
   invoices?: InvoiceUpdateManyWithoutUsersInput;
+  isVerified?: boolean | null;
   lastName?: string | null;
   listings?: ListingUpdateManyWithoutUsersInput;
   notifications?: NotificationUpdateManyWithoutUsersInput;
@@ -28,5 +29,6 @@ export type UserUpdateInput = {
   typeUser?: string;
   typeUserNotification?: string | null;
   username?: string;
+  verificationToken?: string | null;
   wishlists?: WishlistUpdateManyWithoutUsersInput;
 };

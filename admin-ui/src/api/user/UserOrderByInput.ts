@@ -6,6 +6,7 @@ export type UserOrderByInput = {
   createdAt?: SortOrder;
   firstName?: SortOrder;
   id?: SortOrder;
+  isVerified?: SortOrder;
   lastName?: SortOrder;
   pack?: SortOrder;
   password?: SortOrder;
@@ -18,4 +19,5 @@ export type UserOrderByInput = {
   typeUserNotification?: SortOrder;
   updatedAt?: SortOrder;
   username?: SortOrder;
+  verificationToken?: SortOrder;
 };
