@@ -17,6 +17,7 @@ import { UserModule } from "../user/user.module";
 import { GoogleAuthService } from "./google_auth.service";
 import { AuthGoogleController } from "./google_auth.controller";
 import { PasswordResetTokenService } from "src/passwordResetToken/passwordResetToken.service";
+import { SmsService } from "./sms.service";
 @Module({
   imports: [
     forwardRef(() => UserModule),
@@ -55,6 +56,7 @@ import { PasswordResetTokenService } from "src/passwordResetToken/passwordResetT
     TokenService,
     GoogleAuthService,
     PasswordResetTokenService,
+    SmsService,
   ],
   controllers: [AuthController, AuthGoogleController],
   exports: [

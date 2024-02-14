@@ -17,13 +17,12 @@ import {
 import { UserInfo } from "./UserInfo";
 import { User } from "src/user/base/User";
 import { Request } from "express";
-import { FileInterceptor } from "@nestjs/platform-express";
-import { MulterError, diskStorage } from "multer";
+import { SmsService } from "./sms.service";
 
 @ApiTags("auth")
 @Controller()
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly smsService: SmsService) {}
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: User })
@@ -92,5 +91,11 @@ export class AuthController {
     await this.authService.deleteResetToken(resetPasswordDto.resetToken);
 
     return { message: "You have successfully changed the password." };
+  }
+
+  @Get('send')
+  sendSms(): string {
+    this.smsService.sendSms();
+    return 'Sending SMS...';
   }
 }

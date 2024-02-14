@@ -47,7 +47,9 @@ export class InvoiceService extends InvoiceServiceBase {
         cnss: invoice.user.companyInfo.cnss,
         rc: invoice.user.companyInfo.rc,
       };
-      const browser = await puppeteer.launch();
+      // Set LD_LIBRARY_PATH before launching Puppeteer
+      process.env.LD_LIBRARY_PATH = '/usr/lib64';
+      const browser = await puppeteer.launch({args: ['--disable-setuid-sandbox', '--no-sandbox']});
       const page = await browser.newPage();
       const content = await this.compile("invoice-template", invoiceFormatted);
       await page.setContent(content);

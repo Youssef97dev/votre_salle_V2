@@ -28,11 +28,6 @@ export default function RootLayout({ children }) {
           type="text/css"
           precedence="default"
         />
-
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-QSB6JB6FSG"
-        ></script>
       </head>
 
       <body className={nunito.className}>
