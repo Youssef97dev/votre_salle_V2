@@ -32,7 +32,7 @@ model User {
   typeUserNotification String?
   updatedAt            DateTime             @updatedAt
   username             String               @unique
-  verificationToken    String?
+  verificationToken    String?              @unique
   wishlists            Wishlist[]
 }
 
