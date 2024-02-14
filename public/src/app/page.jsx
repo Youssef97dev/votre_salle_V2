@@ -13,7 +13,7 @@ import ViewSwitchBadge from "airbnb/components/views/ViewSwitchBadge";
 import { listingTypes } from "airbnb/data/listingTypes";
 import Dammuso from "airbnb/svg/lisitngTypes/dammuso";
 import { me } from "airbnb/lib/auth";
-import { getAllListings, getUserWishlists } from "airbnb/lib/lisitng";
+import { getAllListings, getUserWishlists, SendEmailVerification } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
@@ -60,6 +60,7 @@ export default function Home() {
       setSearchLocation(undefined);
       setLoadingUser(true);
       const data = await me();
+      console.log("test :",data)
       setUserInfo(data);
       setLoadingUser(false);
     };
@@ -83,6 +84,11 @@ export default function Home() {
     };
     getData();
   }, [setListings, setWishLists, userInfo?.id, locationType, discardSearch]);
+
+  const resendVerificationEmail = async () =>{
+    const result = SendEmailVerification(userInfo?.id);
+    alert(result.message)
+  }
 
   const countTrueValues = () => {
     let count = 0;
@@ -219,7 +225,14 @@ export default function Home() {
             )}
           </button>
         </div>
-
+        {userInfo && !userInfo.isVerified && <div className="flex items-center p-3.5 rounded text-[#e2a03f] bg-[#fff9ed]">
+    <span className="pr-2">
+        <strong className="mr-1">Warning!</strong>Votre compte n'est pas vérifier.
+    </span>
+    <button type="button" onClick={() => resendVerificationEmail()} className="ml-auto hover:opacity-80">
+        Resend the code
+    </button>
+</div>}
         {isMapView ? <MapView /> : <ListView />}
         <ViewSwitchBadge />
         <CompactFooter />

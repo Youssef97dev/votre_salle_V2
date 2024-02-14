@@ -18,6 +18,8 @@ import { GoogleAuthService } from "./google_auth.service";
 import { AuthGoogleController } from "./google_auth.controller";
 import { PasswordResetTokenService } from "src/passwordResetToken/passwordResetToken.service";
 import { SmsService } from "./sms.service";
+import { EmailService } from "./email.service";
+import { MailerModule } from "@nestjs-modules/mailer";
 @Module({
   imports: [
     forwardRef(() => UserModule),
@@ -46,6 +48,20 @@ import { SmsService } from "./sms.service";
         };
       },
     }),
+    MailerModule.forRoot({
+      transport: {
+        host: "votresalles.ma",
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.NODEMAILER_USER,
+          pass: process.env.NODEMAILER_PASS,
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+      },
+    }),
   ],
   providers: [
     AuthService,
@@ -57,6 +73,7 @@ import { SmsService } from "./sms.service";
     GoogleAuthService,
     PasswordResetTokenService,
     SmsService,
+    EmailService,
   ],
   controllers: [AuthController, AuthGoogleController],
   exports: [

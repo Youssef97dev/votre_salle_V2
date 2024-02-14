@@ -14,6 +14,7 @@ import { PasswordResetTokenService } from "src/passwordResetToken/passwordResetT
 import { UserInfo } from "./UserInfo";
 import { User } from "src/user/base/User";
 import { JsonValue } from "type-fest";
+import { EmailService } from "./email.service";
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,8 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly passwordService: PasswordService,
     private readonly tokenService: TokenService,
-    private readonly passwordResetService: PasswordResetTokenService
+    private readonly passwordResetService: PasswordResetTokenService,
+    private readonly emailService: EmailService
   ) {}
 
   async validateUser(
@@ -168,6 +170,7 @@ export class AuthService {
         pack: true,
         createdAt: true,
         updatedAt: true,
+        isVerified:true,
       },
     });
     if (!result) {
@@ -227,6 +230,50 @@ export class AuthService {
     await this.passwordResetService.deletePasswordResetToken({
       where: { token },
     });
+  }
+
+  async verifyEmail(verificationToken: string): Promise<boolean> {
+    const user = await this.userService.user({
+      where: { verificationToken },
+    });
+  
+    if(user){
+      await this.userService.updateUser({
+        where: { verificationToken },
+        data: { isVerified: true, verificationToken: null },
+      });
+      return true;
+    }
+  
+    return false;
+  }
+
+  async sendVerificationEmail(email: string, token: string) {
+    const verificationLink = `${process.env.FRONT_URL_RESET}/verify?token=${token}`;
+    await this.emailService.sendEmailVerificationToken(
+      email,
+      "Email verification",
+      verificationLink
+    );
+  }
+
+  async resendVerification(id:string) {
+    const verificationToken = this.generateUniqueToken();
+    const findUser = await this.userService.user({
+      where: { id },
+    });
+    // If the user is not found, throw an error
+    if (!findUser) {
+      throw new NotFoundException("User not found");
+    }
+
+    const user = await this.userService.updateUser({
+      where: { id },
+      data: { verificationToken },
+    });
+
+    await this.sendVerificationEmail(user.username, verificationToken);
+  return { message: 'A verification email sent. Check your email.' };
   }
 
   private async generateResetToken(userId: string): Promise<string> {

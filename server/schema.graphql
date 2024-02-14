@@ -666,6 +666,7 @@ type User {
   firstName: String
   id: String!
   invoices(orderBy: [InvoiceOrderByInput!], skip: Float, take: Float, where: InvoiceWhereInput): [Invoice!]!
+  isVerified: Boolean
   lastName: String
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
   notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
@@ -682,6 +683,7 @@ type User {
   typeUserNotification: String
   updatedAt: DateTime!
   username: String!
+  verificationToken: String
   wishlists(orderBy: [WishlistOrderByInput!], skip: Float, take: Float, where: WishlistWhereInput): [Wishlist!]!
 }
 
@@ -690,6 +692,7 @@ input UserCreateInput {
   companyInfo: JSON
   firstName: String
   invoices: InvoiceCreateNestedManyWithoutUsersInput
+  isVerified: Boolean
   lastName: String
   listings: ListingCreateNestedManyWithoutUsersInput
   notifications: NotificationCreateNestedManyWithoutUsersInput
@@ -706,6 +709,7 @@ input UserCreateInput {
   typeUser: String!
   typeUserNotification: String
   username: String!
+  verificationToken: String
   wishlists: WishlistCreateNestedManyWithoutUsersInput
 }
 
@@ -722,6 +726,7 @@ input UserOrderByInput {
   createdAt: SortOrder
   firstName: SortOrder
   id: SortOrder
+  isVerified: SortOrder
   lastName: SortOrder
   pack: SortOrder
   password: SortOrder
@@ -734,6 +739,7 @@ input UserOrderByInput {
   typeUserNotification: SortOrder
   updatedAt: SortOrder
   username: SortOrder
+  verificationToken: SortOrder
 }
 
 input UserUpdateInput {
@@ -741,6 +747,7 @@ input UserUpdateInput {
   companyInfo: JSON
   firstName: String
   invoices: InvoiceUpdateManyWithoutUsersInput
+  isVerified: Boolean
   lastName: String
   listings: ListingUpdateManyWithoutUsersInput
   notifications: NotificationUpdateManyWithoutUsersInput
@@ -757,6 +764,7 @@ input UserUpdateInput {
   typeUser: String
   typeUserNotification: String
   username: String
+  verificationToken: String
   wishlists: WishlistUpdateManyWithoutUsersInput
 }
 
@@ -766,6 +774,7 @@ input UserWhereInput {
   firstName: StringNullableFilter
   id: StringFilter
   invoices: InvoiceListRelationFilter
+  isVerified: BooleanNullableFilter
   lastName: StringNullableFilter
   listings: ListingListRelationFilter
   notifications: NotificationListRelationFilter
@@ -780,6 +789,7 @@ input UserWhereInput {
   typeUser: StringFilter
   typeUserNotification: StringNullableFilter
   username: StringFilter
+  verificationToken: StringNullableFilter
   wishlists: WishlistListRelationFilter
 }
 

@@ -5,6 +5,7 @@ import {
   Post,
   Req,
   BadRequestException,
+  Query,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
@@ -98,4 +99,19 @@ export class AuthController {
     this.smsService.sendSms();
     return 'Sending SMS...';
   }
+
+  @Get('verify')
+async verifyEmail(@Query('token') token: string) {
+  const result = await this.authService.verifyEmail(token);
+  return { message: result ? 'Email verified successfully.' : 'Invalid token.' };
+}
+
+@Post('resend-verification')
+async resendVerification(@Body()
+reverifyEmailDto: {
+  id: string;
+}) {
+  const result = await this.authService.resendVerification(reverifyEmailDto.id);
+  return { message: result.message ? result.message : 'Invalid token.' };
+}
 }

@@ -590,3 +590,14 @@ export const readNotification = async (id, read) => {
     return error;
   }
 };
+
+// Verification Email
+export const SendEmailVerification = async (userId) => {
+  const result = await axios.post(createUrl("/api/resend-verification"), { id:userId });
+  console.log(result);
+  if (!result) {
+    alert("failed");
+  } else {
+    return result;
+  }
+};
