@@ -173,6 +173,7 @@ export class AuthService {
         createdAt: true,
         updatedAt: true,
         isVerified: true,
+        listings: true,
       },
     });
     if (!result) {

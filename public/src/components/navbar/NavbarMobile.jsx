@@ -21,10 +21,14 @@ import { useTranslation } from "react-i18next";
 import ScheduleMobile from "../common/ScheduleMobile";
 import Sidebar from "../common/Sidebar";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 const NavbarMobile = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { t } = useTranslation();
+  const MySwal = withReactContent(Swal);
   const {
     isMapView,
     setMapView,
@@ -34,6 +38,23 @@ const NavbarMobile = () => {
     setSidebarMenuOpen,
     sidebarMenuOpen,
   } = userAppStore();
+
+  const goToNewlisting = () => {
+    if (userInfo?.listings?.length < userInfo?.pack) {
+      router.push("new-listing");
+    } else {
+      MySwal.fire({
+        title: `Upgrade your plan please, you have ${userInfo?.pack} halls to publish`,
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        showCloseButton: true,
+        background: "#3b3f5c",
+        color: "#fff",
+      });
+    }
+  };
 
   return (
     <div className="fixed bottom-2 left-4 rounded-full w-[90%] bg-white opacity-80 backdrop-filter backdrop-blur-md z-50 shadow-xl border border-[#9095a086]">
@@ -98,7 +119,7 @@ const NavbarMobile = () => {
           </li>
           {userInfo.roles[0] === "owner" && (
             <li className="px-1 py-1 flex flex-col gap-1 justify-center items-center font-bold">
-              <button onClick={() => router.push("new-listing")}>
+              <button onClick={() => goToNewlisting()}>
                 <IoAddCircleOutline size={23} color={"#58418b"} />
               </button>
               {/*<span className="text-[10px] text-[#58418b]">

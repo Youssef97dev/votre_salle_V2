@@ -7,6 +7,9 @@ import { IoClose } from "react-icons/io5";
 import { FaInstagram, FaFacebook, FaYoutube } from "react-icons/fa";
 import ContextMenu from "../common/ContextMenu";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 // Icons
 import { CgProfile } from "react-icons/cg";
 import { IoMdNotificationsOutline, IoMdAdd } from "react-icons/io";
@@ -24,6 +27,7 @@ import { useTranslation } from "react-i18next";
 const Sidebar = () => {
   const router = useRouter();
   const { t } = useTranslation();
+  const MySwal = withReactContent(Swal);
   const { userInfo, setUserInfo, sidebarMenuOpen, setSidebarMenuOpen } =
     userAppStore();
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -133,7 +137,20 @@ const Sidebar = () => {
       icon: <IoMdAdd />,
       name: `${t("navigation.add_hall")}`,
       callBack: () => {
-        router.push("new-listing");
+        if (userInfo?.listings?.length < userInfo?.pack) {
+          router.push("new-listing");
+        } else {
+          MySwal.fire({
+            title: `Upgrade your plan please, you have ${userInfo?.pack} halls to publish`,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            showCloseButton: true,
+            background: "#3b3f5c",
+            color: "#fff",
+          });
+        }
         setSidebarMenuOpen(false);
       },
     },
