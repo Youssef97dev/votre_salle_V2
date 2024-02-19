@@ -1,5 +1,4 @@
 "use client";
-import AuthModal from "airbnb/components/auth/AuthModal";
 import CompactFooter from "airbnb/components/footer/CompactFooter";
 import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
@@ -13,7 +12,11 @@ import ViewSwitchBadge from "airbnb/components/views/ViewSwitchBadge";
 import { listingTypes } from "airbnb/data/listingTypes";
 import Dammuso from "airbnb/svg/lisitngTypes/dammuso";
 import { me } from "airbnb/lib/auth";
-import { getAllListings, getUserWishlists, SendEmailVerification } from "airbnb/lib/lisitng";
+import {
+  getAllListings,
+  getUserWishlists,
+  SendEmailVerification,
+} from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
@@ -27,8 +30,12 @@ import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 import { IoFilterOutline } from "react-icons/io5";
 import Filter from "airbnb/components/modals/Filter";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 export default function Home() {
   const searchParams = useSearchParams();
+  const MySwal = withReactContent(Swal);
   const [locationType, setLocationType] = useState("All");
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [showFilter, setShowFilter] = useState(false);
@@ -60,7 +67,7 @@ export default function Home() {
       setSearchLocation(undefined);
       setLoadingUser(true);
       const data = await me();
-      console.log("test :",data)
+      console.log("test :", data);
       setUserInfo(data);
       setLoadingUser(false);
     };
@@ -85,10 +92,27 @@ export default function Home() {
     getData();
   }, [setListings, setWishLists, userInfo?.id, locationType, discardSearch]);
 
-  const resendVerificationEmail = async () =>{
-    const result = SendEmailVerification(userInfo?.id);
-    alert(result.message)
-  }
+  const showMessage = (message) => {
+    MySwal.fire({
+      title: message,
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      showCloseButton: true,
+      background: "#3b3f5c",
+      color: "#fff",
+    });
+  };
+
+  const resendVerificationEmail = async () => {
+    const result = await SendEmailVerification(userInfo?.id);
+    if (result.status === 201) {
+      showMessage(result.data.message);
+    } else {
+      showMessage("Email not sent.");
+    }
+  };
 
   const countTrueValues = () => {
     let count = 0;
@@ -225,14 +249,20 @@ export default function Home() {
             )}
           </button>
         </div>
-        {userInfo && !userInfo.isVerified && <div className="flex items-center p-3.5 rounded text-[#e2a03f] bg-[#fff9ed]">
-    <span className="pr-2">
-        <strong className="mr-1">Warning!</strong>Votre compte n'est pas vérifier.
-    </span>
-    <button type="button" onClick={() => resendVerificationEmail()} className="ml-auto hover:opacity-80">
-        Resend the code
-    </button>
-</div>}
+        {userInfo && !userInfo.isVerified && (
+          <div className="flex justify-start items-center mt-3 mx-3 md:mx-20 p-3.5 rounded text-[#fff] bg-[#e2a03f]">
+            <span className="pr-2">
+              <strong className="mr-1">Votre compte n'est pas vérifier.</strong>
+            </span>
+            <button
+              type="button"
+              onClick={() => resendVerificationEmail()}
+              className="hover:opacity-80"
+            >
+              Resend the code
+            </button>
+          </div>
+        )}
         {isMapView ? <MapView /> : <ListView />}
         <ViewSwitchBadge />
         <CompactFooter />

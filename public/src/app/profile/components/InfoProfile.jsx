@@ -59,7 +59,8 @@ const InfoProfile = () => {
               <span>
                 {userInfo ? (
                   <>
-                    {userInfo?.profileImage !== "" ? (
+                    {userInfo?.profileImage !== "" &&
+                    userInfo?.profileImage !== null ? (
                       <img
                         className="w-24 h-24 rounded-full overflow-hidden object-cover"
                         src={`${userInfo?.profileImage}`}

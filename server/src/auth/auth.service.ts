@@ -98,6 +98,8 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException("Could not create user");
     }
+
+    await this.sendVerificationEmail(username, verificationToken);
     // Create an access token for the newly created user
     const accessToken = await this.tokenService.createToken({
       id: user.id,
@@ -170,7 +172,7 @@ export class AuthService {
         pack: true,
         createdAt: true,
         updatedAt: true,
-        isVerified:true,
+        isVerified: true,
       },
     });
     if (!result) {
@@ -236,20 +238,20 @@ export class AuthService {
     const user = await this.userService.user({
       where: { verificationToken },
     });
-  
-    if(user){
+
+    if (user) {
       await this.userService.updateUser({
         where: { verificationToken },
         data: { isVerified: true, verificationToken: null },
       });
       return true;
     }
-  
+
     return false;
   }
 
   async sendVerificationEmail(email: string, token: string) {
-    const verificationLink = `${process.env.FRONT_URL_RESET}/verify?token=${token}`;
+    const verificationLink = `${process.env.FRONT_URL_VERIFY}/verify?token=${token}`;
     await this.emailService.sendEmailVerificationToken(
       email,
       "Email verification",
@@ -257,23 +259,30 @@ export class AuthService {
     );
   }
 
-  async resendVerification(id:string) {
-    const verificationToken = this.generateUniqueToken();
-    const findUser = await this.userService.user({
-      where: { id },
-    });
-    // If the user is not found, throw an error
-    if (!findUser) {
-      throw new NotFoundException("User not found");
+  async resendVerification(id: string) {
+    try {
+      const verificationToken = this.generateUniqueToken();
+      const findUser = await this.userService.user({
+        where: { id },
+      });
+      // If the user is not found, throw an error
+      if (!findUser) {
+        throw new NotFoundException("User not found");
+      }
+      const user = await this.userService.updateUser({
+        where: { id },
+        data: { verificationToken },
+      });
+
+      await this.sendVerificationEmail(user.username, verificationToken);
+      return {
+        message_fr:
+          "Un email de vérification envoyé. Vérifiez votre courrier électronique.",
+        message_en: "A verification email sent. Check your email.",
+      };
+    } catch (error) {
+      return error;
     }
-
-    const user = await this.userService.updateUser({
-      where: { id },
-      data: { verificationToken },
-    });
-
-    await this.sendVerificationEmail(user.username, verificationToken);
-  return { message: 'A verification email sent. Check your email.' };
   }
 
   private async generateResetToken(userId: string): Promise<string> {

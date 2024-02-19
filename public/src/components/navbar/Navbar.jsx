@@ -136,7 +136,8 @@ function Navbar() {
               <span>
                 {userInfo ? (
                   <>
-                    {userInfo?.profileImage !== "" ? (
+                    {userInfo?.profileImage !== null &&
+                    userInfo?.profileImage !== "" ? (
                       <img
                         className="w-7 h-7 rounded-full overflow-hidden object-cover"
                         src={`${userInfo?.profileImage}`}

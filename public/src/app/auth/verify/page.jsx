@@ -1,20 +1,21 @@
-"use client"
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import axios from 'axios';
+import { verifyEmail } from "airbnb/lib/auth";
 
 const Verify = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    const verify = async () => {
+      await verifyEmail(searchParams.get("token"));
+      router.push("/");
+    };
     if (searchParams.get("token")) {
-      axios.get(`/api/verify?token=${searchParams.get("token")}`)
-        .then(response => console.log(response.data.message))
-        .catch(error => console.error(error));
+      verify();
     }
-    router.push('/');
   }, []);
 
   return <p>Verifying...</p>;

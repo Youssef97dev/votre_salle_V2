@@ -23,7 +23,10 @@ import { SmsService } from "./sms.service";
 @ApiTags("auth")
 @Controller()
 export class AuthController {
-  constructor(private readonly authService: AuthService, private readonly smsService: SmsService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly smsService: SmsService
+  ) {}
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: User })
@@ -94,24 +97,30 @@ export class AuthController {
     return { message: "You have successfully changed the password." };
   }
 
-  @Get('send')
+  @Get("send")
   sendSms(): string {
     this.smsService.sendSms();
-    return 'Sending SMS...';
+    return "Sending SMS...";
   }
 
-  @Get('verify')
-async verifyEmail(@Query('token') token: string) {
-  const result = await this.authService.verifyEmail(token);
-  return { message: result ? 'Email verified successfully.' : 'Invalid token.' };
-}
+  @Get("verify")
+  async verifyEmail(@Query("token") token: string) {
+    const result = await this.authService.verifyEmail(token);
+    return {
+      message: result ? "Email verified successfully." : "Invalid token.",
+    };
+  }
 
-@Post('resend-verification')
-async resendVerification(@Body()
-reverifyEmailDto: {
-  id: string;
-}) {
-  const result = await this.authService.resendVerification(reverifyEmailDto.id);
-  return { message: result.message ? result.message : 'Invalid token.' };
-}
+  @Post("resend-verification")
+  async resendVerification(
+    @Body()
+    reverifyEmailDto: {
+      id: string;
+    }
+  ) {
+    const result = await this.authService.resendVerification(
+      reverifyEmailDto.id
+    );
+    return result;
+  }
 }

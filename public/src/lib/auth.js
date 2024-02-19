@@ -90,3 +90,12 @@ export const changePassword = async (newPassword, resetToken, email) => {
     return error;
   }
 };
+
+export const verifyEmail = async (token) => {
+  try {
+    const result = await get(createUrl(`/api/verify?token=${token}`));
+    console.log(result);
+  } catch (error) {
+    return error;
+  }
+};
