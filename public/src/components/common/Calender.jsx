@@ -20,6 +20,7 @@ export default function Calender({ state, setState, disabledDates = [] }) {
           direction="vertical"
           className="w-full"
           disabledDates={disabledDates}
+          minDate={addDays(new Date(), 0)}
         />
       ) : (
         <DateRangePicker
@@ -31,6 +32,7 @@ export default function Calender({ state, setState, disabledDates = [] }) {
           ranges={state}
           direction="horizontal"
           disabledDates={disabledDates}
+          minDate={addDays(new Date(), 0)}
         />
       )}
     </div>

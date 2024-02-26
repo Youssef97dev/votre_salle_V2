@@ -70,22 +70,12 @@ export default function TripScheduler({ t }) {
 
   const getDates = (startDate, endDate) => {
     if (startDate && endDate) {
-      const today = addDays(new Date(), -1); // Get the current date
       const start = new Date(startDate.split("T")[0].replace(/-/g, "/"));
       const end = new Date(endDate.split("T")[0].replace(/-/g, "/")) - 1;
-      // Calculate the days between the start date and today
-    const daysBeforeToday = Math.floor((today - start) / (1000 * 60 * 60 * 24));
 
       const days = Math.floor((end - start) / (1000 * 60 * 60 * 24));
       setDesabledDateArray((prevDateArray) => {
         const newDates = [...prevDateArray];
-
-        // Add dates before the current date
-      for (let i = 0; i <= daysBeforeToday; i++) {
-        const currentDate = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
-        newDates.push(currentDate);
-      }
-
         for (let i = 0; i <= days; i++) {
           const currentDate = new Date(
             start.getTime() + i * 24 * 60 * 60 * 1000
