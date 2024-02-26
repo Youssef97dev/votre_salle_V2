@@ -4,7 +4,6 @@ import NavbarMobile from "airbnb/components/navbar/NavbarMobile";
 const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
-import { useRouter, useSearchParams } from "next/navigation";
 
 import ListView from "airbnb/components/views/ListView";
 import MapView from "airbnb/components/views/MapView";
@@ -34,20 +33,16 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 export default function Home() {
-  const searchParams = useSearchParams();
   const MySwal = withReactContent(Swal);
   const [locationType, setLocationType] = useState("All");
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [showFilter, setShowFilter] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const {
-    isAuthModalOpen,
     setUserInfo,
-    listings,
     setListings,
     isMapView,
     userInfo,
-    wishLists,
     setWishLists,
     setSearchLocation,
     setMaxValueRange,

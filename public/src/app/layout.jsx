@@ -3,7 +3,6 @@ import "./globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import { Nunito } from "next/font/google";
-import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 const nunito = Nunito({ subsets: ["latin", "latin-ext"] });
 

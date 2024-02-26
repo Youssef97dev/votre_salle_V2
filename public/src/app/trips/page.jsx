@@ -78,8 +78,8 @@ export default function Page() {
                   >
                     {trip.listing.title}
                   </th>
-                  <td className="px-6 py-4">{trip.tripinfo?.startDate}</td>
-                  <td className="px-6 py-4">{trip.tripinfo?.endDate}</td>
+                  <td className="px-6 py-4">{trip.tripinfo?.startDate.split("T")[0].replace(/-/g, "/")}</td>
+                  <td className="px-6 py-4">{trip.tripinfo?.endDate.split("T")[0].replace(/-/g, "/")}</td>
                   <td className="px-6 py-4">{trip.tripinfo?.price}</td>
                   <td className="px-6 py-4">
                     <span
