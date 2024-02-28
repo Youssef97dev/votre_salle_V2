@@ -3,10 +3,11 @@ import Daimond from "airbnb/svg/daimond";
 import React, { useState, useEffect } from "react";
 import { BsFillFlagFill } from "react-icons/bs";
 import { addDays } from "date-fns";
-import moment from "moment/moment";
 import { useRouter } from "next/navigation";
 import { ClockLoader } from "react-spinners";
 import { getActiveTrips } from "airbnb/lib/lisitng";
+
+import useAverageRating from "airbnb/hooks/useAverageRating";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -21,6 +22,7 @@ import { BeatLoader } from "react-spinners";
 export default function TripScheduler({ t }) {
   const router = useRouter();
   const { currentListing, userInfo } = userAppStore();
+  const rating = useAverageRating(currentListing?.reviews);
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -34,7 +36,6 @@ export default function TripScheduler({ t }) {
   const [loading, setLoading] = useState(false);
   const [activeTripData, setActiveTripData] = useState([]);
   const [desabledDateArray, setDesabledDateArray] = useState([]);
-  const [rating, setRating] = useState(0);
 
   const calculateDaysDifference = () => {
     const startDate = new Date(state[0].startDate);
@@ -54,18 +55,6 @@ export default function TripScheduler({ t }) {
     if (userInfo) {
       getData();
     }
-  }, []);
-
-  useEffect(() => {
-    // Calculate the total ratings and the number of reviews
-    const totalRatings = currentListing?.reviews?.reduce(
-      (sum, review) => sum + parseFloat(review.ratings),
-      0
-    );
-    const numberOfReviews = currentListing?.reviews?.length;
-    // Calculate the average rating
-    const averageRating = totalRatings / numberOfReviews;
-    setRating(averageRating);
   }, []);
 
   const getDates = (startDate, endDate) => {
@@ -108,7 +97,8 @@ export default function TripScheduler({ t }) {
           placeType : currentListing.placeType,
           locationType : currentListing.locationType,
           title: currentListing.title,
-          region: currentListing.locationData.region
+          region: currentListing.locationData.region,
+          reviews: currentListing?.reviews
         },
         userId: userInfo?.id,
         tripData: {

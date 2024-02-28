@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { userAppStore } from "airbnb/store/store";
+import useAverageRating from "airbnb/hooks/useAverageRating";
 
 // Icons
 import { IoPersonOutline } from "react-icons/io5";
@@ -9,20 +10,7 @@ import { IoLocationOutline } from "react-icons/io5";
 
 const ListingDetails = ({ t }) => {
   const { currentListing, userInfo } = userAppStore();
-  const [rating, setRating] = useState(0);
-
-  useEffect(() => {
-    console.log(currentListing);
-    // Calculate the total ratings and the number of reviews
-    const totalRatings = currentListing?.reviews?.reduce(
-      (sum, review) => sum + parseFloat(review.ratings),
-      0
-    );
-    const numberOfReviews = currentListing?.reviews?.length;
-    // Calculate the average rating
-    const averageRating = totalRatings / numberOfReviews;
-    setRating(averageRating);
-  }, []);
+  const rating = useAverageRating(currentListing?.reviews);
 
   return (
     <div className="flex flex-col gap-4 w-full p-4 border border-[#d1d5db] rounded-xl shadow-lg">

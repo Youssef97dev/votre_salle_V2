@@ -83,7 +83,7 @@ function Navbar() {
             <AirBnbLogo />
           </div>
         </div>
-        <div className={!isDesktop && "w-full"}>
+        <div className={`${!isDesktop && "w-full"}`}>
           {(!showScheduleBar || !isDesktop) && <ScheduleBar />}
         </div>
         <div className="md:flex-grow md:basis-0 hidden md:block">

@@ -3,6 +3,7 @@ import CompactFooter from "airbnb/components/footer/CompactFooter";
 import { userAppStore } from "airbnb/store/store";
 import React, { useEffect, useState, useRef } from "react";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+import useAverageRating from "airbnb/hooks/useAverageRating";
 import { getActiveTrips, addTrip, addToNotification } from "airbnb/lib/lisitng";
 import { useRouter, useSearchParams } from "next/navigation";
 import Daimond from "airbnb/svg/daimond";
@@ -11,6 +12,7 @@ import AnimateHeight from "react-animate-height";
 import { addDays } from "date-fns";
 import Swal from "sweetalert2";
 import { BeatLoader } from "react-spinners";
+import { FaStar } from "react-icons/fa6";
 
 import AirBnbLogoShort from "airbnb/svg/airbnb-logo-short";
 import { AiOutlineLeftCircle } from "react-icons/ai";
@@ -57,12 +59,11 @@ const page = ({ params: { listing } }) => {
   // current extraServices
   const [selectedPoses, setSelectedPoses] = useState([]);
 
+  // Average ration hook
+  const rating = useAverageRating(reservationData.listing.reviews);
+
   // already reserved dates
   const [dateArray, setDateArray] = useState([]);
-
-  useEffect(() => {
-    console.log("cuurent data:", reservationData);
-  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -573,10 +574,13 @@ const page = ({ params: { listing } }) => {
                   {reservationData.listing.title} :{" "}
                   {reservationData.listing.region}
                 </span>
-                <span className="font-medium text-xs">
-                  &#9733; 4,81{" "}
-                  <span className="text-gray-500">(42 commentaires)</span>
-                </span>
+                {rating > 0 && (
+          <span className="font-bold flex items-center gap-1">
+            <FaStar color="f97316" size={15} />{" "}
+            <span className="text-sm">{rating.toFixed(1)}</span>
+            <span className="text-sm text-[#99a3b3]">{`(${reservationData?.listing?.reviews?.length})`}</span>
+          </span>
+        )}
               </div>
             </div>
             <div className="flex flex-col gap-4 border-b border-[#d3d3d3] pb-4 ">

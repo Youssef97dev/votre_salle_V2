@@ -8,6 +8,7 @@ import {
   removeFromWishListAPI,
   addToNotification,
 } from "airbnb/lib/lisitng";
+import useAverageRating from "airbnb/hooks/useAverageRating";
 import { userAppStore } from "airbnb/store/store";
 import { IoMdHeart } from "react-icons/io";
 import { FaStar } from "react-icons/fa6";
@@ -46,11 +47,11 @@ export default function ListingCard({
     loadingData,
   } = userAppStore();
   const pathname = usePathname();
+  const rating = useAverageRating(data?.reviews);
 
   const [hover, setHover] = useState(false);
   const [showVisite, setShowVisite] = useState(false);
   const [showPrestation, setShowPrestation] = useState(false);
-  const [rating, setRating] = useState(0);
 
   const router = useRouter();
   const deleteListing = async () => {
@@ -83,18 +84,6 @@ export default function ListingCard({
       setWishListsPage(wishListsPage);
     }
   };
-
-  useEffect(() => {
-    // Calculate the total ratings and the number of reviews
-    const totalRatings = data?.reviews?.reduce(
-      (sum, review) => sum + parseFloat(review.ratings),
-      0
-    );
-    const numberOfReviews = data?.reviews?.length;
-    // Calculate the average rating
-    const averageRating = totalRatings / numberOfReviews;
-    setRating(averageRating);
-  }, []);
 
   return (
     <div className="col-span-1 group panel-home">
