@@ -6,7 +6,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 
-export default function Calender({ state, setState, disabledDates = [] }) {
+export default function Calender({ state, setState, disabledDates = [], months = 2 }) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   return (
     <div className="w-full">
@@ -28,11 +28,13 @@ export default function Calender({ state, setState, disabledDates = [] }) {
           showSelectionPreview={true}
           moveRangeOnFirstSelection={false}
           editableDateInputs={true}
-          months={2}
+          months={months}
           ranges={state}
           direction="horizontal"
           disabledDates={disabledDates}
           minDate={addDays(new Date(), 0)}
+          staticRanges={[]}
+          inputRanges={[]}
         />
       )}
     </div>

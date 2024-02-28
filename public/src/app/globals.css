@@ -68,3 +68,7 @@ div.mapboxgl-popup.mapboxgl-popup-anchor-top {
   max-width: 18rem !important;
   font-size: 1rem;
 }
+
+.rdrDefinedRangesWrapper {
+  display: none;
+}

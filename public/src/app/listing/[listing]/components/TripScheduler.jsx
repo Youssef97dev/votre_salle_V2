@@ -225,6 +225,7 @@ export default function TripScheduler({ t }) {
                       state={state}
                       setState={setState}
                       disabledDates={desabledDateArray}
+                      months={1}
                     />
                   </div>
                 )}
