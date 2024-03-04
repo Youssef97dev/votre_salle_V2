@@ -680,6 +680,13 @@
   resolved "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.4.6.tgz"
   integrity sha512-OrZs94AuO3ZS5tnqlyPRNgfWvboXaDQCi5aXGve3o3C+Sj0ctMUV9+Do+0zMvvLRumR8E0PTWKvtz9n5vzIsWw==
 
+"@next/third-parties@^14.1.1":
+  version "14.1.1"
+  resolved "https://registry.npmjs.org/@next/third-parties/-/third-parties-14.1.1.tgz"
+  integrity sha512-Z3xGaalLRd9a1JNSwYzcTIcFyWTCi7o9fGTa2f+ibE1sc2zvxRbBNDyHz0sL+5yGmlxqsLIERPhB6W/GQkKgXQ==
+  dependencies:
+    third-party-capital "1.0.20"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -3111,7 +3118,7 @@ next-cloudinary@^4.13.0:
     "@cloudinary-util/util" "^2.1.0"
     "@cloudinary/url-gen" "^1.10.1"
 
-"next@^12 || ^13", next@13.4.6:
+"next@^12 || ^13", "next@^13.0.0 || ^14.0.0", next@13.4.6:
   version "13.4.6"
   resolved "https://registry.npmjs.org/next/-/next-13.4.6.tgz"
   integrity sha512-sjVqjxU+U2aXZnYt4Ud6CTLNNwWjdSfMgemGpIQJcN3Z7Jni9xRWbR0ie5fQzCg87aLqQVhKA2ud2gPoqJ9lGw==
@@ -4320,6 +4327,11 @@ thenify-all@^1.0.0:
   integrity sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==
   dependencies:
     any-promise "^1.0.0"
+
+third-party-capital@1.0.20:
+  version "1.0.20"
+  resolved "https://registry.npmjs.org/third-party-capital/-/third-party-capital-1.0.20.tgz"
+  integrity sha512-oB7yIimd8SuGptespDAZnNkzIz+NWaJCu2RMsbs4Wmp9zSDUM8Nhi3s2OOcqYuv3mN4hitXc8DVx+LyUmbUDiA==
 
 tinyqueue@^2.0.3:
   version "2.0.3"
