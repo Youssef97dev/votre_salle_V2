@@ -18,7 +18,7 @@ import {
 } from "airbnb/lib/lisitng";
 import { userAppStore } from "airbnb/store/store";
 import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -62,7 +62,6 @@ export default function Home() {
       setSearchLocation(undefined);
       setLoadingUser(true);
       const data = await me();
-      console.log("test :", data);
       setUserInfo(data);
       setLoadingUser(false);
     };
@@ -76,6 +75,7 @@ export default function Home() {
         locationType,
         userInfo?.typeUser
       );
+      console.log("listings data :", data);
       setListings(data);
       setMaxValueRange(maxPrice);
       setMinValueRange(minPrice);
@@ -109,25 +109,26 @@ export default function Home() {
     }
   };
 
-  const countTrueValues = () => {
-    let count = 0;
-    let hasSpecial = false;
-
-    Object.keys(filter).forEach((key) => {
-      if (filter[key]) {
-        if (key === "coffe" || key === "lunch" || key === "dinner") {
-          if (!hasSpecial) {
-            hasSpecial = true;
+  const countTrueValues = useMemo(() => {
+      console.log("render 1");
+      let count = 0;
+      let hasSpecial = false;
+  
+      Object.keys(filter).forEach((key) => {
+        if (filter[key]) {
+          if (key === "coffe" || key === "lunch" || key === "dinner") {
+            if (!hasSpecial) {
+              hasSpecial = true;
+              count += 1;
+            }
+          } else {
             count += 1;
           }
-        } else {
-          count += 1;
         }
-      }
-    });
-
-    return count;
-  };
+      });
+  
+      return count;
+  }, [filter])
 
   return (
     isClient && (
@@ -237,9 +238,9 @@ export default function Home() {
           >
             <IoFilterOutline size={20} />
             <span>Filters</span>
-            {countTrueValues() !== 0 && (
+            {countTrueValues !== 0 && (
               <span className="absolute -top-2 -right-2 rounded-full bg-black border border-white px-2 py-[3px] text-white text-[11px]">
-                {countTrueValues()}
+                {countTrueValues}
               </span>
             )}
           </button>

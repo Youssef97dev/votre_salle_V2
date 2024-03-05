@@ -71,6 +71,16 @@ export const getAllListings = async (locationType, typeUser) => {
   }
 };
 
+export const getAllListings_sitemap = async () => {
+  try {
+    const result = await axios.get(createUrl(`/api/listings`));
+    return result;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 export const getListing = async (listingId) => {
   const result = await axios.get(createUrl(`/api/listings/${listingId}`));
   if (!result) {
