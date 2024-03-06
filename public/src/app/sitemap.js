@@ -1,8 +1,16 @@
-import { getAllListings_sitemap } from "airbnb/lib/lisitng";
+import { createUrl } from "../lib/http";
+import axios from "axios";
 
-const Sitemap = ({ baseUrl, listings }) => {
+const Sitemap = ({listings}) => {
+
+  const baseUrl = "https://votre-salle-v2.vercel.app";
+  // Fetch listings data
+
+  console.log("listings length :", listings?.length)
+      console.log("listings :", listings)
+      console.log("link :", baseUrl)
   
-    const listingUrls = listings?.data?.map((listing) => ({
+    const listingUrls = listings?.map((listing) => ({
       url: `${baseUrl}/listing/${listing.id}`,
       lastModified: new Date(),
     })) || [];
@@ -27,19 +35,20 @@ const Sitemap = ({ baseUrl, listings }) => {
       </urlset>`
     );
   };
-  
+
+  export default Sitemap;
+
   export async function getServerSideProps() {
-    const baseUrl = process.env.NEXT_PUBLIC_URI;
+    
   
     try {
       // Fetch listings data
-      const listings = await getAllListings_sitemap();
-      console.log("listings :", listings)
+      const response = await axios.get("https://votre-salle-api.onrender.com/api/listings");
+      const listings = response?.data;
   
       return {
         props: {
-          baseUrl,
-          listings,
+          listings: listings || [],
         },
       };
     } catch (error) {
@@ -47,5 +56,3 @@ const Sitemap = ({ baseUrl, listings }) => {
       throw error; // Propagate the error
     }
   }
-  
-  export default Sitemap;
