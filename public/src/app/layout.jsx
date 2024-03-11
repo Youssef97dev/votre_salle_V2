@@ -1,7 +1,7 @@
 import NavigationEvents from "airbnb/components/common/NavigationEvents";
 import "./globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { Nunito } from "next/font/google";
 import { Suspense } from "react";
