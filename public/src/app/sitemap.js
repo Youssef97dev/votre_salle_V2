@@ -62,7 +62,7 @@ export async function getServerSideProps() {
 export default sitemap;*/
 
 export default async function sitemap() {
-  const baseUrl = "https://votre-salle-v2.vercel.app";
+  const baseUrl = "https://votresalles.ma";
 
   // get all listings
   const listings = await axios.get(
