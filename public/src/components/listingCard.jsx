@@ -278,7 +278,7 @@ export default function ListingCard({
               <Skeleton />
             ) : (
               <>
-                <h3 className="font-bold">{data.title}</h3>
+                <h3 className="font-semibold">{data.title}</h3>
                 {rating > 0 && (
                   <span className="font-bold flex items-center gap-1">
                     <FaStar color="f97316" size={15} />{" "}
@@ -298,7 +298,7 @@ export default function ListingCard({
             <Skeleton />
           ) : (
             <>
-              <span className="font-semibold">
+              <span className="font-medium">
                 {userInfo?.typeUser === "B2B" ? data.priceB2b : data.price} MAD
               </span>{" "}
               <span className="font-light">/ day</span>

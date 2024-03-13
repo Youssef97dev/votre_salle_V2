@@ -1,7 +1,7 @@
-import { createUrl } from "../lib/http";
 import axios from "axios";
+/*
 
-const sitemap = ({ listings }) => {
+const sitemap = ({ listings } ) => {
   const baseUrl = "https://votre-salle-v2.vercel.app";
   // Fetch listings data
 
@@ -38,8 +38,6 @@ const sitemap = ({ listings }) => {
       </urlset>`;
 };
 
-export default sitemap;
-
 export async function getServerSideProps() {
   try {
     // Fetch listings data
@@ -47,6 +45,8 @@ export async function getServerSideProps() {
       "https://votre-salle-api.onrender.com/api/listings"
     );
     const listings = response?.data;
+
+    console.log("lis: ", listings);
 
     return {
       props: {
@@ -57,4 +57,29 @@ export async function getServerSideProps() {
     console.error("Error fetching listings:", error);
     throw error; // Propagate the error
   }
+}
+
+export default sitemap;*/
+
+export default async function sitemap() {
+  const baseUrl = "https://votre-salle-v2.vercel.app";
+
+  // get all listings
+  const listings = await axios.get(
+    "https://votre-salle-api.onrender.com/api/listings"
+  );
+  const listingUrls = listings?.data?.map((listing) => {
+      return {
+          url: `${baseUrl}/listing/${listing.id}`,
+          lastModified: new Date(),
+      };
+  }) || [];
+
+  return [
+      {
+          url: baseUrl,
+          lastModified: new Date(),
+      },
+      ...listingUrls,
+  ]
 }

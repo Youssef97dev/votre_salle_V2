@@ -3,9 +3,9 @@ import "./globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-import { Nunito } from "next/font/google";
+//import { Nunito } from "next/font/google";
 import { Suspense } from "react";
-const nunito = Nunito({ subsets: ["latin", "latin-ext"] });
+//const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Votre Salles",
@@ -17,6 +17,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <meta charSet="UTF-8"></meta>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
         <link
           href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
           rel="stylesheet"
@@ -30,7 +33,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className={nunito.className}>
+      <body >
         {children}
         <Suspense fallback={null}>
           <NavigationEvents />
