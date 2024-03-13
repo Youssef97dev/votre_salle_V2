@@ -1,6 +1,6 @@
 # Block all crawlers for
 User-agent: *
-Disallow: /src/app/admin /node_modules/
+Disallow: /src/app/admin /node_modules/ /.env /.eslintrc.json /.gitignore /i18n.js /jsconfig.json /next.config.js /package-lock.json /package.json /postcss.config.js /README.md /tailwind.config.js /yarn.lock
 
 # Allow all crawlers
 User-agent: *
