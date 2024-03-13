@@ -4,4 +4,4 @@ Disallow: /src/app/admin /node_modules/ /.env /.eslintrc.json /.gitignore /i18n.
 
 # Allow all crawlers
 User-agent: *
-Allow: /
+Allow: /src/app
