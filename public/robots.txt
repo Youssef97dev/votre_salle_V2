@@ -1,6 +1,6 @@
-# Block all crawlers for /admin
+# Block all crawlers for
 User-agent: *
-Disallow: /src/qpp/admin /node_modules/
+Disallow: /src/app/admin /node_modules/
 
 # Allow all crawlers
 User-agent: *
