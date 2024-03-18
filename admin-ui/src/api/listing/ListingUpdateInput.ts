@@ -19,6 +19,7 @@ export type ListingUpdateInput = {
   price?: number;
   priceB2b?: number;
   reviews?: ReviewUpdateManyWithoutListingsInput;
+  slug?: string | null;
   tax?: Decimal;
   title?: string;
   trips?: TripUpdateManyWithoutListingsInput;

@@ -19,6 +19,7 @@ export type ListingCreateInput = {
   price: number;
   priceB2b: number;
   reviews?: ReviewCreateNestedManyWithoutListingsInput;
+  slug?: string | null;
   tax: Decimal;
   title: string;
   trips?: TripCreateNestedManyWithoutListingsInput;

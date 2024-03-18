@@ -3,6 +3,7 @@ import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 import { JsonFilter } from "../../util/JsonFilter";
 import { FloatFilter } from "../../util/FloatFilter";
 import { ReviewListRelationFilter } from "../review/ReviewListRelationFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
 import { TripListRelationFilter } from "../trip/TripListRelationFilter";
 import { WishlistListRelationFilter } from "../wishlist/WishlistListRelationFilter";
@@ -22,6 +23,7 @@ export type ListingWhereInput = {
   price?: FloatFilter;
   priceB2b?: FloatFilter;
   reviews?: ReviewListRelationFilter;
+  slug?: StringNullableFilter;
   tax?: DecimalFilter;
   title?: StringFilter;
   trips?: TripListRelationFilter;

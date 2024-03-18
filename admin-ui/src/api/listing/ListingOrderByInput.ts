@@ -15,6 +15,7 @@ export type ListingOrderByInput = {
   prestation?: SortOrder;
   price?: SortOrder;
   priceB2b?: SortOrder;
+  slug?: SortOrder;
   tax?: SortOrder;
   title?: SortOrder;
   updatedAt?: SortOrder;

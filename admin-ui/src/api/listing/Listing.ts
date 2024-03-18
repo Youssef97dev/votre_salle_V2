@@ -21,6 +21,7 @@ export type Listing = {
   price: number;
   priceB2b: number;
   reviews?: Array<Review>;
+  slug: string | null;
   tax: Decimal;
   title: string;
   trips?: Array<Trip>;

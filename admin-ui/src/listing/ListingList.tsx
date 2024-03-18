@@ -40,6 +40,7 @@ export const ListingList = (props: ListProps): React.ReactElement => {
         <TextField label="prestation" source="prestation" />
         <TextField label="price" source="price" />
         <TextField label="priceB2b" source="priceB2b" />
+        <TextField label="slug" source="slug" />
         <TextField label="tax" source="tax" />
         <TextField label="title" source="title" />
         <DateField source="updatedAt" label="Updated At" />
