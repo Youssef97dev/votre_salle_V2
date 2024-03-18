@@ -175,6 +175,7 @@ type Listing {
   price: Float!
   priceB2b: Float!
   reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
+  slug: String
   tax: Float!
   title: String!
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
@@ -196,6 +197,7 @@ input ListingCreateInput {
   price: Float!
   priceB2b: Float!
   reviews: ReviewCreateNestedManyWithoutListingsInput
+  slug: String
   tax: Float!
   title: String!
   trips: TripCreateNestedManyWithoutListingsInput
@@ -227,6 +229,7 @@ input ListingOrderByInput {
   prestation: SortOrder
   price: SortOrder
   priceB2b: SortOrder
+  slug: SortOrder
   tax: SortOrder
   title: SortOrder
   updatedAt: SortOrder
@@ -246,6 +249,7 @@ input ListingUpdateInput {
   price: Float
   priceB2b: Float
   reviews: ReviewUpdateManyWithoutListingsInput
+  slug: String
   tax: Float
   title: String
   trips: TripUpdateManyWithoutListingsInput
@@ -273,6 +277,7 @@ input ListingWhereInput {
   price: FloatFilter
   priceB2b: FloatFilter
   reviews: ReviewListRelationFilter
+  slug: StringNullableFilter
   tax: DecimalFilter
   title: StringFilter
   trips: TripListRelationFilter

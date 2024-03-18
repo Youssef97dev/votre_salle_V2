@@ -1,11 +1,11 @@
 import { Injectable, OnModuleInit, INestApplication } from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
-import { PrismaClientOptions } from "@prisma/client/runtime/library";
+import { Prisma } from ".prisma/client";
 
 @Injectable()
 export class PrismaService
   extends PrismaClient<
-    PrismaClientOptions,
+    Prisma.PrismaClientOptions,
     "beforeExit" | "query" | "info" | "warn" | "error"
   >
   implements OnModuleInit
