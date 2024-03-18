@@ -169,7 +169,7 @@ export class ListingControllerBase {
     @common.Param() params: ListingWhereUniqueInput
   ): Promise<Listing | null> {
     const result = await this.service.listing({
-      where: params,
+      where: {slug: params.id},
       select: {
         createdAt: true,
         description: true,
