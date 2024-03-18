@@ -1,6 +1,6 @@
 [
   {
-    "role": "user",
+    "role": "admin",
     "resource": "User",
     "action": "read:own",
     "attributes": "*"
@@ -12,13 +12,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "User",
     "action": "read:own",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "User",
     "action": "create:any",
     "attributes": "*"
@@ -30,13 +30,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "User",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "User",
     "action": "update:any",
     "attributes": "*"
@@ -48,13 +48,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "User",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "User",
     "action": "delete:any",
     "attributes": "*"
@@ -66,13 +66,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "User",
     "action": "delete:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "User",
     "action": "read:any",
     "attributes": "*"
@@ -84,13 +84,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "User",
     "action": "read:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Listing",
     "action": "read:own",
     "attributes": "*"
@@ -102,7 +102,7 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Listing",
     "action": "read:own",
     "attributes": "*"
@@ -141,18 +141,6 @@
     "role": "owner",
     "resource": "Listing",
     "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Listing",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "owner",
-    "resource": "Listing",
-    "action": "read:any",
     "attributes": "*"
   },
   {
@@ -162,7 +150,19 @@
     "attributes": "*"
   },
   {
+    "role": "owner",
+    "resource": "Listing",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Listing",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Wishlist",
     "action": "read:own",
     "attributes": "*"
@@ -174,21 +174,9 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
-    "resource": "Wishlist",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
     "role": "user",
     "resource": "Wishlist",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "owner",
-    "resource": "Wishlist",
-    "action": "create:any",
+    "action": "read:own",
     "attributes": "*"
   },
   {
@@ -198,7 +186,19 @@
     "attributes": "*"
   },
   {
+    "role": "owner",
+    "resource": "Wishlist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Wishlist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Wishlist",
     "action": "update:any",
     "attributes": "*"
@@ -210,21 +210,9 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
-    "resource": "Wishlist",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
     "role": "user",
     "resource": "Wishlist",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "owner",
-    "resource": "Wishlist",
-    "action": "delete:any",
+    "action": "update:any",
     "attributes": "*"
   },
   {
@@ -234,7 +222,19 @@
     "attributes": "*"
   },
   {
+    "role": "owner",
+    "resource": "Wishlist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Wishlist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Wishlist",
     "action": "read:any",
     "attributes": "*"
@@ -246,13 +246,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Wishlist",
     "action": "read:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Trip",
     "action": "read:own",
     "attributes": "*"
@@ -264,13 +264,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Trip",
     "action": "read:own",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Trip",
     "action": "create:any",
     "attributes": "*"
@@ -282,13 +282,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Trip",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Trip",
     "action": "update:any",
     "attributes": "*"
@@ -300,13 +300,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Trip",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Trip",
     "action": "delete:any",
     "attributes": "*"
@@ -318,13 +318,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Trip",
     "action": "delete:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Trip",
     "action": "read:any",
     "attributes": "*"
@@ -336,13 +336,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Trip",
     "action": "read:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Review",
     "action": "read:own",
     "attributes": "*"
@@ -354,13 +354,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Review",
     "action": "read:own",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Review",
     "action": "create:any",
     "attributes": "*"
@@ -372,39 +372,27 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Review",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "Review",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "owner",
-    "resource": "Review",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
     "role": "admin",
     "resource": "Review",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "owner",
     "resource": "Review",
-    "action": "delete:any",
+    "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "owner",
+    "role": "user",
     "resource": "Review",
-    "action": "delete:any",
+    "action": "update:any",
     "attributes": "*"
   },
   {
@@ -414,15 +402,15 @@
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "owner",
     "resource": "Review",
-    "action": "read:any",
+    "action": "delete:any",
     "attributes": "*"
   },
   {
-    "role": "owner",
+    "role": "user",
     "resource": "Review",
-    "action": "read:any",
+    "action": "delete:any",
     "attributes": "*"
   },
   {
@@ -432,15 +420,15 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "Invoice",
-    "action": "read:own",
+    "role": "owner",
+    "resource": "Review",
+    "action": "read:any",
     "attributes": "*"
   },
   {
-    "role": "owner",
-    "resource": "Invoice",
-    "action": "read:own",
+    "role": "user",
+    "resource": "Review",
+    "action": "read:any",
     "attributes": "*"
   },
   {
@@ -450,7 +438,19 @@
     "attributes": "*"
   },
   {
+    "role": "owner",
+    "resource": "Invoice",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Invoice",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Invoice",
     "action": "create:any",
     "attributes": "*"
@@ -462,13 +462,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Invoice",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Invoice",
     "action": "update:any",
     "attributes": "*"
@@ -480,13 +480,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Invoice",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Invoice",
     "action": "delete:any",
     "attributes": "*"
@@ -498,13 +498,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Invoice",
     "action": "delete:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Invoice",
     "action": "read:any",
     "attributes": "*"
@@ -516,13 +516,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Invoice",
     "action": "read:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Notification",
     "action": "read:own",
     "attributes": "*"
@@ -534,13 +534,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Notification",
     "action": "read:own",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Notification",
     "action": "create:any",
     "attributes": "*"
@@ -552,13 +552,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Notification",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Notification",
     "action": "update:any",
     "attributes": "*"
@@ -570,13 +570,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Notification",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Notification",
     "action": "delete:any",
     "attributes": "*"
@@ -588,13 +588,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Notification",
     "action": "delete:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Notification",
     "action": "read:any",
     "attributes": "*"
@@ -606,13 +606,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "Notification",
     "action": "read:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "PasswordResetToken",
     "action": "read:own",
     "attributes": "*"
@@ -624,13 +624,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "PasswordResetToken",
     "action": "read:own",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "PasswordResetToken",
     "action": "create:any",
     "attributes": "*"
@@ -642,13 +642,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "PasswordResetToken",
     "action": "create:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "PasswordResetToken",
     "action": "update:any",
     "attributes": "*"
@@ -660,13 +660,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "PasswordResetToken",
     "action": "update:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "PasswordResetToken",
     "action": "delete:any",
     "attributes": "*"
@@ -678,13 +678,13 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "PasswordResetToken",
     "action": "delete:any",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "PasswordResetToken",
     "action": "read:any",
     "attributes": "*"
@@ -696,7 +696,7 @@
     "attributes": "*"
   },
   {
-    "role": "admin",
+    "role": "user",
     "resource": "PasswordResetToken",
     "action": "read:any",
     "attributes": "*"

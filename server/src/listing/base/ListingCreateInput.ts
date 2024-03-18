@@ -136,6 +136,17 @@ class ListingCreateInput {
   reviews?: ReviewCreateNestedManyWithoutListingsInput;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  slug?: string | null;
+
+  @ApiProperty({
     required: true,
     type: Number,
   })

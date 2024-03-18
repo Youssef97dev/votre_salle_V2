@@ -53,6 +53,7 @@ model Listing {
   price              Float
   priceB2b           Float
   reviews            Review[]
+  slug               String?    @unique
   tax                Decimal
   title              String
   trips              Trip[]

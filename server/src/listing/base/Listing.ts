@@ -149,6 +149,17 @@ class Listing {
   reviews?: Array<Review>;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  slug!: string | null;
+
+  @ApiProperty({
     required: true,
     type: Number,
   })

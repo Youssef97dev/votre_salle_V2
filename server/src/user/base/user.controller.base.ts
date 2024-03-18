@@ -421,6 +421,7 @@ export class UserControllerBase {
         prestation: true,
         price: true,
         priceB2b: true,
+        slug: true,
         tax: true,
         title: true,
         updatedAt: true,

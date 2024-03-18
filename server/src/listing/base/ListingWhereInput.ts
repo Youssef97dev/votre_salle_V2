@@ -18,6 +18,7 @@ import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { JsonFilter } from "../../util/JsonFilter";
 import { FloatFilter } from "../../util/FloatFilter";
 import { ReviewListRelationFilter } from "../../review/base/ReviewListRelationFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
 import { TripListRelationFilter } from "../../trip/base/TripListRelationFilter";
 import { WishlistListRelationFilter } from "../../wishlist/base/WishlistListRelationFilter";
@@ -179,6 +180,17 @@ class ListingWhereInput {
     nullable: true,
   })
   reviews?: ReviewListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  slug?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

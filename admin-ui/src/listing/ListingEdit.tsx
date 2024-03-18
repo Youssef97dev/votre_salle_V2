@@ -47,6 +47,7 @@ export const ListingEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ReviewTitle} />
         </ReferenceArrayInput>
+        <TextInput label="slug" source="slug" />
         <NumberInput label="tax" source="tax" />
         <TextInput label="title" source="title" />
         <ReferenceArrayInput
