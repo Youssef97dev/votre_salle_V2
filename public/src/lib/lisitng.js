@@ -37,15 +37,25 @@ export const updateLisitngAPI = async (listingId, data) => {
   return result;
 };
 
-export const getAllListings = async (locationType, typeUser) => {
+export const getAllListings = async (
+  locationType,
+  typeUser,
+  page = 1,
+  pageSize = 9
+) => {
+  let cancel;
   const query =
     locationType !== "All"
       ? qs.stringify({
           where: { locationType },
           orderBy: { createdAt: "desc" },
+          take: pageSize,
+          skip: (page - 1) * pageSize,
         })
       : qs.stringify({
           orderBy: { createdAt: "desc" },
+          take: pageSize,
+          skip: (page - 1) * pageSize,
         });
 
   try {
@@ -62,12 +72,9 @@ export const getAllListings = async (locationType, typeUser) => {
         typeUser === "B2C" ? listing.price : listing.priceB2b
       )
     );
-
     return { data: result.data, maxPrice, minPrice };
   } catch (error) {
-    console.log(error);
-    alert("Could not get listings");
-    return [];
+    return { error };
   }
 };
 
@@ -603,7 +610,9 @@ export const readNotification = async (id, read) => {
 
 // Verification Email
 export const SendEmailVerification = async (userId) => {
-  const result = await axios.post(createUrl("/api/resend-verification"), { id:userId });
+  const result = await axios.post(createUrl("/api/resend-verification"), {
+    id: userId,
+  });
   console.log(result);
   if (!result) {
     alert("failed");
