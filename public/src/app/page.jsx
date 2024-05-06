@@ -35,7 +35,7 @@ export default function Home() {
   const [showFilter, setShowFilter] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
-  const [page, setPage] = useState(1);
+  //const [page, setPage] = useState(1);
   const {
     setUserInfo,
     setListings,
@@ -72,8 +72,7 @@ export default function Home() {
       setLoadingData(true);
       const { data, maxPrice, minPrice, error } = await getAllListings(
         locationType,
-        userInfo?.typeUser,
-        page
+        userInfo?.typeUser
       );
       if (error) {
         console.log(error);
@@ -96,7 +95,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchListings();
-  }, [userInfo?.id, page]);
+  }, [userInfo?.id]);
 
   useEffect(() => {
     const getWishlists = async () => {
@@ -151,7 +150,7 @@ export default function Home() {
     return count;
   }, [filter]);
 
-  const handleScroll = debounce((e) => {
+  /*const handleScroll = debounce((e) => {
     const { offsetHeight, scrollTop, scrollHeight } = e.target;
     console.log(page);
 
@@ -159,14 +158,11 @@ export default function Home() {
       setPage((prevPage) => prevPage + 1);
       console.log(page);
     }
-  }, 200);
+  }, 200);*/
 
   return (
     isClient && (
-      <div
-        className="max-h-[100vh] h-[100vh] overflow-scroll"
-        onScroll={handleScroll}
-      >
+      <div className="max-h-[100vh] h-[100vh]">
         <Navbar />
         <SwiperCategories
           countTrueValues={countTrueValues}

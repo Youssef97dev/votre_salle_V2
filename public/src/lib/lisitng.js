@@ -37,25 +37,15 @@ export const updateLisitngAPI = async (listingId, data) => {
   return result;
 };
 
-export const getAllListings = async (
-  locationType,
-  typeUser,
-  page = 1,
-  pageSize = 9
-) => {
-  let cancel;
+export const getAllListings = async (locationType, typeUser) => {
   const query =
     locationType !== "All"
       ? qs.stringify({
           where: { locationType },
           orderBy: { createdAt: "desc" },
-          take: pageSize,
-          skip: (page - 1) * pageSize,
         })
       : qs.stringify({
           orderBy: { createdAt: "desc" },
-          take: pageSize,
-          skip: (page - 1) * pageSize,
         });
 
   try {
