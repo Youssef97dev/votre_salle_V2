@@ -13,7 +13,7 @@ import { MailerModule } from "@nestjs-modules/mailer";
     forwardRef(() => AuthModule),
     MailerModule.forRoot({
       transport: {
-        host: "votresalles.ma",
+        host: "smtp.gmail.com",
         port: 465,
         secure: true,
         auth: {
@@ -21,7 +21,7 @@ import { MailerModule } from "@nestjs-modules/mailer";
           pass: process.env.NODEMAILER_PASS,
         },
         tls: {
-          rejectUnauthorized: false,
+          rejectUnauthorized: true,
         },
       },
     }),

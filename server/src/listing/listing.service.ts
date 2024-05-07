@@ -17,7 +17,7 @@ export class ListingService extends ListingServiceBase {
     let slug = slugify(title, { lower: true });
 
     // Check if the slug is unique
-    let existingSlug = await this.listing({where:{slug}});
+    let existingSlug = await this.listing({ where: { slug } });
 
     if (existingSlug) {
       // If a post with the same slug exists, handle the conflict
@@ -30,7 +30,7 @@ export class ListingService extends ListingServiceBase {
   async createListing<T extends Prisma.ListingCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.ListingCreateArgs>
   ): Promise<Listing> {
-    let slug = await this.generateSlug(args.data.title)
+    let slug = await this.generateSlug(args.data.title);
 
     return this.prisma.listing.create<T>({
       ...args,
@@ -45,7 +45,7 @@ export class ListingService extends ListingServiceBase {
   async updateListing<T extends Prisma.ListingUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.ListingUpdateArgs>
   ): Promise<Listing> {
-    let slug = await this.generateSlug(args.data.title)
+    let slug = args.data.title && (await this.generateSlug(args.data.title));
     return this.prisma.listing.update<T>({
       ...args,
 
@@ -58,9 +58,9 @@ export class ListingService extends ListingServiceBase {
 
   // Function to handle slug conflict
   handleSlugConflict(slug: any) {
-  // You can implement your logic here to handle the conflict
-  // For example, appending a counter or timestamp
-  const timestamp = Date.now();
-  return slugify(`${slug}-${timestamp}`, { lower: true });
-}
+    // You can implement your logic here to handle the conflict
+    // For example, appending a counter or timestamp
+    const timestamp = Date.now();
+    return slugify(`${slug}-${timestamp}`, { lower: true });
+  }
 }

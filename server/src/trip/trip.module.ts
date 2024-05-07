@@ -14,7 +14,7 @@ import { HandlebarsAdapter } from "@nestjs-modules/mailer/dist/adapters/handleba
     forwardRef(() => AuthModule),
     MailerModule.forRoot({
       transport: {
-        host: "votresalles.ma",
+        host: "smtp.gmail.com",
         port: 465,
         secure: true,
         auth: {
@@ -22,7 +22,7 @@ import { HandlebarsAdapter } from "@nestjs-modules/mailer/dist/adapters/handleba
           pass: process.env.NODEMAILER_PASS,
         },
         tls: {
-          rejectUnauthorized: false,
+          rejectUnauthorized: true,
         },
       },
       template: {
