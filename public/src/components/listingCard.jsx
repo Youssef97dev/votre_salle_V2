@@ -147,7 +147,7 @@ export default function ListingCard({
                   ))}
                 </Swiper>
               </div>
-              {pathname === "/" && userInfo && (
+              {pathname === "/" && (
                 <>
                   <div
                     onClick={(e) => {

@@ -53,13 +53,13 @@ export const getAllListings = async (locationType, typeUser) => {
     console.log(result);
     const maxPrice = Math.max(
       ...result.data.map((listing) =>
-        typeUser === "B2C" ? listing.price : listing.priceB2b
+        typeUser === "B2B" ? listing.priceB2b : listing.price
       )
     );
 
     const minPrice = Math.min(
       ...result.data.map((listing) =>
-        typeUser === "B2C" ? listing.price : listing.priceB2b
+        typeUser === "B2B" ? listing.priceB2b : listing.price
       )
     );
     return { data: result.data, maxPrice, minPrice };
