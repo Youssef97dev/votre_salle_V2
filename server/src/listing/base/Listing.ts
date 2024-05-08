@@ -14,17 +14,17 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsDate,
   IsString,
+  IsNumber,
   ValidateNested,
   IsOptional,
-  IsNumber,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
 import { User } from "../../user/base/User";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Review } from "../../review/base/Review";
-import { Decimal } from "decimal.js";
 import { Trip } from "../../trip/base/Trip";
 import { Wishlist } from "../../wishlist/base/Wishlist";
 
@@ -45,6 +45,14 @@ class Listing {
   @IsString()
   @Field(() => String)
   description!: string;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Field(() => Float)
+  guests!: Decimal;
 
   @ApiProperty({
     required: true,
@@ -97,13 +105,6 @@ class Listing {
   @IsJSONValue()
   @Field(() => GraphQLJSON)
   placeAmeneties!: JsonValue;
-
-  @ApiProperty({
-    required: true,
-  })
-  @IsJSONValue()
-  @Field(() => GraphQLJSON)
-  placeSpace!: JsonValue;
 
   @ApiProperty({
     required: true,

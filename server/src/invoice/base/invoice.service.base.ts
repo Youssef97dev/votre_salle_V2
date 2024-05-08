@@ -10,50 +10,47 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-
 import {
   Prisma,
-  Invoice, // @ts-ignore
-  Trip, // @ts-ignore
-  User,
+  Invoice as PrismaInvoice,
+  Trip as PrismaTrip,
+  User as PrismaUser,
 } from "@prisma/client";
 
 export class InvoiceServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
 
-  async count<T extends Prisma.InvoiceCountArgs>(
-    args: Prisma.SelectSubset<T, Prisma.InvoiceCountArgs>
-  ): Promise<number> {
+  async count(args: Omit<Prisma.InvoiceCountArgs, "select">): Promise<number> {
     return this.prisma.invoice.count(args);
   }
 
   async invoices<T extends Prisma.InvoiceFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceFindManyArgs>
-  ): Promise<Invoice[]> {
-    return this.prisma.invoice.findMany(args);
+  ): Promise<PrismaInvoice[]> {
+    return this.prisma.invoice.findMany<Prisma.InvoiceFindManyArgs>(args);
   }
   async invoice<T extends Prisma.InvoiceFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceFindUniqueArgs>
-  ): Promise<Invoice | null> {
+  ): Promise<PrismaInvoice | null> {
     return this.prisma.invoice.findUnique(args);
   }
   async createInvoice<T extends Prisma.InvoiceCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceCreateArgs>
-  ): Promise<Invoice> {
+  ): Promise<PrismaInvoice> {
     return this.prisma.invoice.create<T>(args);
   }
   async updateInvoice<T extends Prisma.InvoiceUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceUpdateArgs>
-  ): Promise<Invoice> {
+  ): Promise<PrismaInvoice> {
     return this.prisma.invoice.update<T>(args);
   }
   async deleteInvoice<T extends Prisma.InvoiceDeleteArgs>(
     args: Prisma.SelectSubset<T, Prisma.InvoiceDeleteArgs>
-  ): Promise<Invoice> {
+  ): Promise<PrismaInvoice> {
     return this.prisma.invoice.delete(args);
   }
 
-  async getTrips(parentId: number): Promise<Trip | null> {
+  async getTrips(parentId: number): Promise<PrismaTrip | null> {
     return this.prisma.invoice
       .findUnique({
         where: { id: parentId },
@@ -61,7 +58,7 @@ export class InvoiceServiceBase {
       .trips();
   }
 
-  async getUser(parentId: number): Promise<User | null> {
+  async getUser(parentId: number): Promise<PrismaUser | null> {
     return this.prisma.invoice
       .findUnique({
         where: { id: parentId },

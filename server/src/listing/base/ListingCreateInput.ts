@@ -13,17 +13,17 @@ import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
+  IsNumber,
   ValidateNested,
   IsOptional,
-  IsNumber,
 } from "class-validator";
+import { Decimal } from "decimal.js";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { Type } from "class-transformer";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { ReviewCreateNestedManyWithoutListingsInput } from "./ReviewCreateNestedManyWithoutListingsInput";
-import { Decimal } from "decimal.js";
 import { TripCreateNestedManyWithoutListingsInput } from "./TripCreateNestedManyWithoutListingsInput";
 import { WishlistCreateNestedManyWithoutListingsInput } from "./WishlistCreateNestedManyWithoutListingsInput";
 
@@ -36,6 +36,14 @@ class ListingCreateInput {
   @IsString()
   @Field(() => String)
   description!: string;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsNumber()
+  @Field(() => Float)
+  guests!: Decimal;
 
   @ApiProperty({
     required: true,
@@ -81,13 +89,6 @@ class ListingCreateInput {
   @IsJSONValue()
   @Field(() => GraphQLJSON)
   placeAmeneties!: InputJsonValue;
-
-  @ApiProperty({
-    required: true,
-  })
-  @IsJSONValue()
-  @Field(() => GraphQLJSON)
-  placeSpace!: InputJsonValue;
 
   @ApiProperty({
     required: true,

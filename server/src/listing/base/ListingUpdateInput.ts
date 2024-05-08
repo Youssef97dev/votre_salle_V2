@@ -14,16 +14,16 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   IsOptional,
-  ValidateNested,
   IsNumber,
+  ValidateNested,
 } from "class-validator";
+import { Decimal } from "decimal.js";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { Type } from "class-transformer";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { ReviewUpdateManyWithoutListingsInput } from "./ReviewUpdateManyWithoutListingsInput";
-import { Decimal } from "decimal.js";
 import { TripUpdateManyWithoutListingsInput } from "./TripUpdateManyWithoutListingsInput";
 import { WishlistUpdateManyWithoutListingsInput } from "./WishlistUpdateManyWithoutListingsInput";
 
@@ -39,6 +39,17 @@ class ListingUpdateInput {
     nullable: true,
   })
   description?: string;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  guests?: Decimal;
 
   @ApiProperty({
     required: false,
@@ -102,16 +113,6 @@ class ListingUpdateInput {
     nullable: true,
   })
   placeAmeneties?: InputJsonValue;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsJSONValue()
-  @IsOptional()
-  @Field(() => GraphQLJSON, {
-    nullable: true,
-  })
-  placeSpace?: InputJsonValue;
 
   @ApiProperty({
     required: false,

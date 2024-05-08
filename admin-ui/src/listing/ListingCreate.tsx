@@ -5,9 +5,9 @@ import {
   SimpleForm,
   CreateProps,
   TextInput,
+  NumberInput,
   ReferenceInput,
   SelectInput,
-  NumberInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
@@ -22,6 +22,7 @@ export const ListingCreate = (props: CreateProps): React.ReactElement => {
     <Create {...props}>
       <SimpleForm>
         <TextInput label="description" multiline source="description" />
+        <NumberInput label="guests" source="guests" />
         <ReferenceInput
           source="listingCreatedBy.id"
           reference="User"
@@ -31,7 +32,6 @@ export const ListingCreate = (props: CreateProps): React.ReactElement => {
         </ReferenceInput>
         <div />
         <TextInput label="locationType" source="locationType" />
-        <div />
         <div />
         <div />
         <div />

@@ -10,49 +10,50 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-
 import {
   Prisma,
-  PasswordResetToken, // @ts-ignore
-  User,
+  PasswordResetToken as PrismaPasswordResetToken,
+  User as PrismaUser,
 } from "@prisma/client";
 
 export class PasswordResetTokenServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
 
-  async count<T extends Prisma.PasswordResetTokenCountArgs>(
-    args: Prisma.SelectSubset<T, Prisma.PasswordResetTokenCountArgs>
+  async count(
+    args: Omit<Prisma.PasswordResetTokenCountArgs, "select">
   ): Promise<number> {
     return this.prisma.passwordResetToken.count(args);
   }
 
   async passwordResetTokens<T extends Prisma.PasswordResetTokenFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.PasswordResetTokenFindManyArgs>
-  ): Promise<PasswordResetToken[]> {
-    return this.prisma.passwordResetToken.findMany(args);
+  ): Promise<PrismaPasswordResetToken[]> {
+    return this.prisma.passwordResetToken.findMany<Prisma.PasswordResetTokenFindManyArgs>(
+      args
+    );
   }
   async passwordResetToken<T extends Prisma.PasswordResetTokenFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.PasswordResetTokenFindUniqueArgs>
-  ): Promise<PasswordResetToken | null> {
+  ): Promise<PrismaPasswordResetToken | null> {
     return this.prisma.passwordResetToken.findUnique(args);
   }
   async createPasswordResetToken<T extends Prisma.PasswordResetTokenCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.PasswordResetTokenCreateArgs>
-  ): Promise<PasswordResetToken> {
+  ): Promise<PrismaPasswordResetToken> {
     return this.prisma.passwordResetToken.create<T>(args);
   }
   async updatePasswordResetToken<T extends Prisma.PasswordResetTokenUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.PasswordResetTokenUpdateArgs>
-  ): Promise<PasswordResetToken> {
+  ): Promise<PrismaPasswordResetToken> {
     return this.prisma.passwordResetToken.update<T>(args);
   }
   async deletePasswordResetToken<T extends Prisma.PasswordResetTokenDeleteArgs>(
     args: Prisma.SelectSubset<T, Prisma.PasswordResetTokenDeleteArgs>
-  ): Promise<PasswordResetToken> {
+  ): Promise<PrismaPasswordResetToken> {
     return this.prisma.passwordResetToken.delete(args);
   }
 
-  async getUser(parentId: string): Promise<User | null> {
+  async getUser(parentId: string): Promise<PrismaUser | null> {
     return this.prisma.passwordResetToken
       .findUnique({
         where: { id: parentId },

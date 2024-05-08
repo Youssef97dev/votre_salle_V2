@@ -13,48 +13,46 @@ import { PrismaService } from "../../prisma/prisma.service";
 
 import {
   Prisma,
-  Trip, // @ts-ignore
-  Invoice, // @ts-ignore
-  Listing, // @ts-ignore
-  User,
+  Trip as PrismaTrip,
+  Invoice as PrismaInvoice,
+  Listing as PrismaListing,
+  User as PrismaUser,
 } from "@prisma/client";
 
 export class TripServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
 
-  async count<T extends Prisma.TripCountArgs>(
-    args: Prisma.SelectSubset<T, Prisma.TripCountArgs>
-  ): Promise<number> {
+  async count(args: Omit<Prisma.TripCountArgs, "select">): Promise<number> {
     return this.prisma.trip.count(args);
   }
 
   async trips<T extends Prisma.TripFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.TripFindManyArgs>
-  ): Promise<Trip[]> {
-    return this.prisma.trip.findMany(args);
+  ): Promise<PrismaTrip[]> {
+    return this.prisma.trip.findMany<Prisma.TripFindManyArgs>(args);
   }
   async trip<T extends Prisma.TripFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.TripFindUniqueArgs>
-  ): Promise<Trip | null> {
+  ): Promise<PrismaTrip | null> {
     return this.prisma.trip.findUnique(args);
   }
   async createTrip<T extends Prisma.TripCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.TripCreateArgs>
-  ): Promise<Trip> {
+  ): Promise<PrismaTrip> {
     return this.prisma.trip.create<T>(args);
   }
   async updateTrip<T extends Prisma.TripUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.TripUpdateArgs>
-  ): Promise<Trip> {
+  ): Promise<PrismaTrip> {
     return this.prisma.trip.update<T>(args);
   }
   async deleteTrip<T extends Prisma.TripDeleteArgs>(
     args: Prisma.SelectSubset<T, Prisma.TripDeleteArgs>
-  ): Promise<Trip> {
+  ): Promise<PrismaTrip> {
     return this.prisma.trip.delete(args);
   }
 
-  async getInvoice(parentId: string): Promise<Invoice | null> {
+  async getInvoice(parentId: string): Promise<PrismaInvoice | null> {
     return this.prisma.trip
       .findUnique({
         where: { id: parentId },
@@ -62,7 +60,7 @@ export class TripServiceBase {
       .invoice();
   }
 
-  async getListing(parentId: string): Promise<Listing | null> {
+  async getListing(parentId: string): Promise<PrismaListing | null> {
     return this.prisma.trip
       .findUnique({
         where: { id: parentId },
@@ -70,7 +68,7 @@ export class TripServiceBase {
       .listing();
   }
 
-  async getUser(parentId: string): Promise<User | null> {
+  async getUser(parentId: string): Promise<PrismaUser | null> {
     return this.prisma.trip
       .findUnique({
         where: { id: parentId },
