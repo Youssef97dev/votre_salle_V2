@@ -26,7 +26,7 @@ import withReactContent from "sweetalert2-react-content";
 
 import SwiperCategories from "airbnb/components/common/SwiperCategories";
 
-import { debounce } from "lodash";
+//import { debounce } from "lodash";
 
 export default function Home() {
   const MySwal = withReactContent(Swal);
@@ -83,7 +83,7 @@ export default function Home() {
         return;
       }
 
-      setListings([...listings, ...data]);
+      setListings([...data]);
       setMaxValueRange(maxPrice);
       setMinValueRange(minPrice);
     } catch (error) {
@@ -94,8 +94,9 @@ export default function Home() {
   };
 
   useEffect(() => {
+    console.log(locationType);
     fetchListings();
-  }, [userInfo?.id]);
+  }, [userInfo?.id, locationType]);
 
   useEffect(() => {
     const getWishlists = async () => {
@@ -106,7 +107,7 @@ export default function Home() {
       setLoadingData(false);
     };
     getWishlists();
-  }, [userInfo?.id, locationType, discardSearch]);
+  }, [userInfo?.id, discardSearch]);
 
   const showMessage = (message) => {
     MySwal.fire({
