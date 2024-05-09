@@ -21,6 +21,7 @@ export const ListingShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="description" source="description" />
+        <TextField label="guests" source="guests" />
         <TextField label="ID" source="id" />
         <ReferenceField
           label="listingCreatedBy"
@@ -34,7 +35,6 @@ export const ListingShow = (props: ShowProps): React.ReactElement => {
         <TextField label="mapData" source="mapData" />
         <TextField label="photos" source="photos" />
         <TextField label="placeAmeneties" source="placeAmeneties" />
-        <TextField label="placeSpace" source="placeSpace" />
         <TextField label="placeType" source="placeType" />
         <TextField label="prestation" source="prestation" />
         <TextField label="price" source="price" />

@@ -40,6 +40,7 @@ model User {
 model Listing {
   createdAt          DateTime   @default(now())
   description        String
+  guests             Decimal
   id                 String     @id @default(cuid())
   listingCreatedBy   User       @relation(fields: [listingCreatedById], references: [id])
   listingCreatedById String
@@ -48,7 +49,6 @@ model Listing {
   mapData            Json
   photos             Json
   placeAmeneties     Json
-  placeSpace         Json
   placeType          String
   prestation         Json?
   price              Float

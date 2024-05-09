@@ -71,6 +71,7 @@ export class ListingControllerBase {
       select: {
         createdAt: true,
         description: true,
+        guests: true,
         id: true,
 
         listingCreatedBy: {
@@ -84,7 +85,6 @@ export class ListingControllerBase {
         mapData: true,
         photos: true,
         placeAmeneties: true,
-        placeSpace: true,
         placeType: true,
         prestation: true,
         price: true,
@@ -116,6 +116,7 @@ export class ListingControllerBase {
       select: {
         createdAt: true,
         description: true,
+        guests: true,
         id: true,
 
         listingCreatedBy: {
@@ -140,7 +141,6 @@ export class ListingControllerBase {
         mapData: true,
         photos: true,
         placeAmeneties: true,
-        placeSpace: true,
         placeType: true,
         prestation: true,
         price: true,
@@ -173,6 +173,7 @@ export class ListingControllerBase {
       select: {
         createdAt: true,
         description: true,
+        guests: true,
         id: true,
 
         listingCreatedBy: {
@@ -204,7 +205,6 @@ export class ListingControllerBase {
         mapData: true,
         photos: true,
         placeAmeneties: true,
-        placeSpace: true,
         placeType: true,
         prestation: true,
         price: true,
@@ -252,6 +252,7 @@ export class ListingControllerBase {
         select: {
           createdAt: true,
           description: true,
+          guests: true,
           id: true,
 
           listingCreatedBy: {
@@ -265,7 +266,6 @@ export class ListingControllerBase {
           mapData: true,
           photos: true,
           placeAmeneties: true,
-          placeSpace: true,
           placeType: true,
           prestation: true,
           price: true,
@@ -306,6 +306,7 @@ export class ListingControllerBase {
         select: {
           createdAt: true,
           description: true,
+          guests: true,
           id: true,
 
           listingCreatedBy: {
@@ -319,7 +320,6 @@ export class ListingControllerBase {
           mapData: true,
           photos: true,
           placeAmeneties: true,
-          placeSpace: true,
           placeType: true,
           prestation: true,
           price: true,

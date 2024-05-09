@@ -14,12 +14,12 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { DecimalFilter } from "../../util/DecimalFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { JsonFilter } from "../../util/JsonFilter";
 import { FloatFilter } from "../../util/FloatFilter";
 import { ReviewListRelationFilter } from "../../review/base/ReviewListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { DecimalFilter } from "../../util/DecimalFilter";
 import { TripListRelationFilter } from "../../trip/base/TripListRelationFilter";
 import { WishlistListRelationFilter } from "../../wishlist/base/WishlistListRelationFilter";
 
@@ -35,6 +35,17 @@ class ListingWhereInput {
     nullable: true,
   })
   description?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DecimalFilter,
+  })
+  @Type(() => DecimalFilter)
+  @IsOptional()
+  @Field(() => DecimalFilter, {
+    nullable: true,
+  })
+  guests?: DecimalFilter;
 
   @ApiProperty({
     required: false,
@@ -113,17 +124,6 @@ class ListingWhereInput {
     nullable: true,
   })
   placeAmeneties?: JsonFilter;
-
-  @ApiProperty({
-    required: false,
-    type: JsonFilter,
-  })
-  @Type(() => JsonFilter)
-  @IsOptional()
-  @Field(() => JsonFilter, {
-    nullable: true,
-  })
-  placeSpace?: JsonFilter;
 
   @ApiProperty({
     required: false,

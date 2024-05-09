@@ -13,47 +13,45 @@ import { PrismaService } from "../../prisma/prisma.service";
 
 import {
   Prisma,
-  Review, // @ts-ignore
-  Listing, // @ts-ignore
-  User,
+  Review as PrismaReview,
+  Listing as PrismaListing,
+  User as PrismaUser,
 } from "@prisma/client";
 
 export class ReviewServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
 
-  async count<T extends Prisma.ReviewCountArgs>(
-    args: Prisma.SelectSubset<T, Prisma.ReviewCountArgs>
-  ): Promise<number> {
+  async count(args: Omit<Prisma.ReviewCountArgs, "select">): Promise<number> {
     return this.prisma.review.count(args);
   }
 
   async reviews<T extends Prisma.ReviewFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.ReviewFindManyArgs>
-  ): Promise<Review[]> {
-    return this.prisma.review.findMany(args);
+  ): Promise<PrismaReview[]> {
+    return this.prisma.review.findMany<Prisma.ReviewFindManyArgs>(args);
   }
   async review<T extends Prisma.ReviewFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.ReviewFindUniqueArgs>
-  ): Promise<Review | null> {
+  ): Promise<PrismaReview | null> {
     return this.prisma.review.findUnique(args);
   }
   async createReview<T extends Prisma.ReviewCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.ReviewCreateArgs>
-  ): Promise<Review> {
+  ): Promise<PrismaReview> {
     return this.prisma.review.create<T>(args);
   }
   async updateReview<T extends Prisma.ReviewUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.ReviewUpdateArgs>
-  ): Promise<Review> {
+  ): Promise<PrismaReview> {
     return this.prisma.review.update<T>(args);
   }
   async deleteReview<T extends Prisma.ReviewDeleteArgs>(
     args: Prisma.SelectSubset<T, Prisma.ReviewDeleteArgs>
-  ): Promise<Review> {
+  ): Promise<PrismaReview> {
     return this.prisma.review.delete(args);
   }
 
-  async getListing(parentId: string): Promise<Listing | null> {
+  async getListing(parentId: string): Promise<PrismaListing | null> {
     return this.prisma.review
       .findUnique({
         where: { id: parentId },
@@ -61,7 +59,7 @@ export class ReviewServiceBase {
       .listing();
   }
 
-  async getUser(parentId: string): Promise<User | null> {
+  async getUser(parentId: string): Promise<PrismaUser | null> {
     return this.prisma.review
       .findUnique({
         where: { id: parentId },

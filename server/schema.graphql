@@ -162,6 +162,7 @@ input JsonFilter {
 type Listing {
   createdAt: DateTime!
   description: String!
+  guests: Float!
   id: String!
   listingCreatedBy: User
   locationData: JSON!
@@ -169,7 +170,6 @@ type Listing {
   mapData: JSON!
   photos: JSON!
   placeAmeneties: JSON!
-  placeSpace: JSON!
   placeType: String!
   prestation: JSON
   price: Float!
@@ -185,13 +185,13 @@ type Listing {
 
 input ListingCreateInput {
   description: String!
+  guests: Float!
   listingCreatedBy: UserWhereUniqueInput!
   locationData: JSON!
   locationType: String!
   mapData: JSON!
   photos: JSON!
   placeAmeneties: JSON!
-  placeSpace: JSON!
   placeType: String!
   prestation: JSON
   price: Float!
@@ -217,6 +217,7 @@ input ListingListRelationFilter {
 input ListingOrderByInput {
   createdAt: SortOrder
   description: SortOrder
+  guests: SortOrder
   id: SortOrder
   listingCreatedById: SortOrder
   locationData: SortOrder
@@ -224,7 +225,6 @@ input ListingOrderByInput {
   mapData: SortOrder
   photos: SortOrder
   placeAmeneties: SortOrder
-  placeSpace: SortOrder
   placeType: SortOrder
   prestation: SortOrder
   price: SortOrder
@@ -237,13 +237,13 @@ input ListingOrderByInput {
 
 input ListingUpdateInput {
   description: String
+  guests: Float
   listingCreatedBy: UserWhereUniqueInput
   locationData: JSON
   locationType: String
   mapData: JSON
   photos: JSON
   placeAmeneties: JSON
-  placeSpace: JSON
   placeType: String
   prestation: JSON
   price: Float
@@ -264,6 +264,7 @@ input ListingUpdateManyWithoutUsersInput {
 
 input ListingWhereInput {
   description: StringFilter
+  guests: DecimalFilter
   id: StringFilter
   listingCreatedBy: UserWhereUniqueInput
   locationData: JsonFilter
@@ -271,7 +272,6 @@ input ListingWhereInput {
   mapData: JsonFilter
   photos: JsonFilter
   placeAmeneties: JsonFilter
-  placeSpace: JsonFilter
   placeType: StringFilter
   prestation: JsonFilter
   price: FloatFilter

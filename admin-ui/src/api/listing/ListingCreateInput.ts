@@ -1,19 +1,19 @@
+import { Decimal } from "decimal.js";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 import { InputJsonValue } from "../../types";
 import { ReviewCreateNestedManyWithoutListingsInput } from "./ReviewCreateNestedManyWithoutListingsInput";
-import { Decimal } from "decimal.js";
 import { TripCreateNestedManyWithoutListingsInput } from "./TripCreateNestedManyWithoutListingsInput";
 import { WishlistCreateNestedManyWithoutListingsInput } from "./WishlistCreateNestedManyWithoutListingsInput";
 
 export type ListingCreateInput = {
   description: string;
+  guests: Decimal;
   listingCreatedBy: UserWhereUniqueInput;
   locationData: InputJsonValue;
   locationType: string;
   mapData: InputJsonValue;
   photos: InputJsonValue;
   placeAmeneties: InputJsonValue;
-  placeSpace: InputJsonValue;
   placeType: string;
   prestation?: InputJsonValue;
   price: number;

@@ -405,6 +405,7 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         description: true,
+        guests: true,
         id: true,
 
         listingCreatedBy: {
@@ -418,7 +419,6 @@ export class UserControllerBase {
         mapData: true,
         photos: true,
         placeAmeneties: true,
-        placeSpace: true,
         placeType: true,
         prestation: true,
         price: true,

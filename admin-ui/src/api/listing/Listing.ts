@@ -1,13 +1,14 @@
+import { Decimal } from "decimal.js";
 import { User } from "../user/User";
 import { JsonValue } from "type-fest";
 import { Review } from "../review/Review";
-import { Decimal } from "decimal.js";
 import { Trip } from "../trip/Trip";
 import { Wishlist } from "../wishlist/Wishlist";
 
 export type Listing = {
   createdAt: Date;
   description: string;
+  guests: Decimal;
   id: string;
   listingCreatedBy?: User;
   locationData: JsonValue;
@@ -15,7 +16,6 @@ export type Listing = {
   mapData: JsonValue;
   photos: JsonValue;
   placeAmeneties: JsonValue;
-  placeSpace: JsonValue;
   placeType: string;
   prestation: JsonValue;
   price: number;

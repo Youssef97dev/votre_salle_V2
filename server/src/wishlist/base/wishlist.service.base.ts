@@ -13,47 +13,45 @@ import { PrismaService } from "../../prisma/prisma.service";
 
 import {
   Prisma,
-  Wishlist, // @ts-ignore
-  Listing, // @ts-ignore
-  User,
+  Wishlist as PrismaWishlist,
+  Listing as PrismaListing,
+  User as PrismaUser,
 } from "@prisma/client";
 
 export class WishlistServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
 
-  async count<T extends Prisma.WishlistCountArgs>(
-    args: Prisma.SelectSubset<T, Prisma.WishlistCountArgs>
-  ): Promise<number> {
+  async count(args: Omit<Prisma.WishlistCountArgs, "select">): Promise<number> {
     return this.prisma.wishlist.count(args);
   }
 
   async wishlists<T extends Prisma.WishlistFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.WishlistFindManyArgs>
-  ): Promise<Wishlist[]> {
-    return this.prisma.wishlist.findMany(args);
+  ): Promise<PrismaWishlist[]> {
+    return this.prisma.wishlist.findMany<Prisma.WishlistFindManyArgs>(args);
   }
   async wishlist<T extends Prisma.WishlistFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.WishlistFindUniqueArgs>
-  ): Promise<Wishlist | null> {
+  ): Promise<PrismaWishlist | null> {
     return this.prisma.wishlist.findUnique(args);
   }
   async createWishlist<T extends Prisma.WishlistCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.WishlistCreateArgs>
-  ): Promise<Wishlist> {
+  ): Promise<PrismaWishlist> {
     return this.prisma.wishlist.create<T>(args);
   }
   async updateWishlist<T extends Prisma.WishlistUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.WishlistUpdateArgs>
-  ): Promise<Wishlist> {
+  ): Promise<PrismaWishlist> {
     return this.prisma.wishlist.update<T>(args);
   }
   async deleteWishlist<T extends Prisma.WishlistDeleteArgs>(
     args: Prisma.SelectSubset<T, Prisma.WishlistDeleteArgs>
-  ): Promise<Wishlist> {
+  ): Promise<PrismaWishlist> {
     return this.prisma.wishlist.delete(args);
   }
 
-  async getListing(parentId: string): Promise<Listing | null> {
+  async getListing(parentId: string): Promise<PrismaListing | null> {
     return this.prisma.wishlist
       .findUnique({
         where: { id: parentId },
@@ -61,7 +59,7 @@ export class WishlistServiceBase {
       .listing();
   }
 
-  async getUser(parentId: string): Promise<User | null> {
+  async getUser(parentId: string): Promise<PrismaUser | null> {
     return this.prisma.wishlist
       .findUnique({
         where: { id: parentId },

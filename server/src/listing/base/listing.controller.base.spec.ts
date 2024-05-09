@@ -20,6 +20,7 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
   description: "exampleDescription",
+  guests: 42.424242424,
   id: "exampleId",
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",
@@ -33,6 +34,7 @@ const CREATE_INPUT = {
 const CREATE_RESULT = {
   createdAt: new Date(),
   description: "exampleDescription",
+  guests: 42.424242424,
   id: "exampleId",
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",
@@ -47,6 +49,7 @@ const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
     description: "exampleDescription",
+    guests: 42.424242424,
     id: "exampleId",
     locationType: "exampleLocationType",
     placeType: "examplePlaceType",
@@ -61,6 +64,7 @@ const FIND_MANY_RESULT = [
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
   description: "exampleDescription",
+  guests: 42.424242424,
   id: "exampleId",
   locationType: "exampleLocationType",
   placeType: "examplePlaceType",

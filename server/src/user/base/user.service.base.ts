@@ -13,14 +13,14 @@ import { PrismaService } from "../../prisma/prisma.service";
 
 import {
   Prisma,
-  User, // @ts-ignore
-  Invoice, // @ts-ignore
-  Listing, // @ts-ignore
-  Notification, // @ts-ignore
-  PasswordResetToken, // @ts-ignore
-  Review, // @ts-ignore
-  Trip, // @ts-ignore
-  Wishlist,
+  User as PrismaUser,
+  Invoice as PrismaInvoice,
+  Listing as PrismaListing,
+  Notification as PrismaNotification,
+  PasswordResetToken as PrismaPasswordResetToken,
+  Review as PrismaReview,
+  Trip as PrismaTrip,
+  Wishlist as PrismaWishlist,
 } from "@prisma/client";
 
 import { PasswordService } from "../../auth/password.service";
@@ -32,25 +32,23 @@ export class UserServiceBase {
     protected readonly passwordService: PasswordService
   ) {}
 
-  async count<T extends Prisma.UserCountArgs>(
-    args: Prisma.SelectSubset<T, Prisma.UserCountArgs>
-  ): Promise<number> {
+  async count(args: Omit<Prisma.UserCountArgs, "select">): Promise<number> {
     return this.prisma.user.count(args);
   }
 
   async users<T extends Prisma.UserFindManyArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserFindManyArgs>
-  ): Promise<User[]> {
-    return this.prisma.user.findMany(args);
+  ): Promise<PrismaUser[]> {
+    return this.prisma.user.findMany<Prisma.UserFindManyArgs>(args);
   }
   async user<T extends Prisma.UserFindUniqueArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserFindUniqueArgs>
-  ): Promise<User | null> {
+  ): Promise<PrismaUser | null> {
     return this.prisma.user.findUnique(args);
   }
   async createUser<T extends Prisma.UserCreateArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserCreateArgs>
-  ): Promise<User> {
+  ): Promise<PrismaUser> {
     return this.prisma.user.create<T>({
       ...args,
 
@@ -62,7 +60,7 @@ export class UserServiceBase {
   }
   async updateUser<T extends Prisma.UserUpdateArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserUpdateArgs>
-  ): Promise<User> {
+  ): Promise<PrismaUser> {
     return this.prisma.user.update<T>({
       ...args,
 
@@ -80,14 +78,14 @@ export class UserServiceBase {
   }
   async deleteUser<T extends Prisma.UserDeleteArgs>(
     args: Prisma.SelectSubset<T, Prisma.UserDeleteArgs>
-  ): Promise<User> {
+  ): Promise<PrismaUser> {
     return this.prisma.user.delete(args);
   }
 
   async findInvoices(
     parentId: string,
     args: Prisma.InvoiceFindManyArgs
-  ): Promise<Invoice[]> {
+  ): Promise<PrismaInvoice[]> {
     return this.prisma.user
       .findUniqueOrThrow({
         where: { id: parentId },
@@ -98,7 +96,7 @@ export class UserServiceBase {
   async findListings(
     parentId: string,
     args: Prisma.ListingFindManyArgs
-  ): Promise<Listing[]> {
+  ): Promise<PrismaListing[]> {
     return this.prisma.user
       .findUniqueOrThrow({
         where: { id: parentId },
@@ -109,7 +107,7 @@ export class UserServiceBase {
   async findNotifications(
     parentId: string,
     args: Prisma.NotificationFindManyArgs
-  ): Promise<Notification[]> {
+  ): Promise<PrismaNotification[]> {
     return this.prisma.user
       .findUniqueOrThrow({
         where: { id: parentId },
@@ -120,7 +118,7 @@ export class UserServiceBase {
   async findPasswordResetTokens(
     parentId: string,
     args: Prisma.PasswordResetTokenFindManyArgs
-  ): Promise<PasswordResetToken[]> {
+  ): Promise<PrismaPasswordResetToken[]> {
     return this.prisma.user
       .findUniqueOrThrow({
         where: { id: parentId },
@@ -131,7 +129,7 @@ export class UserServiceBase {
   async findReviews(
     parentId: string,
     args: Prisma.ReviewFindManyArgs
-  ): Promise<Review[]> {
+  ): Promise<PrismaReview[]> {
     return this.prisma.user
       .findUniqueOrThrow({
         where: { id: parentId },
@@ -142,7 +140,7 @@ export class UserServiceBase {
   async findTrips(
     parentId: string,
     args: Prisma.TripFindManyArgs
-  ): Promise<Trip[]> {
+  ): Promise<PrismaTrip[]> {
     return this.prisma.user
       .findUniqueOrThrow({
         where: { id: parentId },
@@ -153,7 +151,7 @@ export class UserServiceBase {
   async findWishlists(
     parentId: string,
     args: Prisma.WishlistFindManyArgs
-  ): Promise<Wishlist[]> {
+  ): Promise<PrismaWishlist[]> {
     return this.prisma.user
       .findUniqueOrThrow({
         where: { id: parentId },
