@@ -237,9 +237,9 @@ const page = ({ params: { listing } }) => {
   };
 
   const handleReservationSubmit = async () => {
-    if(parseInt(guestsNumber) > parseInt(reservationData.listing.placeSpace.guests)){
+    if (parseInt(guestsNumber) > parseInt(reservationData.listing.guests)) {
       showAlert(15);
-    }else{
+    } else {
       const data = {
         listingId: reservationData.listingId,
         userId: userInfo?.id,
@@ -259,7 +259,7 @@ const page = ({ params: { listing } }) => {
           type: "reservation",
         },
       };
-  
+
       const result = await Swal.fire({
         icon: "info",
         title: "Reservation confirmation",
@@ -270,7 +270,7 @@ const page = ({ params: { listing } }) => {
         padding: "2em",
         customClass: "sweet-alerts",
       });
-  
+
       if (result.value) {
         setLoading(true);
         const response = await addTrip(data);
@@ -292,21 +292,21 @@ const page = ({ params: { listing } }) => {
   // Show alert warning
   const showAlert = async (type) => {
     if (type === 15) {
-        const toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-        });
-        toast.fire({
-            icon: 'warning',
-            title: 'Maximum guests is 50',
-            padding: '10px 20px',
-            background: '#3b3f5c',
-            color:'#fff',
-        });
+      const toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      toast.fire({
+        icon: "warning",
+        title: "Maximum guests is 50",
+        padding: "10px 20px",
+        background: "#3b3f5c",
+        color: "#fff",
+      });
     }
-}
+  };
 
   return (
     <div className="grid sm:grid-rows-new-reservation grid-rows-new-reservation-mobile md:h-[150vh] h-[170vh]">
@@ -575,12 +575,12 @@ const page = ({ params: { listing } }) => {
                   {reservationData.listing.region}
                 </span>
                 {rating > 0 && (
-          <span className="font-bold flex items-center gap-1">
-            <FaStar color="f97316" size={15} />{" "}
-            <span className="text-sm">{rating.toFixed(1)}</span>
-            <span className="text-sm text-[#99a3b3]">{`(${reservationData?.listing?.reviews?.length})`}</span>
-          </span>
-        )}
+                  <span className="font-bold flex items-center gap-1">
+                    <FaStar color="f97316" size={15} />{" "}
+                    <span className="text-sm">{rating.toFixed(1)}</span>
+                    <span className="text-sm text-[#99a3b3]">{`(${reservationData?.listing?.reviews?.length})`}</span>
+                  </span>
+                )}
               </div>
             </div>
             <div className="flex flex-col gap-4 border-b border-[#d3d3d3] pb-4 ">
@@ -633,7 +633,7 @@ const page = ({ params: { listing } }) => {
                   <label className="font-semibold text-xs">GUESTS</label>
                   <input
                     type="number"
-                    max={reservationData.listing.placeSpace.guests}
+                    max={reservationData.listing.guests}
                     className="text-sm px-1 py-1 border-none outline-none"
                     value={guestsNumber}
                     onChange={(e) => setGuestsNumber(e.target.value)}

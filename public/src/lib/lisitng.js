@@ -141,9 +141,8 @@ export const getSearchListing = async (searchTerm) => {
       ],
       AND: [
         searchTerm?.guests && {
-          placeSpace: {
-            path: ["guests"],
-            lte: searchTerm?.guests,
+          guests: {
+            gte: searchTerm?.guests,
           },
         },
       ],

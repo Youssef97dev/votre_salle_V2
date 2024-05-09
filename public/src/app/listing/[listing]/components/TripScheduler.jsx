@@ -90,15 +90,15 @@ export default function TripScheduler({ t }) {
       const data = {
         listingId: currentListing.id,
         listing: {
-          placeSpace: currentListing.placeSpace,
+          guests: currentListing.guests,
           prestation: currentListing.prestation,
           photos: currentListing.photos,
           tax: currentListing.tax,
-          placeType : currentListing.placeType,
-          locationType : currentListing.locationType,
+          placeType: currentListing.placeType,
+          locationType: currentListing.locationType,
           title: currentListing.title,
           region: currentListing.locationData.region,
-          reviews: currentListing?.reviews
+          reviews: currentListing?.reviews,
         },
         userId: userInfo?.id,
         tripData: {
@@ -145,7 +145,7 @@ export default function TripScheduler({ t }) {
         `/reservation/${currentListing.id}?data=${JSON.stringify(data)}`
       );
       //}
-    }else {
+    } else {
       router.push(`/auth/signin`);
     }
   };
@@ -299,8 +299,7 @@ export default function TripScheduler({ t }) {
               onClick={handleReservation}
               //onClick={() => router.push(`/reservation/${currentListing.id}`)}
               disabled={
-                loading ||
-                (guests > currentListing.placeSpace.guests ? true : false)
+                loading || (guests > currentListing.guests ? true : false)
               }
             >
               <ClockLoader color="#fbfffe" loading={loading} size={25} />{" "}

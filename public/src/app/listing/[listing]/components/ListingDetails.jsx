@@ -44,8 +44,8 @@ const ListingDetails = ({ t }) => {
       </span>
       <div className="flex items-center gap-4 pt-3 text-xs md:text-sm text-[#6e7582] font-bold">
         <div className="inline-flex items-center gap-2">
-          <IoPersonOutline size={15} color="#6e7582" />{" "}
-          {currentListing?.placeSpace?.guests} {t("page.listing.guests")}
+          <IoPersonOutline size={15} color="#6e7582" /> {currentListing?.guests}{" "}
+          {t("page.listing.guests")}
         </div>
         <div className="inline-flex items-center gap-2">
           <FaRegStar size={15} color="#6e7582" />{" "}

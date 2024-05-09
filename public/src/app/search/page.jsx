@@ -16,13 +16,8 @@ import dynamic from "next/dynamic";
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 
 export default function Page() {
-  const {
-    isAuthModalOpen,
-    searchLocation,
-    setSearchListings,
-    searchListings,
-    listingInfo,
-  } = userAppStore();
+  const { searchLocation, setSearchListings, searchListings, listingInfo } =
+    userAppStore();
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
   useEffect(() => {

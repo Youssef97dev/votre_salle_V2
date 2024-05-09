@@ -39,7 +39,7 @@ function Page() {
     setPrice,
     setTax,
     setPriceB2b,
-    setPlaceSpace,
+    setGuests,
   } = userAppStore();
 
   const [listingId, setListingId] = useState("");
@@ -63,7 +63,7 @@ function Page() {
       setPrice(data?.price);
       setTax(parseInt(data?.tax));
       setPriceB2b(data?.priceB2b);
-      setPlaceSpace({ guests: data?.placeSpace?.guests });
+      setGuests(data?.guests);
       console.log(data);
     };
     if (listingId) getData();

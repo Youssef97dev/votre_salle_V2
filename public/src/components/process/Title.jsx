@@ -13,12 +13,12 @@ export default function Title({ t }) {
     setTax,
     priceB2b,
     setPriceB2b,
-    placeSpace,
-    setPlaceSpace,
+    guests,
+    setGuests,
   } = userAppStore();
 
   const handleChangeGuest = (e) => {
-    setPlaceSpace({ ...placeSpace, guests: e.target.value });
+    setGuests(parseInt(e.target.value));
   };
 
   return (
@@ -165,7 +165,7 @@ export default function Title({ t }) {
               <input
                 id="gridGuests"
                 type="number"
-                value={placeSpace.guests}
+                value={guests}
                 className="form-input"
                 min={0}
                 onChange={(e) => handleChangeGuest(e)}
