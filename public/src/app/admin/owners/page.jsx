@@ -11,6 +11,8 @@ import moment from "moment";
 // Icons
 import { IoMdSearch } from "react-icons/io";
 import { MdAddRoad } from "react-icons/md";
+import { MdEditSquare } from "react-icons/md";
+import { RiUserForbidFill } from "react-icons/ri";
 
 // Components
 import CompactFooter from "airbnb/components/footer/CompactFooter";
@@ -20,12 +22,13 @@ const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
   ssr: false,
 });
 import AddOwner from "../components/AddOwner";
+import EditOwner from "../components/EditOwner";
 
 // Hooks
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
 
 // APIs
-import {confirmChangeTypeUser, getUsers } from "airbnb/lib/admin";
+import { confirmChangeTypeUser, getUsers } from "airbnb/lib/admin";
 
 // Store
 import { userAppStore } from "airbnb/store/store";
@@ -43,6 +46,8 @@ const page = () => {
   const [isClient, setIsClient] = useState(false);
 
   const [showAddOwner, setShowAddOwner] = useState(false);
+  const [showEditOwner, setShowEditOwner] = useState(false);
+  const [dataRow, setDataRow] = useState({});
 
   const PAGE_SIZES = [7, 10, 20, 30, 50, 100];
   const [page, setPage] = useState(1);
@@ -156,8 +161,8 @@ const page = () => {
     }
   };
 
-   // Change Role User
-   const changeRoleUser = async (id, role) => {
+  // Change Role User
+  const changeRoleUser = async (id, role) => {
     const result = await Swal.fire({
       icon: "warning",
       title: `Confirm to change to ${role}`,
@@ -203,6 +208,12 @@ const page = () => {
     }
   };
 
+  // Edit Owner
+  const editOwner = (row) => {
+    setDataRow(row);
+    setShowEditOwner(true);
+  };
+
   return (
     <>
       {!isClient ? (
@@ -215,17 +226,24 @@ const page = () => {
               {/*<Image src="/search.svg" width="20" className="absolute left-1 top-2" height="20" alt="search" />*/}
               <div className="relative flex items-center justify-between rounded-md">
                 <div className="w-full">
-                <IoMdSearch color="#888ea8" size={20} className="absolute left-1 top-5" />
-                <input
-                  type="text"
-                  className="form-input w-full lg:w-1/5 rounded-lg pl-6 border shadow-md my-3"
-                  placeholder="Search..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
+                  <IoMdSearch
+                    color="#888ea8"
+                    size={20}
+                    className="absolute left-1 top-5"
+                  />
+                  <input
+                    type="text"
+                    className="form-input w-full lg:w-1/5 rounded-lg pl-6 border shadow-md my-3"
+                    placeholder="Search..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
                 </div>
-                <button onClick={() => setShowAddOwner(true)} className="btn btn-primary flex items-center gap-3 whitespace-nowrap">
-                    <MdAddRoad size={18} /> Add Owner
+                <button
+                  onClick={() => setShowAddOwner(true)}
+                  className="btn btn-primary flex items-center gap-3 whitespace-nowrap"
+                >
+                  <MdAddRoad size={18} /> Add Owner
                 </button>
               </div>
               <div className="panel border-[#e0e6ed] px-0 pt-0">
@@ -238,7 +256,7 @@ const page = () => {
                         {
                           accessor: "Full name",
                           textAlignment: "center",
-                          width: 80,
+                          width: 100,
                           render: ({ firstName, lastName }) => (
                             <div className="px-6 py-4">
                               {firstName} {lastName}
@@ -248,7 +266,7 @@ const page = () => {
                         {
                           accessor: "Email",
                           textAlignment: "center",
-                          width: 100,
+                          width: 220,
                           render: ({ username }) => (
                             <div className="px-6 py-4">{username}</div>
                           ),
@@ -262,19 +280,39 @@ const page = () => {
                           ),
                         },
                         {
-                          accessor: "Adresse",
-                          textAlignment: "center",
-                          width: 180,
-                          render: ({ adresse }) => (
-                            <div className="px-6 py-4">{adresse}</div>
-                          ),
-                        },
-                        {
                           accessor: "Halls Count",
                           textAlignment: "center",
                           width: 50,
                           render: ({ listings }) => (
                             <div className="px-6 py-4">{listings?.length}</div>
+                          ),
+                        },
+                        {
+                          accessor: "Pack",
+                          textAlignment: "center",
+                          width: 80,
+                          render: ({ pack }) => (
+                            <div className="px-6 py-4">
+                              <div
+                                className={`badge w-full border-2 border-dashed py-2 ${
+                                  pack === 0
+                                    ? "badge-outline-danger"
+                                    : pack >= 3 && pack < 8
+                                    ? "badge-outline-secondary"
+                                    : pack >= 8 && pack < 15
+                                    ? "badge-outline-primary"
+                                    : pack >= 15 && "badge-outline-warning"
+                                }`}
+                              >
+                                {pack === 0
+                                  ? "No pack"
+                                  : pack >= 3 && pack < 8
+                                  ? "Starter"
+                                  : pack >= 8 && pack < 15
+                                  ? "Professional"
+                                  : pack >= 15 && "Gold"}
+                              </div>
+                            </div>
                           ),
                         },
                         {
@@ -312,23 +350,43 @@ const page = () => {
                           accessor: "Actions",
                           textAlignment: "center",
                           width: 100,
-                          render: ({ id, typeUser, typeUserNotification }) => (
+                          render: (row) => (
                             <div className="flex items-center justify-center gap-2 w-full">
-                              {typeUserNotification !== typeUser &&
-                                typeUserNotification !== null && (
+                              {row.typeUserNotification !== row.typeUser &&
+                                row.typeUserNotification !== null && (
                                   <button
                                     onClick={() =>
-                                      updateTypeUser(id, typeUserNotification)
+                                      updateTypeUser(
+                                        row.id,
+                                        row.typeUserNotification
+                                      )
                                     }
                                     className={`btn btn-danger`}
                                     disabled={loading}
                                   >
-                                    Change to {typeUserNotification}
+                                    Change to {row.typeUserNotification}
                                   </button>
                                 )}
-                                <button onClick={() => changeRoleUser(id, "user") } className={`btn btn-primary`} disabled={loading}>
-                                  set As User
-                                </button>
+                              <button
+                                onClick={() => changeRoleUser(row.id, "user")}
+                                className={`btn btn-warning`}
+                                disabled={loading}
+                              >
+                                <RiUserForbidFill
+                                  color="#fff"
+                                  className={`text-lg`}
+                                />
+                              </button>
+                              <button
+                                onClick={() => editOwner(row)}
+                                className={`btn btn-info`}
+                                disabled={loading}
+                              >
+                                <MdEditSquare
+                                  color="#fff"
+                                  className={`text-lg`}
+                                />
+                              </button>
                             </div>
                           ),
                         },
@@ -353,7 +411,21 @@ const page = () => {
             </div>
           </div>
           <CompactFooter />
-          {showAddOwner && <AddOwner showAddOwner={showAddOwner} setShowAddOwner={setShowAddOwner} setRelaunchData={setRelaunchData} />}
+          {showAddOwner && (
+            <AddOwner
+              showAddOwner={showAddOwner}
+              setShowAddOwner={setShowAddOwner}
+              setRelaunchData={setRelaunchData}
+            />
+          )}
+          {showEditOwner && (
+            <EditOwner
+              showEditOwner={showEditOwner}
+              setShowEditOwner={setShowEditOwner}
+              dataRow={dataRow}
+              setRelaunchData={setRelaunchData}
+            />
+          )}
           {!isDesktop && <NavbarMobile />}
         </div>
       )}

@@ -102,6 +102,39 @@ export const addOwner = async (
   }
 };
 
+export const editOwner = async (
+  username,
+  firstName,
+  lastName,
+  phone,
+  adresse,
+  pack,
+  companyInfo,
+  profileLogo,
+  userId
+) => {
+  try {
+    const data = {
+      username,
+      firstName,
+      lastName,
+      phone,
+      adresse,
+      pack: parseInt(pack),
+      companyInfo,
+      profileLogo,
+    };
+    console.log(data);
+    const result = await axios.patch(createUrl(`/api/users/${userId}`), {
+      ...data,
+    });
+    return result;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 // Charts
 export const getCount = async (titleLink) => {
   try {

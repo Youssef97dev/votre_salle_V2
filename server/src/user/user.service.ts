@@ -33,6 +33,8 @@ export class UserService extends UserServiceBase {
             args.data.password,
             (password) => this.passwordService.hash(password)
           )),
+
+        companyInfo: args.data.companyInfo ? args.data.companyInfo : undefined,
       },
     });
   }
