@@ -49,4 +49,6 @@ export const createProcessSlice = (set, get) => ({
   setTax: (tax) => set({ tax }),
   priceB2b: 0,
   setPriceB2b: (priceB2b) => set({ priceB2b }),
+  conditions: undefined,
+  setConditions: (conditions) => set({ conditions }),
 });

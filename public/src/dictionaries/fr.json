@@ -211,6 +211,13 @@
         "visite": "Visiter la page d'accueil",
         "view": "Consultez vos annonces"
       },
+      "conditions": {
+        "title": "Choses à savoir",
+        "subtitle_cancellation": "Politique d'annulation",
+        "subtitle_time": "Heure d'arrivée",
+        "checkIn": "Arrivée",
+        "checkOut": "Départ"
+      },
       "back": "Retourner",
       "update_hall": "Mettez à jour votre salle",
       "add_hall": "Ajoutez votre salle",

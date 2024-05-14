@@ -8,6 +8,7 @@ import PlaceLocation from "airbnb/components/process/PlaceLocation";
 import ProcessAmeneties from "airbnb/components/process/ProcessAmeneties";
 import StepOneStarter from "airbnb/components/process/StepOneStarter";
 import StepTwoStarter from "airbnb/components/process/StepTwoStarter";
+import Conditions from "airbnb/components/process/Conditions";
 import Title from "airbnb/components/process/Title";
 import { userAppStore } from "airbnb/store/store";
 import AirBnbLogoShort from "airbnb/svg/airbnb-logo-short";
@@ -40,6 +41,7 @@ function Page() {
     setTax,
     setPriceB2b,
     setGuests,
+    setConditions,
   } = userAppStore();
 
   const [listingId, setListingId] = useState("");
@@ -64,6 +66,7 @@ function Page() {
       setTax(parseInt(data?.tax));
       setPriceB2b(data?.priceB2b);
       setGuests(data?.guests);
+      setConditions(data?.conditions);
       console.log(data);
     };
     if (listingId) getData();
@@ -96,8 +99,10 @@ function Page() {
       case 8:
         return <Photos t={t} />;
       case 9:
-        return <Title t={t} />;
+        return <Conditions t={t} />;
       case 10:
+        return <Title t={t} />;
+      case 11:
         return <ListingCreated listingId={listingId} t={t} />;
       default:
         return <></>;

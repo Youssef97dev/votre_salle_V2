@@ -211,6 +211,13 @@
         "visite": "Visite home page",
         "view": "View your listings"
       },
+      "conditions": {
+        "title": "Things to know",
+        "subtitle_cancellation": "Cancellation policy",
+        "subtitle_time": "Check-in time",
+        "checkIn": "Check-in",
+        "checkOut": "Check-out"
+      },
       "back": "Go Back",
       "update_hall": "Update Your Hall",
       "add_hall": "Add Your Hall",

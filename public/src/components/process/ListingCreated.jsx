@@ -20,6 +20,7 @@ export default function ListingCreated({ listingId, t }) {
     priceB2b,
     userInfo,
     tax,
+    conditions,
   } = userAppStore();
   useEffect(() => {
     if (listingId === "" || listingId === null) {
@@ -37,6 +38,7 @@ export default function ListingCreated({ listingId, t }) {
         priceB2b,
         listingCreatedBy: { id: userInfo?.id },
         tax,
+        conditions,
       });
     } else {
       updateLisitngAPI(listingId, {
@@ -53,6 +55,7 @@ export default function ListingCreated({ listingId, t }) {
         priceB2b,
         listingCreatedBy: { id: userInfo?.id },
         tax,
+        conditions,
       });
     }
   }, [
@@ -69,6 +72,7 @@ export default function ListingCreated({ listingId, t }) {
     priceB2b,
     userInfo,
     tax,
+    conditions,
   ]);
 
   return (
