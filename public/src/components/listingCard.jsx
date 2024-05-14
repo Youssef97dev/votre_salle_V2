@@ -169,7 +169,9 @@ export default function ListingCard({
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
-                      router.push(`/new-listing?listingId=${data.id}`);
+                      router.push(
+                        `/new-listing?listingId=${data.id}&slug=${data.slug}`
+                      );
                     }}
                     className={`absolute z-20 right-2 top-2 rounded-full p-2 bg-[#02020280] cursor-pointer hover:bg-slate-900 ${
                       hover ? "block" : "hidden"

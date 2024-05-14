@@ -45,16 +45,19 @@ function Page() {
   } = userAppStore();
 
   const [listingId, setListingId] = useState("");
+  const [slug, setSlug] = useState("");
 
   useEffect(() => {
     resetNewListingData();
     setListingId(searchParams.get("listingId"));
+    setSlug(searchParams.get("slug"));
   }, [resetNewListingData]);
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getListing(listingId);
-      setCurrentListing(data);
+      const data = await getListing(slug);
+      console.log(data);
+      //setCurrentListing(data);
       setLocationType(data?.locationType);
       setMapData(data?.mapData);
       setLocationData(data?.locationData);
@@ -69,8 +72,8 @@ function Page() {
       setConditions(data?.conditions);
       console.log(data);
     };
-    if (listingId) getData();
-  }, [listingId, setCurrentListing]);
+    if (slug && listingId) getData();
+  }, [slug, listingId]);
 
   const handleNext = () => {
     setStep(step + 1);
@@ -129,7 +132,7 @@ function Page() {
         {getComponent()}
       </div>
       <div className="flex justify-end items-center gap-5 mx-4 md:mx-[150px] lg:mx-[200px] 2lg:mx-[350px] xl:mx-[400px]  ">
-        {step >= 2 && step <= 9 ? (
+        {step >= 2 && step <= 10 ? (
           <button
             onClick={handlePrevious}
             className="btn btn-primary rounded-3xl font-bold"
@@ -137,7 +140,7 @@ function Page() {
             {t("page.new_listing.back")}
           </button>
         ) : null}
-        {step === 9 ? (
+        {step === 10 ? (
           <button
             onClick={handleNext}
             className="btn btn-primary rounded-3xl font-bold"
@@ -147,7 +150,7 @@ function Page() {
               : `${t("page.new_listing.add_hall")}`}
           </button>
         ) : (
-          step <= 8 && (
+          step <= 9 && (
             <button
               onClick={handleNext}
               className="btn btn-primary rounded-3xl font-bold"

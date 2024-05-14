@@ -215,8 +215,10 @@
         "title": "Things to know",
         "subtitle_cancellation": "Cancellation policy",
         "subtitle_time": "Check-in time",
-        "checkIn": "Check-in",
-        "checkOut": "Check-out"
+        "first_checkIn": "First Check-in",
+        "last_checkIn": "Last Check-in",
+        "first_checkOut": "First Check-out",
+        "last_checkOut": "Last Check-in"
       },
       "back": "Go Back",
       "update_hall": "Update Your Hall",

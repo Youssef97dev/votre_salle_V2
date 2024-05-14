@@ -215,8 +215,10 @@
         "title": "Choses à savoir",
         "subtitle_cancellation": "Politique d'annulation",
         "subtitle_time": "Heure d'arrivée",
-        "checkIn": "Arrivée",
-        "checkOut": "Départ"
+        "first_checkIn": "Premier Arrivée",
+        "last_checkIn": "Dernier Arrivée",
+        "first_checkOut": "Premier Départ",
+        "last_checkOut": "Dernier Départ"
       },
       "back": "Retourner",
       "update_hall": "Mettez à jour votre salle",

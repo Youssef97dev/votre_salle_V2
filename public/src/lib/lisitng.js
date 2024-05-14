@@ -80,7 +80,9 @@ export const getAllListings_sitemap = async () => {
 
 export const getListing = async (listingId) => {
   const result = await axios.get(createUrl(`/api/listings/${listingId}`));
+  console.log("http: ", result);
   if (!result) {
+    return;
   }
   return result.data;
 };

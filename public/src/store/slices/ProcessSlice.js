@@ -18,6 +18,7 @@ export const createProcessSlice = (set, get) => ({
       price: 0,
       priceB2b: 0,
       tax: 10,
+      conditions: undefined,
     }),
   locationType: undefined,
   setLocationType: (locationType) => set({ locationType }),
