@@ -12,6 +12,7 @@ import ListingAmenties from "./components/ListingAmenties";
 import ListingMap from "./components/ListingMap";
 import Reviews from "./components/Reviews";
 import ListingDetails from "./components/ListingDetails";
+import ListingConditions from "./components/ListingConditions";
 import { getListing } from "airbnb/lib/lisitng";
 import dynamic from "next/dynamic";
 
@@ -69,6 +70,7 @@ export default function Page({ params: { listing } }) {
                 <ListingDescription />
                 <ListingAmenties t={t} />
                 <Reviews t={t} />
+                <ListingConditions />
                 <ListingMap />
               </div>
               {isDesktop && (
