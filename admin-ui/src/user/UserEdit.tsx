@@ -82,6 +82,7 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <BooleanInput label="suspended" source="suspended" />
         <ReferenceArrayInput
           source="trips"
           reference="Trip"

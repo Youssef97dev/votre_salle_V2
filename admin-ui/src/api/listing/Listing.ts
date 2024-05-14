@@ -1,11 +1,12 @@
+import { JsonValue } from "type-fest";
 import { Decimal } from "decimal.js";
 import { User } from "../user/User";
-import { JsonValue } from "type-fest";
 import { Review } from "../review/Review";
 import { Trip } from "../trip/Trip";
 import { Wishlist } from "../wishlist/Wishlist";
 
 export type Listing = {
+  conditions: JsonValue;
   createdAt: Date;
   description: string;
   guests: Decimal;

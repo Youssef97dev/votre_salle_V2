@@ -21,6 +21,7 @@ export const ListingCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <div />
         <TextInput label="description" multiline source="description" />
         <NumberInput label="guests" source="guests" />
         <ReferenceInput

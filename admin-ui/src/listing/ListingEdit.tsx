@@ -21,6 +21,7 @@ export const ListingEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <div />
         <TextInput label="description" multiline source="description" />
         <NumberInput label="guests" source="guests" />
         <ReferenceInput

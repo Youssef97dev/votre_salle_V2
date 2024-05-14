@@ -11,12 +11,12 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { JsonFilter } from "../../util/JsonFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
-import { JsonFilter } from "../../util/JsonFilter";
 import { FloatFilter } from "../../util/FloatFilter";
 import { ReviewListRelationFilter } from "../../review/base/ReviewListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
@@ -25,6 +25,17 @@ import { WishlistListRelationFilter } from "../../wishlist/base/WishlistListRela
 
 @InputType()
 class ListingWhereInput {
+  @ApiProperty({
+    required: false,
+    type: JsonFilter,
+  })
+  @Type(() => JsonFilter)
+  @IsOptional()
+  @Field(() => JsonFilter, {
+    nullable: true,
+  })
+  conditions?: JsonFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,

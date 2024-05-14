@@ -11,24 +11,34 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsJSONValue } from "../../validators";
 import {
-  IsString,
   IsOptional,
+  IsString,
   IsNumber,
   ValidateNested,
 } from "class-validator";
+import { GraphQLJSON } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
 import { Decimal } from "decimal.js";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { Type } from "class-transformer";
-import { IsJSONValue } from "../../validators";
-import { GraphQLJSON } from "graphql-type-json";
-import { InputJsonValue } from "../../types";
 import { ReviewUpdateManyWithoutListingsInput } from "./ReviewUpdateManyWithoutListingsInput";
 import { TripUpdateManyWithoutListingsInput } from "./TripUpdateManyWithoutListingsInput";
 import { WishlistUpdateManyWithoutListingsInput } from "./WishlistUpdateManyWithoutListingsInput";
 
 @InputType()
 class ListingUpdateInput {
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  conditions?: InputJsonValue;
+
   @ApiProperty({
     required: false,
     type: String,

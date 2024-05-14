@@ -26,6 +26,7 @@ export type User = {
   reviews?: Array<Review>;
   roleNotification: string | null;
   roles: JsonValue;
+  suspended: boolean | null;
   trips?: Array<Trip>;
   typeUser: string;
   typeUserNotification: string | null;

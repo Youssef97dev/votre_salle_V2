@@ -69,6 +69,7 @@ export class ListingControllerBase {
         },
       },
       select: {
+        conditions: true,
         createdAt: true,
         description: true,
         guests: true,
@@ -114,6 +115,7 @@ export class ListingControllerBase {
     return this.service.listings({
       ...args,
       select: {
+        conditions: true,
         createdAt: true,
         description: true,
         guests: true,
@@ -171,6 +173,7 @@ export class ListingControllerBase {
     const result = await this.service.listing({
       where: {slug: params.id},
       select: {
+        conditions: true,
         createdAt: true,
         description: true,
         guests: true,
@@ -250,6 +253,7 @@ export class ListingControllerBase {
           },
         },
         select: {
+          conditions: true,
           createdAt: true,
           description: true,
           guests: true,
@@ -304,6 +308,7 @@ export class ListingControllerBase {
       return await this.service.deleteListing({
         where: params,
         select: {
+          conditions: true,
           createdAt: true,
           description: true,
           guests: true,
