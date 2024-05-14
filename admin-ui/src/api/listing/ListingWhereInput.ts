@@ -1,7 +1,7 @@
+import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { DecimalFilter } from "../../util/DecimalFilter";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
-import { JsonFilter } from "../../util/JsonFilter";
 import { FloatFilter } from "../../util/FloatFilter";
 import { ReviewListRelationFilter } from "../review/ReviewListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
@@ -9,6 +9,7 @@ import { TripListRelationFilter } from "../trip/TripListRelationFilter";
 import { WishlistListRelationFilter } from "../wishlist/WishlistListRelationFilter";
 
 export type ListingWhereInput = {
+  conditions?: JsonFilter;
   description?: StringFilter;
   guests?: DecimalFilter;
   id?: StringFilter;

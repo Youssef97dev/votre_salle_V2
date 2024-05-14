@@ -25,6 +25,7 @@ export type UserUpdateInput = {
   reviews?: ReviewUpdateManyWithoutUsersInput;
   roleNotification?: string | null;
   roles?: InputJsonValue;
+  suspended?: boolean | null;
   trips?: TripUpdateManyWithoutUsersInput;
   typeUser?: string;
   typeUserNotification?: string | null;

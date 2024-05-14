@@ -28,6 +28,7 @@ export type UserWhereInput = {
   profileLogo?: StringNullableFilter;
   reviews?: ReviewListRelationFilter;
   roleNotification?: StringNullableFilter;
+  suspended?: BooleanNullableFilter;
   trips?: TripListRelationFilter;
   typeUser?: StringFilter;
   typeUserNotification?: StringNullableFilter;

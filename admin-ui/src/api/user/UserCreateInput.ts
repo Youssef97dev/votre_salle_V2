@@ -25,6 +25,7 @@ export type UserCreateInput = {
   reviews?: ReviewCreateNestedManyWithoutUsersInput;
   roleNotification?: string | null;
   roles: InputJsonValue;
+  suspended?: boolean | null;
   trips?: TripCreateNestedManyWithoutUsersInput;
   typeUser: string;
   typeUserNotification?: string | null;

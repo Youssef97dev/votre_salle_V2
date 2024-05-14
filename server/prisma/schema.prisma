@@ -27,6 +27,7 @@ model User {
   reviews              Review[]
   roleNotification     String?
   roles                Json
+  suspended            Boolean?
   trips                Trip[]
   typeUser             String
   typeUserNotification String?
@@ -37,6 +38,7 @@ model User {
 }
 
 model Listing {
+  conditions         Json
   createdAt          DateTime   @default(now())
   description        String
   guests             Decimal

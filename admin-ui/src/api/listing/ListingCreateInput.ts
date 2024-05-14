@@ -1,11 +1,12 @@
+import { InputJsonValue } from "../../types";
 import { Decimal } from "decimal.js";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
-import { InputJsonValue } from "../../types";
 import { ReviewCreateNestedManyWithoutListingsInput } from "./ReviewCreateNestedManyWithoutListingsInput";
 import { TripCreateNestedManyWithoutListingsInput } from "./TripCreateNestedManyWithoutListingsInput";
 import { WishlistCreateNestedManyWithoutListingsInput } from "./WishlistCreateNestedManyWithoutListingsInput";
 
 export type ListingCreateInput = {
+  conditions: InputJsonValue;
   description: string;
   guests: Decimal;
   listingCreatedBy: UserWhereUniqueInput;

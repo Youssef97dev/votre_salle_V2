@@ -11,6 +11,9 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsJSONValue } from "../../validators";
+import { GraphQLJSON } from "graphql-type-json";
+import { JsonValue } from "type-fest";
 import {
   IsDate,
   IsString,
@@ -21,15 +24,19 @@ import {
 import { Type } from "class-transformer";
 import { Decimal } from "decimal.js";
 import { User } from "../../user/base/User";
-import { IsJSONValue } from "../../validators";
-import { GraphQLJSON } from "graphql-type-json";
-import { JsonValue } from "type-fest";
 import { Review } from "../../review/base/Review";
 import { Trip } from "../../trip/base/Trip";
 import { Wishlist } from "../../wishlist/base/Wishlist";
 
 @ObjectType()
 class Listing {
+  @ApiProperty({
+    required: true,
+  })
+  @IsJSONValue()
+  @Field(() => GraphQLJSON)
+  conditions!: JsonValue;
+
   @ApiProperty({
     required: true,
   })

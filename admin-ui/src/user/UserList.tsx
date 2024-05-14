@@ -32,6 +32,7 @@ export const UserList = (props: ListProps): React.ReactElement => {
         <TextField label="Profile Logo" source="profileLogo" />
         <TextField label="roleNotification" source="roleNotification" />
         <TextField label="Roles" source="roles" />
+        <BooleanField label="suspended" source="suspended" />
         <TextField label="typeUser" source="typeUser" />
         <TextField label="typeUserNotification" source="typeUserNotification" />
         <DateField source="updatedAt" label="Updated At" />

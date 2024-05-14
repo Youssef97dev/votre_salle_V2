@@ -15,6 +15,7 @@ export type UserOrderByInput = {
   profileLogo?: SortOrder;
   roleNotification?: SortOrder;
   roles?: SortOrder;
+  suspended?: SortOrder;
   typeUser?: SortOrder;
   typeUserNotification?: SortOrder;
   updatedAt?: SortOrder;

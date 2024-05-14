@@ -211,6 +211,17 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  suspended?: BooleanNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => TripListRelationFilter,
   })
   @ValidateNested()

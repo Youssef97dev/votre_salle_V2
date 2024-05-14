@@ -218,6 +218,17 @@ class UserCreateInput {
 
   @ApiProperty({
     required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  suspended?: boolean | null;
+
+  @ApiProperty({
+    required: false,
     type: () => TripCreateNestedManyWithoutUsersInput,
   })
   @ValidateNested()

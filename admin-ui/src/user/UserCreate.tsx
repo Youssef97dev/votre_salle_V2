@@ -82,6 +82,7 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <BooleanInput label="suspended" source="suspended" />
         <ReferenceArrayInput
           source="trips"
           reference="Trip"
