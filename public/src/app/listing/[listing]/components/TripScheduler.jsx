@@ -299,7 +299,10 @@ export default function TripScheduler({ t }) {
               onClick={handleReservation}
               //onClick={() => router.push(`/reservation/${currentListing.id}`)}
               disabled={
-                loading || (guests > currentListing.guests ? true : false)
+                loading ||
+                (parseInt(guests) > parseInt(currentListing.guests)
+                  ? true
+                  : false)
               }
             >
               <ClockLoader color="#fbfffe" loading={loading} size={25} />{" "}

@@ -274,7 +274,7 @@ const page = ({ params: { listing } }) => {
       if (result.value) {
         setLoading(true);
         const response = await addTrip(data);
-        if (response) {
+        if (response?.data) {
           await addToNotification(
             `${userInfo?.firstName} ${userInfo?.lastName}`,
             `Make a reservation at ${reservationData?.listing?.title}`,
@@ -284,23 +284,34 @@ const page = ({ params: { listing } }) => {
           );
           setLoading(false);
           router.push("/trips");
+        } else {
+          showAlert(1, response);
         }
       }
     }
   };
 
   // Show alert warning
-  const showAlert = async (type) => {
+  const showAlert = async (type, message = "") => {
+    const toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+
     if (type === 15) {
-      const toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-      });
       toast.fire({
         icon: "warning",
         title: "Maximum guests is 50",
+        padding: "10px 20px",
+        background: "#3b3f5c",
+        color: "#fff",
+      });
+    } else if (type === 1) {
+      toast.fire({
+        icon: "warning",
+        title: message,
         padding: "10px 20px",
         background: "#3b3f5c",
         color: "#fff",

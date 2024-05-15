@@ -160,6 +160,7 @@ input JsonFilter {
 }
 
 type Listing {
+  conditions: JSON!
   createdAt: DateTime!
   description: String!
   guests: Float!
@@ -184,6 +185,7 @@ type Listing {
 }
 
 input ListingCreateInput {
+  conditions: JSON!
   description: String!
   guests: Float!
   listingCreatedBy: UserWhereUniqueInput!
@@ -215,6 +217,7 @@ input ListingListRelationFilter {
 }
 
 input ListingOrderByInput {
+  conditions: SortOrder
   createdAt: SortOrder
   description: SortOrder
   guests: SortOrder
@@ -236,6 +239,7 @@ input ListingOrderByInput {
 }
 
 input ListingUpdateInput {
+  conditions: JSON
   description: String
   guests: Float
   listingCreatedBy: UserWhereUniqueInput
@@ -263,6 +267,7 @@ input ListingUpdateManyWithoutUsersInput {
 }
 
 input ListingWhereInput {
+  conditions: JsonFilter
   description: StringFilter
   guests: DecimalFilter
   id: StringFilter
@@ -683,6 +688,7 @@ type User {
   reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
   roleNotification: String
   roles: JSON!
+  suspended: Boolean
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
   typeUser: String!
   typeUserNotification: String
@@ -710,6 +716,7 @@ input UserCreateInput {
   reviews: ReviewCreateNestedManyWithoutUsersInput
   roleNotification: String
   roles: JSON!
+  suspended: Boolean
   trips: TripCreateNestedManyWithoutUsersInput
   typeUser: String!
   typeUserNotification: String
@@ -740,6 +747,7 @@ input UserOrderByInput {
   profileLogo: SortOrder
   roleNotification: SortOrder
   roles: SortOrder
+  suspended: SortOrder
   typeUser: SortOrder
   typeUserNotification: SortOrder
   updatedAt: SortOrder
@@ -765,6 +773,7 @@ input UserUpdateInput {
   reviews: ReviewUpdateManyWithoutUsersInput
   roleNotification: String
   roles: JSON
+  suspended: Boolean
   trips: TripUpdateManyWithoutUsersInput
   typeUser: String
   typeUserNotification: String
@@ -790,6 +799,7 @@ input UserWhereInput {
   profileLogo: StringNullableFilter
   reviews: ReviewListRelationFilter
   roleNotification: StringNullableFilter
+  suspended: BooleanNullableFilter
   trips: TripListRelationFilter
   typeUser: StringFilter
   typeUserNotification: StringNullableFilter
