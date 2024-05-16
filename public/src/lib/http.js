@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const apiUrl = process.env.NEXT_PUBLIC_API_FRONT_URI;
-const apiUrl = "http://localhost:3000";
+const apiUrl = process.env.NEXT_PUBLIC_API_FRONT_URI;
+//const apiUrl = "http://localhost:3000";
 const jwtKey = "accessToken";
 
 axios.interceptors.request.use(
