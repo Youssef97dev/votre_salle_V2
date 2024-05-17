@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { TripServiceBase } from "./base/trip.service.base";
 import { MailerService } from "@nestjs-modules/mailer";
@@ -15,6 +15,88 @@ export class TripService extends TripServiceBase {
   }
 
   async createWithEmailNotification(data: any) {
+    console.log(data.data.tripinfo.startDate);
+    console.log(data.data.tripinfo.endDate);
+    const overlappingTrips = await this.trips({
+      where: {
+        listingId: data.data.listing.connect.id,
+        OR: [
+          {
+            AND: [
+              {
+                tripinfo: {
+                  path: ["startDate"],
+                  lte: new Date(data.data.tripinfo.startDate),
+                },
+              },
+              {
+                tripinfo: {
+                  path: ["endDate"],
+                  gt: new Date(data.data.tripinfo.startDate),
+                },
+              },
+            ],
+          },
+          {
+            AND: [
+              {
+                tripinfo: {
+                  path: ["startDate"],
+                  lt: new Date(data.data.tripinfo.endDate),
+                },
+              },
+              {
+                tripinfo: {
+                  path: ["endDate"],
+                  gt: new Date(data.data.tripinfo.endDate),
+                },
+              },
+            ],
+          },
+          {
+            AND: [
+              {
+                tripinfo: {
+                  path: ["startDate"],
+                  lte: new Date(data.data.tripinfo.startDate),
+                },
+              },
+              {
+                tripinfo: {
+                  path: ["endDate"],
+                  gte: new Date(data.data.tripinfo.endDate),
+                },
+              },
+            ],
+          },
+          {
+            AND: [
+              {
+                tripinfo: {
+                  path: ["startDate"],
+                  gte: new Date(data.data.tripinfo.startDate),
+                },
+              },
+              {
+                tripinfo: {
+                  path: ["endDate"],
+                  lte: new Date(data.data.tripinfo.endDate),
+                },
+              },
+            ],
+          },
+        ],
+      },
+    });
+    console.log("overlappingTrips: ", overlappingTrips);
+    if (overlappingTrips.length > 0) {
+      throw new BadRequestException({
+        type: "overlap",
+        fr: "Les nouvelles dates de voyage chevauchent un voyage existant.",
+        en: "The new trip dates overlap with an existing trip.",
+      });
+    }
+
     // Create the reservation using the base service
     const reservation: any = await this.createTrip(data);
 

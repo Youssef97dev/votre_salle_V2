@@ -272,20 +272,26 @@ const page = ({ params: { listing } }) => {
       });
 
       if (result.value) {
-        setLoading(true);
-        const response = await addTrip(data);
-        if (response?.data) {
-          await addToNotification(
-            `${userInfo?.firstName} ${userInfo?.lastName}`,
-            `Make a reservation at ${reservationData?.listing?.title}`,
-            userInfo?.profileImage,
-            false,
-            reservationData?.listing?.listingCreatedBy?.id
-          );
+        try {
+          setLoading(true);
+          const response = await addTrip(data);
+          if (response) {
+            await addToNotification(
+              `${userInfo?.firstName} ${userInfo?.lastName}`,
+              `Make a reservation at ${reservationData?.listing?.title}`,
+              userInfo?.profileImage,
+              false,
+              reservationData?.listing?.listingCreatedBy?.id
+            );
+
+            router.push("/trips");
+          }
+        } catch (error) {
+          if (error.type === "overlap") {
+            showAlert(1, error.fr);
+          }
+        } finally {
           setLoading(false);
-          router.push("/trips");
-        } else {
-          showAlert(1, response);
         }
       }
     }

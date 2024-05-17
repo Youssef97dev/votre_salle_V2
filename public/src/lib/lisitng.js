@@ -302,83 +302,15 @@ export const addTrip = async (data) => {
       id: data.listingId,
     },
     user: { id: data.userId },
+    listingId: data.listingId,
     tripinfo: data.tripData,
     status: "Active",
   };
-  const tripExisted = await getListingTrips(data.listingId, data);
-  if (!tripExisted) {
-    try {
-      const result = await axios.post(createUrl("/api/trips"), { ...query });
-      return result;
-    } catch (error) {
-      return error;
-    }
-  } else {
-    return "La salle est déjà résérvé pour cette date";
-  }
-};
-
-export const getListingTrips = async (listingId, data) => {
-  const query = qs.stringify({
-    where: {
-      listing: {
-        id: listingId,
-      },
-      OR: [
-        // Check if the new reservation's start date falls within an existing reservation's date range
-        {
-          AND: [
-            {
-              tripinfo: {
-                path: ["startDate"],
-                lte: data.tripData.startDate,
-              },
-              tripinfo: {
-                path: ["endDate"],
-                gte: data.tripData.startDate,
-              },
-            },
-          ],
-        },
-        // Check if the new reservation's end date falls within an existing reservation's date range
-        {
-          AND: [
-            {
-              tripinfo: {
-                path: ["startDate"],
-                lte: data.tripData.endDate,
-              },
-              tripinfo: {
-                path: ["endDate"],
-                gte: data.tripData.endDate,
-              },
-            },
-          ],
-        },
-        // Check if an existing reservation's date range falls within the new reservation's date range
-        {
-          AND: [
-            {
-              tripinfo: {
-                path: ["startDate"],
-                lte: data.tripData.startDate,
-              },
-              tripinfo: {
-                path: ["endDate"],
-                gte: data.tripData.endDate,
-              },
-            },
-          ],
-        },
-      ],
-    },
-  });
   try {
-    const result = await axios.get(createUrl(`/api/trips?${query}`));
-    console.log(result);
-    return result.data.length > 0 ? true : false;
+    const result = await axios.post(createUrl("/api/trips"), { ...query });
+    return result;
   } catch (error) {
-    return { error };
+    return error;
   }
 };
 
