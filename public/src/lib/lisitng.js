@@ -302,7 +302,6 @@ export const addTrip = async (data) => {
       id: data.listingId,
     },
     user: { id: data.userId },
-    listingId: data.listingId,
     tripinfo: data.tripData,
     status: "Active",
   };

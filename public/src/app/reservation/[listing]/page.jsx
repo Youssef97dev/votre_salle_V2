@@ -10,7 +10,7 @@ import Daimond from "airbnb/svg/daimond";
 import Image from "next/image";
 import AnimateHeight from "react-animate-height";
 import { addDays } from "date-fns";
-import Swal from "sweetalert2";
+import useNotifications from "airbnb/hooks/useNotifications";
 import { BeatLoader } from "react-spinners";
 import { FaStar } from "react-icons/fa6";
 
@@ -27,6 +27,9 @@ const page = ({ params: { listing } }) => {
 
   // current user
   const { userInfo } = userAppStore();
+
+  // Custom notification hook
+  const { showNotification, showAlertConfirmation } = useNotifications();
 
   // current reservation state
   const [reservationData, setReservationData] = useState(
@@ -238,7 +241,10 @@ const page = ({ params: { listing } }) => {
 
   const handleReservationSubmit = async () => {
     if (parseInt(guestsNumber) > parseInt(reservationData.listing.guests)) {
-      showAlert(15);
+      showNotification(
+        "warning",
+        `Maximum guests is ${parseInt(reservationData.listing.guests)}`
+      );
     } else {
       const data = {
         listingId: reservationData.listingId,
@@ -260,18 +266,16 @@ const page = ({ params: { listing } }) => {
         },
       };
 
-      const result = await Swal.fire({
-        icon: "info",
-        title: "Reservation confirmation",
-        text: "You will make a reservation to this hall ?",
-        showCancelButton: true,
-        confirmButtonText: "Reserve",
-        cancelButtonText: "Discard",
-        padding: "2em",
-        customClass: "sweet-alerts",
+      const result = await showAlertConfirmation(
+        "Reservation confirmation",
+        "You will make a reservation to this hall ?"
+      ).then((result) => {
+        if (result.isConfirmed) {
+          return true;
+        }
       });
 
-      if (result.value) {
+      if (result) {
         try {
           setLoading(true);
           const response = await addTrip(data);
@@ -288,40 +292,12 @@ const page = ({ params: { listing } }) => {
           }
         } catch (error) {
           if (error.type === "overlap") {
-            showAlert(1, error.fr);
+            showNotification("warning", error.fr);
           }
         } finally {
           setLoading(false);
         }
       }
-    }
-  };
-
-  // Show alert warning
-  const showAlert = async (type, message = "") => {
-    const toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-    });
-
-    if (type === 15) {
-      toast.fire({
-        icon: "warning",
-        title: "Maximum guests is 50",
-        padding: "10px 20px",
-        background: "#3b3f5c",
-        color: "#fff",
-      });
-    } else if (type === 1) {
-      toast.fire({
-        icon: "warning",
-        title: message,
-        padding: "10px 20px",
-        background: "#3b3f5c",
-        color: "#fff",
-      });
     }
   };
 
