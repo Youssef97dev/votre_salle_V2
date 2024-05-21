@@ -34,9 +34,9 @@ export class AuthService {
       where: { username },
     });
     if (user && (await this.passwordService.compare(password, user.password))) {
-      const { id, roles } = user;
+      const { id, roles, suspended } = user;
       const roleList = roles as string[];
-      return { id, username, roles: roleList };
+      return { id, username, roles: roleList, suspended };
     }
     return null;
   }
@@ -49,6 +49,10 @@ export class AuthService {
     );
     if (!user) {
       throw new UnauthorizedException("The passed credentials are incorrect");
+    }
+
+    if (user.suspended) {
+      throw new UnauthorizedException("User account is suspended");
     }
     const accessToken = await this.tokenService.createToken({
       id: user.id,
@@ -173,6 +177,7 @@ export class AuthService {
         createdAt: true,
         updatedAt: true,
         isVerified: true,
+        suspended: true,
         listings: true,
       },
     });

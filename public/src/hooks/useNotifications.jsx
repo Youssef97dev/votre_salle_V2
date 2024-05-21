@@ -19,9 +19,9 @@ const useNotifications = () => {
     });
   }, []);
 
-  const showAlertConfirmation = useCallback((title, text) => {
+  const showAlertConfirmation = useCallback((icon, title, text) => {
     return Swal.fire({
-      icon: "info",
+      icon,
       title,
       text,
       showCancelButton: true,

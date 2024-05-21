@@ -729,6 +729,7 @@ type UserInfo {
   accessToken: String
   id: String!
   roles: [String!]!
+  suspended: Boolean!
   username: String!
 }
 

@@ -267,6 +267,7 @@ const page = ({ params: { listing } }) => {
       };
 
       const result = await showAlertConfirmation(
+        "info",
         "Reservation confirmation",
         "You will make a reservation to this hall ?"
       ).then((result) => {

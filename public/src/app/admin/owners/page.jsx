@@ -4,15 +4,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import Swal from "sweetalert2";
 import { DataTable } from "mantine-datatable";
 import moment from "moment";
 
 // Icons
 import { IoMdSearch } from "react-icons/io";
-import { MdAddRoad } from "react-icons/md";
-import { MdEditSquare } from "react-icons/md";
+import { MdAddRoad, MdEditSquare } from "react-icons/md";
 import { RiUserForbidFill } from "react-icons/ri";
+import { FaUserCheck } from "react-icons/fa";
 
 // Components
 import CompactFooter from "airbnb/components/footer/CompactFooter";
@@ -26,9 +25,14 @@ import EditOwner from "../components/EditOwner";
 
 // Hooks
 import { useMediaQuery } from "airbnb/hooks/useMediaQuery";
+import useNotifications from "airbnb/hooks/useNotifications";
 
 // APIs
-import { confirmChangeTypeUser, getUsers } from "airbnb/lib/admin";
+import {
+  confirmChangeTypeUser,
+  getUsers,
+  confirmSuspendUser,
+} from "airbnb/lib/admin";
 
 // Store
 import { userAppStore } from "airbnb/store/store";
@@ -54,6 +58,9 @@ const page = () => {
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
+
+  // Custom notification hook
+  const { showNotification, showAlertConfirmation } = useNotifications();
 
   // Prevent Hydration
   useEffect(() => {
@@ -116,15 +123,14 @@ const page = () => {
 
   // Update Type User
   const updateTypeUser = async (id, type) => {
-    const result = await Swal.fire({
-      icon: "warning",
-      title: `Confirm to switch to ${type}`,
-      text: `Do you want to to switch to ${type}?`,
-      showCancelButton: true,
-      confirmButtonText: "Switch",
-      cancelButtonText: "Discard",
-      padding: "2em",
-      customClass: "sweet-alerts",
+    const result = await showAlertConfirmation(
+      "warning",
+      `Confirm to switch to ${type}`,
+      `Do you want to to switch to ${type}?`
+    ).then((result) => {
+      if (result.isConfirmed) {
+        return true;
+      }
     });
 
     if (result.value) {
@@ -134,27 +140,12 @@ const page = () => {
 
         if (data.status === 200) {
           setRelaunchData((prev) => !prev);
-          Swal.fire({
-            title: `${type}!`,
-            text: `User has been updated.`,
-            icon: "success",
-            customClass: "sweet-alerts",
-          });
+          showNotification("success", "User has been updated");
         } else {
-          Swal.fire({
-            title: "Error!",
-            text: `User has not been updated.`,
-            icon: "warning",
-            customClass: "sweet-alerts",
-          });
+          showNotification("warning", "User has not been updated");
         }
       } catch (error) {
-        Swal.fire({
-          title: "Error!",
-          text: `Error in updating.`,
-          icon: "error",
-          customClass: "sweet-alerts",
-        });
+        showNotification("error", "Error in updating");
       } finally {
         setLoading(false);
       }
@@ -162,46 +153,30 @@ const page = () => {
   };
 
   // Change Role User
-  const changeRoleUser = async (id, role) => {
-    const result = await Swal.fire({
-      icon: "warning",
-      title: `Confirm to change to ${role}`,
-      text: `Do you want to to change to ${role}?`,
-      showCancelButton: true,
-      confirmButtonText: "Change",
-      cancelButtonText: "Discard",
-      padding: "2em",
-      customClass: "sweet-alerts",
+  const toggleSuspendUser = async (id, suspended) => {
+    const result = await showAlertConfirmation(
+      "warning",
+      `Confirm to ${suspended ? "restore" : "suspend"} the account`,
+      `Do you want to ${suspended ? "restore" : "suspend"} the account?`
+    ).then((result) => {
+      if (result.isConfirmed) {
+        return true;
+      }
     });
 
-    if (result.value) {
+    if (result) {
       try {
         setLoading(true);
-        const data = await confirmChangeRoleUser(id, role);
+        const data = await confirmSuspendUser(id, suspended);
 
         if (data.status === 200) {
           setRelaunchData((prev) => !prev);
-          Swal.fire({
-            title: `${role}!`,
-            text: `User has been updated.`,
-            icon: "success",
-            customClass: "sweet-alerts",
-          });
+          showNotification("success", "User has been updated");
         } else {
-          Swal.fire({
-            title: "Error!",
-            text: `User has not been updated.`,
-            icon: "warning",
-            customClass: "sweet-alerts",
-          });
+          showNotification("warning", "User has not been updated");
         }
       } catch (error) {
-        Swal.fire({
-          title: "Error!",
-          text: `Error in updating.`,
-          icon: "error",
-          customClass: "sweet-alerts",
-        });
+        showNotification("error", "Error in updating");
       } finally {
         setLoading(false);
       }
@@ -368,14 +343,25 @@ const page = () => {
                                   </button>
                                 )}
                               <button
-                                onClick={() => changeRoleUser(row.id, "user")}
-                                className={`btn btn-warning`}
+                                onClick={() =>
+                                  toggleSuspendUser(row.id, row.suspended)
+                                }
+                                className={`btn ${
+                                  row.suspended ? "btn-success" : "btn-warning"
+                                } `}
                                 disabled={loading}
                               >
-                                <RiUserForbidFill
-                                  color="#fff"
-                                  className={`text-lg`}
-                                />
+                                {row.suspended ? (
+                                  <FaUserCheck
+                                    color="#fff"
+                                    className={`text-lg`}
+                                  />
+                                ) : (
+                                  <RiUserForbidFill
+                                    color="#fff"
+                                    className={`text-lg`}
+                                  />
+                                )}
                               </button>
                               <button
                                 onClick={() => editOwner(row)}

@@ -8,11 +8,11 @@ export default function ContextMenu({ options, userInfo }) {
   return (
     <ul>
       {userInfo?.roles[0] === "owner"
-        ? options.map(({ icon, name, callBack }) => (
+        ? options.map(({ id, icon, name, callBack }) => (
             <li
               className="flex items-center gap-3 p-2 rounded-2xl cursor-pointer hover:bg-[#3b3f5c] hover:text-white text-sm md:text-base font-semibold"
               onClick={(e) => handleClick(e, callBack)}
-              key={name}
+              key={id}
             >
               <span>{icon}</span>
               <span className="">{name}</span>
@@ -20,19 +20,19 @@ export default function ContextMenu({ options, userInfo }) {
           ))
         : options
             .filter(
-              ({ name }) =>
-                name !== "Manage My Listings" &&
-                name !== "Manage My Reservations" &&
-                name !== "Add Your Hall" &&
-                name !== "Calendar" &&
-                name !== "Statistics" &&
-                name !== "invoices"
+              ({ id }) =>
+                id !== "my_listings" &&
+                id !== "booking_received" &&
+                id !== "add_hall" &&
+                id !== "calendar" &&
+                id !== "statistics" &&
+                id !== "invoices"
             )
-            .map(({ icon, name, callBack }) => (
+            .map(({ id, icon, name, callBack }) => (
               <li
                 className="flex items-center gap-3 p-2 rounded-2xl cursor-pointer hover:bg-[#3b3f5c] hover:text-white"
                 onClick={(e) => handleClick(e, callBack)}
-                key={name}
+                key={id}
               >
                 <span>{icon}</span>
                 <span className="">{name}</span>

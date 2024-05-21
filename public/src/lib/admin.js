@@ -54,9 +54,9 @@ export const confirmChangeTypeUser = async (userId, typeUser) => {
   }
 };
 
-export const confirmChangeRoleUser = async (userId, role) => {
+export const confirmSuspendUser = async (userId, suspended) => {
   const query = {
-    roles: [role],
+    suspended: suspended ? false : true,
   };
   try {
     const result = await axios.patch(createUrl(`/api/users/${userId}`), {

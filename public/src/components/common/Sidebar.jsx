@@ -54,6 +54,7 @@ const Sidebar = () => {
 
   const contextMenuOptions = [
     {
+      id: "signin",
       icon: <PiSignInBold />,
       name: `${t("navigation.signin")}`,
       callBack: () => {
@@ -62,6 +63,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "signup",
       icon: <SiGnuprivacyguard />,
       name: `${t("navigation.signup")}`,
       callBack: () => {
@@ -70,6 +72,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "add_hall",
       icon: <IoMdAdd />,
       name: "Add Your Hall",
       callBack: () => {
@@ -77,6 +80,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "help",
       icon: <MdHelpOutline />,
       name: `${t("navigation.help")}`,
       callBack: () => {
@@ -87,6 +91,7 @@ const Sidebar = () => {
 
   const authenticatedContextMenuOptions = [
     {
+      id: "profile",
       icon: <CgProfile />,
       name: "Profile",
       callBack: () => {
@@ -95,6 +100,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "notifications",
       icon: <IoMdNotificationsOutline />,
       name: "Notifications",
       callBack: () => {
@@ -102,6 +108,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "my_booking",
       icon: <FaListCheck />,
       name: `${t("navigation.my_bookings")}`,
       callBack: () => {
@@ -110,6 +117,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "my_wishlist",
       icon: <FaRegHeart />,
       name: `${t("navigation.my_wishlists")}`,
       callBack: () => {
@@ -118,6 +126,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "my_listings",
       icon: <MdOutlineSettings />,
       name: `${t("navigation.my_listings")}`,
       callBack: () => {
@@ -126,6 +135,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "booking_received",
       icon: <MdOutlineSettings />,
       name: `${t("navigation.bookings_received")}`,
       callBack: () => {
@@ -134,6 +144,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "add_hall",
       icon: <IoMdAdd />,
       name: `${t("navigation.add_hall")}`,
       callBack: () => {
@@ -155,6 +166,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "calendar",
       icon: <FaRegCalendarAlt />,
       name: `${t("navigation.calendar")}`,
       callBack: () => {
@@ -163,6 +175,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "statistics",
       icon: <FaChartBar />,
       name: `${t("navigation.statistics")}`,
       callBack: () => {
@@ -171,6 +184,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "invoices",
       icon: <LiaFileInvoiceDollarSolid />,
       name: `${t("navigation.invoices")}`,
       callBack: () => {
@@ -179,6 +193,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "logout",
       icon: <MdLogout />,
       name: `${t("navigation.logout")}`,
       callBack: () => {
@@ -191,6 +206,7 @@ const Sidebar = () => {
 
   const adminContextMenuOptions = [
     {
+      id: "profile",
       icon: <CgProfile />,
       name: "Dashboard",
       callBack: () => {
@@ -199,6 +215,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "owners",
       icon: <CgProfile />,
       name: "Owners",
       callBack: () => {
@@ -207,6 +224,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "users",
       icon: <CgProfile />,
       name: "Users",
       callBack: () => {
@@ -215,6 +233,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "reservations",
       icon: <IoMdNotificationsOutline />,
       name: "Reservations",
       callBack: () => {
@@ -223,6 +242,7 @@ const Sidebar = () => {
       },
     },
     {
+      id: "logout",
       icon: <MdLogout />,
       name: "Logout",
       callBack: () => {
@@ -281,7 +301,7 @@ const Sidebar = () => {
           options={
             !userInfo
               ? contextMenuOptions
-              : userInfo.roles[0] === "admin"
+              : userInfo?.roles[0] === "admin"
               ? adminContextMenuOptions
               : authenticatedContextMenuOptions
           }
