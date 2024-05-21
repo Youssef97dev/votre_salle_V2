@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Daimond from "airbnb/svg/daimond";
 import Image from "next/image";
 import AnimateHeight from "react-animate-height";
-import { addDays } from "date-fns";
+import { addDays, format } from "date-fns";
 import useNotifications from "airbnb/hooks/useNotifications";
 import { BeatLoader } from "react-spinners";
 import { FaStar } from "react-icons/fa6";
@@ -251,8 +251,8 @@ const page = ({ params: { listing } }) => {
         userId: userInfo?.id,
         tripData: {
           days: reservationData.tripData.days,
-          startDate: addDays(new Date(dateState[0].startDate), 1),
-          endDate: addDays(new Date(dateState[0].endDate), 1),
+          startDate: format(new Date(dateState[0].startDate), "yyyy-MM-dd"),
+          endDate: format(new Date(dateState[0].endDate), "yyyy-MM-dd"),
           guests: reservationData.tripData.guests,
           extraServices: "",
           extraServicesPrice: reservationData.tripData.extraService,
