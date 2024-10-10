@@ -66,20 +66,21 @@ export default async function sitemap() {
 
   // get all listings
   const listings = await axios.get(
-    "https://votre-salle-api.onrender.com/api/listings"
+    "https://votre-salle-v2.onrender.com/api/listings"
   );
-  const listingUrls = listings?.data?.map((listing) => {
+  const listingUrls =
+    listings?.data?.map((listing) => {
       return {
-          url: `${baseUrl}/listing/${listing.id}`,
-          lastModified: new Date(),
+        url: `${baseUrl}/listing/${listing.id}`,
+        lastModified: new Date(),
       };
-  }) || [];
+    }) || [];
 
   return [
-      {
-          url: baseUrl,
-          lastModified: new Date(),
-      },
-      ...listingUrls,
-  ]
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+    },
+    ...listingUrls,
+  ];
 }
