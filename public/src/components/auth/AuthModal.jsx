@@ -101,7 +101,7 @@ export default function AuthModal() {
                   <FormInput
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="Passworddd"
                     value={password}
                     setValue={setPassword}
                   />
