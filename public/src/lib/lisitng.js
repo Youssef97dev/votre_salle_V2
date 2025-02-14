@@ -64,7 +64,7 @@ export const getAllListings = async (locationType, typeUser) => {
     );
     return { data: result.data, maxPrice, minPrice };
   } catch (error) {
-    return { error };
+    alert("Listings not found");
   }
 };
 
