@@ -15,6 +15,14 @@ const { PORT = 3000 } = process.env;
 async function main() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
+  // Add specific CORS options
+  app.enableCors({
+    origin: "*", // The URL of your frontend
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // if you are using cookies
+  });
+
   app.setGlobalPrefix("api");
   app.useGlobalPipes(
     new ValidationPipe({
