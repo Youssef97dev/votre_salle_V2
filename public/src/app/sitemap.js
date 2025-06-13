@@ -65,9 +65,7 @@ export default async function sitemap() {
   const baseUrl = "https://votresalles.ma";
 
   // get all listings
-  const listings = await axios.get(
-    "https://votre-salle-v2.onrender.com/api/listings"
-  );
+  const listings = await axios.get("https://api.votresalles.ma/api/listings");
   const listingUrls =
     listings?.data?.map((listing) => {
       return {
