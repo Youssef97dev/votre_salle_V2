@@ -16,6 +16,11 @@ export const login = async (username, password) => {
   }
 };
 
+export const googleCheck = (accessToken) => {
+  setStoredJwt(accessToken);
+  return me();
+};
+
 export const signup = async (
   username,
   password,

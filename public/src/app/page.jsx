@@ -8,7 +8,7 @@ const Navbar = dynamic(() => import("airbnb/components/navbar/Navbar"), {
 import ListView from "airbnb/components/views/ListView";
 import MapView from "airbnb/components/views/MapView";
 import ViewSwitchBadge from "airbnb/components/views/ViewSwitchBadge";
-import { me } from "airbnb/lib/auth";
+import { googleCheck, me } from "airbnb/lib/auth";
 import {
   getAllListings,
   getUserWishlists,
@@ -38,6 +38,8 @@ export default function Home() {
   //const [page, setPage] = useState(1);
   const {
     setUserInfo,
+    setIsLoggedIn,
+    setErrorMessage,
     setListings,
     isMapView,
     userInfo,
@@ -51,6 +53,25 @@ export default function Home() {
     filter,
     listings,
   } = userAppStore();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const user = urlParams.get("user");
+
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      // Save user data to local storage or context
+      const data = googleCheck(parsedUser.accessToken);
+      console.log(data);
+      if (data?.response?.data?.error) {
+        setErrorMessage(data.response.data.message);
+      } else {
+        setUserInfo(data);
+        setIsLoggedIn(true);
+        window.location.href = "/";
+      }
+    }
+  }, []);
 
   useEffect(() => {
     setIsClient(true);

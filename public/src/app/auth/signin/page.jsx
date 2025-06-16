@@ -43,6 +43,12 @@ const page = () => {
     }
   };
 
+  const signInWithGoogle = async () => {
+    window.open(
+      `${process.env.NEXT_PUBLIC_API_FRONT_URI}/api/auth/google/callback`
+    );
+  };
+
   return (
     isClient && (
       <div className="flex min-h-screen items-center justify-center bg-[url('/map.svg')] bg-cover bg-center">
@@ -110,6 +116,7 @@ const page = () => {
             <li>
               <button
                 type="button"
+                onClick={() => signInWithGoogle()}
                 className="btn flex gap-1 bg-[#888EA8]/30 text-black shadow-none hover:bg-white sm:gap-2 "
               >
                 <svg

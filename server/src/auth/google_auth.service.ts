@@ -46,7 +46,19 @@ export class GoogleAuthService extends PassportStrategy(Strategy, "google") {
         where: { username: userEmail },
       });
       if (existUser) {
-        return existUser;
+        const accessToken = await this.tokenService.createToken({
+          id: existUser.id,
+          username: existUser.username,
+          password: "VS2025@2025",
+        });
+        const authUser = {
+          id: existUser.id,
+          username: existUser.username,
+          accessToken, // Include the accessToken here
+          profile: existUser.profileImage,
+          roles: (existUser.roles as { roles: string[] }).roles,
+        };
+        return done(null, authUser);
       } else {
         const user = await this.userService.createUser({
           data: {
@@ -59,18 +71,22 @@ export class GoogleAuthService extends PassportStrategy(Strategy, "google") {
             typeUser: "B2C",
             adresse: null,
             roles: ["user"],
-            profileImage: profile.photos[0].value,
           },
         });
 
+        const accessToken = await this.tokenService.createToken({
+          id: user.id,
+          username: user.username,
+          password: "VS2025@2025",
+        });
         const authUser = {
+          id: user.id,
+          username: user.username,
           accessToken,
           refreshToken,
-          profile,
-          username: user.username,
-          id: user.id,
+          profile: user.profileImage,
           roles: (user.roles as { roles: string[] }).roles,
-        }
+        };
         done(null, authUser);
       }
     } catch (error: any) {

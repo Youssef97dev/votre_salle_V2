@@ -15,7 +15,7 @@ export class AuthGoogleController {
   @Get("google/callback")
   @UseGuards(AuthGuard("google"))
   googleAuthRedirect(@Req() req: any, @Res() res: any) {
-    console.log("request: ", res)
+    console.log("request: ", res);
     res.redirect(`${process.env.FRONT_URL}?user=${JSON.stringify(req.user)}`); // Redirect to the homepage or any desired route
   }
 }
