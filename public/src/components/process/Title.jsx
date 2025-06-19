@@ -226,13 +226,13 @@ export default function Title({ t }) {
               className="form-input h-28 no-scrollbar"
               value={description}
               onChange={(e) => {
-                if (e.target.value.length <= 500) {
+                if (e.target.value.length <= 800) {
                   setDescription(e.target.value);
                 }
               }}
             />
             <span className="text-xs md:text-base">
-              {description.length}/500
+              {description.length}/800
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 w-full">

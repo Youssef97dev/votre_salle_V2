@@ -104,7 +104,7 @@ const EditProfile = () => {
       (userInfo?.roles[0] === "owner" &&
         !validateField("cnss", companyInfo.cnss, /^[0-9]{6,10}$/, 6, 10)) ||
       (userInfo?.roles[0] === "owner" &&
-        !validateField("ice", companyInfo.ice, /^[0-9]{9,10}$/, 9, 10))
+        !validateField("ice", companyInfo.ice, /^[0-9]{9,15}$/, 9, 15))
     ) {
       setIsLoading(false);
       return;
