@@ -118,10 +118,13 @@ export default function ListingCard({
                 >
                   {data?.photos?.map((photo, index) => (
                     <SwiperSlide key={index}>
-                      <img
+                      <Image
                         src={photo}
                         className="rounded-lg object-cover h-full w-full group-hover:scale-110 transition"
                         alt="slide1"
+                        width={500}
+                        height={500}
+                        priority
                       />
                       {pathname === "/" && userInfo && (
                         <>
