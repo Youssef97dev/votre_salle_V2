@@ -1,0 +1,37 @@
+import { JsonValue } from "type-fest";
+import { Invoice } from "../invoice/Invoice";
+import { Listing } from "../listing/Listing";
+import { Notification } from "../notification/Notification";
+import { PasswordResetToken } from "../passwordResetToken/PasswordResetToken";
+import { Review } from "../review/Review";
+import { Trip } from "../trip/Trip";
+import { Wishlist } from "../wishlist/Wishlist";
+
+export type User = {
+  adresse: string | null;
+  companyInfo: JsonValue;
+  createdAt: Date;
+  firstName: string | null;
+  id: string;
+  invoices?: Array<Invoice>;
+  isVerified: boolean | null;
+  lastName: string | null;
+  listings?: Array<Listing>;
+  notifications?: Array<Notification>;
+  pack: number | null;
+  passwordResetTokens?: Array<PasswordResetToken>;
+  phone: string | null;
+  profileImage: string | null;
+  profileLogo: string | null;
+  reviews?: Array<Review>;
+  roleNotification: string | null;
+  roles: JsonValue;
+  suspended: boolean | null;
+  trips?: Array<Trip>;
+  typeUser: string;
+  typeUserNotification: string | null;
+  updatedAt: Date;
+  username: string;
+  verificationToken: string | null;
+  wishlists?: Array<Wishlist>;
+};

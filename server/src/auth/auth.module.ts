@@ -1,0 +1,86 @@
+import { forwardRef, Module } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { JwtModule } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
+import { JWT_EXPIRATION } from "../constants";
+import { SecretsManagerModule } from "../providers/secrets/secretsManager.module";
+import { SecretsManagerService } from "../providers/secrets/secretsManager.service";
+import { EnumSecretsNameKey } from "../providers/secrets/secretsNameKey.enum";
+import { AuthController } from "./auth.controller";
+import { AuthResolver } from "./auth.resolver";
+import { AuthService } from "./auth.service";
+import { JwtStrategy } from "./jwt/jwt.strategy";
+import { jwtSecretFactory } from "./jwt/jwtSecretFactory";
+import { PasswordService } from "./password.service";
+import { TokenService } from "./token.service";
+import { UserModule } from "../user/user.module";
+import { GoogleAuthService } from "./google_auth.service";
+import { AuthGoogleController } from "./google_auth.controller";
+import { PasswordResetTokenService } from "src/passwordResetToken/passwordResetToken.service";
+import { SmsService } from "./sms.service";
+import { EmailService } from "./email.service";
+import { MailerModule } from "@nestjs-modules/mailer";
+@Module({
+  imports: [
+    forwardRef(() => UserModule),
+    PassportModule,
+    SecretsManagerModule,
+    JwtModule.registerAsync({
+      imports: [SecretsManagerModule],
+      inject: [SecretsManagerService, ConfigService],
+      useFactory: async (
+        secretsService: SecretsManagerService,
+        configService: ConfigService
+      ) => {
+        const secret = await secretsService.getSecret<string>(
+          EnumSecretsNameKey.JwtSecretKey
+        );
+        const expiresIn = configService.get(JWT_EXPIRATION);
+        if (!secret) {
+          throw new Error("Didn't get a valid jwt secret");
+        }
+        if (!expiresIn) {
+          throw new Error("Jwt expire in value is not valid");
+        }
+        return {
+          secret: secret,
+          signOptions: { expiresIn },
+        };
+      },
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.NODEMAILER_USER,
+          pass: process.env.NODEMAILER_PASS,
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+      },
+    }),
+  ],
+  providers: [
+    AuthService,
+    PasswordService,
+    AuthResolver,
+    JwtStrategy,
+    jwtSecretFactory,
+    TokenService,
+    GoogleAuthService,
+    PasswordResetTokenService,
+    SmsService,
+    EmailService,
+  ],
+  controllers: [AuthController, AuthGoogleController],
+  exports: [
+    AuthService,
+    PasswordService,
+    GoogleAuthService,
+    PasswordResetTokenService,
+  ],
+})
+export class AuthModule {}

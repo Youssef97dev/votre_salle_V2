@@ -1,0 +1,876 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input BooleanNullableFilter {
+  equals: Boolean
+  not: Boolean
+}
+
+input CheckUserValues {
+  email: String!
+}
+
+input Credentials {
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
+}
+
+input DecimalFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
+
+input DecimalNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
+
+input FloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
+type Invoice {
+  createdAt: DateTime!
+  id: Float!
+  status: String
+  trips: Trip
+  updatedAt: DateTime!
+  user: User
+}
+
+input InvoiceCreateInput {
+  status: String
+  trips: TripWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input InvoiceCreateNestedManyWithoutUsersInput {
+  connect: [InvoiceWhereUniqueInput!]
+}
+
+input InvoiceListRelationFilter {
+  every: InvoiceWhereInput
+  none: InvoiceWhereInput
+  some: InvoiceWhereInput
+}
+
+input InvoiceOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  status: SortOrder
+  tripsId: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input InvoiceUpdateInput {
+  status: String
+  trips: TripWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input InvoiceUpdateManyWithoutUsersInput {
+  connect: [InvoiceWhereUniqueInput!]
+  disconnect: [InvoiceWhereUniqueInput!]
+  set: [InvoiceWhereUniqueInput!]
+}
+
+input InvoiceWhereInput {
+  id: IntFilter
+  status: StringNullableFilter
+  trips: TripWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input InvoiceWhereUniqueInput {
+  id: Float!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+input JsonFilter {
+  equals: JSONObject
+  not: JSONObject
+}
+
+type Listing {
+  conditions: JSON!
+  createdAt: DateTime!
+  description: String!
+  guests: Float!
+  id: String!
+  listingCreatedBy: User
+  locationData: JSON!
+  locationType: String!
+  mapData: JSON!
+  photos: JSON!
+  placeAmeneties: JSON!
+  placeType: String!
+  prestation: JSON
+  price: Float!
+  priceB2b: Float!
+  reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
+  slug: String
+  tax: Float!
+  title: String!
+  trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
+  updatedAt: DateTime!
+  wishlists(orderBy: [WishlistOrderByInput!], skip: Float, take: Float, where: WishlistWhereInput): [Wishlist!]!
+}
+
+input ListingCreateInput {
+  conditions: JSON!
+  description: String!
+  guests: Float!
+  listingCreatedBy: UserWhereUniqueInput!
+  locationData: JSON!
+  locationType: String!
+  mapData: JSON!
+  photos: JSON!
+  placeAmeneties: JSON!
+  placeType: String!
+  prestation: JSON
+  price: Float!
+  priceB2b: Float!
+  reviews: ReviewCreateNestedManyWithoutListingsInput
+  slug: String
+  tax: Float!
+  title: String!
+  trips: TripCreateNestedManyWithoutListingsInput
+  wishlists: WishlistCreateNestedManyWithoutListingsInput
+}
+
+input ListingCreateNestedManyWithoutUsersInput {
+  connect: [ListingWhereUniqueInput!]
+}
+
+input ListingListRelationFilter {
+  every: ListingWhereInput
+  none: ListingWhereInput
+  some: ListingWhereInput
+}
+
+input ListingOrderByInput {
+  conditions: SortOrder
+  createdAt: SortOrder
+  description: SortOrder
+  guests: SortOrder
+  id: SortOrder
+  listingCreatedById: SortOrder
+  locationData: SortOrder
+  locationType: SortOrder
+  mapData: SortOrder
+  photos: SortOrder
+  placeAmeneties: SortOrder
+  placeType: SortOrder
+  prestation: SortOrder
+  price: SortOrder
+  priceB2b: SortOrder
+  slug: SortOrder
+  tax: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+}
+
+input ListingUpdateInput {
+  conditions: JSON
+  description: String
+  guests: Float
+  listingCreatedBy: UserWhereUniqueInput
+  locationData: JSON
+  locationType: String
+  mapData: JSON
+  photos: JSON
+  placeAmeneties: JSON
+  placeType: String
+  prestation: JSON
+  price: Float
+  priceB2b: Float
+  reviews: ReviewUpdateManyWithoutListingsInput
+  slug: String
+  tax: Float
+  title: String
+  trips: TripUpdateManyWithoutListingsInput
+  wishlists: WishlistUpdateManyWithoutListingsInput
+}
+
+input ListingUpdateManyWithoutUsersInput {
+  connect: [ListingWhereUniqueInput!]
+  disconnect: [ListingWhereUniqueInput!]
+  set: [ListingWhereUniqueInput!]
+}
+
+input ListingWhereInput {
+  conditions: JsonFilter
+  description: StringFilter
+  guests: DecimalFilter
+  id: StringFilter
+  listingCreatedBy: UserWhereUniqueInput
+  locationData: JsonFilter
+  locationType: StringFilter
+  mapData: JsonFilter
+  photos: JsonFilter
+  placeAmeneties: JsonFilter
+  placeType: StringFilter
+  prestation: JsonFilter
+  price: FloatFilter
+  priceB2b: FloatFilter
+  reviews: ReviewListRelationFilter
+  slug: StringNullableFilter
+  tax: DecimalFilter
+  title: StringFilter
+  trips: TripListRelationFilter
+  wishlists: WishlistListRelationFilter
+}
+
+input ListingWhereUniqueInput {
+  id: String!
+}
+
+type MetaQueryPayload {
+  count: Float!
+}
+
+type Mutation {
+  createInvoice(data: InvoiceCreateInput!): Invoice!
+  createListing(data: ListingCreateInput!): Listing!
+  createNotification(data: NotificationCreateInput!): Notification!
+  createPasswordResetToken(data: PasswordResetTokenCreateInput!): PasswordResetToken!
+  createReview(data: ReviewCreateInput!): Review!
+  createTrip(data: TripCreateInput!): Trip!
+  createUser(data: UserCreateInput!): User!
+  createWishlist(data: WishlistCreateInput!): Wishlist!
+  deleteInvoice(where: InvoiceWhereUniqueInput!): Invoice!
+  deleteListing(where: ListingWhereUniqueInput!): Listing!
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification!
+  deletePasswordResetToken(where: PasswordResetTokenWhereUniqueInput!): PasswordResetToken!
+  deleteReview(where: ReviewWhereUniqueInput!): Review!
+  deleteTrip(where: TripWhereUniqueInput!): Trip!
+  deleteUser(where: UserWhereUniqueInput!): User!
+  deleteWishlist(where: WishlistWhereUniqueInput!): Wishlist!
+  login(credentials: Credentials!): UserInfo!
+  signup(credentials: Credentials!): UserInfo!
+  updateInvoice(data: InvoiceUpdateInput!, where: InvoiceWhereUniqueInput!): Invoice!
+  updateListing(data: ListingUpdateInput!, where: ListingWhereUniqueInput!): Listing!
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification!
+  updatePasswordResetToken(data: PasswordResetTokenUpdateInput!, where: PasswordResetTokenWhereUniqueInput!): PasswordResetToken!
+  updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review!
+  updateTrip(data: TripUpdateInput!, where: TripWhereUniqueInput!): Trip!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+  updateWishlist(data: WishlistUpdateInput!, where: WishlistWhereUniqueInput!): Wishlist!
+}
+
+type Notification {
+  createdAt: DateTime!
+  description: String
+  id: String!
+  photo: String
+  read: Boolean
+  title: String
+  updatedAt: DateTime!
+  user: User
+}
+
+input NotificationCreateInput {
+  description: String
+  photo: String
+  read: Boolean = false
+  title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationCreateNestedManyWithoutUsersInput {
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationListRelationFilter {
+  every: NotificationWhereInput
+  none: NotificationWhereInput
+  some: NotificationWhereInput
+}
+
+input NotificationOrderByInput {
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+  photo: SortOrder
+  read: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input NotificationUpdateInput {
+  description: String
+  photo: String
+  read: Boolean
+  title: String
+  user: UserWhereUniqueInput
+}
+
+input NotificationUpdateManyWithoutUsersInput {
+  connect: [NotificationWhereUniqueInput!]
+  disconnect: [NotificationWhereUniqueInput!]
+  set: [NotificationWhereUniqueInput!]
+}
+
+input NotificationWhereInput {
+  description: StringNullableFilter
+  id: StringFilter
+  photo: StringNullableFilter
+  read: BooleanNullableFilter
+  title: StringNullableFilter
+  user: UserWhereUniqueInput
+}
+
+input NotificationWhereUniqueInput {
+  id: String!
+}
+
+type PasswordResetToken {
+  createdAt: DateTime!
+  expiresAt: DateTime
+  id: String!
+  token: String!
+  updatedAt: DateTime!
+  user: User
+}
+
+input PasswordResetTokenCreateInput {
+  expiresAt: DateTime
+  token: String!
+  user: UserWhereUniqueInput
+}
+
+input PasswordResetTokenCreateNestedManyWithoutUsersInput {
+  connect: [PasswordResetTokenWhereUniqueInput!]
+}
+
+input PasswordResetTokenListRelationFilter {
+  every: PasswordResetTokenWhereInput
+  none: PasswordResetTokenWhereInput
+  some: PasswordResetTokenWhereInput
+}
+
+input PasswordResetTokenOrderByInput {
+  createdAt: SortOrder
+  expiresAt: SortOrder
+  id: SortOrder
+  token: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input PasswordResetTokenUpdateInput {
+  expiresAt: DateTime
+  token: String
+  user: UserWhereUniqueInput
+}
+
+input PasswordResetTokenUpdateManyWithoutUsersInput {
+  connect: [PasswordResetTokenWhereUniqueInput!]
+  disconnect: [PasswordResetTokenWhereUniqueInput!]
+  set: [PasswordResetTokenWhereUniqueInput!]
+}
+
+input PasswordResetTokenWhereInput {
+  expiresAt: DateTimeNullableFilter
+  id: StringFilter
+  token: StringFilter
+  user: UserWhereUniqueInput
+}
+
+input PasswordResetTokenWhereUniqueInput {
+  id: String!
+}
+
+type Query {
+  _invoicesMeta(where: InvoiceWhereInput): MetaQueryPayload!
+  _listingsMeta(where: ListingWhereInput): MetaQueryPayload!
+  _notificationsMeta(where: NotificationWhereInput): MetaQueryPayload!
+  _passwordResetTokensMeta(where: PasswordResetTokenWhereInput): MetaQueryPayload!
+  _reviewsMeta(where: ReviewWhereInput): MetaQueryPayload!
+  _tripsMeta(where: TripWhereInput): MetaQueryPayload!
+  _usersMeta(where: UserWhereInput): MetaQueryPayload!
+  _wishlistsMeta(where: WishlistWhereInput): MetaQueryPayload!
+  checkUser(CheckUserValues: CheckUserValues!): User!
+  invoice(where: InvoiceWhereUniqueInput!): Invoice
+  invoices(orderBy: [InvoiceOrderByInput!], skip: Float, take: Float, where: InvoiceWhereInput): [Invoice!]!
+  listing(where: ListingWhereUniqueInput!): Listing
+  listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
+  me: User!
+  notification(where: NotificationWhereUniqueInput!): Notification
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
+  passwordResetToken(where: PasswordResetTokenWhereUniqueInput!): PasswordResetToken
+  passwordResetTokens(orderBy: [PasswordResetTokenOrderByInput!], skip: Float, take: Float, where: PasswordResetTokenWhereInput): [PasswordResetToken!]!
+  review(where: ReviewWhereUniqueInput!): Review
+  reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
+  trip(where: TripWhereUniqueInput!): Trip
+  trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
+  user(where: UserWhereUniqueInput!): User
+  userInfo: UserInfo!
+  users(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
+  wishlist(where: WishlistWhereUniqueInput!): Wishlist
+  wishlists(orderBy: [WishlistOrderByInput!], skip: Float, take: Float, where: WishlistWhereInput): [Wishlist!]!
+}
+
+enum QueryMode {
+  Default
+  Insensitive
+}
+
+type Review {
+  comments: String
+  createdAt: DateTime!
+  id: String!
+  listing: Listing
+  ratings: Float
+  updatedAt: DateTime!
+  user: User
+}
+
+input ReviewCreateInput {
+  comments: String
+  listing: ListingWhereUniqueInput
+  ratings: Float
+  user: UserWhereUniqueInput
+}
+
+input ReviewCreateNestedManyWithoutListingsInput {
+  connect: [ReviewWhereUniqueInput!]
+}
+
+input ReviewCreateNestedManyWithoutUsersInput {
+  connect: [ReviewWhereUniqueInput!]
+}
+
+input ReviewListRelationFilter {
+  every: ReviewWhereInput
+  none: ReviewWhereInput
+  some: ReviewWhereInput
+}
+
+input ReviewOrderByInput {
+  comments: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  listingId: SortOrder
+  ratings: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input ReviewUpdateInput {
+  comments: String
+  listing: ListingWhereUniqueInput
+  ratings: Float
+  user: UserWhereUniqueInput
+}
+
+input ReviewUpdateManyWithoutListingsInput {
+  connect: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+}
+
+input ReviewUpdateManyWithoutUsersInput {
+  connect: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+}
+
+input ReviewWhereInput {
+  comments: StringNullableFilter
+  id: StringFilter
+  listing: ListingWhereUniqueInput
+  ratings: DecimalNullableFilter
+  user: UserWhereUniqueInput
+}
+
+input ReviewWhereUniqueInput {
+  id: String!
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+type Trip {
+  createdAt: DateTime!
+  id: String!
+  invoice: Invoice
+  listing: Listing
+  status: String
+  tripinfo: JSON
+  updatedAt: DateTime!
+  user: User
+}
+
+input TripCreateInput {
+  invoice: InvoiceWhereUniqueInput
+  listing: ListingWhereUniqueInput!
+  status: String
+  tripinfo: JSON
+  user: UserWhereUniqueInput!
+}
+
+input TripCreateNestedManyWithoutListingsInput {
+  connect: [TripWhereUniqueInput!]
+}
+
+input TripCreateNestedManyWithoutUsersInput {
+  connect: [TripWhereUniqueInput!]
+}
+
+input TripListRelationFilter {
+  every: TripWhereInput
+  none: TripWhereInput
+  some: TripWhereInput
+}
+
+input TripOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  invoiceId: SortOrder
+  listingId: SortOrder
+  status: SortOrder
+  tripinfo: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input TripUpdateInput {
+  invoice: InvoiceWhereUniqueInput
+  listing: ListingWhereUniqueInput
+  status: String
+  tripinfo: JSON
+  user: UserWhereUniqueInput
+}
+
+input TripUpdateManyWithoutListingsInput {
+  connect: [TripWhereUniqueInput!]
+  disconnect: [TripWhereUniqueInput!]
+  set: [TripWhereUniqueInput!]
+}
+
+input TripUpdateManyWithoutUsersInput {
+  connect: [TripWhereUniqueInput!]
+  disconnect: [TripWhereUniqueInput!]
+  set: [TripWhereUniqueInput!]
+}
+
+input TripWhereInput {
+  id: StringFilter
+  invoice: InvoiceWhereUniqueInput
+  listing: ListingWhereUniqueInput
+  status: StringNullableFilter
+  tripinfo: JsonFilter
+  user: UserWhereUniqueInput
+}
+
+input TripWhereUniqueInput {
+  id: String!
+}
+
+type User {
+  adresse: String
+  companyInfo: JSON
+  createdAt: DateTime!
+  firstName: String
+  id: String!
+  invoices(orderBy: [InvoiceOrderByInput!], skip: Float, take: Float, where: InvoiceWhereInput): [Invoice!]!
+  isVerified: Boolean
+  lastName: String
+  listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
+  notifications(orderBy: [NotificationOrderByInput!], skip: Float, take: Float, where: NotificationWhereInput): [Notification!]!
+  pack: Float
+  passwordResetTokens(orderBy: [PasswordResetTokenOrderByInput!], skip: Float, take: Float, where: PasswordResetTokenWhereInput): [PasswordResetToken!]!
+  phone: String
+  profileImage: String
+  profileLogo: String
+  reviews(orderBy: [ReviewOrderByInput!], skip: Float, take: Float, where: ReviewWhereInput): [Review!]!
+  roleNotification: String
+  roles: JSON!
+  suspended: Boolean
+  trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
+  typeUser: String!
+  typeUserNotification: String
+  updatedAt: DateTime!
+  username: String!
+  verificationToken: String
+  wishlists(orderBy: [WishlistOrderByInput!], skip: Float, take: Float, where: WishlistWhereInput): [Wishlist!]!
+}
+
+input UserCreateInput {
+  adresse: String
+  companyInfo: JSON
+  firstName: String
+  invoices: InvoiceCreateNestedManyWithoutUsersInput
+  isVerified: Boolean
+  lastName: String
+  listings: ListingCreateNestedManyWithoutUsersInput
+  notifications: NotificationCreateNestedManyWithoutUsersInput
+  pack: Float
+  password: String!
+  passwordResetTokens: PasswordResetTokenCreateNestedManyWithoutUsersInput
+  phone: String
+  profileImage: String
+  profileLogo: String
+  reviews: ReviewCreateNestedManyWithoutUsersInput
+  roleNotification: String
+  roles: JSON!
+  suspended: Boolean
+  trips: TripCreateNestedManyWithoutUsersInput
+  typeUser: String!
+  typeUserNotification: String
+  username: String!
+  verificationToken: String
+  wishlists: WishlistCreateNestedManyWithoutUsersInput
+}
+
+type UserInfo {
+  accessToken: String
+  id: String!
+  roles: [String!]!
+  suspended: Boolean!
+  username: String!
+}
+
+input UserOrderByInput {
+  adresse: SortOrder
+  companyInfo: SortOrder
+  createdAt: SortOrder
+  firstName: SortOrder
+  id: SortOrder
+  isVerified: SortOrder
+  lastName: SortOrder
+  pack: SortOrder
+  password: SortOrder
+  phone: SortOrder
+  profileImage: SortOrder
+  profileLogo: SortOrder
+  roleNotification: SortOrder
+  roles: SortOrder
+  suspended: SortOrder
+  typeUser: SortOrder
+  typeUserNotification: SortOrder
+  updatedAt: SortOrder
+  username: SortOrder
+  verificationToken: SortOrder
+}
+
+input UserUpdateInput {
+  adresse: String
+  companyInfo: JSON
+  firstName: String
+  invoices: InvoiceUpdateManyWithoutUsersInput
+  isVerified: Boolean
+  lastName: String
+  listings: ListingUpdateManyWithoutUsersInput
+  notifications: NotificationUpdateManyWithoutUsersInput
+  pack: Float
+  password: String
+  passwordResetTokens: PasswordResetTokenUpdateManyWithoutUsersInput
+  phone: String
+  profileImage: String
+  profileLogo: String
+  reviews: ReviewUpdateManyWithoutUsersInput
+  roleNotification: String
+  roles: JSON
+  suspended: Boolean
+  trips: TripUpdateManyWithoutUsersInput
+  typeUser: String
+  typeUserNotification: String
+  username: String
+  verificationToken: String
+  wishlists: WishlistUpdateManyWithoutUsersInput
+}
+
+input UserWhereInput {
+  adresse: StringNullableFilter
+  companyInfo: JsonFilter
+  firstName: StringNullableFilter
+  id: StringFilter
+  invoices: InvoiceListRelationFilter
+  isVerified: BooleanNullableFilter
+  lastName: StringNullableFilter
+  listings: ListingListRelationFilter
+  notifications: NotificationListRelationFilter
+  pack: IntNullableFilter
+  passwordResetTokens: PasswordResetTokenListRelationFilter
+  phone: StringNullableFilter
+  profileImage: StringNullableFilter
+  profileLogo: StringNullableFilter
+  reviews: ReviewListRelationFilter
+  roleNotification: StringNullableFilter
+  suspended: BooleanNullableFilter
+  trips: TripListRelationFilter
+  typeUser: StringFilter
+  typeUserNotification: StringNullableFilter
+  username: StringFilter
+  verificationToken: StringNullableFilter
+  wishlists: WishlistListRelationFilter
+}
+
+input UserWhereUniqueInput {
+  id: String!
+}
+
+type Wishlist {
+  createdAt: DateTime!
+  id: String!
+  listing: Listing
+  updatedAt: DateTime!
+  user: User
+}
+
+input WishlistCreateInput {
+  listing: ListingWhereUniqueInput!
+  user: UserWhereUniqueInput!
+}
+
+input WishlistCreateNestedManyWithoutListingsInput {
+  connect: [WishlistWhereUniqueInput!]
+}
+
+input WishlistCreateNestedManyWithoutUsersInput {
+  connect: [WishlistWhereUniqueInput!]
+}
+
+input WishlistListRelationFilter {
+  every: WishlistWhereInput
+  none: WishlistWhereInput
+  some: WishlistWhereInput
+}
+
+input WishlistOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  listingId: SortOrder
+  updatedAt: SortOrder
+  userId: SortOrder
+}
+
+input WishlistUpdateInput {
+  listing: ListingWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input WishlistUpdateManyWithoutListingsInput {
+  connect: [WishlistWhereUniqueInput!]
+  disconnect: [WishlistWhereUniqueInput!]
+  set: [WishlistWhereUniqueInput!]
+}
+
+input WishlistUpdateManyWithoutUsersInput {
+  connect: [WishlistWhereUniqueInput!]
+  disconnect: [WishlistWhereUniqueInput!]
+  set: [WishlistWhereUniqueInput!]
+}
+
+input WishlistWhereInput {
+  id: StringFilter
+  listing: ListingWhereUniqueInput
+  user: UserWhereUniqueInput
+}
+
+input WishlistWhereUniqueInput {
+  id: String!
+}

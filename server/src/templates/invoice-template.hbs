@@ -1,0 +1,93 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { fontFamily: { 'impact': ["Impact",
+      "Haettenschweiler", "Arial Narrow Bold", "sans-serif"], 'mono': ["Courier
+      New", "Courier", "monospace"] }, }, };
+    </script>
+    <title>Facture</title>
+    <style>
+      body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    </style>
+  </head>
+
+  <body class="relative">
+    <div class="flex flex-col gap-2 px-5">
+      <div class="flex flex-row justify-between items-center text-gray-800">
+        <div
+          class="text-[55px]"
+          style="font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'sans-serif';"
+        >FACRTURE</div>
+        <img src="{{profileLogo}}" width="200" height="200" alt="" />
+      </div>
+      <div
+        class="flex flex-row justify-between items-center text-gray-800"
+        style="font-family: 'Courier New', Courier, monospace;"
+      >
+        <div class="flex flex-col">
+          <span>Client : test</span>
+          <span>Facture N° : {{id}}</span>
+          <span>Date : {{createdAt}}</span>
+          <span>Du {{startDate}} au {{endDate}}</span>
+        </div>
+        <div class="flex flex-col pr-10">
+          <span>{{fullName}}</span>
+          <span class="whitespace-break-spaces">{{adresse}}</span>
+        </div>
+      </div>
+      <table class="table-fixed ml-6 mt-10 text-[16px]">
+        <thead>
+          <tr align="left">
+            <th>SALLE</th>
+            <th>UNITE</th>
+            <th>PU HT</th>
+            <th>PRIX HT</th>
+          </tr>
+        </thead>
+        <tbody align="left">
+          <tr class="text-gray-800">
+            <td class="pt-[1rem]">{{title}}</td>
+            <td class="pt-[1rem]">{{days}}</td>
+            <td class="pt-[1rem]">{{listingPriceHT}}</td>
+            <td class="pt-[1rem]">{{priceHT}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <th class="pt-[3rem]">Sous Total HT</th>
+            <td class="pt-[3rem] text-gray-800">{{priceHT}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <th class="pt-[1rem]">Total TVA</th>
+            <td class="text-gray-800 pt-[1rem]">{{taxPrice}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <th class="pt-[1rem]">Total</th>
+            <td class="text-gray-800 pt-[1rem]">{{price}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class=" absolute bottom-4 w-[95%] flex flex-col items-center text-gray-800 border-t border-slate-600"
+        style="font-family: 'Courier New', Courier, monospace;"
+      >
+          <div class="flex flex-row justify-evenly items-center w-full">
+            <span>ICE: {{ice}}</span>
+          <span>RC: {{rc}}</span>
+          <span>IF: {{idFiscale}}</span>
+          <span>CNSS: {{cnss}}</span>
+          </div>
+          <span>Adresse: {{adresse}}</span>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,24 @@
+import { SortOrder } from "../../util/SortOrder";
+
+export type UserOrderByInput = {
+  adresse?: SortOrder;
+  companyInfo?: SortOrder;
+  createdAt?: SortOrder;
+  firstName?: SortOrder;
+  id?: SortOrder;
+  isVerified?: SortOrder;
+  lastName?: SortOrder;
+  pack?: SortOrder;
+  password?: SortOrder;
+  phone?: SortOrder;
+  profileImage?: SortOrder;
+  profileLogo?: SortOrder;
+  roleNotification?: SortOrder;
+  roles?: SortOrder;
+  suspended?: SortOrder;
+  typeUser?: SortOrder;
+  typeUserNotification?: SortOrder;
+  updatedAt?: SortOrder;
+  username?: SortOrder;
+  verificationToken?: SortOrder;
+};

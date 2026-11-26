@@ -1,0 +1,35 @@
+import { InputJsonValue } from "../../types";
+import { InvoiceUpdateManyWithoutUsersInput } from "./InvoiceUpdateManyWithoutUsersInput";
+import { ListingUpdateManyWithoutUsersInput } from "./ListingUpdateManyWithoutUsersInput";
+import { NotificationUpdateManyWithoutUsersInput } from "./NotificationUpdateManyWithoutUsersInput";
+import { PasswordResetTokenUpdateManyWithoutUsersInput } from "./PasswordResetTokenUpdateManyWithoutUsersInput";
+import { ReviewUpdateManyWithoutUsersInput } from "./ReviewUpdateManyWithoutUsersInput";
+import { TripUpdateManyWithoutUsersInput } from "./TripUpdateManyWithoutUsersInput";
+import { WishlistUpdateManyWithoutUsersInput } from "./WishlistUpdateManyWithoutUsersInput";
+
+export type UserUpdateInput = {
+  adresse?: string | null;
+  companyInfo?: InputJsonValue;
+  firstName?: string | null;
+  invoices?: InvoiceUpdateManyWithoutUsersInput;
+  isVerified?: boolean | null;
+  lastName?: string | null;
+  listings?: ListingUpdateManyWithoutUsersInput;
+  notifications?: NotificationUpdateManyWithoutUsersInput;
+  pack?: number | null;
+  password?: string;
+  passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUsersInput;
+  phone?: string | null;
+  profileImage?: string | null;
+  profileLogo?: string | null;
+  reviews?: ReviewUpdateManyWithoutUsersInput;
+  roleNotification?: string | null;
+  roles?: InputJsonValue;
+  suspended?: boolean | null;
+  trips?: TripUpdateManyWithoutUsersInput;
+  typeUser?: string;
+  typeUserNotification?: string | null;
+  username?: string;
+  verificationToken?: string | null;
+  wishlists?: WishlistUpdateManyWithoutUsersInput;
+};

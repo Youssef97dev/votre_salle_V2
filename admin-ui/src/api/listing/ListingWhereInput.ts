@@ -1,0 +1,32 @@
+import { JsonFilter } from "../../util/JsonFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { DecimalFilter } from "../../util/DecimalFilter";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { FloatFilter } from "../../util/FloatFilter";
+import { ReviewListRelationFilter } from "../review/ReviewListRelationFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { TripListRelationFilter } from "../trip/TripListRelationFilter";
+import { WishlistListRelationFilter } from "../wishlist/WishlistListRelationFilter";
+
+export type ListingWhereInput = {
+  conditions?: JsonFilter;
+  description?: StringFilter;
+  guests?: DecimalFilter;
+  id?: StringFilter;
+  listingCreatedBy?: UserWhereUniqueInput;
+  locationData?: JsonFilter;
+  locationType?: StringFilter;
+  mapData?: JsonFilter;
+  photos?: JsonFilter;
+  placeAmeneties?: JsonFilter;
+  placeType?: StringFilter;
+  prestation?: JsonFilter;
+  price?: FloatFilter;
+  priceB2b?: FloatFilter;
+  reviews?: ReviewListRelationFilter;
+  slug?: StringNullableFilter;
+  tax?: DecimalFilter;
+  title?: StringFilter;
+  trips?: TripListRelationFilter;
+  wishlists?: WishlistListRelationFilter;
+};

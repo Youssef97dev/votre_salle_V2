@@ -1,0 +1,31 @@
+import { JsonValue } from "type-fest";
+import { Decimal } from "decimal.js";
+import { User } from "../user/User";
+import { Review } from "../review/Review";
+import { Trip } from "../trip/Trip";
+import { Wishlist } from "../wishlist/Wishlist";
+
+export type Listing = {
+  conditions: JsonValue;
+  createdAt: Date;
+  description: string;
+  guests: Decimal;
+  id: string;
+  listingCreatedBy?: User;
+  locationData: JsonValue;
+  locationType: string;
+  mapData: JsonValue;
+  photos: JsonValue;
+  placeAmeneties: JsonValue;
+  placeType: string;
+  prestation: JsonValue;
+  price: number;
+  priceB2b: number;
+  reviews?: Array<Review>;
+  slug: string | null;
+  tax: Decimal;
+  title: string;
+  trips?: Array<Trip>;
+  updatedAt: Date;
+  wishlists?: Array<Wishlist>;
+};

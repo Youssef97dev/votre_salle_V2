@@ -1,0 +1,133 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+  shadowDatabaseUrl = env("SHADOW_DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  adresse              String?
+  companyInfo          Json?
+  createdAt            DateTime             @default(now())
+  firstName            String?
+  id                   String               @id @default(cuid())
+  invoices             Invoice[]
+  isVerified           Boolean?
+  lastName             String?
+  listings             Listing[]
+  notifications        Notification[]
+  pack                 Int?
+  password             String
+  passwordResetTokens  PasswordResetToken[]
+  phone                String?
+  profileImage         String?
+  profileLogo          String?
+  reviews              Review[]
+  roleNotification     String?
+  roles                Json
+  suspended            Boolean?
+  trips                Trip[]
+  typeUser             String
+  typeUserNotification String?
+  updatedAt            DateTime             @updatedAt
+  username             String               @unique
+  verificationToken    String?              @unique
+  wishlists            Wishlist[]
+}
+
+model Listing {
+  conditions         Json
+  createdAt          DateTime   @default(now())
+  description        String
+  guests             Decimal
+  id                 String     @id @default(cuid())
+  listingCreatedBy   User       @relation(fields: [listingCreatedById], references: [id])
+  listingCreatedById String
+  locationData       Json
+  locationType       String
+  mapData            Json
+  photos             Json
+  placeAmeneties     Json
+  placeType          String
+  prestation         Json?
+  price              Float
+  priceB2b           Float
+  reviews            Review[]
+  slug               String?    @unique
+  tax                Decimal
+  title              String
+  trips              Trip[]
+  updatedAt          DateTime   @updatedAt
+  wishlists          Wishlist[]
+}
+
+model Wishlist {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  listingId String
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Trip {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  invoice   Invoice?
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  listingId String
+  status    String?
+  tripinfo  Json?
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Review {
+  comments  String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  listing   Listing? @relation(fields: [listingId], references: [id])
+  listingId String?
+  ratings   Decimal?
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model Invoice {
+  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  status    String?
+  trips     Trip?    @relation(fields: [tripsId], references: [id])
+  tripsId   String?  @unique
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model Notification {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  photo       String?
+  read        Boolean?
+  title       String?
+  updatedAt   DateTime @updatedAt
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model PasswordResetToken {
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+  id        String    @id @default(cuid())
+  token     String    @unique
+  updatedAt DateTime  @updatedAt
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+}

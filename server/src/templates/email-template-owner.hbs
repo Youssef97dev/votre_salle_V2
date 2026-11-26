@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <style>
+      body { font-family: Arial, sans-serif; } .container { max-width: 600px;
+      margin: 0 auto; padding: 20px; background-color: #f4f4f4; } .header {
+      background-color: #007BFF; color: #fff; padding: 10px; text-align: center;
+      } .content { padding: 20px; } .footer { background-color: #007BFF; color:
+      #fff; padding: 10px; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Réservation de salle confirmée</h1>
+      </div>
+      <div class="content">
+        <p>Cher
+          <span
+            style="font-weight: bold;"
+          >{{listing.listingCreatedBy.firstName}}
+            {{listing.listingCreatedBy.lastName}}</span>,</p>
+        <p>Nous sommes ravis de vous informer qu'une nouvelle réservation a été
+          effectuée pour votre salle
+          <span style="font-weight: bold;">{{listing.title}}</span>
+          le
+          <span style="font-weight: bold;">{{createdAt}}</span>
+          de
+          <span style="font-weight: bold;">{{tripinfo.startDate}}</span>
+          à
+          <span style="font-weight: bold;">{{tripinfo.startDate}}</span>.
+        </p>
+        <p>Le client
+          <span style="font-weight: bold;">{{user.firstName}}
+            {{user.lastName}}</span>
+          a réservé cette salle pour
+          <span style="font-weight: bold;">{{tripinfo.guests}}
+            guests</span>.</p>
+        <p>Pour toute information supplémentaire ou pour confirmer la
+          réservation, veuillez contacter le client directement à
+          <span style="font-weight: bold;">{{user.username}}</span>
+          ou
+          <span style="font-weight: bold;">{{user.phone}}</span>.</p>
+      </div>
+      <div class="footer">
+        <p>Cordialement, <span style="font-weight: bold;">Votre Salle</span></p>
+      </div>
+    </div>
+  </body>
+</html>

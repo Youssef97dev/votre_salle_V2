@@ -1,0 +1,51 @@
+import * as React from "react";
+import {
+  List,
+  Datagrid,
+  ListProps,
+  TextField,
+  DateField,
+  ReferenceField,
+} from "react-admin";
+import Pagination from "../Components/Pagination";
+import { USER_TITLE_FIELD } from "../user/UserTitle";
+
+export const ListingList = (props: ListProps): React.ReactElement => {
+  return (
+    <List
+      {...props}
+      bulkActionButtons={false}
+      title={"listings"}
+      perPage={50}
+      pagination={<Pagination />}
+    >
+      <Datagrid rowClick="show">
+        <TextField label="conditions" source="conditions" />
+        <DateField source="createdAt" label="Created At" />
+        <TextField label="description" source="description" />
+        <TextField label="guests" source="guests" />
+        <TextField label="ID" source="id" />
+        <ReferenceField
+          label="listingCreatedBy"
+          source="user.id"
+          reference="User"
+        >
+          <TextField source={USER_TITLE_FIELD} />
+        </ReferenceField>
+        <TextField label="locationData" source="locationData" />
+        <TextField label="locationType" source="locationType" />
+        <TextField label="mapData" source="mapData" />
+        <TextField label="photos" source="photos" />
+        <TextField label="placeAmeneties" source="placeAmeneties" />
+        <TextField label="placeType" source="placeType" />
+        <TextField label="prestation" source="prestation" />
+        <TextField label="price" source="price" />
+        <TextField label="priceB2b" source="priceB2b" />
+        <TextField label="slug" source="slug" />
+        <TextField label="tax" source="tax" />
+        <TextField label="title" source="title" />
+        <DateField source="updatedAt" label="Updated At" />
+      </Datagrid>
+    </List>
+  );
+};

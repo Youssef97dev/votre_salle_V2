@@ -1,0 +1,35 @@
+import { InputJsonValue } from "../../types";
+import { InvoiceCreateNestedManyWithoutUsersInput } from "./InvoiceCreateNestedManyWithoutUsersInput";
+import { ListingCreateNestedManyWithoutUsersInput } from "./ListingCreateNestedManyWithoutUsersInput";
+import { NotificationCreateNestedManyWithoutUsersInput } from "./NotificationCreateNestedManyWithoutUsersInput";
+import { PasswordResetTokenCreateNestedManyWithoutUsersInput } from "./PasswordResetTokenCreateNestedManyWithoutUsersInput";
+import { ReviewCreateNestedManyWithoutUsersInput } from "./ReviewCreateNestedManyWithoutUsersInput";
+import { TripCreateNestedManyWithoutUsersInput } from "./TripCreateNestedManyWithoutUsersInput";
+import { WishlistCreateNestedManyWithoutUsersInput } from "./WishlistCreateNestedManyWithoutUsersInput";
+
+export type UserCreateInput = {
+  adresse?: string | null;
+  companyInfo?: InputJsonValue;
+  firstName?: string | null;
+  invoices?: InvoiceCreateNestedManyWithoutUsersInput;
+  isVerified?: boolean | null;
+  lastName?: string | null;
+  listings?: ListingCreateNestedManyWithoutUsersInput;
+  notifications?: NotificationCreateNestedManyWithoutUsersInput;
+  pack?: number | null;
+  password: string;
+  passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUsersInput;
+  phone?: string | null;
+  profileImage?: string | null;
+  profileLogo?: string | null;
+  reviews?: ReviewCreateNestedManyWithoutUsersInput;
+  roleNotification?: string | null;
+  roles: InputJsonValue;
+  suspended?: boolean | null;
+  trips?: TripCreateNestedManyWithoutUsersInput;
+  typeUser: string;
+  typeUserNotification?: string | null;
+  username: string;
+  verificationToken?: string | null;
+  wishlists?: WishlistCreateNestedManyWithoutUsersInput;
+};

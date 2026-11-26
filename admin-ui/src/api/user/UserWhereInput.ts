@@ -1,0 +1,38 @@
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { JsonFilter } from "../../util/JsonFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { InvoiceListRelationFilter } from "../invoice/InvoiceListRelationFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { ListingListRelationFilter } from "../listing/ListingListRelationFilter";
+import { NotificationListRelationFilter } from "../notification/NotificationListRelationFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { PasswordResetTokenListRelationFilter } from "../passwordResetToken/PasswordResetTokenListRelationFilter";
+import { ReviewListRelationFilter } from "../review/ReviewListRelationFilter";
+import { TripListRelationFilter } from "../trip/TripListRelationFilter";
+import { WishlistListRelationFilter } from "../wishlist/WishlistListRelationFilter";
+
+export type UserWhereInput = {
+  adresse?: StringNullableFilter;
+  companyInfo?: JsonFilter;
+  firstName?: StringNullableFilter;
+  id?: StringFilter;
+  invoices?: InvoiceListRelationFilter;
+  isVerified?: BooleanNullableFilter;
+  lastName?: StringNullableFilter;
+  listings?: ListingListRelationFilter;
+  notifications?: NotificationListRelationFilter;
+  pack?: IntNullableFilter;
+  passwordResetTokens?: PasswordResetTokenListRelationFilter;
+  phone?: StringNullableFilter;
+  profileImage?: StringNullableFilter;
+  profileLogo?: StringNullableFilter;
+  reviews?: ReviewListRelationFilter;
+  roleNotification?: StringNullableFilter;
+  suspended?: BooleanNullableFilter;
+  trips?: TripListRelationFilter;
+  typeUser?: StringFilter;
+  typeUserNotification?: StringNullableFilter;
+  username?: StringFilter;
+  verificationToken?: StringNullableFilter;
+  wishlists?: WishlistListRelationFilter;
+};
